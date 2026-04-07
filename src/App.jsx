@@ -211,6 +211,62 @@ const gamesData = [
       { amount: "Weekly Diamond Pass", price: 90 },
       { amount: "Twilight Pass", price: 445 }
     ]
+  },
+  {
+    id: 11,
+    title: "Crossfire Ecoin",
+    category: "fps",
+    description: "Crossfire Discounted Ecoin - Tactical Shooter",
+    image: "https://is2-ssl.mzstatic.com/image/thumb/Purple126/v4/d6/68/eb/d668ebac-ec3f-b97c-a9f4-46c8c0f7a2d0/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-85-220.png/230x0w.webp",
+    pricing: [
+      { amount: "100 Ecoin", price: 90 },
+      { amount: "200 Ecoin", price: 180 },
+      { amount: "300 Ecoin", price: 270 },
+      { amount: "400 Ecoin", price: 360 },
+      { amount: "500 Ecoin", price: 450 },
+      { amount: "1,000 Ecoin", price: 900 },
+      { amount: "2,000 Ecoin", price: 1800 },
+      { amount: "3,000 Ecoin", price: 2700 },
+      { amount: "4,000 Ecoin", price: 3600 },
+      { amount: "5,000 Ecoin", price: 4500 },
+      { amount: "6,000 Ecoin", price: 5400 },
+      { amount: "10,000 Ecoin", price: 9000 }
+    ]
+  },
+  {
+    id: 12,
+    title: "PUBG Mobile UC",
+    category: "fps",
+    description: "PUBG Mobile Discounted UC - Battle Royale",
+    image: "https://www.pubgmobile.com/_next/static/images/bro_83f8dd29d9b4fe72c7fe.png",
+    pricing: [
+      { amount: "60 UC", price: 53 },
+      { amount: "325 UC", price: 260 },
+      { amount: "660 UC", price: 520 },
+      { amount: "1,800 UC", price: 1300 },
+      { amount: "3,850 UC", price: 2600 },
+      { amount: "8,100 UC", price: 5186 }
+    ]
+  },
+  {
+    id: 13,
+    title: "Honkai Star Rail",
+    category: "rpg",
+    description: "Honkai Star Rail Discounted Oneric Shards - Space RPG",
+    image: "https://images.crunchybasecdn.com/image/upload/c_scale,w_500/dpr_1/quality_85/v1703023325/hsr-box-art_62e23a7b7c.jpg",
+    pricing: [
+      { amount: "60 Shards", price: 50 },
+      { amount: "330 Shards", price: 213 },
+      { amount: "1,090 Shards", price: 655 },
+      { amount: "1,420 Shards", price: 869 },
+      { amount: "2,240 Shards", price: 1336 },
+      { amount: "3,880 Shards", price: 2200 },
+      { amount: "6,120 Shards", price: 3536 },
+      { amount: "8,080 Shards", price: 4299 },
+      { amount: "9,170 Shards", price: 4955 },
+      { amount: "11,960 Shards", price: 6440 },
+      { amount: "Express Supply Pass", price: 215 }
+    ]
   }
 ];
 
@@ -610,7 +666,10 @@ export default function App() {
                     7: "9%",       // Teamfight Tactics
                     8: "9%",       // LOL Riot Points
                     9: "7-8%",     // Blood Strike
-                    10: "5-6%"     // Magic Chess Go Go
+                    10: "5-6%",    // Magic Chess Go Go
+                    11: "5-6%",    // Crossfire Ecoin
+                    12: "8-10%",   // PUBG Mobile UC
+                    13: "9%"       // Honkai Star Rail
                   };
                   
                   const discount = discountMap[game.id] || "5%";
@@ -663,6 +722,151 @@ export default function App() {
           </section>
         )}
 
+        {/* Payment Methods & Info Section */}
+        <section className="container" style={{ marginTop: "3rem" }}>
+          <h2 className="section-title">💳 Payment Methods</h2>
+          <div style={{
+            background: "rgba(255, 51, 51, 0.05)",
+            border: "2px solid rgba(255, 51, 51, 0.2)",
+            borderRadius: "12px",
+            padding: "2rem",
+            marginBottom: "2rem"
+          }}>
+            <p style={{ color: "#d0d0d0", marginBottom: "1.5rem", fontSize: "1.1rem", fontWeight: "bold" }}>We accept the following payment methods:</p>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "1rem", marginBottom: "1.5rem" }}>
+              <div style={{ background: "rgba(0, 132, 255, 0.1)", padding: "1rem", borderRadius: "8px", border: "1px solid #0084ff", textAlign: "center" }}>
+                <div style={{ fontSize: "1.5rem", marginBottom: "0.5rem" }}>💙</div>
+                <div style={{ color: "#0084ff", fontWeight: "bold" }}>GCash</div>
+              </div>
+              <div style={{ background: "rgba(255, 165, 0, 0.1)", padding: "1rem", borderRadius: "8px", border: "1px solid #ffa500", textAlign: "center" }}>
+                <div style={{ fontSize: "1.5rem", marginBottom: "0.5rem" }}>💛</div>
+                <div style={{ color: "#ffa500", fontWeight: "bold" }}>PayMaya</div>
+              </div>
+              <div style={{ background: "rgba(0, 51, 102, 0.1)", padding: "1rem", borderRadius: "8px", border: "1px solid #003366", textAlign: "center" }}>
+                <div style={{ fontSize: "1.5rem", marginBottom: "0.5rem" }}>🏦</div>
+                <div style={{ color: "#4a90e2", fontWeight: "bold" }}>BDO Bank Transfer</div>
+              </div>
+              <div style={{ background: "rgba(204, 0, 0, 0.1)", padding: "1rem", borderRadius: "8px", border: "1px solid #cc0000", textAlign: "center" }}>
+                <div style={{ fontSize: "1.5rem", marginBottom: "0.5rem" }}>🏧</div>
+                <div style={{ color: "#cc0000", fontWeight: "bold" }}>BPI Bank Transfer</div>
+              </div>
+            </div>
+            <p style={{ color: "#a0a0a0", fontSize: "0.9rem", fontStyle: "italic" }}>
+              💡 Other bank transfers available via GCash. Contact us for details!
+            </p>
+          </div>
+        </section>
+
+        {/* FAQ Section */}
+        <section className="container" style={{ marginTop: "3rem", marginBottom: "3rem" }}>
+          <h2 className="section-title">❓ Frequently Asked Questions</h2>
+          <div style={{ display: "grid", gap: "1rem" }}>
+            <details style={{
+              background: "rgba(255, 51, 51, 0.05)",
+              padding: "1.5rem",
+              borderRadius: "8px",
+              border: "1px solid rgba(255, 51, 51, 0.2)",
+              cursor: "pointer"
+            }}>
+              <summary style={{ color: "#ff3333", fontWeight: "bold", fontSize: "1.1rem", userSelect: "none" }}>
+                How long does delivery take?
+              </summary>
+              <p style={{ color: "#c0c0c0", marginTop: "1rem" }}>
+                Most orders are delivered instantly to your game account within 5 minutes after payment confirmation. For some games, it may take up to 30 minutes depending on server load.
+              </p>
+            </details>
+
+            <details style={{
+              background: "rgba(255, 51, 51, 0.05)",
+              padding: "1.5rem",
+              borderRadius: "8px",
+              border: "1px solid rgba(255, 51, 51, 0.2)",
+              cursor: "pointer"
+            }}>
+              <summary style={{ color: "#ff3333", fontWeight: "bold", fontSize: "1.1rem", userSelect: "none" }}>
+                What if I don't receive my currency?
+              </summary>
+              <p style={{ color: "#c0c0c0", marginTop: "1rem" }}>
+                We guarantee 100% delivery. If you don't receive your currency within 1 hour, contact us immediately via Messenger or Facebook. We'll resolve it right away!
+              </p>
+            </details>
+
+            <details style={{
+              background: "rgba(255, 51, 51, 0.05)",
+              padding: "1.5rem",
+              borderRadius: "8px",
+              border: "1px solid rgba(255, 51, 51, 0.2)",
+              cursor: "pointer"
+            }}>
+              <summary style={{ color: "#ff3333", fontWeight: "bold", fontSize: "1.1rem", userSelect: "none" }}>
+                Are these prices official or discounted?
+              </summary>
+              <p style={{ color: "#c0c0c0", marginTop: "1rem" }}>
+                These are discounted prices! We offer 5-10% savings compared to official game prices. We pass these savings directly to you!
+              </p>
+            </details>
+
+            <details style={{
+              background: "rgba(255, 51, 51, 0.05)",
+              padding: "1.5rem",
+              borderRadius: "8px",
+              border: "1px solid rgba(255, 51, 51, 0.2)",
+              cursor: "pointer"
+            }}>
+              <summary style={{ color: "#ff3333", fontWeight: "bold", fontSize: "1.1rem", userSelect: "none" }}>
+                Is it safe to buy from Zeijin?
+              </summary>
+              <p style={{ color: "#c0c0c0", marginTop: "1rem" }}>
+                Yes! We've been trusted by thousands of Filipino gamers. We provide instant delivery and 100% money-back guarantee if something goes wrong.
+              </p>
+            </details>
+
+            <details style={{
+              background: "rgba(255, 51, 51, 0.05)",
+              padding: "1.5rem",
+              borderRadius: "8px",
+              border: "1px solid rgba(255, 51, 51, 0.2)",
+              cursor: "pointer"
+            }}>
+              <summary style={{ color: "#ff3333", fontWeight: "bold", fontSize: "1.1rem", userSelect: "none" }}>
+                Can I request a refund?
+              </summary>
+              <p style={{ color: "#c0c0c0", marginTop: "1rem" }}>
+                Once delivered, refunds are not available as the currency is added to your account. However, if there's an issue with delivery, we'll redeliver immediately at no cost!
+              </p>
+            </details>
+
+            <details style={{
+              background: "rgba(255, 51, 51, 0.05)",
+              padding: "1.5rem",
+              borderRadius: "8px",
+              border: "1px solid rgba(255, 51, 51, 0.2)",
+              cursor: "pointer"
+            }}>
+              <summary style={{ color: "#ff3333", fontWeight: "bold", fontSize: "1.1rem", userSelect: "none" }}>
+                Do you have Steam Wallet codes?
+              </summary>
+              <p style={{ color: "#c0c0c0", marginTop: "1rem" }}>
+                Yes! We offer Steam Wallet codes in various denominations. Contact us via Messenger for Steam code pricing and availability.
+              </p>
+            </details>
+
+            <details style={{
+              background: "rgba(255, 51, 51, 0.05)",
+              padding: "1.5rem",
+              borderRadius: "8px",
+              border: "1px solid rgba(255, 51, 51, 0.2)",
+              cursor: "pointer"
+            }}>
+              <summary style={{ color: "#ff3333", fontWeight: "bold", fontSize: "1.1rem", userSelect: "none" }}>
+                What games are available in Coda Shop?
+              </summary>
+              <p style={{ color: "#c0c0c0", marginTop: "1rem" }}>
+                We have hundreds of games available in Coda Shop including survival games, RPGs, and more. Message us for specific game availability and pricing!
+              </p>
+            </details>
+          </div>
+        </section>
 
       </div>
 
