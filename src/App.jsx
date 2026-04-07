@@ -771,7 +771,7 @@ export default function App() {
             e.currentTarget.style.boxShadow = "0 4px 15px rgba(224, 44, 112, 0.5)";
           }}
         >
-          📷
+          <img src="https://upload.wikimedia.org/wikipedia/commons/9/95/Instagram_logo_2022.svg" alt="Instagram" style={{ width: "32px", height: "32px" }} />
         </a>
       </div>
 
@@ -1239,7 +1239,8 @@ export default function App() {
               e.currentTarget.style.transform = "translateY(0)";
             }}
           >
-            📷 Instagram
+            <img src="https://upload.wikimedia.org/wikipedia/commons/9/95/Instagram_logo_2022.svg" alt="Instagram" style={{ width: "20px", height: "20px" }} />
+            Instagram
           </a>
         </div>
       </footer>
