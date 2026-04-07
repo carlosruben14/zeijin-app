@@ -217,7 +217,7 @@ const gamesData = [
     title: "Crossfire Ecoin",
     category: "fps",
     description: "Crossfire Discounted Ecoin - Tactical Shooter",
-    image: "https://is2-ssl.mzstatic.com/image/thumb/Purple126/v4/d6/68/eb/d668ebac-ec3f-b97c-a9f4-46c8c0f7a2d0/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-85-220.png/230x0w.webp",
+    image: "https://club.jollymax.com/wp-content/uploads/2025/03/134-tmb-1024x506.webp",
     pricing: [
       { amount: "100 Ecoin", price: 90 },
       { amount: "200 Ecoin", price: 180 },
@@ -238,7 +238,7 @@ const gamesData = [
     title: "PUBG Mobile UC",
     category: "fps",
     description: "PUBG Mobile Discounted UC - Battle Royale",
-    image: "https://www.pubgmobile.com/_next/static/images/bro_83f8dd29d9b4fe72c7fe.png",
+    image: "https://static0.xdaimages.com/wordpress/wp-content/uploads/2018/06/pubg.jpg?q=50&fit=crop&w=1200&h=675&dpr=1.5",
     pricing: [
       { amount: "60 UC", price: 53 },
       { amount: "325 UC", price: 260 },
@@ -253,7 +253,7 @@ const gamesData = [
     title: "Honkai Star Rail",
     category: "rpg",
     description: "Honkai Star Rail Discounted Oneric Shards - Space RPG",
-    image: "https://images.crunchybasecdn.com/image/upload/c_scale,w_500/dpr_1/quality_85/v1703023325/hsr-box-art_62e23a7b7c.jpg",
+    image: "https://i.ytimg.com/vi/NU6J88t4luM/maxresdefault.jpg",
     pricing: [
       { amount: "60 Shards", price: 50 },
       { amount: "330 Shards", price: 213 },
@@ -273,7 +273,7 @@ const gamesData = [
     title: "Steam Wallet Codes",
     category: "rpg",
     description: "Steam Wallet Gift Cards - Play Thousands of Games",
-    image: "https://steamcdn-a.akamaihd.net/steam/apps/542500/ss_4f6b4e0a3e3ee9fef8f905997eff5a50e4cbda76.1920x1080.jpg",
+    image: "https://cdn.moogold.com/2025/11/Steam-Gift-Card-PHP.jpg",
     pricing: [
       { amount: "$0.50 USD", price: 25 },
       { amount: "$1 USD", price: 50 },
