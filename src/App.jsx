@@ -951,7 +951,7 @@ export default function App() {
                             View Details
                           </button>
                           <a
-                            href="https://m.me/ZeijinDiscountedTopUpSalePH"
+                            href={`https://m.me/ZeijinDiscountedTopUpSalePH?text=Hi!%20I'm%20interested%20in%20${encodeURIComponent(game.title)}%20and%20would%20like%20to%20know%20more%20about%20the%20pricing%20and%20packages.`}
                             target="_blank"
                             rel="noopener noreferrer"
                             style={{
@@ -979,7 +979,8 @@ export default function App() {
                               e.currentTarget.style.boxShadow = "none";
                             }}
                           >
-                            💬 Ask Details
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Facebook_Messenger_logo_2020.svg/960px-Facebook_Messenger_logo_2020.svg.png" alt="Messenger" style={{ width: "16px", height: "16px", marginRight: "0.3rem" }} />
+                            Ask Details
                           </a>
                         </div>
                       </div>
