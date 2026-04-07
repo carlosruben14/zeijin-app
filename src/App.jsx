@@ -1212,17 +1212,17 @@ export default function App() {
                 <div style={{ fontSize: "0.85rem", color: "#a0a0a0" }}>⚡ Fastest delivery (5-10 mins)</div>
               </div>
               <div style={{ background: "rgba(255, 165, 0, 0.1)", padding: "1.5rem", borderRadius: "8px", border: "1px solid #ffa500", textAlign: "center" }}>
-                <img src="https://images.crunchbase.com/image/upload/c_pad,h_256,w_256,f_auto,q_auto:eco,dpr_1/amx0mdduyvb5lzhn5mtr?ik-sanitizeSvg=true" alt="PayMaya" style={{ width: "48px", height: "48px", marginBottom: "0.5rem" }} />
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/PayMaya.svg/1200px-PayMaya.svg.png" alt="PayMaya" style={{ width: "48px", height: "48px", marginBottom: "0.5rem" }} />
                 <div style={{ color: "#ffa500", fontWeight: "bold", fontSize: "1.1rem", marginBottom: "0.75rem" }}>PayMaya</div>
                 <div style={{ fontSize: "0.85rem", color: "#a0a0a0" }}>⚡ Fast delivery (10-15 mins)</div>
               </div>
               <div style={{ background: "rgba(0, 51, 102, 0.1)", padding: "1.5rem", borderRadius: "8px", border: "1px solid #003366", textAlign: "center" }}>
-                <img src="https://images.crunchbase.com/image/upload/c_pad,h_256,w_256,f_auto,q_auto:eco,dpr_1/amx0mdduyvb5lzhn5mtr?ik-sanitizeSvg=true" alt="BDO" style={{ width: "48px", height: "48px", marginBottom: "0.5rem" }} />
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/BDO_Unibank_logo.svg/1200px-BDO_Unibank_logo.svg.png" alt="BDO" style={{ width: "48px", height: "48px", marginBottom: "0.5rem" }} />
                 <div style={{ color: "#4a90e2", fontWeight: "bold", fontSize: "1.1rem", marginBottom: "0.75rem" }}>BDO Bank Transfer</div>
                 <div style={{ fontSize: "0.85rem", color: "#a0a0a0" }}>⏱ Standard delivery (15-30 mins)</div>
               </div>
               <div style={{ background: "rgba(204, 0, 0, 0.1)", padding: "1.5rem", borderRadius: "8px", border: "1px solid #cc0000", textAlign: "center" }}>
-                <img src="https://images.crunchbase.com/image/upload/c_pad,h_256,w_256,f_auto,q_auto:eco,dpr_1/amx0mdduyvb5lzhn5mtr?ik-sanitizeSvg=true" alt="BPI" style={{ width: "48px", height: "48px", marginBottom: "0.5rem" }} />
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/BPI_logo.svg/1200px-BPI_logo.svg.png" alt="BPI" style={{ width: "48px", height: "48px", marginBottom: "0.5rem" }} />
                 <div style={{ color: "#cc0000", fontWeight: "bold", fontSize: "1.1rem", marginBottom: "0.75rem" }}>BPI Bank Transfer</div>
                 <div style={{ fontSize: "0.85rem", color: "#a0a0a0" }}>⏱ Standard delivery (15-30 mins)</div>
               </div>
