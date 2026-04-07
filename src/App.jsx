@@ -319,11 +319,74 @@ export default function App() {
       </div>
 
       <footer>
-
         <p>&copy; 2026 Zeijin Discounted. Game prices are for reference only.</p>
         <p style={{ fontSize: "0.85rem", color: "#707070", marginTop: "0.5rem" }}>
           NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖
         </p>
+        
+        <div style={{ marginTop: "1.5rem", display: "flex", gap: "1rem", justifyContent: "center", alignItems: "center" }}>
+          <a 
+            href="https://m.me/ZeijinDiscountedTopUpSalePH" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            style={{ 
+              display: "inline-flex", 
+              alignItems: "center", 
+              gap: "0.5rem",
+              padding: "0.6rem 1.2rem",
+              background: "rgba(0, 132, 255, 0.1)",
+              border: "1px solid #0084ff",
+              borderRadius: "6px",
+              color: "#0084ff",
+              textDecoration: "none",
+              fontSize: "0.9rem",
+              fontWeight: "bold",
+              cursor: "pointer",
+              transition: "all 0.3s"
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = "rgba(0, 132, 255, 0.2)";
+              e.currentTarget.style.transform = "translateY(-2px)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = "rgba(0, 132, 255, 0.1)";
+              e.currentTarget.style.transform = "translateY(0)";
+            }}
+          >
+            💬 Messenger
+          </a>
+          
+          <a 
+            href="https://www.facebook.com/ZeijinDiscountedTopUpSalePH" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            style={{ 
+              display: "inline-flex", 
+              alignItems: "center", 
+              gap: "0.5rem",
+              padding: "0.6rem 1.2rem",
+              background: "rgba(24, 119, 242, 0.1)",
+              border: "1px solid #1877f2",
+              borderRadius: "6px",
+              color: "#1877f2",
+              textDecoration: "none",
+              fontSize: "0.9rem",
+              fontWeight: "bold",
+              cursor: "pointer",
+              transition: "all 0.3s"
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = "rgba(24, 119, 242, 0.2)";
+              e.currentTarget.style.transform = "translateY(-2px)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = "rgba(24, 119, 242, 0.1)";
+              e.currentTarget.style.transform = "translateY(0)";
+            }}
+          >
+            f Facebook
+          </a>
+        </div>
       </footer>
 
       {selectedGame && (
@@ -387,12 +450,6 @@ export default function App() {
               <p style={{ color: "#a0a0a0", fontSize: "0.85rem", marginTop: "1.5rem", fontStyle: "italic" }}>
                 💡 NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming! 💖
               </p>
-
-              <div style={{ marginTop: "1.5rem", padding: "1rem", background: "rgba(0, 255, 136, 0.05)", borderRadius: "8px", borderLeft: "4px solid #00ff88" }}>
-                <p style={{ color: "#00ff88", fontWeight: "bold", marginBottom: "0.5rem" }}>📱 Payment via GCash:</p>
-                <p style={{ color: "#e0e0e0", marginBottom: "0.25rem" }}>Account: <strong>Carlos Ruben G.</strong></p>
-                <p style={{ color: "#e0e0e0", marginBottom: "0" }}>Number: <strong>09603838674</strong></p>
-              </div>
             </div>
 
             <button 
