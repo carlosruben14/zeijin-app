@@ -651,11 +651,11 @@ export default function App() {
             display: "inline-block",
             background: "linear-gradient(135deg, #ff3333, #ff6b6b)",
             color: "white",
-            padding: "0.8rem 2rem",
+            padding: window.innerWidth < 480 ? "0.7rem 1.5rem" : "0.8rem 2rem",
             borderRadius: "25px",
             textDecoration: "none",
             fontWeight: "bold",
-            fontSize: "1.1rem",
+            fontSize: window.innerWidth < 480 ? "0.95rem" : "1.1rem",
             boxShadow: "0 4px 15px rgba(255, 51, 51, 0.4)",
             transition: "all 0.3s",
             cursor: "pointer"
@@ -676,11 +676,11 @@ export default function App() {
       {/* Floating Contact Button */}
       <div style={{
         position: "fixed",
-        bottom: "2rem",
-        right: "2rem",
+        bottom: window.innerWidth < 480 ? "1rem" : "2rem",
+        right: window.innerWidth < 480 ? "1rem" : "2rem",
         zIndex: 8888,
         display: "flex",
-        gap: "1rem",
+        gap: window.innerWidth < 480 ? "0.5rem" : "1rem",
         flexDirection: "column",
         alignItems: "flex-end"
       }}>
@@ -690,8 +690,8 @@ export default function App() {
           rel="noopener noreferrer"
           title="Chat on Messenger"
           style={{
-            width: "60px",
-            height: "60px",
+            width: window.innerWidth < 480 ? "45px" : "60px",
+            height: window.innerWidth < 480 ? "45px" : "60px",
             borderRadius: "50%",
             background: "white",
             display: "flex",
@@ -712,7 +712,7 @@ export default function App() {
             e.currentTarget.style.boxShadow = "0 4px 15px rgba(0, 132, 255, 0.5)";
           }}
         >
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Facebook_Messenger_logo_2020.svg/960px-Facebook_Messenger_logo_2020.svg.png" alt="Messenger" style={{ width: "44px", height: "44px" }} />
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Facebook_Messenger_logo_2020.svg/960px-Facebook_Messenger_logo_2020.svg.png" alt="Messenger" style={{ width: window.innerWidth < 480 ? "32px" : "44px", height: window.innerWidth < 480 ? "32px" : "44px" }} />
         </a>
         <a
           href="https://www.facebook.com/ZeijinDiscountedTopUpSalePH"
@@ -720,8 +720,8 @@ export default function App() {
           rel="noopener noreferrer"
           title="Visit Facebook"
           style={{
-            width: "60px",
-            height: "60px",
+            width: window.innerWidth < 480 ? "45px" : "60px",
+            height: window.innerWidth < 480 ? "45px" : "60px",
             borderRadius: "50%",
             background: "white",
             display: "flex",
@@ -742,7 +742,7 @@ export default function App() {
             e.currentTarget.style.boxShadow = "0 4px 15px rgba(24, 119, 242, 0.5)";
           }}
         >
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Facebook_f_logo_%282019%29.svg/1280px-Facebook_f_logo_%282019%29.svg.png" alt="Facebook" style={{ width: "44px", height: "44px" }} />
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Facebook_f_logo_%282019%29.svg/1280px-Facebook_f_logo_%282019%29.svg.png" alt="Facebook" style={{ width: window.innerWidth < 480 ? "32px" : "44px", height: window.innerWidth < 480 ? "32px" : "44px" }} />
         </a>
         <a
           href="https://t.me/Zeijin_Discounted_Top_Up_Sale_PH"
@@ -750,8 +750,8 @@ export default function App() {
           rel="noopener noreferrer"
           title="Join Telegram"
           style={{
-            width: "60px",
-            height: "60px",
+            width: window.innerWidth < 480 ? "45px" : "60px",
+            height: window.innerWidth < 480 ? "45px" : "60px",
             borderRadius: "50%",
             background: "white",
             display: "flex",
@@ -772,7 +772,7 @@ export default function App() {
             e.currentTarget.style.boxShadow = "0 4px 15px rgba(0, 136, 204, 0.5)";
           }}
         >
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/960px-Telegram_logo.svg.png" alt="Telegram" style={{ width: "44px", height: "44px" }} />
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/960px-Telegram_logo.svg.png" alt="Telegram" style={{ width: window.innerWidth < 480 ? "32px" : "44px", height: window.innerWidth < 480 ? "32px" : "44px" }} />
         </a>
         <a
           href="https://www.instagram.com/zeijindiscountedgame?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
@@ -780,14 +780,14 @@ export default function App() {
           rel="noopener noreferrer"
           title="Follow on Instagram"
           style={{
-            width: "60px",
-            height: "60px",
+            width: window.innerWidth < 480 ? "45px" : "60px",
+            height: window.innerWidth < 480 ? "45px" : "60px",
             borderRadius: "50%",
             background: "linear-gradient(135deg, #e02c70, #c13584)",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            fontSize: "1.8rem",
+            fontSize: window.innerWidth < 480 ? "1.5rem" : "1.8rem",
             boxShadow: "0 4px 15px rgba(224, 44, 112, 0.5)",
             transition: "all 0.3s",
             textDecoration: "none",
@@ -802,7 +802,7 @@ export default function App() {
             e.currentTarget.style.boxShadow = "0 4px 15px rgba(224, 44, 112, 0.5)";
           }}
         >
-          <img src="https://upload.wikimedia.org/wikipedia/commons/9/95/Instagram_logo_2022.svg" alt="Instagram" style={{ width: "32px", height: "32px" }} />
+          <img src="https://upload.wikimedia.org/wikipedia/commons/9/95/Instagram_logo_2022.svg" alt="Instagram" style={{ width: window.innerWidth < 480 ? "28px" : "32px", height: window.innerWidth < 480 ? "28px" : "32px" }} />
         </a>
       </div>
 
@@ -1312,8 +1312,8 @@ export default function App() {
 
       {/* Contact Choice Modal */}
       {contactGame && (
-        <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0, 0, 0, 0.9)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 9999, paddingTop: "2rem", paddingBottom: "2rem" }}>
-          <div style={{ background: "rgba(20, 20, 30, 0.98)", padding: "2rem", borderRadius: "8px", border: "2px solid #ff3333", maxWidth: "500px", width: "90%" }}>
+        <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0, 0, 0, 0.9)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 9999, padding: window.innerWidth < 480 ? "1rem" : "2rem", paddingTop: window.innerWidth < 480 ? "2rem" : "2rem", paddingBottom: window.innerWidth < 480 ? "2rem" : "2rem", overflowY: "auto" }}>
+          <div style={{ background: "rgba(20, 20, 30, 0.98)", padding: window.innerWidth < 480 ? "1.5rem" : "2rem", borderRadius: "8px", border: "2px solid #ff3333", maxWidth: "500px", width: "100%", maxHeight: window.innerWidth < 480 ? "90vh" : "85vh", overflowY: "auto" }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start", marginBottom: "1.5rem" }}>
               <div>
                 <h2 style={{ color: "#ff3333", marginBottom: "0.5rem", fontSize: "1.8rem" }}>Contact Us About {contactGame.title}</h2>
@@ -1463,8 +1463,8 @@ export default function App() {
       )}
 
       {selectedGame && (
-        <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0, 0, 0, 0.9)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 9999, overflowY: "auto", paddingTop: "2rem", paddingBottom: "2rem" }}>
-          <div style={{ background: "rgba(20, 20, 30, 0.98)", padding: "2rem", borderRadius: "8px", border: "2px solid #ff3333", maxWidth: "600px", width: "90%", maxHeight: "90vh", overflowY: "auto" }}>
+        <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0, 0, 0, 0.9)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 9999, overflowY: "auto", padding: window.innerWidth < 480 ? "1rem" : "2rem", paddingTop: window.innerWidth < 480 ? "2rem" : "2rem", paddingBottom: window.innerWidth < 480 ? "2rem" : "2rem" }}>
+          <div style={{ background: "rgba(20, 20, 30, 0.98)", padding: window.innerWidth < 480 ? "1.5rem" : "2rem", borderRadius: "8px", border: "2px solid #ff3333", maxWidth: "600px", width: "100%", maxHeight: window.innerWidth < 480 ? "90vh" : "90vh", overflowY: "auto" }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start", marginBottom: "1.5rem" }}>
               <div>
                 <h2 style={{ color: "#ff3333", marginBottom: "0.5rem", fontSize: "1.8rem" }}>{selectedGame.title}</h2>
