@@ -1386,19 +1386,19 @@ export default function App() {
         {/* Payment Method Trust Badges */}
         <div style={{ marginTop: "1.5rem", display: "flex", gap: "1rem", justifyContent: "center", alignItems: "center", flexWrap: "wrap" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", padding: "0.5rem 1rem", background: "rgba(0, 132, 255, 0.08)", borderRadius: "6px" }}>
-            <span style={{ fontSize: "1.5rem" }}>💙</span>
+            <img src="https://static.vecteezy.com/system/resources/previews/067/065/665/non_2x/gcash-logo-square-rounded-gcash-logo-free-download-gcash-logo-free-png.png" alt="GCash" style={{ width: "24px", height: "24px" }} />
             <span style={{ fontSize: "0.8rem", color: "#a0a0a0", fontWeight: "bold" }}>GCash</span>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", padding: "0.5rem 1rem", background: "rgba(255, 165, 0, 0.08)", borderRadius: "6px" }}>
-            <span style={{ fontSize: "1.5rem" }}>💛</span>
+            <img src="https://images.crunchbase.com/image/upload/c_pad,h_256,w_256,f_auto,q_auto:eco,dpr_1/amx0mdduyvb5lzhn5mtr?ik-sanitizeSvg=true" alt="Maya" style={{ width: "24px", height: "24px" }} />
             <span style={{ fontSize: "0.8rem", color: "#a0a0a0", fontWeight: "bold" }}>Maya</span>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", padding: "0.5rem 1rem", background: "rgba(0, 51, 102, 0.08)", borderRadius: "6px" }}>
-            <span style={{ fontSize: "1.5rem" }}>🏦</span>
+            <img src="https://images.crunchbase.com/image/upload/c_pad,h_256,w_256,f_auto,q_auto:eco,dpr_1/amx0mdduyvb5lzhn5mtr?ik-sanitizeSvg=true" alt="BDO" style={{ width: "24px", height: "24px" }} />
             <span style={{ fontSize: "0.8rem", color: "#a0a0a0", fontWeight: "bold" }}>BDO</span>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", padding: "0.5rem 1rem", background: "rgba(204, 0, 0, 0.08)", borderRadius: "6px" }}>
-            <span style={{ fontSize: "1.5rem" }}>🏧</span>
+            <img src="https://images.crunchbase.com/image/upload/c_pad,h_256,w_256,f_auto,q_auto:eco,dpr_1/amx0mdduyvb5lzhn5mtr?ik-sanitizeSvg=true" alt="BPI" style={{ width: "24px", height: "24px" }} />
             <span style={{ fontSize: "0.8rem", color: "#a0a0a0", fontWeight: "bold" }}>BPI</span>
           </div>
         </div>
@@ -1655,10 +1655,10 @@ export default function App() {
                     cursor: "pointer"
                   }}
                 >
-                  <option value="GCash" style={{ background: "#1a1a1a", color: "#e0e0e0" }}>💙 GCash</option>
-                  <option value="Maya" style={{ background: "#1a1a1a", color: "#e0e0e0" }}>💛 Maya</option>
-                  <option value="BDO" style={{ background: "#1a1a1a", color: "#e0e0e0" }}>🏦 BDO Bank Transfer</option>
-                  <option value="BPI" style={{ background: "#1a1a1a", color: "#e0e0e0" }}>🏧 BPI Bank Transfer</option>
+                  <option value="GCash" style={{ background: "#1a1a1a", color: "#e0e0e0" }}>GCash</option>
+                  <option value="Maya" style={{ background: "#1a1a1a", color: "#e0e0e0" }}>Maya</option>
+                  <option value="BDO" style={{ background: "#1a1a1a", color: "#e0e0e0" }}>BDO Bank Transfer</option>
+                  <option value="BPI" style={{ background: "#1a1a1a", color: "#e0e0e0" }}>BPI Bank Transfer</option>
                 </select>
               </div>
 
