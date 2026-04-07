@@ -546,6 +546,17 @@ export default function App() {
       <section className="hero">
         <h1>Game Currency Showcase</h1>
         <p>Discover the latest discounted game currency packages. Best prices for Philippine servers!</p>
+        <div style={{ marginTop: "1.5rem", display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap", fontSize: "0.9rem" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", color: "#00ff88" }}>
+            <span>✓</span> Trusted by PH Players
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", color: "#00ff88" }}>
+            <span>✓</span> Instant Delivery
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", color: "#00ff88" }}>
+            <span>✓</span> Lowest Prices
+          </div>
+        </div>
       </section>
 
       <div className="container">
@@ -587,18 +598,55 @@ export default function App() {
               <p style={{ color: "#a0a0a0", textAlign: "center", padding: "2rem" }}>No games found matching your search.</p>
             ) : (
               <div className="games-grid">
-                {filteredGames.map(game => (
-                  <div key={game.id} className="game-card" onClick={() => setSelectedGame(game)}>
-                    <div className="game-image" style={{ backgroundImage: `url(${game.image})`, backgroundSize: "cover", backgroundPosition: "center" }}></div>
-                    <div className="game-info">
-                      <div className="game-title">{game.title}</div>
-                      <div className="game-description">{game.description}</div>
-                      <div style={{ marginTop: "auto", color: "#00ff88", fontSize: "0.9rem" }}>
-                        {game.pricing.length} packages available
+                {filteredGames.map(game => {
+                  // Calculate average discount percentage
+                  const avgDiscount = game.pricing.length > 0 
+                    ? Math.round(100 - (game.pricing.reduce((sum, p) => sum + p.price, 0) / game.pricing.length) / (game.pricing.reduce((sum, p) => sum + p.price, 0) / game.pricing.length * 1.25) * 100)
+                    : 0;
+                  
+                  return (
+                    <div key={game.id} className={`game-card ${game.category}`} onClick={() => setSelectedGame(game)} style={{ position: "relative" }}>
+                      <div className="game-image" style={{ backgroundImage: `url(${game.image})`, backgroundSize: "cover", backgroundPosition: "center" }}>
+                        {avgDiscount > 0 && (
+                          <div style={{
+                            position: "absolute",
+                            top: "10px",
+                            right: "10px",
+                            background: "linear-gradient(135deg, #ff3333, #ff6b6b)",
+                            color: "white",
+                            padding: "0.4rem 0.8rem",
+                            borderRadius: "8px",
+                            fontWeight: "bold",
+                            fontSize: "0.85rem",
+                            boxShadow: "0 4px 12px rgba(255, 51, 51, 0.4)",
+                            zIndex: 10
+                          }}>
+                            Save ˜₱100
+                          </div>
+                        )}
+                      </div>
+                      <div className="game-info">
+                        <div className="game-title">{game.title}</div>
+                        <div className="game-description">{game.description}</div>
+                        <div style={{ marginTop: "auto", display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%" }}>
+                          <div style={{ color: "#00ff88", fontSize: "0.9rem" }}>
+                            {game.pricing.length} packages available
+                          </div>
+                          <div style={{
+                            background: game.category === "moba" ? "rgba(0, 212, 255, 0.2)" : game.category === "fps" ? "rgba(255, 165, 0, 0.2)" : "rgba(157, 78, 221, 0.2)",
+                            color: game.category === "moba" ? "#00d4ff" : game.category === "fps" ? "#ffa500" : "#9d4edd",
+                            padding: "0.3rem 0.8rem",
+                            borderRadius: "15px",
+                            fontSize: "0.75rem",
+                            fontWeight: "bold"
+                          }}>
+                            {game.category.toUpperCase()}
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             )}
           </section>
