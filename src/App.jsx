@@ -267,6 +267,23 @@ const gamesData = [
       { amount: "11,960 Shards", price: 6440 },
       { amount: "Express Supply Pass", price: 215 }
     ]
+  },
+  {
+    id: 14,
+    title: "Steam Wallet Codes",
+    category: "rpg",
+    description: "Steam Wallet Gift Cards - Play Thousands of Games",
+    image: "https://steamcdn-a.akamaihd.net/steam/apps/542500/ss_4f6b4e0a3e3ee9fef8f905997eff5a50e4cbda76.1920x1080.jpg",
+    pricing: [
+      { amount: "$0.50 USD", price: 25 },
+      { amount: "$1 USD", price: 50 },
+      { amount: "$2 USD", price: 98 },
+      { amount: "$5 USD", price: 245 },
+      { amount: "$10 USD", price: 490 },
+      { amount: "$20 USD", price: 980 },
+      { amount: "$50 USD", price: 2450 },
+      { amount: "$100 USD", price: 4900 }
+    ]
   }
 ];
 
@@ -669,7 +686,8 @@ export default function App() {
                     10: "5-6%",    // Magic Chess Go Go
                     11: "5-6%",    // Crossfire Ecoin
                     12: "8-10%",   // PUBG Mobile UC
-                    13: "9%"       // Honkai Star Rail
+                    13: "9%",      // Honkai Star Rail
+                    14: "1-2%"     // Steam Wallet Codes
                   };
                   
                   const discount = discountMap[game.id] || "5%";
@@ -847,7 +865,7 @@ export default function App() {
                 Do you have Steam Wallet codes?
               </summary>
               <p style={{ color: "#c0c0c0", marginTop: "1rem" }}>
-                Yes! We offer Steam Wallet codes in various denominations. Contact us via Messenger for Steam code pricing and availability.
+                Yes! Steam Wallet codes are available on our site with 1-2% discount. Just scroll down to find "Steam Wallet Codes" in the list and choose your desired amount. All codes are delivered instantly!
               </p>
             </details>
 
@@ -862,7 +880,7 @@ export default function App() {
                 What games are available in Coda Shop?
               </summary>
               <p style={{ color: "#c0c0c0", marginTop: "1rem" }}>
-                We have hundreds of games available in Coda Shop including survival games, RPGs, and more. Message us for specific game availability and pricing!
+                All the games listed on our site (Mobile Legends, Valorant, LOL, Genshin Impact, PUBG, Honkai Star Rail, Blood Strike, and more) are available through Coda Shop! You can also request other games - just message us for availability and pricing.
               </p>
             </details>
           </div>
