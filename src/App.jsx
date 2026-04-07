@@ -621,13 +621,10 @@ export default function App() {
         <p>Discover the latest discounted game currency packages. Best prices for Philippine servers!</p>
         <div style={{ marginTop: "1.5rem", display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap", fontSize: "0.9rem" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", color: "#00ff88" }}>
-            <span>✓</span> Trusted by PH Players
+            <span>✓</span> Trusted by PH and Global Players
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", color: "#00ff88" }}>
-            <span>✓</span> Instant Delivery
-          </div>
-          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", color: "#00ff88" }}>
-            <span>✓</span> Lowest Prices
+            <span>✓</span> Low Prices
           </div>
         </div>
       </section>
