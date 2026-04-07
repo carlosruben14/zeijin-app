@@ -232,6 +232,24 @@ const eventsData = [
     startDate: "2026-04-10",
     endDate: "2026-06-10",
     badge: "New"
+  },
+  {
+  id: 3,
+  game: "Valorant",
+  title: "Episode 8 Act 2 Launch",
+  description: "New episode with new agent and map changes.",
+  startDate: "2026-04-15",
+  endDate: "2026-07-15",
+  badge: "New"
+  },
+  {
+  id: 5,
+  game: "Genshin Impact",
+  title: "Lantern Rite Festival 2026",
+  description: "Celebrate with special quests, rewards, and limited-time banner!",
+  startDate: "2026-04-20",
+  endDate: "2026-05-20",
+  badge: "Hot Event"
   }
 ];
 
@@ -330,7 +348,7 @@ export default function App() {
         )}
 
         {activeSection === "events" && (
-          <section className="events-container">
+          <section className="events-container active">
             <h2 className="section-title">📅 Events & Updates</h2>
             {eventsData.length === 0 ? (
               <p style={{ color: "#a0a0a0", textAlign: "center", padding: "2rem" }}>No active events at the moment. Check back soon!</p>
