@@ -1043,7 +1043,7 @@ export default function App() {
                               e.currentTarget.style.borderColor = "rgba(255, 51, 51, 0.5)";
                             }}
                           >
-                            View Details
+                            View Prices
                           </button>
                           <button
                             onClick={() => setContactGame(game)}
@@ -1587,7 +1587,8 @@ export default function App() {
               </button>
             </div>
 
-            {/* IGN Validator Form */}
+            {/* IGN Validator Form - Step 1 */}
+            <h3 style={{ color: "#00ff88", fontSize: "1rem", fontWeight: "bold", marginBottom: "1rem", display: "flex", alignItems: "center", gap: "0.5rem" }}><span style={{ background: "#00ff88", color: "#1a1a1a", width: "24px", height: "24px", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "bold", fontSize: "0.9rem" }}>1</span> Order Details</h3>
             <div style={{ background: "rgba(255, 51, 51, 0.05)", padding: "1.5rem", borderRadius: "8px", border: "1px solid rgba(255, 51, 51, 0.2)", marginBottom: "1.5rem" }}>
               <div style={{ marginBottom: "1rem" }}>
                 <label style={{ display: "block", color: "#ff3333", fontSize: "0.9rem", fontWeight: "bold", marginBottom: "0.4rem" }}>
@@ -1684,9 +1685,9 @@ export default function App() {
               </div>
             </div>
 
-            {/* Platform Selection */}
+            {/* Platform Selection - Step 2 */}
+            <h3 style={{ color: "#00ff88", fontSize: "1rem", fontWeight: "bold", marginBottom: "1rem", display: "flex", alignItems: "center", gap: "0.5rem" }}><span style={{ background: "#00ff88", color: "#1a1a1a", width: "24px", height: "24px", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "bold", fontSize: "0.9rem" }}>2</span> Choose a Platform</h3>
             <div style={{ marginBottom: "1rem" }}>
-              <p style={{ color: "#a0a0a0", fontSize: "0.85rem", marginBottom: "1rem" }}>✓ Your info will be included in the message. Choose a platform:</p>
               <div style={{ display: "grid", gap: "0.75rem" }}>
                 {/* Messenger Option */}
                 <a
