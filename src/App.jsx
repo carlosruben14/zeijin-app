@@ -214,27 +214,11 @@ const gamesData = [
   }
 ];
 
-const gameIdRequirements = {
-  "Mobile Legends: Bang Bang": { label: "ML ID & Server", placeholder: "XXXXXX (ID)" },
-  "Valorant": { label: "Riot ID", placeholder: "YourName#1234" },
-  "League of Legends - Wild Rift": { label: "Riot ID", placeholder: "YourName#1234" },
-  "Call of Duty Mobile": { label: "Player ID", placeholder: "Your Player ID" },
-  "Honor of Kings": { label: "UID", placeholder: "Your Account UID" },
-  "Genshin Impact": { label: "Genshin ID & Server", placeholder: "XXXXXX (Asia/EU/NA/HK)" },
-  "Team Fight Tactics": { label: "Riot ID", placeholder: "YourName#1234" },
-  "Blood Strike": { label: "Player UID", placeholder: "Your Player UID" },
-  "Magic Chess": { label: "ML ID & Server", placeholder: "XXXXXX (ID)" }
-};
-
 export default function App() {
   const [selectedGame, setSelectedGame] = useState(null);
   const [activeSection, setActiveSection] = useState("games");
   const [searchQuery, setSearchQuery] = useState("");
   const [filterCategory, setFilterCategory] = useState("all");
-  const [selectedPackage, setSelectedPackage] = useState(null);
-  const [paymentStep, setPaymentStep] = useState("select"); // select, confirm, payment, receipt
-  const [uploadedReceipt, setUploadedReceipt] = useState(null);
-  const [userGameId, setUserGameId] = useState("");
 
   const filteredGames = useMemo(() => {
     return gamesData.filter(game => {
@@ -335,12 +319,7 @@ export default function App() {
       </div>
 
       <footer>
-        <p>💳 Payment Methods: UnionBank, Maya, BPI, BDO, GCash, PayMaya</p>
-        <p style={{ marginTop: "1rem", padding: "1rem", background: "rgba(255, 51, 51, 0.1)", borderRadius: "8px", borderLeft: "4px solid #00ff88" }}>
-          <strong>📱 GCash Payment:</strong><br/>
-          Account Name: <strong>Carlos Ruben G.</strong><br/>
-          GCash Number: <strong>09603838674</strong>
-        </p>
+
         <p>&copy; 2026 Zeijin Discounted. Game prices are for reference only.</p>
         <p style={{ fontSize: "0.85rem", color: "#707070", marginTop: "0.5rem" }}>
           NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖
@@ -356,13 +335,7 @@ export default function App() {
                 <p style={{ color: "#a0a0a0", marginBottom: "0" }}>{selectedGame.description}</p>
               </div>
               <button 
-                onClick={() => {
-                  setSelectedGame(null);
-                  setPaymentStep("select");
-                  setSelectedPackage(null);
-                  setUploadedReceipt(null);
-                  setUserGameId("");
-                }} 
+                onClick={() => setSelectedGame(null)} 
                 style={{ 
                   background: "transparent", 
                   border: "none", 
@@ -376,360 +349,68 @@ export default function App() {
               </button>
             </div>
 
-            {paymentStep === "select" ? (
-              <>
-                <div style={{ background: "rgba(255, 51, 51, 0.05)", padding: "1.5rem", borderRadius: "8px", border: "1px solid rgba(255, 51, 51, 0.2)" }}>
-                  <h3 style={{ color: "#ff3333", marginBottom: "1rem" }}>💰 Available Packages</h3>
-                  
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
-                    {selectedGame.pricing.map((pkg, idx) => (
-                      <div 
-                        key={idx} 
-                        style={{
-                          background: "rgba(255, 51, 51, 0.1)",
-                          padding: "1rem",
-                          borderRadius: "6px",
-                          border: "1px solid rgba(255, 51, 51, 0.3)",
-                          transition: "all 0.3s ease",
-                          cursor: "pointer"
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.background = "rgba(255, 51, 51, 0.2)";
-                          e.currentTarget.style.borderColor = "#ff3333";
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.background = "rgba(255, 51, 51, 0.1)";
-                          e.currentTarget.style.borderColor = "rgba(255, 51, 51, 0.3)";
-                        }}
-                        onClick={() => {
-                          setSelectedPackage(pkg);
-                          setPaymentStep("confirm");
-                        }}
-                      >
-                        <div style={{ fontSize: "1.2rem", fontWeight: "bold", color: "white", marginBottom: "0.5rem" }}>
-                          {pkg.amount}
-                        </div>
-                        <div style={{ fontSize: "1.5rem", color: "#00ff88", fontWeight: "bold" }}>
-                          {pkg.currency || "₱"}{pkg.price}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-
-                  <p style={{ color: "#a0a0a0", fontSize: "0.85rem", marginTop: "1.5rem", fontStyle: "italic" }}>
-                    💡 NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming! 💖
-                  </p>
-                </div>
-              </>
-            ) : paymentStep === "confirm" ? (
-              <>
-                <h3 style={{ color: "#ff3333", marginBottom: "1.5rem", display: "flex", alignItems: "center", gap: "0.5rem" }}>✓ Order Confirmation</h3>
-                <div style={{ background: "rgba(255, 51, 51, 0.1)", padding: "1.5rem", borderRadius: "8px", marginBottom: "1.5rem", border: "1px solid rgba(255, 51, 51, 0.3)" }}>
-                  <div style={{ marginBottom: "1.2rem" }}>
-                    <div style={{ color: "#999", marginBottom: "0.3rem", fontSize: "0.85rem" }}>Game</div>
-                    <div style={{ color: "white", fontSize: "1.2rem", fontWeight: "bold" }}>{selectedGame.title}</div>
-                  </div>
-                  
-                  <div style={{ marginBottom: "1.2rem" }}>
-                    <div style={{ color: "#999", marginBottom: "0.3rem", fontSize: "0.85rem" }}>Package</div>
-                    <div style={{ color: "#00ff88", fontSize: "1.1rem", fontWeight: "bold" }}>{selectedPackage.amount}</div>
-                  </div>
-                  
-                  <div style={{ paddingTop: "1rem", borderTop: "1px solid rgba(255, 51, 51, 0.3)" }}>
-                    <div style={{ color: "#999", marginBottom: "0.3rem", fontSize: "0.85rem" }}>Total Price</div>
-                    <div style={{ color: "#ff3333", fontSize: "1.6rem", fontWeight: "bold" }}>₱{selectedPackage.price}</div>
-                  </div>
-                </div>
-
-                <div style={{ display: "flex", gap: "1rem", justifyContent: "center", marginTop: "1.5rem" }}>
-                  <button
-                    onClick={() => {
-                      setPaymentStep("select");
-                      setSelectedPackage(null);
-                    }}
+            <div style={{ background: "rgba(255, 51, 51, 0.05)", padding: "1.5rem", borderRadius: "8px", border: "1px solid rgba(255, 51, 51, 0.2)" }}>
+              <h3 style={{ color: "#ff3333", marginBottom: "1rem" }}>💰 Available Packages</h3>
+              
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+                {selectedGame.pricing.map((pkg, idx) => (
+                  <div 
+                    key={idx} 
                     style={{
-                      padding: "0.8rem 1.5rem",
-                      background: "rgba(255, 51, 51, 0.2)",
-                      color: "#ff3333",
-                      border: "1px solid #ff3333",
-                      borderRadius: "6px",
-                      cursor: "pointer",
-                      fontSize: "1rem",
-                      fontWeight: "bold",
-                      transition: "all 0.3s"
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.background = "rgba(255, 51, 51, 0.3)";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.background = "rgba(255, 51, 51, 0.2)";
-                    }}
-                  >
-                    ← Back
-                  </button>
-                  <button
-                    onClick={() => setPaymentStep("payment")}
-                    style={{
-                      padding: "0.8rem 1.5rem",
-                      background: "#ff3333",
-                      color: "white",
-                      border: "none",
-                      borderRadius: "6px",
-                      cursor: "pointer",
-                      fontSize: "1rem",
-                      fontWeight: "bold",
-                      transition: "all 0.3s"
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.background = "#ff5555";
-                      e.currentTarget.style.transform = "translateX(2px)";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.background = "#ff3333";
-                      e.currentTarget.style.transform = "translateX(0)";
-                    }}
-                  >
-                    Continue →
-                  </button>
-                </div>
-              </>
-            ) : paymentStep === "payment" ? (
-              <>
-                <h3 style={{ color: "#ff3333", marginBottom: "1.5rem", display: "flex", alignItems: "center", gap: "0.5rem" }}>💳 Payment Details</h3>
-                <div style={{ background: "rgba(0, 255, 136, 0.1)", padding: "1.5rem", borderRadius: "8px", marginBottom: "1.5rem", border: "2px solid #00ff88" }}>
-                  <div style={{ color: "#00ff88", fontSize: "1rem", fontWeight: "bold", marginBottom: "1.2rem" }}>🏦 GCash Payment</div>
-                  
-                  <div style={{ marginBottom: "1rem" }}>
-                    <div style={{ color: "#999", marginBottom: "0.3rem", fontSize: "0.85rem" }}>Send to:</div>
-                    <div style={{ color: "white", fontSize: "1.3rem", fontWeight: "bold", background: "rgba(0, 0, 0, 0.3)", padding: "0.8rem", borderRadius: "6px", fontFamily: "monospace" }}>
-                      09603838674
-                    </div>
-                  </div>
-
-                  <div style={{ marginBottom: "1.5rem" }}>
-                    <div style={{ color: "#999", marginBottom: "0.3rem", fontSize: "0.85rem" }}>Name:</div>
-                    <div style={{ color: "white", fontSize: "1.1rem", fontWeight: "bold" }}>Carlos Ruben G.</div>
-                  </div>
-
-                  <div style={{ background: "rgba(255, 51, 51, 0.2)", padding: "1rem", borderRadius: "6px", borderLeft: "4px solid #ff3333", marginBottom: "1rem" }}>
-                    <div style={{ color: "#ff3333", fontSize: "0.9rem", fontWeight: "bold", marginBottom: "0.5rem" }}>⚠️ Important:</div>
-                    <div style={{ color: "#ccc", fontSize: "0.85rem", lineHeight: "1.6" }}>
-                      Send exactly <span style={{ color: "#ff3333", fontWeight: "bold" }}>₱{selectedPackage.price}</span>
-                      <br />
-                      Include your game username in GCash notes
-                    </div>
-                  </div>
-
-                  <div style={{ padding: "0.8rem", background: "rgba(0, 0, 0, 0.3)", borderRadius: "6px" }}>
-                    <div style={{ color: "#999", fontSize: "0.85rem", marginBottom: "0.3rem" }}>Amount to Pay:</div>
-                    <div style={{ color: "#00ff88", fontSize: "1.4rem", fontWeight: "bold" }}>₱{selectedPackage.price}</div>
-                  </div>
-                </div>
-
-                <div style={{ display: "flex", gap: "1rem", justifyContent: "center", marginTop: "1.5rem" }}>
-                  <button
-                    onClick={() => setPaymentStep("confirm")}
-                    style={{
-                      padding: "0.8rem 1.5rem",
-                      background: "rgba(255, 51, 51, 0.2)",
-                      color: "#ff3333",
-                      border: "1px solid #ff3333",
-                      borderRadius: "6px",
-                      cursor: "pointer",
-                      fontSize: "1rem",
-                      fontWeight: "bold",
-                      transition: "all 0.3s"
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.background = "rgba(255, 51, 51, 0.3)";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.background = "rgba(255, 51, 51, 0.2)";
-                    }}
-                  >
-                    ← Back
-                  </button>
-                  <button
-                    onClick={() => setPaymentStep("receipt")}
-                    style={{
-                      padding: "0.8rem 1.5rem",
-                      background: "#00ff88",
-                      color: "#000",
-                      border: "none",
-                      borderRadius: "6px",
-                      cursor: "pointer",
-                      fontSize: "1rem",
-                      fontWeight: "bold",
-                      transition: "all 0.3s"
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.background = "#00ff99";
-                      e.currentTarget.style.transform = "translateX(2px)";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.background = "#00ff88";
-                      e.currentTarget.style.transform = "translateX(0)";
-                    }}
-                  >
-                    I've Sent Payment →
-                  </button>
-                </div>
-              </>
-            ) : paymentStep === "receipt" ? (
-              <>
-                <h3 style={{ color: "#ff3333", marginBottom: "1.5rem", display: "flex", alignItems: "center", gap: "0.5rem" }}>📸 Upload Receipt</h3>
-                <div style={{ background: "rgba(255, 51, 51, 0.1)", padding: "1.5rem", borderRadius: "8px", marginBottom: "1.5rem", border: "1px solid rgba(255, 51, 51, 0.3)" }}>
-                  <div style={{ marginBottom: "1rem" }}>
-                    <div style={{ color: "#999", fontSize: "0.85rem", marginBottom: "0.3rem" }}>{selectedGame.title}</div>
-                    <div style={{ color: "white", fontSize: "1rem", fontWeight: "bold" }}>₱{selectedPackage.price} • {selectedPackage.amount}</div>
-                  </div>
-                </div>
-
-                <div style={{ marginBottom: "1.5rem" }}>
-                  <label style={{ display: "block", color: "#00ff88", fontWeight: "bold", marginBottom: "0.8rem", fontSize: "0.95rem" }}>
-                    📤 Choose Receipt Image/PDF
-                  </label>
-                  <input
-                    type="file"
-                    accept="image/*,.pdf"
-                    onChange={(e) => {
-                      const file = e.target.files[0];
-                      if (file) {
-                        const reader = new FileReader();
-                        reader.onload = (event) => {
-                          setUploadedReceipt({
-                            file: file,
-                            preview: event.target.result,
-                            name: file.name
-                          });
-                        };
-                        reader.readAsDataURL(file);
-                      }
-                    }}
-                    style={{
-                      display: "block",
-                      width: "100%",
+                      background: "rgba(255, 51, 51, 0.1)",
                       padding: "1rem",
-                      background: "rgba(0, 0, 0, 0.3)",
-                      border: "2px dashed #00ff88",
                       borderRadius: "6px",
-                      color: "#999",
-                      cursor: "pointer",
-                      fontSize: "0.9rem"
-                    }}
-                  />
-                  {uploadedReceipt && (
-                    <div style={{ background: "rgba(0, 255, 136, 0.15)", padding: "1rem", borderRadius: "6px", marginTop: "1rem", border: "1px solid rgba(0, 255, 136, 0.3)" }}>
-                      <div style={{ color: "#00ff88", fontWeight: "bold", marginBottom: "0.8rem", fontSize: "0.95rem" }}>✅ {uploadedReceipt.name}</div>
-                      {uploadedReceipt.preview && uploadedReceipt.file.type.startsWith("image") && (
-                        <img 
-                          src={uploadedReceipt.preview} 
-                          alt="receipt" 
-                          style={{ maxWidth: "100%", maxHeight: "200px", borderRadius: "4px" }}
-                        />
-                      )}
-                      {uploadedReceipt.file.type === "application/pdf" && (
-                        <div style={{ color: "#999", fontSize: "0.85rem" }}>📄 PDF file ready to submit</div>
-                      )}
-                    </div>
-                  )}
-                </div>
-
-                <div style={{ marginBottom: "1.5rem" }}>
-                  <label style={{ display: "block", color: "#00ff88", fontWeight: "bold", marginBottom: "0.8rem", fontSize: "0.95rem" }}>
-                    👤 {gameIdRequirements[selectedGame.title]?.label || "Game Account ID"}
-                  </label>
-                  <input
-                    type="text"
-                    placeholder={gameIdRequirements[selectedGame.title]?.placeholder || "Enter your game account ID"}
-                    value={userGameId}
-                    onChange={(e) => setUserGameId(e.target.value)}
-                    style={{
-                      display: "block",
-                      width: "100%",
-                      padding: "0.8rem",
-                      background: "rgba(0, 0, 0, 0.3)",
-                      border: "2px solid #00ff88",
-                      borderRadius: "6px",
-                      color: "white",
-                      fontSize: "0.95rem",
-                      boxSizing: "border-box"
-                    }}
-                  />
-                  {userGameId && (
-                    <div style={{ color: "#00ff88", fontSize: "0.85rem", marginTop: "0.5rem" }}>✓ ID entered: {userGameId}</div>
-                  )}
-                </div>
-
-                <div style={{ display: "flex", gap: "1rem", justifyContent: "center" }}>
-                  <button
-                    onClick={() => setPaymentStep("payment")}
-                    style={{
-                      padding: "0.8rem 1.5rem",
-                      background: "rgba(255, 51, 51, 0.2)",
-                      color: "#ff3333",
-                      border: "1px solid #ff3333",
-                      borderRadius: "6px",
-                      cursor: "pointer",
-                      fontSize: "1rem",
-                      fontWeight: "bold",
-                      transition: "all 0.3s"
+                      border: "1px solid rgba(255, 51, 51, 0.3)",
+                      transition: "all 0.3s ease",
+                      cursor: "pointer"
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.background = "rgba(255, 51, 51, 0.3)";
-                    }}
-                    onMouseLeave={(e) => {
                       e.currentTarget.style.background = "rgba(255, 51, 51, 0.2)";
-                    }}
-                  >
-                    ← Back
-                  </button>
-                  <button
-                    onClick={() => {
-                      if (uploadedReceipt && userGameId.trim()) {
-                        alert(`✅ Payment received!\n\nGame: ${selectedGame.title}\nAmount: ₱${selectedPackage.price}\nPackage: ${selectedPackage.amount}\nGame ID: ${userGameId}\n\nYou will receive your credit shortly. Thank you for your purchase! 💖`);
-                        setSelectedGame(null);
-                        setPaymentStep("select");
-                        setSelectedPackage(null);
-                        setUploadedReceipt(null);
-                        setUserGameId("");
-                      } else {
-                        const missing = [];
-                        if (!uploadedReceipt) missing.push("receipt");
-                        if (!userGameId.trim()) missing.push("game ID");
-                        alert(`Please provide your ${missing.join(" and ")}.`);
-                      }
-                    }}
-                    style={{
-                      padding: "0.8rem 1.5rem",
-                      background: uploadedReceipt && userGameId.trim() ? "#00ff88" : "rgba(0, 255, 136, 0.3)",
-                      color: uploadedReceipt && userGameId.trim() ? "#000" : "#666",
-                      border: "none",
-                      borderRadius: "6px",
-                      cursor: uploadedReceipt && userGameId.trim() ? "pointer" : "not-allowed",
-                      fontSize: "1rem",
-                      fontWeight: "bold",
-                      transition: "all 0.3s"
-                    }}
-                    disabled={!uploadedReceipt || !userGameId.trim()}
-                    onMouseEnter={(e) => {
-                      if (uploadedReceipt && userGameId.trim()) {
-                        e.currentTarget.style.background = "#00ff99";
-                        e.currentTarget.style.transform = "translateX(2px)";
-                      }
+                      e.currentTarget.style.borderColor = "#ff3333";
                     }}
                     onMouseLeave={(e) => {
-                      if (uploadedReceipt && userGameId.trim()) {
-                        e.currentTarget.style.background = "#00ff88";
-                        e.currentTarget.style.transform = "translateX(0)";
-                      }
+                      e.currentTarget.style.background = "rgba(255, 51, 51, 0.1)";
+                      e.currentTarget.style.borderColor = "rgba(255, 51, 51, 0.3)";
                     }}
+                    onClick={() => {}}
                   >
-                    {uploadedReceipt && userGameId.trim() ? "✓ Submit & Complete" : `${!uploadedReceipt ? "Upload Receipt & " : ""}Enter Game ID to Continue`}
-                  </button>
-                </div>
-              </>
-            ) : null}
+                    <div style={{ fontSize: "1.2rem", fontWeight: "bold", color: "white", marginBottom: "0.5rem" }}>
+                      {pkg.amount}
+                    </div>
+                    <div style={{ fontSize: "1.5rem", color: "#00ff88", fontWeight: "bold" }}>
+                      {pkg.currency || "₱"}{pkg.price}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <p style={{ color: "#a0a0a0", fontSize: "0.85rem", marginTop: "1.5rem", fontStyle: "italic" }}>
+                💡 NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming! 💖
+              </p>
+
+              <div style={{ marginTop: "1.5rem", padding: "1rem", background: "rgba(0, 255, 136, 0.05)", borderRadius: "8px", borderLeft: "4px solid #00ff88" }}>
+                <p style={{ color: "#00ff88", fontWeight: "bold", marginBottom: "0.5rem" }}>📱 Payment via GCash:</p>
+                <p style={{ color: "#e0e0e0", marginBottom: "0.25rem" }}>Account: <strong>Carlos Ruben G.</strong></p>
+                <p style={{ color: "#e0e0e0", marginBottom: "0" }}>Number: <strong>09603838674</strong></p>
+              </div>
+            </div>
+
+            <button 
+              onClick={() => setSelectedGame(null)} 
+              style={{ 
+                background: "#ff3333", 
+                color: "white", 
+                padding: "0.75rem 2rem", 
+                border: "none", 
+                borderRadius: "20px", 
+                cursor: "pointer", 
+                fontSize: "1rem",
+                marginTop: "1.5rem",
+                width: "100%"
+              }}
+            >
+              Close
+            </button>
           </div>
         </div>
       )}
