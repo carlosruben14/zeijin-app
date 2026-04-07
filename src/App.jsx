@@ -704,7 +704,9 @@ export default function App() {
           <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", color: "#00ff88" }}>
             <span>✓</span> Trusted by PH and Global Players
           </div>
-
+          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", color: "#00ff88" }}>
+            <span>✓</span> Instant Delivery
+          </div>
         </div>
         <a 
           href="https://m.me/ZeijinDiscountedTopUpSalePH" 
@@ -1212,17 +1214,17 @@ export default function App() {
                 <div style={{ fontSize: "0.85rem", color: "#a0a0a0" }}>⚡ Fastest delivery (5-10 mins)</div>
               </div>
               <div style={{ background: "rgba(255, 165, 0, 0.1)", padding: "1.5rem", borderRadius: "8px", border: "1px solid #ffa500", textAlign: "center" }}>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/PayMaya.svg/1200px-PayMaya.svg.png" alt="PayMaya" style={{ width: "48px", height: "48px", marginBottom: "0.5rem" }} />
+                <img src="https://logodix.com/logo/2206759.jpg" alt="PayMaya" style={{ width: "48px", height: "48px", marginBottom: "0.5rem" }} />
                 <div style={{ color: "#ffa500", fontWeight: "bold", fontSize: "1.1rem", marginBottom: "0.75rem" }}>PayMaya</div>
                 <div style={{ fontSize: "0.85rem", color: "#a0a0a0" }}>⚡ Fast delivery (10-15 mins)</div>
               </div>
               <div style={{ background: "rgba(0, 51, 102, 0.1)", padding: "1.5rem", borderRadius: "8px", border: "1px solid #003366", textAlign: "center" }}>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/BDO_Unibank_logo.svg/1200px-BDO_Unibank_logo.svg.png" alt="BDO" style={{ width: "48px", height: "48px", marginBottom: "0.5rem" }} />
+                <img src="https://images.seeklogo.com/logo-png/35/1/bpi-bank-of-the-philippine-islands-logo-png_seeklogo-352316.png" alt="BDO" style={{ width: "48px", height: "48px", marginBottom: "0.5rem" }} />
                 <div style={{ color: "#4a90e2", fontWeight: "bold", fontSize: "1.1rem", marginBottom: "0.75rem" }}>BDO Bank Transfer</div>
                 <div style={{ fontSize: "0.85rem", color: "#a0a0a0" }}>⏱ Standard delivery (15-30 mins)</div>
               </div>
               <div style={{ background: "rgba(204, 0, 0, 0.1)", padding: "1.5rem", borderRadius: "8px", border: "1px solid #cc0000", textAlign: "center" }}>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/BPI_logo.svg/1200px-BPI_logo.svg.png" alt="BPI" style={{ width: "48px", height: "48px", marginBottom: "0.5rem" }} />
+                <img src="https://images.seeklogo.com/logo-png/35/1/bpi-bank-of-the-philippine-islands-logo-png_seeklogo-352316.png" alt="BPI" style={{ width: "48px", height: "48px", marginBottom: "0.5rem" }} />
                 <div style={{ color: "#cc0000", fontWeight: "bold", fontSize: "1.1rem", marginBottom: "0.75rem" }}>BPI Bank Transfer</div>
                 <div style={{ fontSize: "0.85rem", color: "#a0a0a0" }}>⏱ Standard delivery (15-30 mins)</div>
               </div>
@@ -1384,19 +1386,19 @@ export default function App() {
         {/* Payment Method Trust Badges */}
         <div style={{ marginTop: "1.5rem", display: "flex", gap: "1rem", justifyContent: "center", alignItems: "center", flexWrap: "wrap" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", padding: "0.5rem 1rem", background: "rgba(0, 132, 255, 0.08)", borderRadius: "6px" }}>
-            <img src="https://static.vecteezy.com/system/resources/previews/067/065/665/non_2x/gcash-logo-square-rounded-gcash-logo-free-download-gcash-logo-free-png.png" alt="GCash" style={{ width: "24px", height: "24px" }} />
+            <img src="https://static.vecteezy.com/system/resources/previews/067/065/665/non_2x/gcash-logo-square-rounded-gcash-logo-free-download-gcash-logo-free-png.png" alt="GCash" style={{ width: "20px", height: "20px" }} />
             <span style={{ fontSize: "0.8rem", color: "#a0a0a0", fontWeight: "bold" }}>GCash</span>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", padding: "0.5rem 1rem", background: "rgba(255, 165, 0, 0.08)", borderRadius: "6px" }}>
-            <img src="https://images.crunchbase.com/image/upload/c_pad,h_256,w_256,f_auto,q_auto:eco,dpr_1/amx0mdduyvb5lzhn5mtr?ik-sanitizeSvg=true" alt="Maya" style={{ width: "24px", height: "24px" }} />
+            <img src="https://logodix.com/logo/2206759.jpg" alt="Maya" style={{ width: "20px", height: "20px" }} />
             <span style={{ fontSize: "0.8rem", color: "#a0a0a0", fontWeight: "bold" }}>Maya</span>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", padding: "0.5rem 1rem", background: "rgba(0, 51, 102, 0.08)", borderRadius: "6px" }}>
-            <img src="https://images.crunchbase.com/image/upload/c_pad,h_256,w_256,f_auto,q_auto:eco,dpr_1/amx0mdduyvb5lzhn5mtr?ik-sanitizeSvg=true" alt="BDO" style={{ width: "24px", height: "24px" }} />
+            <img src="https://images.seeklogo.com/logo-png/35/1/bpi-bank-of-the-philippine-islands-logo-png_seeklogo-352316.png" alt="BDO" style={{ width: "20px", height: "20px" }} />
             <span style={{ fontSize: "0.8rem", color: "#a0a0a0", fontWeight: "bold" }}>BDO</span>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", padding: "0.5rem 1rem", background: "rgba(204, 0, 0, 0.08)", borderRadius: "6px" }}>
-            <img src="https://images.crunchbase.com/image/upload/c_pad,h_256,w_256,f_auto,q_auto:eco,dpr_1/amx0mdduyvb5lzhn5mtr?ik-sanitizeSvg=true" alt="BPI" style={{ width: "24px", height: "24px" }} />
+            <img src="https://images.seeklogo.com/logo-png/35/1/bpi-bank-of-the-philippine-islands-logo-png_seeklogo-352316.png" alt="BPI" style={{ width: "20px", height: "20px" }} />
             <span style={{ fontSize: "0.8rem", color: "#a0a0a0", fontWeight: "bold" }}>BPI</span>
           </div>
         </div>
@@ -1759,7 +1761,7 @@ export default function App() {
 
                 {/* Instagram Option */}
                 <a
-                  href={`https://www.instagram.com/direct/t/ZeijinDiscountedGames?text=${encodeURIComponent(`Hi! I'm interested in ${contactGame.title} and would like to know more about the pricing and packages.\n\nOrder Amount: ${ignValidatorData.orderedAmount}\nUID: ${ignValidatorData.ign}\nMode of payment: ${ignValidatorData.paymentMethod}\n\nOther concern: ${ignValidatorData.otherConcern || 'None'}`)}`}
+                  href={`https://www.instagram.com/direct/t/ZeijinDiscountedGames?text=${encodeURIComponent(`Hi! I'm interested in ${contactGame.title} and would like to know more about the pricing and packages.%0A%0AOrder Amount: ${ignValidatorData.orderedAmount}%0AUID: ${ignValidatorData.ign}%0AMode of payment: ${ignValidatorData.paymentMethod}%0A%0AOther concern: ${ignValidatorData.otherConcern || 'None'}`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{
