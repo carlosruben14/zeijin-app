@@ -214,6 +214,27 @@ const gamesData = [
   }
 ];
 
+const eventsData = [
+  {
+    id: 1,
+    game: "Mobile Legends: Bang Bang",
+    title: "Summer Event - 50% Discount on Dias",
+    description: "Get up to 50% off on selected Dias packages. Limited time offer!",
+    startDate: "2026-04-07",
+    endDate: "2026-04-30",
+    badge: "Hot Event"
+  },
+  {
+    id: 2,
+    game: "Valorant",
+    title: "Battle Pass Season 8 Launch",
+    description: "New battle pass with exclusive rewards and cosmetics.",
+    startDate: "2026-04-10",
+    endDate: "2026-06-10",
+    badge: "New"
+  }
+];
+
 export default function App() {
   const [selectedGame, setSelectedGame] = useState(null);
   const [activeSection, setActiveSection] = useState("games");
@@ -309,11 +330,77 @@ export default function App() {
         )}
 
         {activeSection === "events" && (
-          <section className="events-container active">
+          <section className="events-container">
             <h2 className="section-title">📅 Events & Updates</h2>
-            <div id="eventsList">
-              <p style={{ color: "#a0a0a0" }}><strong>Summer Sale 2026</strong> - Up to 50% off on selected titles. Ends in 5 days!</p>
-            </div>
+            {eventsData.length === 0 ? (
+              <p style={{ color: "#a0a0a0", textAlign: "center", padding: "2rem" }}>No active events at the moment. Check back soon!</p>
+            ) : (
+              <div style={{ display: "grid", gap: "1.5rem" }}>
+                {eventsData.map(event => {
+                  const endDate = new Date(event.endDate);
+                  const today = new Date();
+                  const daysLeft = Math.ceil((endDate - today) / (1000 * 60 * 60 * 24));
+                  
+                  return (
+                    <div 
+                      key={event.id}
+                      style={{
+                        background: "rgba(255, 51, 51, 0.08)",
+                        border: "2px solid rgba(255, 51, 51, 0.3)",
+                        borderRadius: "8px",
+                        padding: "1.5rem",
+                        transition: "all 0.3s"
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.borderColor = "#ff3333";
+                        e.currentTarget.style.background = "rgba(255, 51, 51, 0.12)";
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.borderColor = "rgba(255, 51, 51, 0.3)";
+                        e.currentTarget.style.background = "rgba(255, 51, 51, 0.08)";
+                      }}
+                    >
+                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start", marginBottom: "1rem" }}>
+                        <div>
+                          <h3 style={{ color: "#ff3333", marginBottom: "0.5rem", fontSize: "1.2rem" }}>{event.title}</h3>
+                          <p style={{ color: "#999", marginBottom: "0.5rem", fontSize: "0.9rem" }}>
+                            🎮 {event.game}
+                          </p>
+                        </div>
+                        <span style={{
+                          background: event.badge === "Hot Event" ? "rgba(255, 51, 51, 0.2)" : "rgba(0, 255, 136, 0.2)",
+                          color: event.badge === "Hot Event" ? "#ff3333" : "#00ff88",
+                          padding: "0.4rem 0.8rem",
+                          borderRadius: "20px",
+                          fontSize: "0.75rem",
+                          fontWeight: "bold",
+                          whiteSpace: "nowrap"
+                        }}>
+                          {event.badge}
+                        </span>
+                      </div>
+
+                      <p style={{ color: "#d0d0d0", marginBottom: "1rem", lineHeight: "1.6" }}>
+                        {event.description}
+                      </p>
+
+                      <div style={{ display: "flex", gap: "2rem", fontSize: "0.85rem" }}>
+                        <div>
+                          <span style={{ color: "#999" }}>Starts:</span>
+                          <div style={{ color: "#00ff88", fontWeight: "bold" }}>{new Date(event.startDate).toLocaleDateString()}</div>
+                        </div>
+                        <div>
+                          <span style={{ color: "#999" }}>Ends:</span>
+                          <div style={{ color: daysLeft <= 3 ? "#ff3333" : "#00ff88", fontWeight: "bold" }}>
+                            {new Date(event.endDate).toLocaleDateString()} ({daysLeft > 0 ? daysLeft + " days left" : "Ended"})
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </section>
         )}
       </div>
