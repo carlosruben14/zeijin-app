@@ -218,11 +218,12 @@ const eventsData = [
   {
     id: 1,
     game: "Mobile Legends: Bang Bang",
-    title: "Summer Event - 50% Discount on Dias",
+    title: "x NARUTO event draw",
     description: "Get up to 50% off on selected Dias packages. Limited time offer!",
     startDate: "2026-04-07",
     endDate: "2026-04-30",
-    badge: "Hot Event"
+    badge: "Hot Event",
+    image: "https://scontent.fcrk2-3.fna.fbcdn.net/v/t39.30808-6/492477191_1119214773576815_6014578049500213380_n.jpg?stp=dst-jpg_p526x296_tt6&_nc_cat=107&ccb=1-7&_nc_sid=13d280&_nc_eui2=AeEaBfvYk4kVB-I4qlCvq2xIhe84nehSclOF7zid6FJyUy3JFZm-fKKBH1x9LJdE9viRluv0r3xQLhbAo4BpXWIe&_nc_ohc=1PPaSltSAusQ7kNvwGHJg9P&_nc_oc=AdoGkj3c0FCI6CXpcRvkSPNpqoLHg22C59z873BVvoEGNqf9rfBYAf8MJWDZhWXCjE0&_nc_zt=23&_nc_ht=scontent.fcrk2-3.fna&_nc_gid=PiGEVZEBcFjaGkimSVbYlA&_nc_ss=7a3a8&oh=00_Af3AlNRttxWfckW8xefW7jzSI389EL2sierX5GgBDyQwDA&oe=69DA58C2"
   },
   {
     id: 2,
@@ -231,25 +232,28 @@ const eventsData = [
     description: "New battle pass with exclusive rewards and cosmetics.",
     startDate: "2026-04-10",
     endDate: "2026-06-10",
-    badge: "New"
+    badge: "New",
+    image: "https://www.riotgames.com/darkroom/1440/8d5c497da1c2eeec8cffa99b01abc64b:5329ca773963a5b739e98e715957ab39/ps-f2p-val-console-launch-16x9.jpg"
   },
   {
-  id: 3,
-  game: "Valorant",
-  title: "Episode 8 Act 2 Launch",
-  description: "New episode with new agent and map changes.",
-  startDate: "2026-04-15",
-  endDate: "2026-07-15",
-  badge: "New"
+    id: 3,
+    game: "League of Legends - Wild Rift",
+    title: "Episode 8 Act 2 Launch",
+    description: "New episode with new agent and map changes.",
+    startDate: "2026-04-15",
+    endDate: "2026-07-15",
+    badge: "New",
+    image: "https://www.riotgames.com/darkroom/1440/08bcc251757a1f64e30e0d7e8c513d35:be16374e056f8268996ef96555c7a113/wr-cb1-announcementarticle-banner-1920x1080.png"
   },
   {
-  id: 5,
-  game: "Genshin Impact",
-  title: "Lantern Rite Festival 2026",
-  description: "Celebrate with special quests, rewards, and limited-time banner!",
-  startDate: "2026-04-20",
-  endDate: "2026-05-20",
-  badge: "Hot Event"
+    id: 5,
+    game: "Genshin Impact",
+    title: "Lantern Rite Festival 2026",
+    description: "Celebrate with special quests, rewards, and limited-time banner!",
+    startDate: "2026-04-20",
+    endDate: "2026-05-20",
+    badge: "Hot Event",
+    image: "https://static0.gamerantimages.com/wordpress/wp-content/uploads/2024/01/genshin-impact-lantern-rite-header.jpg"
   }
 ];
 
@@ -258,6 +262,8 @@ export default function App() {
   const [activeSection, setActiveSection] = useState("games");
   const [searchQuery, setSearchQuery] = useState("");
   const [filterCategory, setFilterCategory] = useState("all");
+  const [currentEventIndex, setCurrentEventIndex] = useState(0);
+  const [dragStart, setDragStart] = useState(null);
 
   const filteredGames = useMemo(() => {
     return gamesData.filter(game => {
@@ -266,6 +272,34 @@ export default function App() {
       return matchesSearch && matchesCategory;
     });
   }, [searchQuery, filterCategory]);
+
+  // Auto-slide events every 5 seconds
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentEventIndex((prev) => (prev + 1) % eventsData.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
+  // Handle manual slide
+  const handleDragStart = (e) => {
+    setDragStart(e.clientX || e.touches?.[0].clientX);
+  };
+
+  const handleDragEnd = (e) => {
+    if (!dragStart) return;
+    const dragEnd = e.clientX || e.changedTouches?.[0].clientX;
+    const diff = dragStart - dragEnd;
+    
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) {
+        setCurrentEventIndex((prev) => (prev + 1) % eventsData.length);
+      } else {
+        setCurrentEventIndex((prev) => (prev - 1 + eventsData.length) % eventsData.length);
+      }
+    }
+    setDragStart(null);
+  };
 
   return (
     <div>
@@ -282,9 +316,39 @@ export default function App() {
         </div>
       </header>
 
-      <section className="hero">
-        <h1>Game Currency Showcase</h1>
-        <p>Discover the latest discounted game currency packages. Best prices for Philippine servers!</p>
+      <section className="hero" style={{ background: "linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('" + eventsData[currentEventIndex].image + "')", backgroundSize: "cover", backgroundPosition: "center", cursor: "grab" }} onMouseDown={handleDragStart} onMouseUp={handleDragEnd} onTouchStart={handleDragStart} onTouchEnd={handleDragEnd}>
+        <div style={{ position: "relative", zIndex: 2, display: "flex", flexDirection: "column", justifyContent: "space-between", height: "100%", padding: "2rem" }}>
+          <div>
+            <span style={{ background: eventsData[currentEventIndex].badge === "Hot Event" ? "#ff3333" : "#00ff88", color: eventsData[currentEventIndex].badge === "Hot Event" ? "white" : "#000", padding: "0.5rem 1rem", borderRadius: "20px", fontSize: "0.85rem", fontWeight: "bold", display: "inline-block", marginBottom: "1rem" }}>
+              {eventsData[currentEventIndex].badge}
+            </span>
+            <h1 style={{ fontSize: "2.5rem", marginBottom: "0.5rem" }}>{eventsData[currentEventIndex].game}</h1>
+            <h2 style={{ fontSize: "1.8rem", color: "#00ff88", marginBottom: "1rem" }}>{eventsData[currentEventIndex].title}</h2>
+            <p style={{ fontSize: "1.1rem", color: "#d0d0d0", maxWidth: "600px" }}>{eventsData[currentEventIndex].description}</p>
+          </div>
+
+          {/* Carousel Navigation Dots */}
+          <div style={{ display: "flex", gap: "0.5rem", justifyContent: "center", marginTop: "2rem" }}>
+            {eventsData.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => setCurrentEventIndex(idx)}
+                style={{
+                  width: idx === currentEventIndex ? "30px" : "12px",
+                  height: "12px",
+                  borderRadius: "6px",
+                  background: idx === currentEventIndex ? "#ff3333" : "rgba(255, 51, 51, 0.3)",
+                  border: "none",
+                  cursor: "pointer",
+                  transition: "all 0.3s"
+                }}
+              />
+            ))}
+          </div>
+
+          {/* Slider Instructions */}
+          <p style={{ fontSize: "0.85rem", color: "#999", textAlign: "center", marginTop: "1rem" }}>← Swipe to navigate | Auto-slides every 5 seconds →</p>
+        </div>
       </section>
 
       <div className="container">
