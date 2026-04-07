@@ -320,6 +320,11 @@ export default function App() {
 
       <footer>
         <p>💳 Payment Methods: UnionBank, Maya, BPI, BDO, GCash, PayMaya</p>
+        <p style={{ marginTop: "1rem", padding: "1rem", background: "rgba(255, 51, 51, 0.1)", borderRadius: "8px", borderLeft: "4px solid #00ff88" }}>
+          <strong>📱 GCash Payment:</strong><br/>
+          Account Name: <strong>Carlos Ruben G.</strong><br/>
+          GCash Number: <strong>09603838674</strong>
+        </p>
         <p>&copy; 2026 Zeijin Discounted. Game prices are for reference only.</p>
         <p style={{ fontSize: "0.85rem", color: "#707070", marginTop: "0.5rem" }}>
           NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖
@@ -386,6 +391,12 @@ export default function App() {
               <p style={{ color: "#a0a0a0", fontSize: "0.85rem", marginTop: "1.5rem", fontStyle: "italic" }}>
                 💡 NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming! 💖
               </p>
+
+              <div style={{ marginTop: "1.5rem", padding: "1rem", background: "rgba(0, 255, 136, 0.05)", borderRadius: "8px", borderLeft: "4px solid #00ff88" }}>
+                <p style={{ color: "#00ff88", fontWeight: "bold", marginBottom: "0.5rem" }}>📱 Payment via GCash:</p>
+                <p style={{ color: "#e0e0e0", marginBottom: "0.25rem" }}>Account: <strong>Carlos Ruben G.</strong></p>
+                <p style={{ color: "#e0e0e0", marginBottom: "0" }}>Number: <strong>09603838674</strong></p>
+              </div>
             </div>
 
             <button 
