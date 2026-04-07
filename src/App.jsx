@@ -214,6 +214,18 @@ const gamesData = [
   }
 ];
 
+const gameIdRequirements = {
+  "Mobile Legends: Bang Bang": { label: "ML ID & Server", placeholder: "XXXXXX (ID)" },
+  "Valorant": { label: "Riot ID", placeholder: "YourName#1234" },
+  "League of Legends - Wild Rift": { label: "Riot ID", placeholder: "YourName#1234" },
+  "Call of Duty Mobile": { label: "Player ID", placeholder: "Your Player ID" },
+  "Honor of Kings": { label: "UID", placeholder: "Your Account UID" },
+  "Genshin Impact": { label: "Genshin ID & Server", placeholder: "XXXXXX (Asia/EU/NA/HK)" },
+  "Team Fight Tactics": { label: "Riot ID", placeholder: "YourName#1234" },
+  "Blood Strike": { label: "Player UID", placeholder: "Your Player UID" },
+  "Magic Chess": { label: "ML ID & Server", placeholder: "XXXXXX (ID)" }
+};
+
 export default function App() {
   const [selectedGame, setSelectedGame] = useState(null);
   const [activeSection, setActiveSection] = useState("games");
@@ -222,6 +234,7 @@ export default function App() {
   const [selectedPackage, setSelectedPackage] = useState(null);
   const [paymentStep, setPaymentStep] = useState("select"); // select, confirm, payment, receipt
   const [uploadedReceipt, setUploadedReceipt] = useState(null);
+  const [userGameId, setUserGameId] = useState("");
 
   const filteredGames = useMemo(() => {
     return gamesData.filter(game => {
@@ -348,6 +361,7 @@ export default function App() {
                   setPaymentStep("select");
                   setSelectedPackage(null);
                   setUploadedReceipt(null);
+                  setUserGameId("");
                 }} 
                 style={{ 
                   background: "transparent", 
@@ -621,6 +635,32 @@ export default function App() {
                   )}
                 </div>
 
+                <div style={{ marginBottom: "1.5rem" }}>
+                  <label style={{ display: "block", color: "#00ff88", fontWeight: "bold", marginBottom: "0.8rem", fontSize: "0.95rem" }}>
+                    👤 {gameIdRequirements[selectedGame.title]?.label || "Game Account ID"}
+                  </label>
+                  <input
+                    type="text"
+                    placeholder={gameIdRequirements[selectedGame.title]?.placeholder || "Enter your game account ID"}
+                    value={userGameId}
+                    onChange={(e) => setUserGameId(e.target.value)}
+                    style={{
+                      display: "block",
+                      width: "100%",
+                      padding: "0.8rem",
+                      background: "rgba(0, 0, 0, 0.3)",
+                      border: "2px solid #00ff88",
+                      borderRadius: "6px",
+                      color: "white",
+                      fontSize: "0.95rem",
+                      boxSizing: "border-box"
+                    }}
+                  />
+                  {userGameId && (
+                    <div style={{ color: "#00ff88", fontSize: "0.85rem", marginTop: "0.5rem" }}>✓ ID entered: {userGameId}</div>
+                  )}
+                </div>
+
                 <div style={{ display: "flex", gap: "1rem", justifyContent: "center" }}>
                   <button
                     onClick={() => setPaymentStep("payment")}
@@ -646,42 +686,46 @@ export default function App() {
                   </button>
                   <button
                     onClick={() => {
-                      if (uploadedReceipt) {
-                        alert(`✅ Payment received!\n\nGame: ${selectedGame.title}\nAmount: ₱${selectedPackage.price}\nPackage: ${selectedPackage.amount}\n\nYou will receive your credit shortly. Thank you for your purchase! 💖`);
+                      if (uploadedReceipt && userGameId.trim()) {
+                        alert(`✅ Payment received!\n\nGame: ${selectedGame.title}\nAmount: ₱${selectedPackage.price}\nPackage: ${selectedPackage.amount}\nGame ID: ${userGameId}\n\nYou will receive your credit shortly. Thank you for your purchase! 💖`);
                         setSelectedGame(null);
                         setPaymentStep("select");
                         setSelectedPackage(null);
                         setUploadedReceipt(null);
+                        setUserGameId("");
                       } else {
-                        alert("Please upload your payment receipt first.");
+                        const missing = [];
+                        if (!uploadedReceipt) missing.push("receipt");
+                        if (!userGameId.trim()) missing.push("game ID");
+                        alert(`Please provide your ${missing.join(" and ")}.`);
                       }
                     }}
                     style={{
                       padding: "0.8rem 1.5rem",
-                      background: uploadedReceipt ? "#00ff88" : "rgba(0, 255, 136, 0.3)",
-                      color: uploadedReceipt ? "#000" : "#666",
+                      background: uploadedReceipt && userGameId.trim() ? "#00ff88" : "rgba(0, 255, 136, 0.3)",
+                      color: uploadedReceipt && userGameId.trim() ? "#000" : "#666",
                       border: "none",
                       borderRadius: "6px",
-                      cursor: uploadedReceipt ? "pointer" : "not-allowed",
+                      cursor: uploadedReceipt && userGameId.trim() ? "pointer" : "not-allowed",
                       fontSize: "1rem",
                       fontWeight: "bold",
                       transition: "all 0.3s"
                     }}
-                    disabled={!uploadedReceipt}
+                    disabled={!uploadedReceipt || !userGameId.trim()}
                     onMouseEnter={(e) => {
-                      if (uploadedReceipt) {
+                      if (uploadedReceipt && userGameId.trim()) {
                         e.currentTarget.style.background = "#00ff99";
                         e.currentTarget.style.transform = "translateX(2px)";
                       }
                     }}
                     onMouseLeave={(e) => {
-                      if (uploadedReceipt) {
+                      if (uploadedReceipt && userGameId.trim()) {
                         e.currentTarget.style.background = "#00ff88";
                         e.currentTarget.style.transform = "translateX(0)";
                       }
                     }}
                   >
-                    {uploadedReceipt ? "✓ Submit & Complete" : "Upload to Continue"}
+                    {uploadedReceipt && userGameId.trim() ? "✓ Submit & Complete" : `${!uploadedReceipt ? "Upload Receipt & " : ""}Enter Game ID to Continue`}
                   </button>
                 </div>
               </>
