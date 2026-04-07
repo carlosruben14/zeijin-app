@@ -744,7 +744,7 @@ export default function App() {
           <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Facebook_f_logo_%282019%29.svg/1280px-Facebook_f_logo_%282019%29.svg.png" alt="Facebook" style={{ width: "44px", height: "44px" }} />
         </a>
         <a
-          href="https://t.me/ZeijinDiscounted"
+          href="https://t.me/Zeijin_Discounted_Top_Up_Sale_PH"
           target="_blank"
           rel="noopener noreferrer"
           title="Join Telegram"
@@ -1276,7 +1276,7 @@ export default function App() {
           </a>
 
           <a 
-            href="https://t.me/ZeijinDiscounted" 
+            href="https://t.me/Zeijin_Discounted_Top_Up_Sale_PH" 
             target="_blank" 
             rel="noopener noreferrer"
             style={{ 
