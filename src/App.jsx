@@ -1824,9 +1824,16 @@ export default function App() {
         <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0, 0, 0, 0.9)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 9999, overflowY: "auto", padding: window.innerWidth < 480 ? "1rem" : "2rem", paddingTop: window.innerWidth < 480 ? "2rem" : "2rem", paddingBottom: window.innerWidth < 480 ? "2rem" : "2rem" }}>
           <div style={{ background: "rgba(20, 20, 30, 0.98)", padding: window.innerWidth < 480 ? "1.5rem" : "2rem", borderRadius: "8px", border: "2px solid #ff3333", maxWidth: "600px", width: "100%", maxHeight: window.innerWidth < 480 ? "90vh" : "90vh", overflowY: "auto" }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start", marginBottom: "1.5rem" }}>
-              <div>
-                <h2 style={{ color: "#ff3333", marginBottom: "0.5rem", fontSize: "1.8rem" }}>{selectedGame.title}</h2>
-                <p style={{ color: "#a0a0a0", marginBottom: "0" }}>{selectedGame.description}</p>
+              <div style={{ flex: 1 }}>
+                <div style={{ display: "flex", gap: "1rem", alignItems: "flex-start", marginBottom: "1rem" }}>
+                  {selectedGame.image && (
+                    <img src={selectedGame.image} alt={selectedGame.title} style={{ width: "80px", height: "80px", borderRadius: "8px", border: "2px solid #ff3333", objectFit: "cover" }} />
+                  )}
+                  <div>
+                    <h2 style={{ color: "#ff3333", marginBottom: "0.5rem", fontSize: "1.8rem" }}>{selectedGame.title}</h2>
+                    <p style={{ color: "#a0a0a0", marginBottom: "0", fontSize: "0.9rem" }}>{selectedGame.description}</p>
+                  </div>
+                </div>
               </div>
               <button 
                 onClick={() => setSelectedGame(null)} 
@@ -1836,7 +1843,8 @@ export default function App() {
                   color: "#ff3333", 
                   fontSize: "1.5rem", 
                   cursor: "pointer",
-                  padding: "0.5rem"
+                  padding: "0.5rem",
+                  minWidth: "40px"
                 }}
               >
                 ✕
