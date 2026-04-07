@@ -599,15 +599,26 @@ export default function App() {
             ) : (
               <div className="games-grid">
                 {filteredGames.map(game => {
-                  // Calculate average discount percentage
-                  const avgDiscount = game.pricing.length > 0 
-                    ? Math.round(100 - (game.pricing.reduce((sum, p) => sum + p.price, 0) / game.pricing.length) / (game.pricing.reduce((sum, p) => sum + p.price, 0) / game.pricing.length * 1.25) * 100)
-                    : 0;
+                  // Define discount percentages by game ID
+                  const discountMap = {
+                    1: "5-6%",    // Mobile Legends
+                    2: "9%",       // Valorant
+                    3: "9%",       // LOL Wild Rift
+                    4: "5-6%",     // Call of Duty Mobile
+                    5: "5-8%",     // Honor of Kings
+                    6: "9%",       // Genshin Impact
+                    7: "9%",       // Teamfight Tactics
+                    8: "9%",       // LOL Riot Points
+                    9: "7-8%",     // Blood Strike
+                    10: "5-6%"     // Magic Chess Go Go
+                  };
+                  
+                  const discount = discountMap[game.id] || "5%";
                   
                   return (
                     <div key={game.id} className={`game-card ${game.category}`} onClick={() => setSelectedGame(game)} style={{ position: "relative" }}>
                       <div className="game-image" style={{ backgroundImage: `url(${game.image})`, backgroundSize: "cover", backgroundPosition: "center" }}>
-                        {avgDiscount > 0 && (
+                        {discount && (
                           <div style={{
                             position: "absolute",
                             top: "10px",
@@ -621,7 +632,7 @@ export default function App() {
                             boxShadow: "0 4px 12px rgba(255, 51, 51, 0.4)",
                             zIndex: 10
                           }}>
-                            Save ˜₱100
+                            Save {discount}!
                           </div>
                         )}
                       </div>
