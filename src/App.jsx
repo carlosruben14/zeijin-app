@@ -692,15 +692,15 @@ export default function App() {
             width: "60px",
             height: "60px",
             borderRadius: "50%",
-            background: "linear-gradient(135deg, #0084ff, #0066ff)",
+            background: "white",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            fontSize: "1.8rem",
             boxShadow: "0 4px 15px rgba(0, 132, 255, 0.5)",
             transition: "all 0.3s",
             textDecoration: "none",
-            cursor: "pointer"
+            cursor: "pointer",
+            padding: "8px"
           }}
           onMouseEnter={(e) => {
             e.currentTarget.style.transform = "scale(1.15)";
@@ -711,7 +711,7 @@ export default function App() {
             e.currentTarget.style.boxShadow = "0 4px 15px rgba(0, 132, 255, 0.5)";
           }}
         >
-          💬
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Facebook_Messenger_logo_2020.svg/960px-Facebook_Messenger_logo_2020.svg.png" alt="Messenger" style={{ width: "44px", height: "44px" }} />
         </a>
         <a
           href="https://www.facebook.com/ZeijinDiscountedTopUpSalePH"
@@ -722,15 +722,15 @@ export default function App() {
             width: "60px",
             height: "60px",
             borderRadius: "50%",
-            background: "linear-gradient(135deg, #1877f2, #0a66c2)",
+            background: "white",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            fontSize: "1.8rem",
             boxShadow: "0 4px 15px rgba(24, 119, 242, 0.5)",
             transition: "all 0.3s",
             textDecoration: "none",
-            cursor: "pointer"
+            cursor: "pointer",
+            padding: "8px"
           }}
           onMouseEnter={(e) => {
             e.currentTarget.style.transform = "scale(1.15)";
@@ -741,7 +741,37 @@ export default function App() {
             e.currentTarget.style.boxShadow = "0 4px 15px rgba(24, 119, 242, 0.5)";
           }}
         >
-          f
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Facebook_f_logo_%282019%29.svg/1280px-Facebook_f_logo_%282019%29.svg.png" alt="Facebook" style={{ width: "44px", height: "44px" }} />
+        </a>
+        <a
+          href="https://t.me/ZeijinDiscounted"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Join Telegram"
+          style={{
+            width: "60px",
+            height: "60px",
+            borderRadius: "50%",
+            background: "white",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            boxShadow: "0 4px 15px rgba(0, 136, 204, 0.5)",
+            transition: "all 0.3s",
+            textDecoration: "none",
+            cursor: "pointer",
+            padding: "8px"
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = "scale(1.15)";
+            e.currentTarget.style.boxShadow = "0 6px 20px rgba(0, 136, 204, 0.8)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = "scale(1)";
+            e.currentTarget.style.boxShadow = "0 4px 15px rgba(0, 136, 204, 0.5)";
+          }}
+        >
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/960px-Telegram_logo.svg.png" alt="Telegram" style={{ width: "44px", height: "44px" }} />
         </a>
         <a
           href="https://www.instagram.com/zeijindiscountedgame?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
@@ -1177,7 +1207,8 @@ export default function App() {
               e.currentTarget.style.transform = "translateY(0)";
             }}
           >
-            💬 Messenger
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Facebook_Messenger_logo_2020.svg/960px-Facebook_Messenger_logo_2020.svg.png" alt="Messenger" style={{ width: "18px", height: "18px" }} />
+            Messenger
           </a>
           
           <a 
@@ -1208,7 +1239,8 @@ export default function App() {
               e.currentTarget.style.transform = "translateY(0)";
             }}
           >
-            f Facebook
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Facebook_f_logo_%282019%29.svg/1280px-Facebook_f_logo_%282019%29.svg.png" alt="Facebook" style={{ width: "18px", height: "18px" }} />
+            Facebook
           </a>
 
           <a 
@@ -1241,6 +1273,38 @@ export default function App() {
           >
             <img src="https://upload.wikimedia.org/wikipedia/commons/9/95/Instagram_logo_2022.svg" alt="Instagram" style={{ width: "20px", height: "20px" }} />
             Instagram
+          </a>
+
+          <a 
+            href="https://t.me/ZeijinDiscounted" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            style={{ 
+              display: "inline-flex", 
+              alignItems: "center", 
+              gap: "0.5rem",
+              padding: "0.6rem 1.2rem",
+              background: "rgba(0, 136, 204, 0.1)",
+              border: "1px solid #0088cc",
+              borderRadius: "6px",
+              color: "#0088cc",
+              textDecoration: "none",
+              fontSize: "0.9rem",
+              fontWeight: "bold",
+              cursor: "pointer",
+              transition: "all 0.3s"
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = "rgba(0, 136, 204, 0.2)";
+              e.currentTarget.style.transform = "translateY(-2px)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = "rgba(0, 136, 204, 0.1)";
+              e.currentTarget.style.transform = "translateY(0)";
+            }}
+          >
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/960px-Telegram_logo.svg.png" alt="Telegram" style={{ width: "20px", height: "20px" }} />
+            Telegram
           </a>
         </div>
       </footer>
