@@ -743,6 +743,36 @@ export default function App() {
         >
           f
         </a>
+        <a
+          href="https://www.instagram.com/zeijindiscountedgame?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Follow on Instagram"
+          style={{
+            width: "60px",
+            height: "60px",
+            borderRadius: "50%",
+            background: "linear-gradient(135deg, #e02c70, #c13584)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontSize: "1.8rem",
+            boxShadow: "0 4px 15px rgba(224, 44, 112, 0.5)",
+            transition: "all 0.3s",
+            textDecoration: "none",
+            cursor: "pointer"
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = "scale(1.15)";
+            e.currentTarget.style.boxShadow = "0 6px 20px rgba(224, 44, 112, 0.8)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = "scale(1)";
+            e.currentTarget.style.boxShadow = "0 4px 15px rgba(224, 44, 112, 0.5)";
+          }}
+        >
+          📷
+        </a>
       </div>
 
       <div className="container">
@@ -1118,7 +1148,7 @@ export default function App() {
           NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖
         </p>
         
-        <div style={{ marginTop: "1.5rem", display: "flex", gap: "1rem", justifyContent: "center", alignItems: "center" }}>
+        <div style={{ marginTop: "1.5rem", display: "flex", gap: "1rem", justifyContent: "center", alignItems: "center", flexWrap: "wrap" }}>
           <a 
             href="https://m.me/ZeijinDiscountedTopUpSalePH" 
             target="_blank" 
@@ -1179,6 +1209,37 @@ export default function App() {
             }}
           >
             f Facebook
+          </a>
+
+          <a 
+            href="https://www.instagram.com/zeijindiscountedgame?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            style={{ 
+              display: "inline-flex", 
+              alignItems: "center", 
+              gap: "0.5rem",
+              padding: "0.6rem 1.2rem",
+              background: "rgba(224, 44, 112, 0.1)",
+              border: "1px solid #e02c70",
+              borderRadius: "6px",
+              color: "#e02c70",
+              textDecoration: "none",
+              fontSize: "0.9rem",
+              fontWeight: "bold",
+              cursor: "pointer",
+              transition: "all 0.3s"
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = "rgba(224, 44, 112, 0.2)";
+              e.currentTarget.style.transform = "translateY(-2px)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = "rgba(224, 44, 112, 0.1)";
+              e.currentTarget.style.transform = "translateY(0)";
+            }}
+          >
+            📷 Instagram
           </a>
         </div>
       </footer>
