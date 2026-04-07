@@ -596,6 +596,13 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState("");
   const [filterCategory, setFilterCategory] = useState("all");
   const [breadcrumb, setBreadcrumb] = useState(["Games"]);
+  const [showWelcomeNotif, setShowWelcomeNotif] = useState(true);
+  const [ignValidatorData, setIgnValidatorData] = useState({
+    ign: "",
+    orderedAmount: "",
+    paymentMethod: "GCash",
+    otherConcern: ""
+  });
 
   const filteredGames = useMemo(() => {
     return gamesData.filter(game => {
@@ -607,6 +614,52 @@ export default function App() {
 
   return (
     <div>
+      {/* Welcome Notification Modal */}
+      {showWelcomeNotif && (
+        <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0, 0, 0, 0.95)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 99999, padding: "1rem" }}>
+          <div style={{ background: "linear-gradient(135deg, rgba(20, 20, 30, 0.98), rgba(40, 10, 10, 0.98))", padding: "2rem", borderRadius: "12px", border: "2px solid #ff3333", maxWidth: "500px", width: "100%", textAlign: "center", boxShadow: "0 0 40px rgba(255, 51, 51, 0.3)" }}>
+            <div style={{ fontSize: "3rem", marginBottom: "1rem" }}>📱</div>
+            <h2 style={{ color: "#ff3333", marginBottom: "1rem", fontSize: "1.8rem", fontWeight: "bold" }}>Welcome to Zeijin!</h2>
+            <p style={{ color: "#d0d0d0", marginBottom: "1.5rem", lineHeight: "1.6", fontSize: "0.95rem" }}>
+              👋 This website is for <strong>checking prices and game details</strong>. 
+            </p>
+            <div style={{ background: "rgba(255, 51, 51, 0.1)", border: "1px solid rgba(255, 51, 51, 0.3)", padding: "1.5rem", borderRadius: "8px", marginBottom: "1.5rem", color: "#FFB3B3" }}>
+              <p style={{ marginBottom: "0.7rem", fontSize: "0.9rem" }}>
+                <strong>💰 Actual Transaction:</strong> All payments and transactions happen through <strong>Messenger, Telegram, or Instagram DM</strong> - NOT on this website.
+              </p>
+              <p style={{ marginBottom: "0", fontSize: "0.9rem" }}>
+                <strong>✓ How it works:</strong> Browse prices → Ask Details on social media → Complete transaction there
+              </p>
+            </div>
+            <button 
+              onClick={() => setShowWelcomeNotif(false)}
+              style={{
+                background: "linear-gradient(135deg, #ff3333, #ff6b6b)",
+                color: "white",
+                border: "none",
+                padding: "0.9rem 2.5rem",
+                borderRadius: "25px",
+                fontSize: "1rem",
+                fontWeight: "bold",
+                cursor: "pointer",
+                transition: "all 0.3s",
+                width: "100%"
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = "scale(1.05)";
+                e.currentTarget.style.boxShadow = "0 6px 20px rgba(255, 51, 51, 0.5)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = "scale(1)";
+                e.currentTarget.style.boxShadow = "none";
+              }}
+            >
+              Got it! Let's Browse →
+            </button>
+          </div>
+        </div>
+      )}
+
       <header>
         <div className="header-container">
           <div className="logo">
@@ -1329,6 +1382,26 @@ export default function App() {
         <p style={{ fontSize: "0.85rem", color: "#707070", marginTop: "0.5rem" }}>
           NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖
         </p>
+
+        {/* Payment Method Trust Badges */}
+        <div style={{ marginTop: "1.5rem", display: "flex", gap: "1rem", justifyContent: "center", alignItems: "center", flexWrap: "wrap" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", padding: "0.5rem 1rem", background: "rgba(0, 132, 255, 0.08)", borderRadius: "6px" }}>
+            <span style={{ fontSize: "1.5rem" }}>💙</span>
+            <span style={{ fontSize: "0.8rem", color: "#a0a0a0", fontWeight: "bold" }}>GCash</span>
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", padding: "0.5rem 1rem", background: "rgba(255, 165, 0, 0.08)", borderRadius: "6px" }}>
+            <span style={{ fontSize: "1.5rem" }}>💛</span>
+            <span style={{ fontSize: "0.8rem", color: "#a0a0a0", fontWeight: "bold" }}>Maya</span>
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", padding: "0.5rem 1rem", background: "rgba(0, 51, 102, 0.08)", borderRadius: "6px" }}>
+            <span style={{ fontSize: "1.5rem" }}>🏦</span>
+            <span style={{ fontSize: "0.8rem", color: "#a0a0a0", fontWeight: "bold" }}>BDO</span>
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", padding: "0.5rem 1rem", background: "rgba(204, 0, 0, 0.08)", borderRadius: "6px" }}>
+            <span style={{ fontSize: "1.5rem" }}>🏧</span>
+            <span style={{ fontSize: "0.8rem", color: "#a0a0a0", fontWeight: "bold" }}>BPI</span>
+          </div>
+        </div>
         
         <div style={{ marginTop: "1.5rem", display: "flex", gap: "1rem", justifyContent: "center", alignItems: "center", flexWrap: "wrap" }}>
           <a 
@@ -1493,14 +1566,14 @@ export default function App() {
         </div>
       </footer>
 
-      {/* Contact Choice Modal */}
+      {/* Contact Choice Modal with IGN Validator */}
       {contactGame && (
         <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0, 0, 0, 0.9)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 9999, padding: window.innerWidth < 480 ? "1rem" : "2rem", paddingTop: window.innerWidth < 480 ? "2rem" : "2rem", paddingBottom: window.innerWidth < 480 ? "2rem" : "2rem", overflowY: "auto" }}>
-          <div style={{ background: "rgba(20, 20, 30, 0.98)", padding: window.innerWidth < 480 ? "1.5rem" : "2rem", borderRadius: "8px", border: "2px solid #ff3333", maxWidth: "500px", width: "100%", maxHeight: window.innerWidth < 480 ? "90vh" : "85vh", overflowY: "auto" }}>
+          <div style={{ background: "rgba(20, 20, 30, 0.98)", padding: window.innerWidth < 480 ? "1.5rem" : "2rem", borderRadius: "8px", border: "2px solid #ff3333", maxWidth: "550px", width: "100%", maxHeight: window.innerWidth < 480 ? "90vh" : "85vh", overflowY: "auto" }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start", marginBottom: "1.5rem" }}>
               <div>
-                <h2 style={{ color: "#ff3333", marginBottom: "0.5rem", fontSize: "1.8rem" }}>Contact Us About {contactGame.title}</h2>
-                <p style={{ color: "#a0a0a0", marginBottom: "0", fontSize: "0.95rem" }}>Choose your preferred platform to chat with us</p>
+                <h2 style={{ color: "#ff3333", marginBottom: "0.3rem", fontSize: "1.6rem" }}>📝 Order Details</h2>
+                <p style={{ color: "#a0a0a0", marginBottom: "0", fontSize: "0.85rem" }}>{contactGame.title}</p>
               </div>
               <button 
                 onClick={() => setContactGame(null)} 
@@ -1517,138 +1590,209 @@ export default function App() {
               </button>
             </div>
 
-            <div style={{ display: "grid", gap: "1rem", marginBottom: "1.5rem" }}>
-              {/* Messenger Option */}
-              <a
-                href={`https://m.me/ZeijinDiscountedTopUpSalePH?text=Hi!%20I'm%20interested%20in%20${encodeURIComponent(contactGame.title)}%20and%20would%20like%20to%20know%20more%20about%20the%20pricing%20and%20packages.`}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  background: "rgba(0, 132, 255, 0.1)",
-                  border: "2px solid #0084ff",
-                  borderRadius: "8px",
-                  padding: "1.5rem",
-                  textDecoration: "none",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "1rem",
-                  transition: "all 0.3s",
-                  cursor: "pointer"
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = "rgba(0, 132, 255, 0.2)";
-                  e.currentTarget.style.transform = "translateY(-2px)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = "rgba(0, 132, 255, 0.1)";
-                  e.currentTarget.style.transform = "translateY(0)";
-                }}
-              >
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Facebook_Messenger_logo_2020.svg/960px-Facebook_Messenger_logo_2020.svg.png" alt="Messenger" style={{ width: "40px", height: "40px" }} />
-                <div style={{ textAlign: "left" }}>
-                  <div style={{ color: "#0084ff", fontWeight: "bold", fontSize: "1.1rem" }}>Messenger</div>
-                  <div style={{ color: "#a0a0a0", fontSize: "0.85rem" }}>Fastest response • Chat in real-time</div>
-                </div>
-              </a>
+            {/* IGN Validator Form */}
+            <div style={{ background: "rgba(255, 51, 51, 0.05)", padding: "1.5rem", borderRadius: "8px", border: "1px solid rgba(255, 51, 51, 0.2)", marginBottom: "1.5rem" }}>
+              <div style={{ marginBottom: "1rem" }}>
+                <label style={{ display: "block", color: "#ff3333", fontSize: "0.9rem", fontWeight: "bold", marginBottom: "0.4rem" }}>
+                  💰 Order Amount (Php)
+                </label>
+                <input
+                  type="text"
+                  placeholder="e.g., 500, 1000"
+                  value={ignValidatorData.orderedAmount}
+                  onChange={(e) => setIgnValidatorData({...ignValidatorData, orderedAmount: e.target.value})}
+                  style={{
+                    width: "100%",
+                    padding: "0.6rem 0.8rem",
+                    border: "1px solid rgba(255, 51, 51, 0.3)",
+                    borderRadius: "6px",
+                    background: "rgba(255, 51, 51, 0.08)",
+                    color: "#e0e0e0",
+                    boxSizing: "border-box",
+                    fontSize: "0.9rem"
+                  }}
+                />
+              </div>
 
-              {/* Telegram Option */}
-              <a
-                href={`https://t.me/Zeijin_Discounted_Top_Up_Sale_PH?text=Hi!%20I'm%20interested%20in%20${encodeURIComponent(contactGame.title)}%20and%20would%20like%20to%20know%20more%20about%20the%20pricing%20and%20packages.`}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  background: "rgba(0, 136, 204, 0.1)",
-                  border: "2px solid #0088cc",
-                  borderRadius: "8px",
-                  padding: "1.5rem",
-                  textDecoration: "none",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "1rem",
-                  transition: "all 0.3s",
-                  cursor: "pointer"
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = "rgba(0, 136, 204, 0.2)";
-                  e.currentTarget.style.transform = "translateY(-2px)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = "rgba(0, 136, 204, 0.1)";
-                  e.currentTarget.style.transform = "translateY(0)";
-                }}
-              >
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/960px-Telegram_logo.svg.png" alt="Telegram" style={{ width: "40px", height: "40px" }} />
-                <div style={{ textAlign: "left" }}>
-                  <div style={{ color: "#0088cc", fontWeight: "bold", fontSize: "1.1rem" }}>Telegram</div>
-                  <div style={{ color: "#a0a0a0", fontSize: "0.85rem" }}>Secure • Fast notifications</div>
-                </div>
-              </a>
+              <div style={{ marginBottom: "1rem" }}>
+                <label style={{ display: "block", color: "#00ff88", fontSize: "0.9rem", fontWeight: "bold", marginBottom: "0.4rem" }}>
+                  👤 In-Game User ID / Username
+                </label>
+                <input
+                  type="text"
+                  placeholder="Your game username or UID"
+                  value={ignValidatorData.ign}
+                  onChange={(e) => setIgnValidatorData({...ignValidatorData, ign: e.target.value})}
+                  style={{
+                    width: "100%",
+                    padding: "0.6rem 0.8rem",
+                    border: "1px solid rgba(0, 255, 136, 0.3)",
+                    borderRadius: "6px",
+                    background: "rgba(0, 255, 136, 0.08)",
+                    color: "#e0e0e0",
+                    boxSizing: "border-box",
+                    fontSize: "0.9rem"
+                  }}
+                />
+              </div>
 
-              {/* Instagram Option */}
-              <a
-                href={`https://www.instagram.com/direct/t/ZeijinDiscountedGames?text=Hi!%20I'm%20interested%20in%20${encodeURIComponent(contactGame.title)}%20and%20would%20like%20to%20know%20more%20about%20the%20pricing%20and%20packages.`}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  background: "rgba(224, 44, 112, 0.1)",
-                  border: "2px solid #e02c70",
-                  borderRadius: "8px",
-                  padding: "1.5rem",
-                  textDecoration: "none",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "1rem",
-                  transition: "all 0.3s",
-                  cursor: "pointer"
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = "rgba(224, 44, 112, 0.2)";
-                  e.currentTarget.style.transform = "translateY(-2px)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = "rgba(224, 44, 112, 0.1)";
-                  e.currentTarget.style.transform = "translateY(0)";
-                }}
-              >
-                <img src="https://upload.wikimedia.org/wikipedia/commons/9/95/Instagram_logo_2022.svg" alt="Instagram" style={{ width: "40px", height: "40px" }} />
-                <div style={{ textAlign: "left" }}>
-                  <div style={{ color: "#e02c70", fontWeight: "bold", fontSize: "1.1rem" }}>Instagram DM</div>
-                  <div style={{ color: "#a0a0a0", fontSize: "0.85rem" }}>Direct message • Follow us too!</div>
-                </div>
-              </a>
+              <div style={{ marginBottom: "1rem" }}>
+                <label style={{ display: "block", color: "#0084ff", fontSize: "0.9rem", fontWeight: "bold", marginBottom: "0.4rem" }}>
+                  💳 Payment Method
+                </label>
+                <select
+                  value={ignValidatorData.paymentMethod}
+                  onChange={(e) => setIgnValidatorData({...ignValidatorData, paymentMethod: e.target.value})}
+                  style={{
+                    width: "100%",
+                    padding: "0.6rem 0.8rem",
+                    border: "1px solid rgba(0, 132, 255, 0.3)",
+                    borderRadius: "6px",
+                    background: "rgba(0, 132, 255, 0.08)",
+                    color: "#e0e0e0",
+                    boxSizing: "border-box",
+                    fontSize: "0.9rem",
+                    cursor: "pointer"
+                  }}
+                >
+                  <option value="GCash" style={{ background: "#1a1a1a", color: "#e0e0e0" }}>💙 GCash</option>
+                  <option value="Maya" style={{ background: "#1a1a1a", color: "#e0e0e0" }}>💛 Maya</option>
+                  <option value="BDO" style={{ background: "#1a1a1a", color: "#e0e0e0" }}>🏦 BDO Bank Transfer</option>
+                  <option value="BPI" style={{ background: "#1a1a1a", color: "#e0e0e0" }}>🏧 BPI Bank Transfer</option>
+                </select>
+              </div>
 
-              {/* Join Broadcast Channel */}
-              <a
-                href="https://m.me/j/AbYX1OEPa00PufWZ/"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  background: "rgba(102, 126, 234, 0.1)",
-                  border: "2px solid #667eea",
-                  borderRadius: "8px",
-                  padding: "1.5rem",
-                  textDecoration: "none",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "1rem",
-                  transition: "all 0.3s",
-                  cursor: "pointer"
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = "rgba(102, 126, 234, 0.2)";
-                  e.currentTarget.style.transform = "translateY(-2px)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = "rgba(102, 126, 234, 0.1)";
-                  e.currentTarget.style.transform = "translateY(0)";
-                }}
-              >
-                <div style={{ fontSize: "2rem", minWidth: "40px", textAlign: "center" }}>📢</div>
-                <div style={{ textAlign: "left" }}>
-                  <div style={{ color: "#667eea", fontWeight: "bold", fontSize: "1.1rem" }}>Broadcast Channel</div>
-                  <div style={{ color: "#a0a0a0", fontSize: "0.85rem" }}>Get promos & updates instantly</div>
-                </div>
-              </a>
+              <div style={{ marginBottom: "0" }}>
+                <label style={{ display: "block", color: "#ffa500", fontSize: "0.9rem", fontWeight: "bold", marginBottom: "0.4rem" }}>
+                  ❓ Other Concerns (Optional)
+                </label>
+                <textarea
+                  placeholder="Any questions or special requests?"
+                  value={ignValidatorData.otherConcern}
+                  onChange={(e) => setIgnValidatorData({...ignValidatorData, otherConcern: e.target.value})}
+                  style={{
+                    width: "100%",
+                    padding: "0.6rem 0.8rem",
+                    border: "1px solid rgba(255, 165, 0, 0.3)",
+                    borderRadius: "6px",
+                    background: "rgba(255, 165, 0, 0.08)",
+                    color: "#e0e0e0",
+                    boxSizing: "border-box",
+                    fontSize: "0.9rem",
+                    minHeight: "70px",
+                    fontFamily: "inherit",
+                    resize: "vertical"
+                  }}
+                />
+              </div>
+            </div>
+
+            {/* Platform Selection */}
+            <div style={{ marginBottom: "1rem" }}>
+              <p style={{ color: "#a0a0a0", fontSize: "0.85rem", marginBottom: "1rem" }}>✓ Your info will be included in the message. Choose a platform:</p>
+              <div style={{ display: "grid", gap: "0.75rem" }}>
+                {/* Messenger Option */}
+                <a
+                  href={`https://m.me/ZeijinDiscountedTopUpSalePH?text=${encodeURIComponent(`Hi! I'm interested in ${contactGame.title} and would like to know more about the pricing and packages.%0A%0AOrder Amount: ${ignValidatorData.orderedAmount}%0AUID: ${ignValidatorData.ign}%0AMode of payment: ${ignValidatorData.paymentMethod}%0A%0AOther concern: ${ignValidatorData.otherConcern || 'None'}`)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    background: "rgba(0, 132, 255, 0.1)",
+                    border: "2px solid #0084ff",
+                    borderRadius: "8px",
+                    padding: "1rem",
+                    textDecoration: "none",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.8rem",
+                    transition: "all 0.3s",
+                    cursor: "pointer"
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = "rgba(0, 132, 255, 0.2)";
+                    e.currentTarget.style.transform = "translateY(-2px)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = "rgba(0, 132, 255, 0.1)";
+                    e.currentTarget.style.transform = "translateY(0)";
+                  }}
+                >
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Facebook_Messenger_logo_2020.svg/960px-Facebook_Messenger_logo_2020.svg.png" alt="Messenger" style={{ width: "32px", height: "32px" }} />
+                  <div style={{ textAlign: "left", flex: 1 }}>
+                    <div style={{ color: "#0084ff", fontWeight: "bold", fontSize: "0.95rem" }}>Messenger</div>
+                    <div style={{ color: "#a0a0a0", fontSize: "0.75rem" }}>Fastest response</div>
+                  </div>
+                  <span style={{ color: "#0084ff", fontWeight: "bold" }}>→</span>
+                </a>
+
+                {/* Telegram Option */}
+                <a
+                  href={`https://t.me/Zeijin_Discounted_Top_Up_Sale_PH?text=${encodeURIComponent(`Hi! I'm interested in ${contactGame.title} and would like to know more about the pricing and packages.%0A%0AOrder Amount: ${ignValidatorData.orderedAmount}%0AUID: ${ignValidatorData.ign}%0AMode of payment: ${ignValidatorData.paymentMethod}%0A%0AOther concern: ${ignValidatorData.otherConcern || 'None'}`)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    background: "rgba(0, 136, 204, 0.1)",
+                    border: "2px solid #0088cc",
+                    borderRadius: "8px",
+                    padding: "1rem",
+                    textDecoration: "none",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.8rem",
+                    transition: "all 0.3s",
+                    cursor: "pointer"
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = "rgba(0, 136, 204, 0.2)";
+                    e.currentTarget.style.transform = "translateY(-2px)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = "rgba(0, 136, 204, 0.1)";
+                    e.currentTarget.style.transform = "translateY(0)";
+                  }}
+                >
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/960px-Telegram_logo.svg.png" alt="Telegram" style={{ width: "32px", height: "32px" }} />
+                  <div style={{ textAlign: "left", flex: 1 }}>
+                    <div style={{ color: "#0088cc", fontWeight: "bold", fontSize: "0.95rem" }}>Telegram</div>
+                    <div style={{ color: "#a0a0a0", fontSize: "0.75rem" }}>Secure & fast</div>
+                  </div>
+                  <span style={{ color: "#0088cc", fontWeight: "bold" }}>→</span>
+                </a>
+
+                {/* Instagram Option */}
+                <a
+                  href={`https://www.instagram.com/direct/t/ZeijinDiscountedGames?text=${encodeURIComponent(`Hi! I'm interested in ${contactGame.title} and would like to know more about the pricing and packages.%0A%0AOrder Amount: ${ignValidatorData.orderedAmount}%0AUID: ${ignValidatorData.ign}%0AMode of payment: ${ignValidatorData.paymentMethod}%0A%0AOther concern: ${ignValidatorData.otherConcern || 'None'}`)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    background: "rgba(224, 44, 112, 0.1)",
+                    border: "2px solid #e02c70",
+                    borderRadius: "8px",
+                    padding: "1rem",
+                    textDecoration: "none",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.8rem",
+                    transition: "all 0.3s",
+                    cursor: "pointer"
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = "rgba(224, 44, 112, 0.2)";
+                    e.currentTarget.style.transform = "translateY(-2px)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = "rgba(224, 44, 112, 0.1)";
+                    e.currentTarget.style.transform = "translateY(0)";
+                  }}
+                >
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/9/95/Instagram_logo_2022.svg" alt="Instagram" style={{ width: "32px", height: "32px" }} />
+                  <div style={{ textAlign: "left", flex: 1 }}>
+                    <div style={{ color: "#e02c70", fontWeight: "bold", fontSize: "0.95rem" }}>Instagram DM</div>
+                    <div style={{ color: "#a0a0a0", fontSize: "0.75rem" }}>Direct message</div>
+                  </div>
+                  <span style={{ color: "#e02c70", fontWeight: "bold" }}>→</span>
+                </a>
+              </div>
             </div>
 
             <button 
@@ -1656,11 +1800,11 @@ export default function App() {
               style={{ 
                 background: "rgba(255, 51, 51, 0.2)", 
                 color: "#ff3333", 
-                padding: "0.75rem 2rem", 
+                padding: "0.65rem 1.5rem", 
                 border: "1px solid #ff3333",
                 borderRadius: "20px", 
                 cursor: "pointer", 
-                fontSize: "1rem",
+                fontSize: "0.95rem",
                 width: "100%",
                 fontWeight: "bold",
                 transition: "all 0.3s"
@@ -1672,7 +1816,7 @@ export default function App() {
                 e.currentTarget.style.background = "rgba(255, 51, 51, 0.2)";
               }}
             >
-              Close
+              Cancel
             </button>
           </div>
         </div>
