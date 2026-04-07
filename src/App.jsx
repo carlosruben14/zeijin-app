@@ -590,6 +590,7 @@ const EventCarousel = ({ events }) => {
 
 export default function App() {
   const [selectedGame, setSelectedGame] = useState(null);
+  const [contactGame, setContactGame] = useState(null);
   const [packageDetailsModal, setPackageDetailsModal] = useState(null);
   const [activeSection, setActiveSection] = useState("games");
   const [searchQuery, setSearchQuery] = useState("");
@@ -950,10 +951,8 @@ export default function App() {
                           >
                             View Details
                           </button>
-                          <a
-                            href={`https://m.me/ZeijinDiscountedTopUpSalePH?text=Hi!%20I'm%20interested%20in%20${encodeURIComponent(game.title)}%20and%20would%20like%20to%20know%20more%20about%20the%20pricing%20and%20packages.`}
-                            target="_blank"
-                            rel="noopener noreferrer"
+                          <button
+                            onClick={() => setContactGame(game)}
                             style={{
                               flex: 1,
                               background: "linear-gradient(135deg, #ff3333, #ff6b6b)",
@@ -968,7 +967,8 @@ export default function App() {
                               cursor: "pointer",
                               display: "flex",
                               alignItems: "center",
-                              justifyContent: "center"
+                              justifyContent: "center",
+                              border: "none"
                             }}
                             onMouseEnter={(e) => {
                               e.currentTarget.style.transform = "scale(1.05)";
@@ -981,7 +981,7 @@ export default function App() {
                           >
                             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Facebook_Messenger_logo_2020.svg/960px-Facebook_Messenger_logo_2020.svg.png" alt="Messenger" style={{ width: "16px", height: "16px", marginRight: "0.3rem" }} />
                             Ask Details
-                          </a>
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -1309,6 +1309,158 @@ export default function App() {
           </a>
         </div>
       </footer>
+
+      {/* Contact Choice Modal */}
+      {contactGame && (
+        <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0, 0, 0, 0.9)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 9999, paddingTop: "2rem", paddingBottom: "2rem" }}>
+          <div style={{ background: "rgba(20, 20, 30, 0.98)", padding: "2rem", borderRadius: "8px", border: "2px solid #ff3333", maxWidth: "500px", width: "90%" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start", marginBottom: "1.5rem" }}>
+              <div>
+                <h2 style={{ color: "#ff3333", marginBottom: "0.5rem", fontSize: "1.8rem" }}>Contact Us About {contactGame.title}</h2>
+                <p style={{ color: "#a0a0a0", marginBottom: "0", fontSize: "0.95rem" }}>Choose your preferred platform to chat with us</p>
+              </div>
+              <button 
+                onClick={() => setContactGame(null)} 
+                style={{ 
+                  background: "transparent", 
+                  border: "none", 
+                  color: "#ff3333", 
+                  fontSize: "1.5rem", 
+                  cursor: "pointer",
+                  padding: "0.5rem"
+                }}
+              >
+                ✕
+              </button>
+            </div>
+
+            <div style={{ display: "grid", gap: "1rem", marginBottom: "1.5rem" }}>
+              {/* Messenger Option */}
+              <a
+                href={`https://m.me/ZeijinDiscountedTopUpSalePH?text=Hi!%20I'm%20interested%20in%20${encodeURIComponent(contactGame.title)}%20and%20would%20like%20to%20know%20more%20about%20the%20pricing%20and%20packages.`}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  background: "rgba(0, 132, 255, 0.1)",
+                  border: "2px solid #0084ff",
+                  borderRadius: "8px",
+                  padding: "1.5rem",
+                  textDecoration: "none",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "1rem",
+                  transition: "all 0.3s",
+                  cursor: "pointer"
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = "rgba(0, 132, 255, 0.2)";
+                  e.currentTarget.style.transform = "translateY(-2px)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = "rgba(0, 132, 255, 0.1)";
+                  e.currentTarget.style.transform = "translateY(0)";
+                }}
+              >
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Facebook_Messenger_logo_2020.svg/960px-Facebook_Messenger_logo_2020.svg.png" alt="Messenger" style={{ width: "40px", height: "40px" }} />
+                <div style={{ textAlign: "left" }}>
+                  <div style={{ color: "#0084ff", fontWeight: "bold", fontSize: "1.1rem" }}>Messenger</div>
+                  <div style={{ color: "#a0a0a0", fontSize: "0.85rem" }}>Fastest response • Chat in real-time</div>
+                </div>
+              </a>
+
+              {/* Telegram Option */}
+              <a
+                href={`https://t.me/Zeijin_Discounted_Top_Up_Sale_PH?text=Hi!%20I'm%20interested%20in%20${encodeURIComponent(contactGame.title)}%20and%20would%20like%20to%20know%20more%20about%20the%20pricing%20and%20packages.`}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  background: "rgba(0, 136, 204, 0.1)",
+                  border: "2px solid #0088cc",
+                  borderRadius: "8px",
+                  padding: "1.5rem",
+                  textDecoration: "none",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "1rem",
+                  transition: "all 0.3s",
+                  cursor: "pointer"
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = "rgba(0, 136, 204, 0.2)";
+                  e.currentTarget.style.transform = "translateY(-2px)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = "rgba(0, 136, 204, 0.1)";
+                  e.currentTarget.style.transform = "translateY(0)";
+                }}
+              >
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/960px-Telegram_logo.svg.png" alt="Telegram" style={{ width: "40px", height: "40px" }} />
+                <div style={{ textAlign: "left" }}>
+                  <div style={{ color: "#0088cc", fontWeight: "bold", fontSize: "1.1rem" }}>Telegram</div>
+                  <div style={{ color: "#a0a0a0", fontSize: "0.85rem" }}>Secure • Fast notifications</div>
+                </div>
+              </a>
+
+              {/* Instagram Option */}
+              <a
+                href={`https://www.instagram.com/direct/t/ZeijinDiscountedGames?text=Hi!%20I'm%20interested%20in%20${encodeURIComponent(contactGame.title)}%20and%20would%20like%20to%20know%20more%20about%20the%20pricing%20and%20packages.`}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  background: "rgba(224, 44, 112, 0.1)",
+                  border: "2px solid #e02c70",
+                  borderRadius: "8px",
+                  padding: "1.5rem",
+                  textDecoration: "none",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "1rem",
+                  transition: "all 0.3s",
+                  cursor: "pointer"
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = "rgba(224, 44, 112, 0.2)";
+                  e.currentTarget.style.transform = "translateY(-2px)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = "rgba(224, 44, 112, 0.1)";
+                  e.currentTarget.style.transform = "translateY(0)";
+                }}
+              >
+                <img src="https://upload.wikimedia.org/wikipedia/commons/9/95/Instagram_logo_2022.svg" alt="Instagram" style={{ width: "40px", height: "40px" }} />
+                <div style={{ textAlign: "left" }}>
+                  <div style={{ color: "#e02c70", fontWeight: "bold", fontSize: "1.1rem" }}>Instagram DM</div>
+                  <div style={{ color: "#a0a0a0", fontSize: "0.85rem" }}>Direct message • Follow us too!</div>
+                </div>
+              </a>
+            </div>
+
+            <button 
+              onClick={() => setContactGame(null)} 
+              style={{ 
+                background: "rgba(255, 51, 51, 0.2)", 
+                color: "#ff3333", 
+                padding: "0.75rem 2rem", 
+                border: "1px solid #ff3333",
+                borderRadius: "20px", 
+                cursor: "pointer", 
+                fontSize: "1rem",
+                width: "100%",
+                fontWeight: "bold",
+                transition: "all 0.3s"
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "rgba(255, 51, 51, 0.3)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "rgba(255, 51, 51, 0.2)";
+              }}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
 
       {selectedGame && (
         <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0, 0, 0, 0.9)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 9999, overflowY: "auto", paddingTop: "2rem", paddingBottom: "2rem" }}>
