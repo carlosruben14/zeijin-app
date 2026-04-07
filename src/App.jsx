@@ -232,7 +232,10 @@ export default function App() {
     <div>
       <header>
         <div className="header-container">
-          <div className="logo">⚡ Zeijin Discounted</div>
+          <div className="logo">
+            <img src="https://scontent.fcrk4-1.fna.fbcdn.net/v/t39.30808-6/576637259_845842861300555_6891998938768508313_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=1d70fc&_nc_eui2=AeFkP5xer6qX0q7X-jf3NdiRG_hY1zCxBWUb-FjXMLEFZfdc9qTeS5RtIYZcZXkb5eYwD_yQYr8aCe4AMHgqElhP&_nc_ohc=5zK81HKCUR4Q7kNvwEcmIx7&_nc_oc=AdoqH0RO6oL50Kwm6NmPRRbcOer1gD5sGpgHpb3LCpOIrh_G5jrqtEl8ou1SNp2BGwg&_nc_zt=23&_nc_ht=scontent.fcrk4-1.fna&_nc_gid=seqTYoRbm9ea3xejls2kDA&_nc_ss=7a3a8&oh=00_Af3tL3QnLN2ymUM3Pyd6E3XMed5F0Ggw85vXjR88KEF6-A&oe=69DA482B" alt="Zeijin Discounted" style={{ height: "50px", width: "auto" }} />
+            <span>Zeijin Discounted</span>
+          </div>
           <nav>
             <a href="#" className={`nav-link ${activeSection === "games" ? "active" : ""}`} onClick={(e) => { e.preventDefault(); setActiveSection("games"); }}>Games</a>
             <a href="#" className={`nav-link ${activeSection === "events" ? "active" : ""}`} onClick={(e) => { e.preventDefault(); setActiveSection("events"); }}>Events</a>

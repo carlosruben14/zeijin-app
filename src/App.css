@@ -28,6 +28,17 @@ header {
   gap: 0.5rem;
 }
 
+.logo img {
+  height: 50px;
+  width: auto;
+  display: block;
+}
+
+.logo span {
+  display: flex;
+  align-items: center;
+}
+
 nav {
   display: flex;
   gap: 2rem;
