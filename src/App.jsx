@@ -634,7 +634,20 @@ export default function App() {
       <section className="hero">
         <h1>Browse • Chat • Get Your Currency</h1>
         <p>Discover the latest discounted game currency packages. Best prices for Philippine servers!</p>
-        <div style={{ marginTop: "1.5rem", display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap", fontSize: "0.9rem" }}>
+        
+        {/* Credibility Badges */}
+        <div style={{ marginTop: "1.5rem", display: "flex", gap: "1.5rem", justifyContent: "center", flexWrap: "wrap", fontSize: window.innerWidth < 480 ? "0.8rem" : "0.9rem" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", background: "rgba(0, 132, 255, 0.1)", padding: "0.5rem 1rem", borderRadius: "20px", border: "1px solid rgba(0, 132, 255, 0.3)" }}>
+            <span style={{ fontSize: "1.2rem" }}>✓</span>
+            <span style={{ color: "#0084ff", fontWeight: "bold" }}>Facebook Verified</span>
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", background: "rgba(255, 165, 0, 0.1)", padding: "0.5rem 1rem", borderRadius: "20px", border: "1px solid rgba(255, 165, 0, 0.3)" }}>
+            <span style={{ fontSize: "1.2rem" }}>📋</span>
+            <span style={{ color: "#ffa500", fontWeight: "bold" }}>DTI Registered</span>
+          </div>
+        </div>
+
+        <div style={{ marginTop: "0.75rem", display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap", fontSize: "0.9rem" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", color: "#00ff88" }}>
             <span>✓</span> Trusted by PH and Global Players
           </div>
@@ -803,6 +816,37 @@ export default function App() {
           }}
         >
           <img src="https://upload.wikimedia.org/wikipedia/commons/9/95/Instagram_logo_2022.svg" alt="Instagram" style={{ width: window.innerWidth < 480 ? "28px" : "32px", height: window.innerWidth < 480 ? "28px" : "32px" }} />
+        </a>
+        <a
+          href="https://m.me/j/AbYX1OEPa00PufWZ/"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Join Broadcast Channel"
+          style={{
+            width: window.innerWidth < 480 ? "45px" : "60px",
+            height: window.innerWidth < 480 ? "45px" : "60px",
+            borderRadius: "50%",
+            background: "linear-gradient(135deg, #667eea, #764ba2)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            boxShadow: "0 4px 15px rgba(102, 126, 234, 0.5)",
+            transition: "all 0.3s",
+            textDecoration: "none",
+            cursor: "pointer",
+            fontSize: window.innerWidth < 480 ? "1.3rem" : "1.5rem",
+            padding: "8px"
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = "scale(1.15)";
+            e.currentTarget.style.boxShadow = "0 6px 20px rgba(102, 126, 234, 0.8)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = "scale(1)";
+            e.currentTarget.style.boxShadow = "0 4px 15px rgba(102, 126, 234, 0.5)";
+          }}
+        >
+          📢
         </a>
       </div>
 
@@ -991,6 +1035,113 @@ export default function App() {
             )}
           </section>
         )}
+
+        {/* Customer Feedback & Credibility Section */}
+        <section className="container" style={{ marginTop: "3rem" }}>
+          <h2 className="section-title">⭐ Customer Feedback & Trust</h2>
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: window.innerWidth < 768 ? "1fr" : "repeat(2, 1fr)",
+            gap: "2rem",
+            marginBottom: "2rem"
+          }}>
+            {/* See All Reviews Card */}
+            <a
+              href="https://www.facebook.com/share/p/1CSNu52eph/"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                background: "linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(102, 126, 234, 0.1))",
+                border: "2px solid rgba(0, 255, 136, 0.3)",
+                borderRadius: "12px",
+                padding: "2rem",
+                textDecoration: "none",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "1rem",
+                transition: "all 0.3s",
+                cursor: "pointer",
+                minHeight: "200px"
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "linear-gradient(135deg, rgba(0, 255, 136, 0.2), rgba(102, 126, 234, 0.2))";
+                e.currentTarget.style.borderColor = "#00ff88";
+                e.currentTarget.style.transform = "translateY(-4px)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(102, 126, 234, 0.1))";
+                e.currentTarget.style.borderColor = "rgba(0, 255, 136, 0.3)";
+                e.currentTarget.style.transform = "translateY(0)";
+              }}
+            >
+              <div style={{ fontSize: "3rem" }}>⭐⭐⭐⭐⭐</div>
+              <div>
+                <h3 style={{ color: "#00ff88", marginBottom: "0.5rem", fontSize: "1.3rem", fontWeight: "bold" }}>See All Customer Reviews</h3>
+                <p style={{ color: "#a0a0a0", fontSize: "0.95rem" }}>Real feedback from thousands of satisfied Filipino gamers on Facebook</p>
+              </div>
+              <button style={{
+                background: "rgba(0, 255, 136, 0.2)",
+                border: "1px solid #00ff88",
+                color: "#00ff88",
+                padding: "0.6rem 1.5rem",
+                borderRadius: "20px",
+                fontWeight: "bold",
+                cursor: "pointer",
+                transition: "all 0.2s",
+                marginTop: "0.5rem"
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "rgba(0, 255, 136, 0.3)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "rgba(0, 255, 136, 0.2)";
+              }}>
+                View on Facebook →
+              </button>
+            </a>
+
+            {/* Trust & Verification Card */}
+            <div style={{
+              background: "linear-gradient(135deg, rgba(255, 51, 51, 0.08), rgba(255, 165, 0, 0.08))",
+              border: "2px solid rgba(255, 51, 51, 0.2)",
+              borderRadius: "12px",
+              padding: "2rem",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              gap: "1.5rem"
+            }}>
+              <div>
+                <h3 style={{ color: "#ff3333", marginBottom: "1rem", fontSize: "1.2rem", fontWeight: "bold" }}>✓ Verified & Registered</h3>
+                <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+                    <div style={{ fontSize: "1.8rem", minWidth: "40px" }}>✓</div>
+                    <div>
+                      <div style={{ color: "#0084ff", fontWeight: "bold", marginBottom: "0.2rem" }}>Facebook Verified Business</div>
+                      <div style={{ color: "#a0a0a0", fontSize: "0.9rem" }}>Officially verified on Meta platforms</div>
+                    </div>
+                  </div>
+                  <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+                    <div style={{ fontSize: "1.8rem", minWidth: "40px" }}>📋</div>
+                    <div>
+                      <div style={{ color: "#ffa500", fontWeight: "bold", marginBottom: "0.2rem" }}>DTI Registered</div>
+                      <div style={{ color: "#a0a0a0", fontSize: "0.9rem" }}>Legitimate business registered with PH Department of Trade & Industry</div>
+                    </div>
+                  </div>
+                  <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+                    <div style={{ fontSize: "1.8rem", minWidth: "40px" }}>🔒</div>
+                    <div>
+                      <div style={{ color: "#00ff88", fontWeight: "bold", marginBottom: "0.2rem" }}>100% Safe & Secure</div>
+                      <div style={{ color: "#a0a0a0", fontSize: "0.9rem" }}>Trusted by thousands of PH and global players</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* Payment Methods & Info Section */}
         <section className="container" style={{ marginTop: "3rem" }}>
@@ -1307,6 +1458,38 @@ export default function App() {
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/960px-Telegram_logo.svg.png" alt="Telegram" style={{ width: "20px", height: "20px" }} />
             Telegram
           </a>
+
+          <a 
+            href="https://m.me/j/AbYX1OEPa00PufWZ/" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            style={{ 
+              display: "inline-flex", 
+              alignItems: "center", 
+              gap: "0.5rem",
+              padding: "0.6rem 1.2rem",
+              background: "rgba(102, 126, 234, 0.1)",
+              border: "1px solid #667eea",
+              borderRadius: "6px",
+              color: "#667eea",
+              textDecoration: "none",
+              fontSize: "0.9rem",
+              fontWeight: "bold",
+              cursor: "pointer",
+              transition: "all 0.3s"
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = "rgba(102, 126, 234, 0.2)";
+              e.currentTarget.style.transform = "translateY(-2px)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = "rgba(102, 126, 234, 0.1)";
+              e.currentTarget.style.transform = "translateY(0)";
+            }}
+          >
+            <span style={{ fontSize: "1rem" }}>📢</span>
+            Broadcast Channel
+          </a>
         </div>
       </footer>
 
@@ -1431,6 +1614,39 @@ export default function App() {
                 <div style={{ textAlign: "left" }}>
                   <div style={{ color: "#e02c70", fontWeight: "bold", fontSize: "1.1rem" }}>Instagram DM</div>
                   <div style={{ color: "#a0a0a0", fontSize: "0.85rem" }}>Direct message • Follow us too!</div>
+                </div>
+              </a>
+
+              {/* Join Broadcast Channel */}
+              <a
+                href="https://m.me/j/AbYX1OEPa00PufWZ/"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  background: "rgba(102, 126, 234, 0.1)",
+                  border: "2px solid #667eea",
+                  borderRadius: "8px",
+                  padding: "1.5rem",
+                  textDecoration: "none",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "1rem",
+                  transition: "all 0.3s",
+                  cursor: "pointer"
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = "rgba(102, 126, 234, 0.2)";
+                  e.currentTarget.style.transform = "translateY(-2px)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = "rgba(102, 126, 234, 0.1)";
+                  e.currentTarget.style.transform = "translateY(0)";
+                }}
+              >
+                <div style={{ fontSize: "2rem", minWidth: "40px", textAlign: "center" }}>📢</div>
+                <div style={{ textAlign: "left" }}>
+                  <div style={{ color: "#667eea", fontWeight: "bold", fontSize: "1.1rem" }}>Broadcast Channel</div>
+                  <div style={{ color: "#a0a0a0", fontSize: "0.85rem" }}>Get promos & updates instantly</div>
                 </div>
               </a>
             </div>
