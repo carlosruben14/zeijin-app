@@ -704,9 +704,7 @@ export default function App() {
           <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", color: "#00ff88" }}>
             <span>✓</span> Trusted by PH and Global Players
           </div>
-          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", color: "#00ff88" }}>
-            <span>✓</span> Instant Delivery
-          </div>
+
         </div>
         <a 
           href="https://m.me/ZeijinDiscountedTopUpSalePH" 
@@ -1209,22 +1207,22 @@ export default function App() {
             <p style={{ color: "#d0d0d0", marginBottom: "1.5rem", fontSize: "1.1rem", fontWeight: "bold" }}>We accept the following payment methods via Messenger:</p>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "1rem", marginBottom: "1.5rem" }}>
               <div style={{ background: "rgba(0, 132, 255, 0.1)", padding: "1.5rem", borderRadius: "8px", border: "1px solid #0084ff", textAlign: "center" }}>
-                <div style={{ fontSize: "2rem", marginBottom: "0.5rem" }}>💙</div>
+                <img src="https://static.vecteezy.com/system/resources/previews/067/065/665/non_2x/gcash-logo-square-rounded-gcash-logo-free-download-gcash-logo-free-png.png" alt="GCash" style={{ width: "48px", height: "48px", marginBottom: "0.5rem" }} />
                 <div style={{ color: "#0084ff", fontWeight: "bold", fontSize: "1.1rem", marginBottom: "0.75rem" }}>GCash</div>
                 <div style={{ fontSize: "0.85rem", color: "#a0a0a0" }}>⚡ Fastest delivery (5-10 mins)</div>
               </div>
               <div style={{ background: "rgba(255, 165, 0, 0.1)", padding: "1.5rem", borderRadius: "8px", border: "1px solid #ffa500", textAlign: "center" }}>
-                <div style={{ fontSize: "2rem", marginBottom: "0.5rem" }}>💛</div>
+                <img src="https://images.crunchbase.com/image/upload/c_pad,h_256,w_256,f_auto,q_auto:eco,dpr_1/amx0mdduyvb5lzhn5mtr?ik-sanitizeSvg=true" alt="PayMaya" style={{ width: "48px", height: "48px", marginBottom: "0.5rem" }} />
                 <div style={{ color: "#ffa500", fontWeight: "bold", fontSize: "1.1rem", marginBottom: "0.75rem" }}>PayMaya</div>
                 <div style={{ fontSize: "0.85rem", color: "#a0a0a0" }}>⚡ Fast delivery (10-15 mins)</div>
               </div>
               <div style={{ background: "rgba(0, 51, 102, 0.1)", padding: "1.5rem", borderRadius: "8px", border: "1px solid #003366", textAlign: "center" }}>
-                <div style={{ fontSize: "2rem", marginBottom: "0.5rem" }}>🏦</div>
+                <img src="https://images.crunchbase.com/image/upload/c_pad,h_256,w_256,f_auto,q_auto:eco,dpr_1/amx0mdduyvb5lzhn5mtr?ik-sanitizeSvg=true" alt="BDO" style={{ width: "48px", height: "48px", marginBottom: "0.5rem" }} />
                 <div style={{ color: "#4a90e2", fontWeight: "bold", fontSize: "1.1rem", marginBottom: "0.75rem" }}>BDO Bank Transfer</div>
                 <div style={{ fontSize: "0.85rem", color: "#a0a0a0" }}>⏱ Standard delivery (15-30 mins)</div>
               </div>
               <div style={{ background: "rgba(204, 0, 0, 0.1)", padding: "1.5rem", borderRadius: "8px", border: "1px solid #cc0000", textAlign: "center" }}>
-                <div style={{ fontSize: "2rem", marginBottom: "0.5rem" }}>🏧</div>
+                <img src="https://images.crunchbase.com/image/upload/c_pad,h_256,w_256,f_auto,q_auto:eco,dpr_1/amx0mdduyvb5lzhn5mtr?ik-sanitizeSvg=true" alt="BPI" style={{ width: "48px", height: "48px", marginBottom: "0.5rem" }} />
                 <div style={{ color: "#cc0000", fontWeight: "bold", fontSize: "1.1rem", marginBottom: "0.75rem" }}>BPI Bank Transfer</div>
                 <div style={{ fontSize: "0.85rem", color: "#a0a0a0" }}>⏱ Standard delivery (15-30 mins)</div>
               </div>
