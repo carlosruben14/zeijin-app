@@ -1693,7 +1693,7 @@ export default function App() {
               <div style={{ display: "grid", gap: "0.75rem" }}>
                 {/* Messenger Option */}
                 <a
-                  href={`https://m.me/ZeijinDiscountedTopUpSalePH?text=${encodeURIComponent(`Hi! I'm interested in ${contactGame.title} and would like to know more about the pricing and packages.%0A%0AOrder Amount: ${ignValidatorData.orderedAmount}%0AUID: ${ignValidatorData.ign}%0AMode of payment: ${ignValidatorData.paymentMethod}%0A%0AOther concern: ${ignValidatorData.otherConcern || 'None'}`)}`}
+                  href={`https://m.me/ZeijinDiscountedTopUpSalePH?text=${encodeURIComponent(`Hi! I'm interested in ${contactGame.title} and would like to know more about the pricing and packages.\n\nOrder Amount: ${ignValidatorData.orderedAmount}\nUID: ${ignValidatorData.ign}\nMode of payment: ${ignValidatorData.paymentMethod}\n\nOther concern: ${ignValidatorData.otherConcern || 'None'}`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{
@@ -1727,7 +1727,7 @@ export default function App() {
 
                 {/* Telegram Option */}
                 <a
-                  href={`https://t.me/Zeijin_Discounted_Top_Up_Sale_PH?text=${encodeURIComponent(`Hi! I'm interested in ${contactGame.title} and would like to know more about the pricing and packages.%0A%0AOrder Amount: ${ignValidatorData.orderedAmount}%0AUID: ${ignValidatorData.ign}%0AMode of payment: ${ignValidatorData.paymentMethod}%0A%0AOther concern: ${ignValidatorData.otherConcern || 'None'}`)}`}
+                  href={`https://t.me/Zeijin_Discounted_Top_Up_Sale_PH?text=${encodeURIComponent(`Hi! I'm interested in ${contactGame.title} and would like to know more about the pricing and packages.\n\nOrder Amount: ${ignValidatorData.orderedAmount}\nUID: ${ignValidatorData.ign}\nMode of payment: ${ignValidatorData.paymentMethod}\n\nOther concern: ${ignValidatorData.otherConcern || 'None'}`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{
@@ -1761,7 +1761,7 @@ export default function App() {
 
                 {/* Instagram Option */}
                 <a
-                  href={`https://www.instagram.com/direct/t/ZeijinDiscountedGames?text=${encodeURIComponent(`Hi! I'm interested in ${contactGame.title} and would like to know more about the pricing and packages.%0A%0AOrder Amount: ${ignValidatorData.orderedAmount}%0AUID: ${ignValidatorData.ign}%0AMode of payment: ${ignValidatorData.paymentMethod}%0A%0AOther concern: ${ignValidatorData.otherConcern || 'None'}`)}`}
+                  href={`https://www.instagram.com/direct/t/ZeijinDiscountedGames?text=${encodeURIComponent(`Hi! I'm interested in ${contactGame.title} and would like to know more about the pricing and packages.\n\nOrder Amount: ${ignValidatorData.orderedAmount}\nUID: ${ignValidatorData.ign}\nMode of payment: ${ignValidatorData.paymentMethod}\n\nOther concern: ${ignValidatorData.otherConcern || 'None'}`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{
