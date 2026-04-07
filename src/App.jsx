@@ -590,9 +590,11 @@ const EventCarousel = ({ events }) => {
 
 export default function App() {
   const [selectedGame, setSelectedGame] = useState(null);
+  const [packageDetailsModal, setPackageDetailsModal] = useState(null);
   const [activeSection, setActiveSection] = useState("games");
   const [searchQuery, setSearchQuery] = useState("");
   const [filterCategory, setFilterCategory] = useState("all");
+  const [breadcrumb, setBreadcrumb] = useState(["Games"]);
 
   const filteredGames = useMemo(() => {
     return gamesData.filter(game => {
@@ -616,18 +618,132 @@ export default function App() {
         </div>
       </header>
 
+      {/* Breadcrumb Navigation */}
+      <div style={{ padding: "1rem", maxWidth: "1200px", margin: "0 auto", paddingTop: "0.5rem" }}>
+        <nav style={{ fontSize: "0.9rem", color: "#a0a0a0" }}>
+          {breadcrumb.map((item, index) => (
+            <span key={index}>
+              <span style={{ color: "#ff3333", cursor: "pointer" }}>{item}</span>
+              {index < breadcrumb.length - 1 && <span style={{ margin: "0 0.5rem" }}>/</span>}
+            </span>
+          ))}
+        </nav>
+      </div>
+
       <section className="hero">
-        <h1>Game Currency Showcase</h1>
+        <h1>Browse • Chat • Get Your Currency</h1>
         <p>Discover the latest discounted game currency packages. Best prices for Philippine servers!</p>
         <div style={{ marginTop: "1.5rem", display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap", fontSize: "0.9rem" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", color: "#00ff88" }}>
             <span>✓</span> Trusted by PH and Global Players
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", color: "#00ff88" }}>
-            <span>✓</span> Low Prices
+            <span>✓</span> Instant Delivery
           </div>
         </div>
+        <a 
+          href="https://m.me/ZeijinDiscountedTopUpSalePH" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          style={{
+            marginTop: "1.5rem",
+            display: "inline-block",
+            background: "linear-gradient(135deg, #ff3333, #ff6b6b)",
+            color: "white",
+            padding: "0.8rem 2rem",
+            borderRadius: "25px",
+            textDecoration: "none",
+            fontWeight: "bold",
+            fontSize: "1.1rem",
+            boxShadow: "0 4px 15px rgba(255, 51, 51, 0.4)",
+            transition: "all 0.3s",
+            cursor: "pointer"
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = "scale(1.05)";
+            e.currentTarget.style.boxShadow = "0 6px 20px rgba(255, 51, 51, 0.6)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = "scale(1)";
+            e.currentTarget.style.boxShadow = "0 4px 15px rgba(255, 51, 51, 0.4)";
+          }}
+        >
+          💬 Message Us on Messenger
+        </a>
       </section>
+
+      {/* Floating Contact Button */}
+      <div style={{
+        position: "fixed",
+        bottom: "2rem",
+        right: "2rem",
+        zIndex: 8888,
+        display: "flex",
+        gap: "1rem",
+        flexDirection: "column",
+        alignItems: "flex-end"
+      }}>
+        <a
+          href="https://m.me/ZeijinDiscountedTopUpSalePH"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Chat on Messenger"
+          style={{
+            width: "60px",
+            height: "60px",
+            borderRadius: "50%",
+            background: "linear-gradient(135deg, #0084ff, #0066ff)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontSize: "1.8rem",
+            boxShadow: "0 4px 15px rgba(0, 132, 255, 0.5)",
+            transition: "all 0.3s",
+            textDecoration: "none",
+            cursor: "pointer"
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = "scale(1.15)";
+            e.currentTarget.style.boxShadow = "0 6px 20px rgba(0, 132, 255, 0.8)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = "scale(1)";
+            e.currentTarget.style.boxShadow = "0 4px 15px rgba(0, 132, 255, 0.5)";
+          }}
+        >
+          💬
+        </a>
+        <a
+          href="https://www.facebook.com/ZeijinDiscountedTopUpSalePH"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Visit Facebook"
+          style={{
+            width: "60px",
+            height: "60px",
+            borderRadius: "50%",
+            background: "linear-gradient(135deg, #1877f2, #0a66c2)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontSize: "1.8rem",
+            boxShadow: "0 4px 15px rgba(24, 119, 242, 0.5)",
+            transition: "all 0.3s",
+            textDecoration: "none",
+            cursor: "pointer"
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = "scale(1.15)";
+            e.currentTarget.style.boxShadow = "0 6px 20px rgba(24, 119, 242, 0.8)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = "scale(1)";
+            e.currentTarget.style.boxShadow = "0 4px 15px rgba(24, 119, 242, 0.5)";
+          }}
+        >
+          f
+        </a>
+      </div>
 
       <div className="container">
         <div style={{ marginBottom: "2rem" }}>
@@ -689,9 +805,28 @@ export default function App() {
                   
                   const discount = discountMap[game.id] || "5%";
                   
+                  const isPopular = game.pricing.length >= 10;
                   return (
-                    <div key={game.id} className={`game-card ${game.category}`} onClick={() => setSelectedGame(game)} style={{ position: "relative" }}>
+                    <div key={game.id} className={`game-card ${game.category}`} style={{ position: "relative" }}>
                       <div className="game-image" style={{ backgroundImage: `url(${game.image})`, backgroundSize: "cover", backgroundPosition: "center" }}>
+                        {isPopular && (
+                          <div style={{
+                            position: "absolute",
+                            top: "10px",
+                            left: "10px",
+                            background: "linear-gradient(135deg, #ffa500, #ff6347)",
+                            color: "white",
+                            padding: "0.4rem 0.8rem",
+                            borderRadius: "8px",
+                            fontWeight: "bold",
+                            fontSize: "0.75rem",
+                            boxShadow: "0 4px 12px rgba(255, 165, 0, 0.4)",
+                            zIndex: 10,
+                            textTransform: "uppercase"
+                          }}>
+                            🔥 Popular
+                          </div>
+                        )}
                         {discount && (
                           <div style={{
                             position: "absolute",
@@ -713,7 +848,7 @@ export default function App() {
                       <div className="game-info">
                         <div className="game-title">{game.title}</div>
                         <div className="game-description">{game.description}</div>
-                        <div style={{ marginTop: "auto", display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%" }}>
+                        <div style={{ marginTop: "auto", display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%", marginBottom: "1rem" }}>
                           <div style={{ color: "#00ff88", fontSize: "0.9rem" }}>
                             {game.pricing.length} packages available
                           </div>
@@ -727,6 +862,65 @@ export default function App() {
                           }}>
                             {game.category.toUpperCase()}
                           </div>
+                        </div>
+                        {/* Contact CTAs */}
+                        <div style={{ display: "flex", gap: "0.5rem", width: "100%" }}>
+                          <button
+                            onClick={() => setSelectedGame(game)}
+                            style={{
+                              flex: 1,
+                              background: "rgba(255, 51, 51, 0.2)",
+                              border: "1px solid rgba(255, 51, 51, 0.5)",
+                              color: "#ff3333",
+                              padding: "0.5rem",
+                              borderRadius: "6px",
+                              cursor: "pointer",
+                              fontSize: "0.85rem",
+                              fontWeight: "bold",
+                              transition: "all 0.2s"
+                            }}
+                            onMouseEnter={(e) => {
+                              e.currentTarget.style.background = "rgba(255, 51, 51, 0.3)";
+                              e.currentTarget.style.borderColor = "#ff3333";
+                            }}
+                            onMouseLeave={(e) => {
+                              e.currentTarget.style.background = "rgba(255, 51, 51, 0.2)";
+                              e.currentTarget.style.borderColor = "rgba(255, 51, 51, 0.5)";
+                            }}
+                          >
+                            View Details
+                          </button>
+                          <a
+                            href="https://m.me/ZeijinDiscountedTopUpSalePH"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{
+                              flex: 1,
+                              background: "linear-gradient(135deg, #ff3333, #ff6b6b)",
+                              color: "white",
+                              padding: "0.5rem",
+                              borderRadius: "6px",
+                              textDecoration: "none",
+                              fontSize: "0.85rem",
+                              fontWeight: "bold",
+                              textAlign: "center",
+                              transition: "all 0.2s",
+                              cursor: "pointer",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center"
+                            }}
+                            onMouseEnter={(e) => {
+                              e.currentTarget.style.transform = "scale(1.05)";
+                              e.currentTarget.style.boxShadow = "0 4px 12px rgba(255, 51, 51, 0.4)";
+                            }}
+                            onMouseLeave={(e) => {
+                              e.currentTarget.style.transform = "scale(1)";
+                              e.currentTarget.style.boxShadow = "none";
+                            }}
+                          >
+                            💬 Ask Details
+                          </a>
                         </div>
                       </div>
                     </div>
@@ -747,28 +941,37 @@ export default function App() {
             padding: "2rem",
             marginBottom: "2rem"
           }}>
-            <p style={{ color: "#d0d0d0", marginBottom: "1.5rem", fontSize: "1.1rem", fontWeight: "bold" }}>We accept the following payment methods:</p>
+            <p style={{ color: "#d0d0d0", marginBottom: "1.5rem", fontSize: "1.1rem", fontWeight: "bold" }}>We accept the following payment methods via Messenger:</p>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "1rem", marginBottom: "1.5rem" }}>
-              <div style={{ background: "rgba(0, 132, 255, 0.1)", padding: "1rem", borderRadius: "8px", border: "1px solid #0084ff", textAlign: "center" }}>
-                <div style={{ fontSize: "1.5rem", marginBottom: "0.5rem" }}>💙</div>
-                <div style={{ color: "#0084ff", fontWeight: "bold" }}>GCash</div>
+              <div style={{ background: "rgba(0, 132, 255, 0.1)", padding: "1.5rem", borderRadius: "8px", border: "1px solid #0084ff", textAlign: "center" }}>
+                <div style={{ fontSize: "2rem", marginBottom: "0.5rem" }}>💙</div>
+                <div style={{ color: "#0084ff", fontWeight: "bold", fontSize: "1.1rem", marginBottom: "0.75rem" }}>GCash</div>
+                <div style={{ fontSize: "0.85rem", color: "#a0a0a0" }}>⚡ Fastest delivery (5-10 mins)</div>
               </div>
-              <div style={{ background: "rgba(255, 165, 0, 0.1)", padding: "1rem", borderRadius: "8px", border: "1px solid #ffa500", textAlign: "center" }}>
-                <div style={{ fontSize: "1.5rem", marginBottom: "0.5rem" }}>💛</div>
-                <div style={{ color: "#ffa500", fontWeight: "bold" }}>PayMaya</div>
+              <div style={{ background: "rgba(255, 165, 0, 0.1)", padding: "1.5rem", borderRadius: "8px", border: "1px solid #ffa500", textAlign: "center" }}>
+                <div style={{ fontSize: "2rem", marginBottom: "0.5rem" }}>💛</div>
+                <div style={{ color: "#ffa500", fontWeight: "bold", fontSize: "1.1rem", marginBottom: "0.75rem" }}>PayMaya</div>
+                <div style={{ fontSize: "0.85rem", color: "#a0a0a0" }}>⚡ Fast delivery (10-15 mins)</div>
               </div>
-              <div style={{ background: "rgba(0, 51, 102, 0.1)", padding: "1rem", borderRadius: "8px", border: "1px solid #003366", textAlign: "center" }}>
-                <div style={{ fontSize: "1.5rem", marginBottom: "0.5rem" }}>🏦</div>
-                <div style={{ color: "#4a90e2", fontWeight: "bold" }}>BDO Bank Transfer</div>
+              <div style={{ background: "rgba(0, 51, 102, 0.1)", padding: "1.5rem", borderRadius: "8px", border: "1px solid #003366", textAlign: "center" }}>
+                <div style={{ fontSize: "2rem", marginBottom: "0.5rem" }}>🏦</div>
+                <div style={{ color: "#4a90e2", fontWeight: "bold", fontSize: "1.1rem", marginBottom: "0.75rem" }}>BDO Bank Transfer</div>
+                <div style={{ fontSize: "0.85rem", color: "#a0a0a0" }}>⏱ Standard delivery (15-30 mins)</div>
               </div>
-              <div style={{ background: "rgba(204, 0, 0, 0.1)", padding: "1rem", borderRadius: "8px", border: "1px solid #cc0000", textAlign: "center" }}>
-                <div style={{ fontSize: "1.5rem", marginBottom: "0.5rem" }}>🏧</div>
-                <div style={{ color: "#cc0000", fontWeight: "bold" }}>BPI Bank Transfer</div>
+              <div style={{ background: "rgba(204, 0, 0, 0.1)", padding: "1.5rem", borderRadius: "8px", border: "1px solid #cc0000", textAlign: "center" }}>
+                <div style={{ fontSize: "2rem", marginBottom: "0.5rem" }}>🏧</div>
+                <div style={{ color: "#cc0000", fontWeight: "bold", fontSize: "1.1rem", marginBottom: "0.75rem" }}>BPI Bank Transfer</div>
+                <div style={{ fontSize: "0.85rem", color: "#a0a0a0" }}>⏱ Standard delivery (15-30 mins)</div>
               </div>
             </div>
-            <p style={{ color: "#a0a0a0", fontSize: "0.9rem", fontStyle: "italic" }}>
+            <p style={{ color: "#a0a0a0", fontSize: "0.9rem", marginBottom: "1rem" }}>
               💡 Other bank transfers available via GCash. Contact us for details!
             </p>
+            <div style={{ background: "rgba(0, 255, 136, 0.1)", padding: "1rem", borderRadius: "8px", border: "1px solid #00ff88" }}>
+              <p style={{ color: "#00ff88", fontSize: "0.95rem", margin: "0", fontWeight: "bold" }}>
+                🔐 <strong>Important:</strong> Final payment is processed directly via Messenger. We never ask for sensitive payment info upfront!
+              </p>
+            </div>
           </div>
         </section>
 
@@ -776,6 +979,30 @@ export default function App() {
         <section className="container" style={{ marginTop: "3rem", marginBottom: "3rem" }}>
           <h2 className="section-title">❓ Frequently Asked Questions</h2>
           <div style={{ display: "grid", gap: "1rem" }}>
+            <details style={{
+              background: "rgba(255, 51, 51, 0.05)",
+              padding: "1.5rem",
+              borderRadius: "8px",
+              border: "1px solid rgba(255, 51, 51, 0.2)",
+              cursor: "pointer"
+            }} open>
+              <summary style={{ color: "#ff3333", fontWeight: "bold", fontSize: "1.1rem", userSelect: "none" }}>
+                📋 How to Order - Step by Step
+              </summary>
+              <div style={{ color: "#c0c0c0", marginTop: "1rem" }}>
+                <ol style={{ marginLeft: "1.5rem", lineHeight: "2" }}>
+                  <li><strong>Browse Products:</strong> Scroll through our games and select the one you want. Each game has multiple currency packages.</li>
+                  <li><strong>Message Us:</strong> Click "💬 Ask Details" on the game card or use the floating messenger button in the bottom right corner.</li>
+                  <li><strong>Confirm Details:</strong> Tell us which game currency you want and how much. We'll confirm the price and payment method.</li>
+                  <li><strong>Send Payment:</strong> Transfer payment via GCash, PayMaya, BDO, or BPI (fastest with GCash).</li>
+                  <li><strong>Receive Instantly:</strong> Once payment is confirmed, we'll deliver your game currency within 5-30 minutes.</li>
+                </ol>
+                <p style={{ marginTop: "1rem", fontStyle: "italic", color: "#a0a0a0" }}>
+                  💡 Tip: Use the "Copy Price" button to quickly copy package details and send them via Messenger!
+                </p>
+              </div>
+            </details>
+
             <details style={{
               background: "rgba(255, 51, 51, 0.05)",
               padding: "1.5rem",
@@ -992,7 +1219,10 @@ export default function App() {
                       borderRadius: "6px",
                       border: "1px solid rgba(255, 51, 51, 0.3)",
                       transition: "all 0.3s ease",
-                      cursor: "pointer"
+                      cursor: "pointer",
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "0.75rem"
                     }}
                     onMouseEnter={(e) => {
                       e.currentTarget.style.background = "rgba(255, 51, 51, 0.2)";
@@ -1002,14 +1232,43 @@ export default function App() {
                       e.currentTarget.style.background = "rgba(255, 51, 51, 0.1)";
                       e.currentTarget.style.borderColor = "rgba(255, 51, 51, 0.3)";
                     }}
-                    onClick={() => {}}
                   >
-                    <div style={{ fontSize: "1.2rem", fontWeight: "bold", color: "white", marginBottom: "0.5rem" }}>
-                      {pkg.amount}
+                    <div>
+                      <div style={{ fontSize: "1.2rem", fontWeight: "bold", color: "white", marginBottom: "0.5rem" }}>
+                        {pkg.amount}
+                      </div>
+                      <div style={{ fontSize: "1.5rem", color: "#00ff88", fontWeight: "bold" }}>
+                        {pkg.currency || "₱"}{pkg.price}
+                      </div>
                     </div>
-                    <div style={{ fontSize: "1.5rem", color: "#00ff88", fontWeight: "bold" }}>
-                      {pkg.currency || "₱"}{pkg.price}
-                    </div>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        const priceText = `${pkg.amount} - ${pkg.currency || "₱"}${pkg.price}`;
+                        navigator.clipboard.writeText(priceText);
+                        alert('Copied to clipboard: ' + priceText);
+                      }}
+                      style={{
+                        background: "rgba(0, 255, 136, 0.2)",
+                        border: "1px solid #00ff88",
+                        color: "#00ff88",
+                        padding: "0.4rem 0.8rem",
+                        borderRadius: "4px",
+                        cursor: "pointer",
+                        fontSize: "0.8rem",
+                        fontWeight: "bold",
+                        transition: "all 0.2s",
+                        width: "100%"
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.background = "rgba(0, 255, 136, 0.3)";
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.background = "rgba(0, 255, 136, 0.2)";
+                      }}
+                    >
+                      📋 Copy Price
+                    </button>
                   </div>
                 ))}
               </div>
