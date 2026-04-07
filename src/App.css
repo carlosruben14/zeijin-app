@@ -65,24 +65,17 @@ nav a.active {
 
 /* Hero Section */
 .hero {
-  background-size: cover;
-  background-position: center;
+  background: linear-gradient(135deg, rgba(255, 51, 51, 0.1) 0%, rgba(139, 0, 0, 0.05) 100%);
   padding: 3rem 1rem;
   text-align: center;
   border-bottom: 1px solid rgba(255, 51, 51, 0.2);
-  min-height: 400px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  transition: background-image 0.8s ease;
 }
 
 .hero h1 {
   font-size: 2.5rem;
   margin-bottom: 0.5rem;
-  color: white;
-  text-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  color: #ff3333;
+  text-shadow: 0 0 20px rgba(255, 51, 51, 0.3);
 }
 
 .hero p {

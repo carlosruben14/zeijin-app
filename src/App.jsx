@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import "./App.css";
 import "./index.css";
 
@@ -218,7 +218,7 @@ const eventsData = [
   {
     id: 1,
     game: "Mobile Legends: Bang Bang",
-    title: "x NARUTO event draw",
+    title: "MLBB x NARUTO Collaboration Event",
     description: "Get up to 50% off on selected Dias packages. Limited time offer!",
     startDate: "2026-04-07",
     endDate: "2026-04-30",
@@ -237,13 +237,13 @@ const eventsData = [
   },
   {
     id: 3,
-    game: "League of Legends - Wild Rift",
+    game: "Valorant",
     title: "Episode 8 Act 2 Launch",
     description: "New episode with new agent and map changes.",
     startDate: "2026-04-15",
     endDate: "2026-07-15",
     badge: "New",
-    image: "https://www.riotgames.com/darkroom/1440/08bcc251757a1f64e30e0d7e8c513d35:be16374e056f8268996ef96555c7a113/wr-cb1-announcementarticle-banner-1920x1080.png"
+    image: "https://www.riotgames.com/darkroom/1440/8d5c497da1c2eeec8cffa99b01abc64b:5329ca773963a5b739e98e715957ab39/ps-f2p-val-console-launch-16x9.jpg"
   },
   {
     id: 5,
@@ -253,17 +253,273 @@ const eventsData = [
     startDate: "2026-04-20",
     endDate: "2026-05-20",
     badge: "Hot Event",
-    image: "https://static0.gamerantimages.com/wordpress/wp-content/uploads/2024/01/genshin-impact-lantern-rite-header.jpg"
+    image: "https://fastcdn.hoyoverse.com/content-v2/plat/124031/5d2ba4371115d26de4c574b28311aed8_576844151847376526.jpeg"
+  },
+  {
+    id: 6,
+    game: "Valorant",
+    title: "Jellybeam Collection Bundle",
+    description: "Featured jellybeam weapon skins collection. Includes stunning blue and pink gradient designs across multiple weapons.",
+    startDate: "2026-04-07",
+    endDate: "2026-04-15",
+    badge: "Featured Shop",
+    image: "https://valorantstrike.com/wp-content/uploads/Valorant-Jellybeam-Collection-HD-1280x640.jpg"
+  },
+  {
+    id: 7,
+    game: "Valorant",
+    title: "Blackthorn Collection Bundle",
+    description: "Featured blackthorn weapon skins with dark red and black thematic designs. Limited time exclusive bundle!",
+    startDate: "2026-04-07",
+    endDate: "2026-04-08",
+    badge: "Ending Soon",
+    image: "https://valorantstrike.com/wp-content/uploads/Valorant-Blackthorn-Collection-HD-1280x640.jpg"
   }
 ];
+
+const EventCarousel = ({ events }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [autoPlay, setAutoPlay] = useState(true);
+
+  useEffect(() => {
+    if (!autoPlay || events.length === 0) return;
+
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % events.length);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [autoPlay, events.length]);
+
+  const goToSlide = (index) => {
+    setCurrentIndex(index);
+    setAutoPlay(false);
+    setTimeout(() => setAutoPlay(true), 10000);
+  };
+
+  const goToPrevious = () => {
+    setCurrentIndex((prev) => (prev - 1 + events.length) % events.length);
+    setAutoPlay(false);
+    setTimeout(() => setAutoPlay(true), 10000);
+  };
+
+  const goToNext = () => {
+    setCurrentIndex((prev) => (prev + 1) % events.length);
+    setAutoPlay(false);
+    setTimeout(() => setAutoPlay(true), 10000);
+  };
+
+  if (events.length === 0) {
+    return <p style={{ color: "#a0a0a0", textAlign: "center", padding: "2rem" }}>No active events at the moment. Check back soon!</p>;
+  }
+
+  const currentEvent = events[currentIndex];
+  const endDate = new Date(currentEvent.endDate);
+  const today = new Date();
+  const daysLeft = Math.ceil((endDate - today) / (1000 * 60 * 60 * 24));
+
+  return (
+    <div style={{ width: "100%", maxWidth: "900px", margin: "0 auto" }}>
+      {/* Main Carousel */}
+      <div
+        style={{
+          position: "relative",
+          background: "rgba(255, 51, 51, 0.08)",
+          border: "2px solid rgba(255, 51, 51, 0.3)",
+          borderRadius: "12px",
+          overflow: "hidden",
+          transition: "all 0.3s"
+        }}
+        onMouseEnter={() => setAutoPlay(false)}
+        onMouseLeave={() => setAutoPlay(true)}
+      >
+        {/* Event Image */}
+        {currentEvent.image && (
+          <div
+            style={{
+              width: "100%",
+              height: "400px",
+              backgroundImage: `url(${currentEvent.image})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              position: "relative",
+              display: "flex",
+              alignItems: "flex-end"
+            }}
+          >
+            {/* Gradient overlay */}
+            <div
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                background: "linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.8))"
+              }}
+            />
+            
+            {/* Badge */}
+            <div style={{ position: "relative", zIndex: 2, padding: "1.5rem", width: "100%" }}>
+              <span
+                style={{
+                  display: "inline-block",
+                  background: currentEvent.badge === "Hot Event" ? "rgba(255, 51, 51, 0.2)" : "rgba(0, 255, 136, 0.2)",
+                  color: currentEvent.badge === "Hot Event" ? "#ff3333" : "#00ff88",
+                  padding: "0.4rem 0.8rem",
+                  borderRadius: "20px",
+                  fontSize: "0.75rem",
+                  fontWeight: "bold",
+                  whiteSpace: "nowrap"
+                }}
+              >
+                {currentEvent.badge}
+              </span>
+            </div>
+          </div>
+        )}
+
+        {/* Event Info */}
+        <div style={{ padding: "2rem", position: "relative", zIndex: 2 }}>
+          <h2 style={{ color: "#ff3333", marginBottom: "0.5rem", fontSize: "1.5rem" }}>
+            {currentEvent.title}
+          </h2>
+          <p style={{ color: "#999", marginBottom: "1rem", fontSize: "0.95rem" }}>
+            🎮 {currentEvent.game}
+          </p>
+          <p style={{ color: "#d0d0d0", marginBottom: "1.5rem", lineHeight: "1.6" }}>
+            {currentEvent.description}
+          </p>
+
+          <div style={{ display: "flex", gap: "2rem", fontSize: "0.9rem" }}>
+            <div>
+              <span style={{ color: "#999" }}>Starts:</span>
+              <div style={{ color: "#00ff88", fontWeight: "bold" }}>
+                {new Date(currentEvent.startDate).toLocaleDateString()}
+              </div>
+            </div>
+            <div>
+              <span style={{ color: "#999" }}>Ends:</span>
+              <div style={{ color: daysLeft <= 3 ? "#ff3333" : "#00ff88", fontWeight: "bold" }}>
+                {new Date(currentEvent.endDate).toLocaleDateString()} ({daysLeft > 0 ? daysLeft + " days left" : "Ended"})
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Navigation Buttons */}
+        <button
+          onClick={goToPrevious}
+          style={{
+            position: "absolute",
+            left: "1rem",
+            top: "50%",
+            transform: "translateY(-50%)",
+            background: "rgba(255, 51, 51, 0.3)",
+            border: "2px solid rgba(255, 51, 51, 0.6)",
+            color: "#ff3333",
+            width: "45px",
+            height: "45px",
+            borderRadius: "50%",
+            cursor: "pointer",
+            fontSize: "1.5rem",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            transition: "all 0.3s",
+            zIndex: 3
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = "rgba(255, 51, 51, 0.5)";
+            e.currentTarget.style.transform = "translateY(-50%) scale(1.1)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = "rgba(255, 51, 51, 0.3)";
+            e.currentTarget.style.transform = "translateY(-50%) scale(1)";
+          }}
+        >
+          ◀
+        </button>
+
+        <button
+          onClick={goToNext}
+          style={{
+            position: "absolute",
+            right: "1rem",
+            top: "50%",
+            transform: "translateY(-50%)",
+            background: "rgba(255, 51, 51, 0.3)",
+            border: "2px solid rgba(255, 51, 51, 0.6)",
+            color: "#ff3333",
+            width: "45px",
+            height: "45px",
+            borderRadius: "50%",
+            cursor: "pointer",
+            fontSize: "1.5rem",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            transition: "all 0.3s",
+            zIndex: 3
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = "rgba(255, 51, 51, 0.5)";
+            e.currentTarget.style.transform = "translateY(-50%) scale(1.1)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = "rgba(255, 51, 51, 0.3)";
+            e.currentTarget.style.transform = "translateY(-50%) scale(1)";
+          }}
+        >
+          ▶
+        </button>
+      </div>
+
+      {/* Indicators */}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          gap: "0.75rem",
+          marginTop: "1.5rem",
+          paddingBottom: "1rem"
+        }}
+      >
+        {events.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => goToSlide(index)}
+            style={{
+              width: index === currentIndex ? "32px" : "10px",
+              height: "10px",
+              borderRadius: "5px",
+              border: "none",
+              background: index === currentIndex ? "#ff3333" : "rgba(255, 51, 51, 0.3)",
+              cursor: "pointer",
+              transition: "all 0.3s"
+            }}
+            onMouseEnter={(e) => {
+              if (index !== currentIndex) {
+                e.currentTarget.style.background = "rgba(255, 51, 51, 0.6)";
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (index !== currentIndex) {
+                e.currentTarget.style.background = "rgba(255, 51, 51, 0.3)";
+              }
+            }}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
 
 export default function App() {
   const [selectedGame, setSelectedGame] = useState(null);
   const [activeSection, setActiveSection] = useState("games");
   const [searchQuery, setSearchQuery] = useState("");
   const [filterCategory, setFilterCategory] = useState("all");
-  const [currentEventIndex, setCurrentEventIndex] = useState(0);
-  const [dragStart, setDragStart] = useState(null);
 
   const filteredGames = useMemo(() => {
     return gamesData.filter(game => {
@@ -272,34 +528,6 @@ export default function App() {
       return matchesSearch && matchesCategory;
     });
   }, [searchQuery, filterCategory]);
-
-  // Auto-slide events every 5 seconds
-  React.useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentEventIndex((prev) => (prev + 1) % eventsData.length);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, []);
-
-  // Handle manual slide
-  const handleDragStart = (e) => {
-    setDragStart(e.clientX || e.touches?.[0].clientX);
-  };
-
-  const handleDragEnd = (e) => {
-    if (!dragStart) return;
-    const dragEnd = e.clientX || e.changedTouches?.[0].clientX;
-    const diff = dragStart - dragEnd;
-    
-    if (Math.abs(diff) > 50) {
-      if (diff > 0) {
-        setCurrentEventIndex((prev) => (prev + 1) % eventsData.length);
-      } else {
-        setCurrentEventIndex((prev) => (prev - 1 + eventsData.length) % eventsData.length);
-      }
-    }
-    setDragStart(null);
-  };
 
   return (
     <div>
@@ -311,53 +539,18 @@ export default function App() {
           </div>
           <nav>
             <a href="#" className={`nav-link ${activeSection === "games" ? "active" : ""}`} onClick={(e) => { e.preventDefault(); setActiveSection("games"); }}>Games</a>
-            <a href="#" className={`nav-link ${activeSection === "events" ? "active" : ""}`} onClick={(e) => { e.preventDefault(); setActiveSection("events"); }}>Events</a>
           </nav>
         </div>
       </header>
 
-      <section className="hero" style={{ background: "linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('" + eventsData[currentEventIndex].image + "')", backgroundSize: "cover", backgroundPosition: "center", cursor: "grab" }} onMouseDown={handleDragStart} onMouseUp={handleDragEnd} onTouchStart={handleDragStart} onTouchEnd={handleDragEnd}>
-        <div style={{ position: "relative", zIndex: 2, display: "flex", flexDirection: "column", justifyContent: "space-between", height: "100%", padding: "2rem" }}>
-          <div>
-            <span style={{ background: eventsData[currentEventIndex].badge === "Hot Event" ? "#ff3333" : "#00ff88", color: eventsData[currentEventIndex].badge === "Hot Event" ? "white" : "#000", padding: "0.5rem 1rem", borderRadius: "20px", fontSize: "0.85rem", fontWeight: "bold", display: "inline-block", marginBottom: "1rem" }}>
-              {eventsData[currentEventIndex].badge}
-            </span>
-            <h1 style={{ fontSize: "2.5rem", marginBottom: "0.5rem" }}>{eventsData[currentEventIndex].game}</h1>
-            <h2 style={{ fontSize: "1.8rem", color: "#00ff88", marginBottom: "1rem" }}>{eventsData[currentEventIndex].title}</h2>
-            <p style={{ fontSize: "1.1rem", color: "#d0d0d0", maxWidth: "600px" }}>{eventsData[currentEventIndex].description}</p>
-          </div>
-
-          {/* Carousel Navigation Dots */}
-          <div style={{ display: "flex", gap: "0.5rem", justifyContent: "center", marginTop: "2rem" }}>
-            {eventsData.map((_, idx) => (
-              <button
-                key={idx}
-                onClick={() => setCurrentEventIndex(idx)}
-                style={{
-                  width: idx === currentEventIndex ? "30px" : "12px",
-                  height: "12px",
-                  borderRadius: "6px",
-                  background: idx === currentEventIndex ? "#ff3333" : "rgba(255, 51, 51, 0.3)",
-                  border: "none",
-                  cursor: "pointer",
-                  transition: "all 0.3s"
-                }}
-              />
-            ))}
-          </div>
-
-          {/* Slider Instructions */}
-          <p style={{ fontSize: "0.85rem", color: "#999", textAlign: "center", marginTop: "1rem" }}>← Swipe to navigate | Auto-slides every 5 seconds →</p>
-        </div>
+      <section className="hero">
+        <h1>Game Currency Showcase</h1>
+        <p>Discover the latest discounted game currency packages. Best prices for Philippine servers!</p>
       </section>
 
       <div className="container">
-        <div className="event-banner" id="activeBanner">
-          <div className="event-banner-content">
-            <h2>🎮 Summer Sale 2026</h2>
-            <p>Up to 50% off on selected game currencies. Limited time offer!</p>
-          </div>
-          <span className="event-badge">Ends in 5 days</span>
+        <div style={{ marginBottom: "2rem" }}>
+          <EventCarousel events={eventsData} />
         </div>
 
         {activeSection === "games" && (
@@ -411,80 +604,7 @@ export default function App() {
           </section>
         )}
 
-        {activeSection === "events" && (
-          <section className="events-container active">
-            <h2 className="section-title">📅 Events & Updates</h2>
-            {eventsData.length === 0 ? (
-              <p style={{ color: "#a0a0a0", textAlign: "center", padding: "2rem" }}>No active events at the moment. Check back soon!</p>
-            ) : (
-              <div style={{ display: "grid", gap: "1.5rem" }}>
-                {eventsData.map(event => {
-                  const endDate = new Date(event.endDate);
-                  const today = new Date();
-                  const daysLeft = Math.ceil((endDate - today) / (1000 * 60 * 60 * 24));
-                  
-                  return (
-                    <div 
-                      key={event.id}
-                      style={{
-                        background: "rgba(255, 51, 51, 0.08)",
-                        border: "2px solid rgba(255, 51, 51, 0.3)",
-                        borderRadius: "8px",
-                        padding: "1.5rem",
-                        transition: "all 0.3s"
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.borderColor = "#ff3333";
-                        e.currentTarget.style.background = "rgba(255, 51, 51, 0.12)";
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.borderColor = "rgba(255, 51, 51, 0.3)";
-                        e.currentTarget.style.background = "rgba(255, 51, 51, 0.08)";
-                      }}
-                    >
-                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start", marginBottom: "1rem" }}>
-                        <div>
-                          <h3 style={{ color: "#ff3333", marginBottom: "0.5rem", fontSize: "1.2rem" }}>{event.title}</h3>
-                          <p style={{ color: "#999", marginBottom: "0.5rem", fontSize: "0.9rem" }}>
-                            🎮 {event.game}
-                          </p>
-                        </div>
-                        <span style={{
-                          background: event.badge === "Hot Event" ? "rgba(255, 51, 51, 0.2)" : "rgba(0, 255, 136, 0.2)",
-                          color: event.badge === "Hot Event" ? "#ff3333" : "#00ff88",
-                          padding: "0.4rem 0.8rem",
-                          borderRadius: "20px",
-                          fontSize: "0.75rem",
-                          fontWeight: "bold",
-                          whiteSpace: "nowrap"
-                        }}>
-                          {event.badge}
-                        </span>
-                      </div>
 
-                      <p style={{ color: "#d0d0d0", marginBottom: "1rem", lineHeight: "1.6" }}>
-                        {event.description}
-                      </p>
-
-                      <div style={{ display: "flex", gap: "2rem", fontSize: "0.85rem" }}>
-                        <div>
-                          <span style={{ color: "#999" }}>Starts:</span>
-                          <div style={{ color: "#00ff88", fontWeight: "bold" }}>{new Date(event.startDate).toLocaleDateString()}</div>
-                        </div>
-                        <div>
-                          <span style={{ color: "#999" }}>Ends:</span>
-                          <div style={{ color: daysLeft <= 3 ? "#ff3333" : "#00ff88", fontWeight: "bold" }}>
-                            {new Date(event.endDate).toLocaleDateString()} ({daysLeft > 0 ? daysLeft + " days left" : "Ended"})
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-          </section>
-        )}
       </div>
 
       <footer>
