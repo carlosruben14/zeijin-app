@@ -764,9 +764,9 @@ export default function App() {
       // Build endpoint based on game and search type
       if (wikiSelectedGame === "mlbb") {
         if (mlSearchType === "hero") {
-          endpoint = `https://mlbb-wiki-api.vercel.app/api/heroes`;
+          endpoint = `/api/heroes`;
         } else if (mlSearchType === "item") {
-          endpoint = `https://mlbb-wiki-api.vercel.app/api/equipment`;
+          endpoint = `/api/equipment`;
         }
       } else if (wikiSelectedGame === "valorant") {
         if (mlSearchType === "agent") {
