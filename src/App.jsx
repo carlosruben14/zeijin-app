@@ -296,7 +296,8 @@ const eventsData = [
     startDate: "2026-04-07",
     endDate: "2026-04-30",
     badge: "Hot Event",
-    image: "https://scontent.fcrk2-3.fna.fbcdn.net/v/t39.30808-6/492477191_1119214773576815_6014578049500213380_n.jpg?stp=dst-jpg_p526x296_tt6&_nc_cat=107&ccb=1-7&_nc_sid=13d280&_nc_eui2=AeEaBfvYk4kVB-I4qlCvq2xIhe84nehSclOF7zid6FJyUy3JFZm-fKKBH1x9LJdE9viRluv0r3xQLhbAo4BpXWIe&_nc_ohc=1PPaSltSAusQ7kNvwGHJg9P&_nc_oc=AdoGkj3c0FCI6CXpcRvkSPNpqoLHg22C59z873BVvoEGNqf9rfBYAf8MJWDZhWXCjE0&_nc_zt=23&_nc_ht=scontent.fcrk2-3.fna&_nc_gid=PiGEVZEBcFjaGkimSVbYlA&_nc_ss=7a3a8&oh=00_Af3AlNRttxWfckW8xefW7jzSI389EL2sierX5GgBDyQwDA&oe=69DA58C2"
+    image: "https://scontent.fcrk2-3.fna.fbcdn.net/v/t39.30808-6/492477191_1119214773576815_6014578049500213380_n.jpg?stp=dst-jpg_p526x296_tt6&_nc_cat=107&ccb=1-7&_nc_sid=13d280&_nc_eui2=AeEaBfvYk4kVB-I4qlCvq2xIhe84nehSclOF7zid6FJyUy3JFZm-fKKBH1x9LJdE9viRluv0r3xQLhbAo4BpXWIe&_nc_ohc=1PPaSltSAusQ7kNvwGHJg9P&_nc_oc=AdoGkj3c0FCI6CXpcRvkSPNpqoLHg22C59z873BVvoEGNqf9rfBYAf8MJWDZhWXCjE0&_nc_zt=23&_nc_ht=scontent.fcrk2-3.fna&_nc_gid=PiGEVZEBcFjaGkimSVbYlA&_nc_ss=7a3a8&oh=00_Af3AlNRttxWfckW8xefW7jzSI389EL2sierX5GgBDyQwDA&oe=69DA58C2",
+    wikiUrl: "https://mobile-legends.fandom.com/wiki/Event"
   },
   {
     id: 2,
@@ -306,7 +307,8 @@ const eventsData = [
     startDate: "2026-04-10",
     endDate: "2026-06-10",
     badge: "New",
-    image: "https://www.riotgames.com/darkroom/1440/8d5c497da1c2eeec8cffa99b01abc64b:5329ca773963a5b739e98e715957ab39/ps-f2p-val-console-launch-16x9.jpg"
+    image: "https://www.riotgames.com/darkroom/1440/8d5c497da1c2eeec8cffa99b01abc64b:5329ca773963a5b739e98e715957ab39/ps-f2p-val-console-launch-16x9.jpg",
+    wikiUrl: "https://valorant.fandom.com/wiki/Battle_Pass"
   },
   {
     id: 3,
@@ -316,7 +318,8 @@ const eventsData = [
     startDate: "2026-04-15",
     endDate: "2026-07-15",
     badge: "New",
-    image: "https://www.riotgames.com/darkroom/1440/8d5c497da1c2eeec8cffa99b01abc64b:5329ca773963a5b739e98e715957ab39/ps-f2p-val-console-launch-16x9.jpg"
+    image: "https://www.riotgames.com/darkroom/1440/8d5c497da1c2eeec8cffa99b01abc64b:5329ca773963a5b739e98e715957ab39/ps-f2p-val-console-launch-16x9.jpg",
+    wikiUrl: "https://valorant.fandom.com/wiki/Episode_8"
   },
   {
     id: 5,
@@ -326,7 +329,8 @@ const eventsData = [
     startDate: "2026-04-20",
     endDate: "2026-05-20",
     badge: "Hot Event",
-    image: "https://fastcdn.hoyoverse.com/content-v2/plat/124031/5d2ba4371115d26de4c574b28311aed8_576844151847376526.jpeg"
+    image: "https://fastcdn.hoyoverse.com/content-v2/plat/124031/5d2ba4371115d26de4c574b28311aed8_576844151847376526.jpeg",
+    wikiUrl: "https://genshin-impact.fandom.com/wiki/Lantern_Rite_Festival"
   },
   {
     id: 6,
@@ -336,7 +340,8 @@ const eventsData = [
     startDate: "2026-04-07",
     endDate: "2026-04-15",
     badge: "Featured Shop",
-    image: "https://valorantstrike.com/wp-content/uploads/Valorant-Jellybeam-Collection-HD-1280x640.jpg"
+    image: "https://valorantstrike.com/wp-content/uploads/Valorant-Jellybeam-Collection-HD-1280x640.jpg",
+    wikiUrl: "https://valorant.fandom.com/wiki/Featured_Bundle"
   },
   {
     id: 7,
@@ -346,11 +351,23 @@ const eventsData = [
     startDate: "2026-04-07",
     endDate: "2026-04-08",
     badge: "Ending Soon",
-    image: "https://valorantstrike.com/wp-content/uploads/Valorant-Blackthorn-Collection-HD-1280x640.jpg"
+    image: "https://valorantstrike.com/wp-content/uploads/Valorant-Blackthorn-Collection-HD-1280x640.jpg",
+    wikiUrl: "https://valorant.fandom.com/wiki/Featured_Bundle"
   }
 ];
 
-const EventCarousel = ({ events }) => {
+// Calculate event status
+const getEventStatus = (startDate, endDate) => {
+  const today = new Date();
+  const start = new Date(startDate);
+  const end = new Date(endDate);
+  
+  if (today < start) return "upcoming";
+  if (today > end) return "ended";
+  return "ongoing";
+};
+
+const EventCarousel = ({ events, getEventStatus }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [autoPlay, setAutoPlay] = useState(true);
 
@@ -390,6 +407,7 @@ const EventCarousel = ({ events }) => {
   const endDate = new Date(currentEvent.endDate);
   const today = new Date();
   const daysLeft = Math.ceil((endDate - today) / (1000 * 60 * 60 * 24));
+  const eventStatus = getEventStatus(currentEvent.startDate, currentEvent.endDate);
 
   return (
     <div style={{ width: "100%", maxWidth: "900px", margin: "0 auto" }}>
@@ -432,13 +450,13 @@ const EventCarousel = ({ events }) => {
               }}
             />
             
-            {/* Badge */}
-            <div style={{ position: "relative", zIndex: 2, padding: "1.5rem", width: "100%" }}>
+            {/* Badge and Wiki Button */}
+            <div style={{ position: "relative", zIndex: 2, padding: "1.5rem", width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
               <span
                 style={{
                   display: "inline-block",
-                  background: currentEvent.badge === "Hot Event" ? "rgba(255, 51, 51, 0.2)" : "rgba(0, 255, 136, 0.2)",
-                  color: currentEvent.badge === "Hot Event" ? "#ff3333" : "#00ff88",
+                  background: eventStatus === "ongoing" ? "rgba(0, 255, 136, 0.2)" : eventStatus === "upcoming" ? "rgba(100, 150, 255, 0.2)" : "rgba(200, 200, 200, 0.2)",
+                  color: eventStatus === "ongoing" ? "#00ff88" : eventStatus === "upcoming" ? "#6496ff" : "#c8c8c8",
                   padding: "0.4rem 0.8rem",
                   borderRadius: "20px",
                   fontSize: "0.75rem",
@@ -446,8 +464,43 @@ const EventCarousel = ({ events }) => {
                   whiteSpace: "nowrap"
                 }}
               >
-                {currentEvent.badge}
+                {eventStatus.charAt(0).toUpperCase() + eventStatus.slice(1)}
               </span>
+              
+              {/* Wiki Link Button */}
+              {currentEvent.wikiUrl && (
+                <a
+                  href={currentEvent.wikiUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "0.5rem",
+                    background: "rgba(255, 51, 51, 0.2)",
+                    border: "1px solid rgba(255, 51, 51, 0.5)",
+                    color: "#ff3333",
+                    padding: "0.4rem 0.8rem",
+                    borderRadius: "20px",
+                    fontSize: "0.75rem",
+                    fontWeight: "bold",
+                    textDecoration: "none",
+                    cursor: "pointer",
+                    transition: "all 0.3s",
+                    whiteSpace: "nowrap"
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = "rgba(255, 51, 51, 0.3)";
+                    e.currentTarget.style.transform = "scale(1.05)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = "rgba(255, 51, 51, 0.2)";
+                    e.currentTarget.style.transform = "scale(1)";
+                  }}
+                >
+                  📖 Event Details
+                </a>
+              )}
             </div>
           </div>
         )}
@@ -605,13 +658,43 @@ export default function App() {
     otherConcern: ""
   });
   const [showMLIDChecker, setShowMLIDChecker] = useState(false);
+  const [wikiSelectedGame, setWikiSelectedGame] = useState("mlbb"); // mlbb, valorant, genshin, lol
   const [mlSearchQuery, setMlSearchQuery] = useState("");
-  const [mlSearchType, setMlSearchType] = useState("hero"); // hero, item, or pro
+  const [mlSearchType, setMlSearchType] = useState("hero");
   const [mlCheckResult, setMlCheckResult] = useState(null);
   const [mlCheckError, setMlCheckError] = useState("");
   const [mlCheckLoading, setMlCheckLoading] = useState(false);
 
-  const searchMlData = async () => {
+  // Auto-set search type when game changes
+  useEffect(() => {
+    const defaultTypes = {
+      mlbb: "hero",
+      valorant: "agent",
+      genshin: "character",
+      lol: "champion"
+    };
+    setMlSearchType(defaultTypes[wikiSelectedGame] || "hero");
+    setMlSearchQuery("");
+    setMlCheckResult(null);
+    setMlCheckError("");
+  }, [wikiSelectedGame]);
+
+  const getSearchTypeOptions = () => {
+    switch(wikiSelectedGame) {
+      case "mlbb":
+        return ["hero", "item"];
+      case "valorant":
+        return ["agent"];
+      case "genshin":
+        return ["character"];
+      case "lol":
+        return ["champion", "item"];
+      default:
+        return ["hero"];
+    }
+  };
+
+  const searchGameData = async () => {
     setMlCheckError("");
     setMlCheckResult(null);
     
@@ -623,72 +706,207 @@ export default function App() {
     setMlCheckLoading(true);
     
     try {
-      const apiBase = "https://mlbb-wiki-api.vercel.app/api";
       let endpoint;
+      let dataKey = "data";
       
-      if (mlSearchType === "hero") {
-        endpoint = `${apiBase}/heroes`;
-      } else if (mlSearchType === "item") {
-        endpoint = `${apiBase}/equipment`;
-      } else {
-        endpoint = `${apiBase}/heroes`;
+      // Build endpoint based on game and search type
+      if (wikiSelectedGame === "mlbb") {
+        if (mlSearchType === "hero") {
+          endpoint = `/api/heroes`;
+        } else if (mlSearchType === "item") {
+          endpoint = `/api/equipment`;
+        }
+      } else if (wikiSelectedGame === "valorant") {
+        if (mlSearchType === "agent") {
+          endpoint = `https://valorant-api.com/v1/agents`;
+        }
+        dataKey = "data";
+      } else if (wikiSelectedGame === "genshin") {
+        if (mlSearchType === "character") {
+          endpoint = `https://genshin.jmp.blue/characters`;
+        }
+        dataKey = "characters";
+      } else if (wikiSelectedGame === "lol") {
+        if (mlSearchType === "champion") {
+          endpoint = `https://ddragon.leagueoflegends.com/cdn/14.1.1/data/en_US/champion.json`;
+        } else if (mlSearchType === "item") {
+          endpoint = `https://ddragon.leagueoflegends.com/cdn/14.1.1/data/en_US/item.json`;
+        }
+        dataKey = "data";
       }
 
-      const response = await fetch(endpoint);
+      console.log("Fetching from:", endpoint);
+      
+      const response = await fetch(endpoint, {
+        method: "GET",
+        headers: {
+          "Accept": "application/json"
+        }
+      });
+      
+      console.log("Response status:", response.status);
+      
       if (!response.ok) {
-        throw new Error(`API returned status ${response.status}`);
+        throw new Error(`API returned status ${response.status}: ${response.statusText}`);
       }
 
-      const result = await response.json();
-      const searchTerm = mlSearchQuery.toLowerCase();
+      let result;
+      try {
+        result = await response.json();
+      } catch (parseError) {
+        console.error("JSON parse error:", parseError);
+        throw new Error("Invalid JSON response from API");
+      }
       
-      if (mlSearchType === "hero" && result.data) {
-        const hero = result.data.find(h => 
-          h.hero_name.toLowerCase().includes(searchTerm) || 
-          h.hero_title.toLowerCase().includes(searchTerm)
-        );
+      console.log("API response data:", result);
+      
+      const searchTerm = mlSearchQuery.toLowerCase();
+      let found = null;
+      
+      // Search logic based on game
+      if (wikiSelectedGame === "mlbb") {
+        if (!result.data || !Array.isArray(result.data)) {
+          throw new Error("API response format is invalid");
+        }
         
-        if (hero) {
+        if (mlSearchType === "hero") {
+          found = result.data.find(h => 
+            h.hero_name.toLowerCase().includes(searchTerm) || 
+            h.hero_title.toLowerCase().includes(searchTerm)
+          );
+          if (found) {
+            setMlCheckResult({
+              valid: true,
+              type: "hero",
+              game: "mlbb",
+              name: found.hero_name,
+              data: found,
+              message: `Hero Data Found! ✓`
+            });
+          } else {
+            setMlCheckError(`Hero "${mlSearchQuery}" not found.`);
+          }
+        } else if (mlSearchType === "item") {
+          found = result.data.find(i => 
+            i.item_name.toLowerCase().includes(searchTerm) ||
+            (i.description && i.description.toLowerCase().includes(searchTerm))
+          );
+          if (found) {
+            setMlCheckResult({
+              valid: true,
+              type: "item",
+              game: "mlbb",
+              name: found.item_name,
+              data: found,
+              message: `Item Found! ✓`
+            });
+          } else {
+            setMlCheckError(`Item "${mlSearchQuery}" not found.`);
+          }
+        }
+      } else if (wikiSelectedGame === "valorant") {
+        if (!result.data || !Array.isArray(result.data)) {
+          throw new Error("API response format is invalid");
+        }
+        
+        found = result.data.find(a => a.displayName && a.displayName.toLowerCase().includes(searchTerm));
+        if (found) {
           setMlCheckResult({
             valid: true,
-            type: "hero",
-            name: hero.hero_name,
-            data: hero,
-            message: `Hero Data Found! ✓`
+            type: "agent",
+            game: "valorant",
+            name: found.displayName,
+            data: found,
+            message: `Agent Found! ✓`
           });
         } else {
-          setMlCheckError(`Hero "${mlSearchQuery}" not found. Try another hero name.`);
+          setMlCheckError(`Agent "${mlSearchQuery}" not found.`);
         }
-      } else if (mlSearchType === "item" && result.data) {
-        const item = result.data.find(i => 
-          i.item_name.toLowerCase().includes(searchTerm) ||
-          (i.description && i.description.toLowerCase().includes(searchTerm))
-        );
+      } else if (wikiSelectedGame === "genshin") {
+        // Genshin API returns simple array of character names (strings)
+        const dataArray = Array.isArray(result) ? result : [];
+        found = dataArray.find(characterName => String(characterName).toLowerCase().includes(searchTerm));
         
-        if (item) {
-          setMlCheckResult({
-            valid: true,
-            type: "item",
-            name: item.item_name,
-            data: item,
-            message: `Item Found! ✓`
-          });
+        if (found) {
+          // Fetch detailed character data
+          try {
+            const detailResponse = await fetch(`https://genshin.jmp.blue/characters/${found}`);
+            if (detailResponse.ok) {
+              const characterDetail = await detailResponse.json();
+              const wikiUrl = `https://genshin-impact.fandom.com/wiki/${found}`;
+              setMlCheckResult({
+                valid: true,
+                type: "character",
+                game: "genshin",
+                name: characterDetail.name || found,
+                data: { ...characterDetail, wikiUrl },
+                message: `Character Found! ✓`
+              });
+            } else {
+              throw new Error("Failed to fetch character details");
+            }
+          } catch (detailError) {
+            console.warn("Could not fetch character details:", detailError);
+            // Fallback to basic info
+            const wikiUrl = `https://genshin-impact.fandom.com/wiki/${found}`;
+            setMlCheckResult({
+              valid: true,
+              type: "character",
+              game: "genshin",
+              name: found,
+              data: { name: found, wikiUrl },
+              message: `Character Found! ✓`
+            });
+          }
         } else {
-          setMlCheckError(`Item "${mlSearchQuery}" not found. Try another item name.`);
+          setMlCheckError(`Character "${mlSearchQuery}" not found.`);
         }
-      } else {
-        setMlCheckError(`${mlSearchType.charAt(0).toUpperCase() + mlSearchType.slice(1)} not found. Try a different name.`);
+      } else if (wikiSelectedGame === "lol") {
+        let searchData = [];
+        if (mlSearchType === "champion") {
+          searchData = result.data && typeof result.data === 'object' ? Object.values(result.data) : [];
+          found = searchData.find(c => c.name && c.name.toLowerCase().includes(searchTerm));
+          if (found) {
+            setMlCheckResult({
+              valid: true,
+              type: "champion",
+              game: "lol",
+              name: found.name,
+              data: found,
+              message: `Champion Found! ✓`
+            });
+          } else {
+            setMlCheckError(`Champion "${mlSearchQuery}" not found.`);
+          }
+        } else if (mlSearchType === "item") {
+          searchData = result.data && typeof result.data === 'object' ? Object.values(result.data) : [];
+          found = searchData.find(i => i.name && i.name.toLowerCase().includes(searchTerm));
+          if (found) {
+            setMlCheckResult({
+              valid: true,
+              type: "item",
+              game: "lol",
+              name: found.name,
+              data: found,
+              message: `Item Found! ✓`
+            });
+          } else {
+            setMlCheckError(`Item "${mlSearchQuery}" not found.`);
+          }
+        }
+      }
+      
+      if (!found && !mlCheckError) {
+        setMlCheckError(`${mlSearchType.charAt(0).toUpperCase() + mlSearchType.slice(1)} not found.`);
       }
     } catch (error) {
       console.error("Search error details:", error);
       let errorMsg = "Failed to fetch data";
       
       if (error.message.includes("Failed to fetch")) {
-        errorMsg = "Network error - check your connection or try again";
-      } else if (error.message.includes("401") || error.message.includes("403")) {
-        errorMsg = "Access denied - API may be temporarily unavailable";
-      } else if (error.message.includes("404")) {
-        errorMsg = "API endpoint not found";
+        errorMsg = "Network/CORS error - API may be unreachable. Try refreshing the page.";
+      } else if (error.message.includes("Invalid JSON")) {
+        errorMsg = "API returned invalid data format";
       } else {
         errorMsg = error.message;
       }
@@ -773,17 +991,19 @@ export default function App() {
           </div>
           <nav>
             <a href="#" className={`nav-link ${activeSection === "games" ? "active" : ""}`} onClick={(e) => { e.preventDefault(); setActiveSection("games"); }}>Games</a>
-            <a href="#" style={{ marginLeft: "1.5rem", cursor: "pointer", color: "#FF6B9D", fontWeight: "bold", textDecoration: "none", fontSize: "0.95rem" }} onClick={(e) => { e.preventDefault(); setShowMLIDChecker(true); }}>🔍 ML ID Checker</a>
+            <a href="#" style={{ marginLeft: "1.5rem", cursor: "pointer", color: "#FF6B9D", fontWeight: "bold", textDecoration: "none", fontSize: "0.95rem" }} onClick={(e) => { e.preventDefault(); setShowMLIDChecker(true); }}>🔍 Game Fandom Wiki</a>
           </nav>
         </div>
       </header>
 
-      {/* ML ID Checker Modal */}
+      {/* Game Fandom Wiki Modal */}
       {showMLIDChecker && (
         <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0, 0, 0, 0.7)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 99998, padding: "1rem" }}>
           <div style={{ background: "linear-gradient(135deg, rgba(30, 30, 45, 1), rgba(40, 20, 35, 1))", padding: "2rem", borderRadius: "12px", border: "2px solid #FF6B9D", maxWidth: "500px", width: "100%", boxShadow: "0 0 60px rgba(255, 107, 157, 0.4)" }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.5rem" }}>
-              <h2 style={{ color: "#FF6B9D", margin: 0, fontSize: "1.5rem" }}>🎮 MLBB Wiki Lookup</h2>
+              <h2 style={{ color: "#FF6B9D", margin: 0, fontSize: "1.5rem" }}>
+                🎮 {wikiSelectedGame === "mlbb" ? "MLBB" : wikiSelectedGame === "valorant" ? "Valorant" : wikiSelectedGame === "genshin" ? "Genshin Impact" : "League of Legends"} Wiki
+              </h2>
               <button 
                 onClick={() => {
                   setShowMLIDChecker(false);
@@ -798,8 +1018,54 @@ export default function App() {
             </div>
 
             <p style={{ color: "#d0d0d0", marginBottom: "1.5rem", fontSize: "0.95rem" }}>
-              Search for heroes, items, or pro players from MLBB Wiki.
+              Search for game details from {wikiSelectedGame === "mlbb" ? "MLBB" : wikiSelectedGame === "valorant" ? "Valorant" : wikiSelectedGame === "genshin" ? "Genshin Impact" : "League of Legends"} Wiki.
             </p>
+
+            {/* Game Selector */}
+            <div style={{ marginBottom: "1.5rem" }}>
+              <label style={{ display: "block", color: "#a0a0a0", marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold" }}>
+                Select Game
+              </label>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.5rem" }}>
+                {["mlbb", "valorant", "genshin", "lol"].map(game => (
+                  <button
+                    key={game}
+                    onClick={() => {
+                      setWikiSelectedGame(game);
+                      setMlSearchType(getSearchTypeOptions()[0]);
+                      setMlSearchQuery("");
+                      setMlCheckResult(null);
+                      setMlCheckError("");
+                    }}
+                    style={{
+                      padding: "0.7rem",
+                      background: wikiSelectedGame === game ? "linear-gradient(135deg, #FF6B9D, #FF4757)" : "rgba(255, 255, 255, 0.05)",
+                      border: wikiSelectedGame === game ? "none" : "1px solid rgba(255, 107, 157, 0.3)",
+                      borderRadius: "6px",
+                      color: wikiSelectedGame === game ? "white" : "#a0a0a0",
+                      fontWeight: "bold",
+                      cursor: "pointer",
+                      transition: "all 0.3s",
+                      fontSize: "0.85rem"
+                    }}
+                    onMouseEnter={(e) => {
+                      if (wikiSelectedGame !== game) {
+                        e.currentTarget.style.background = "rgba(255, 255, 255, 0.1)";
+                        e.currentTarget.style.borderColor = "rgba(255, 107, 157, 0.5)";
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (wikiSelectedGame !== game) {
+                        e.currentTarget.style.background = "rgba(255, 255, 255, 0.05)";
+                        e.currentTarget.style.borderColor = "rgba(255, 107, 157, 0.3)";
+                      }
+                    }}
+                  >
+                    {game === "mlbb" ? "🎮 MLBB" : game === "valorant" ? "🔫 Valorant" : game === "genshin" ? "⭐ Genshin" : "⚔️ LoL"}
+                  </button>
+                ))}
+              </div>
+            </div>
 
             {/* Error Message */}
             {mlCheckError && (
@@ -842,28 +1108,68 @@ export default function App() {
                       {mlCheckResult.data.hp && <div><strong>HP:</strong> {mlCheckResult.data.hp}</div>}
                     </>
                   )}
-                  {mlCheckResult.type === "pro" && mlCheckResult.data && (
+                  {mlCheckResult.type === "agent" && mlCheckResult.data && (
                     <>
-                      <div><strong>Player:</strong> {mlCheckResult.data.Name}</div>
-                      <div><strong>Team:</strong> {mlCheckResult.data.Team || "N/A"}</div>
-                      <div><strong>Role:</strong> {mlCheckResult.data.Role || "N/A"}</div>
-                      <div><strong>Nationality:</strong> {mlCheckResult.data.Nationality || "N/A"}</div>
-                      {mlCheckResult.data["Expert Hero"] && (
-                        <div><strong>Expert Heroes:</strong> {mlCheckResult.data["Expert Hero"].join(", ")}</div>
+                      <div><strong>Agent:</strong> {mlCheckResult.data.displayName}</div>
+                      <div><strong>Description:</strong> {mlCheckResult.data.description || "N/A"}</div>
+                      {mlCheckResult.data.role && <div><strong>Role:</strong> {mlCheckResult.data.role.displayName}</div>}
+                    </>
+                  )}
+                  {mlCheckResult.type === "character" && mlCheckResult.data && (
+                    <>
+                      <div><strong>Character:</strong> {mlCheckResult.data.name}</div>
+                      {mlCheckResult.data.title && <div><strong>Title:</strong> {mlCheckResult.data.title}</div>}
+                      {mlCheckResult.data.vision && <div><strong>Element:</strong> {mlCheckResult.data.vision}</div>}
+                      {mlCheckResult.data.nation && <div><strong>Region:</strong> {mlCheckResult.data.nation}</div>}
+                      {mlCheckResult.data.birthday && mlCheckResult.data.birthday !== "0000-05-27" && <div><strong>Birthday:</strong> {mlCheckResult.data.birthday}</div>}
+                      {mlCheckResult.data.release && <div><strong>Release Date:</strong> {mlCheckResult.data.release}</div>}
+                      {mlCheckResult.data.rarity && <div><strong>Rarity:</strong> ⭐ {mlCheckResult.data.rarity}</div>}
+                      {mlCheckResult.data.weapon && <div><strong>Weapon Type:</strong> {mlCheckResult.data.weapon}</div>}
+                      {mlCheckResult.data.wikiUrl && (
+                        <div style={{ marginTop: "0.8rem" }}>
+                          <a 
+                            href={mlCheckResult.data.wikiUrl} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            style={{ 
+                              display: "inline-block",
+                              padding: "0.5rem 1rem",
+                              background: "linear-gradient(135deg, #FF6B9D, #FF4757)",
+                              color: "#fff",
+                              textDecoration: "none",
+                              borderRadius: "6px",
+                              fontSize: "0.85rem",
+                              fontWeight: "bold",
+                              transition: "all 0.3s"
+                            }}
+                            onMouseEnter={(e) => e.target.style.transform = "scale(1.05)"}
+                            onMouseLeave={(e) => e.target.style.transform = "scale(1)"}
+                          >
+                            📖 View on Fandom Wiki
+                          </a>
+                        </div>
                       )}
+                    </>
+                  )}
+                  {mlCheckResult.type === "champion" && mlCheckResult.data && (
+                    <>
+                      <div><strong>Champion:</strong> {mlCheckResult.data.name}</div>
+                      <div><strong>Title:</strong> {mlCheckResult.data.title || "N/A"}</div>
+                      <div><strong>Region:</strong> {mlCheckResult.data.regions?.join(", ") || "N/A"}</div>
                     </>
                   )}
                 </div>
               </div>
             )}
 
-            {/* Search Type Selector */}
+            {/* Search Type Selector - Only show if multiple options */}
+            {getSearchTypeOptions().length > 1 && (
             <div style={{ marginBottom: "1.5rem" }}>
               <label style={{ display: "block", color: "#a0a0a0", marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold" }}>
                 What are you looking for?
               </label>
               <div style={{ display: "flex", gap: "0.5rem" }}>
-                {["hero", "item"].map(type => (
+                {getSearchTypeOptions().map(type => (
                   <button
                     key={type}
                     onClick={() => {
@@ -898,23 +1204,24 @@ export default function App() {
                       }
                     }}
                   >
-                    {type === "hero" ? "🎮" : "⚔️"} {type}
+                    {type === "hero" ? "🎮" : type === "agent" ? "🕵️" : type === "weapon" ? "⚔️" : type === "character" ? "⭐" : type === "champion" ? "👑" : type === "item" ? "⚙️" : "📦"} {type}
                   </button>
                 ))}
               </div>
             </div>
+            )}
 
             {/* Search Input */}
             <div style={{ marginBottom: "1.5rem" }}>
               <label style={{ display: "block", color: "#a0a0a0", marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold" }}>
-                {mlSearchType === "hero" ? "Hero Name" : mlSearchType === "item" ? "Item Name" : "Player Name"}
+                {wikiSelectedGame === "mlbb" ? mlSearchType === "hero" ? "Hero Name" : "Item Name" : wikiSelectedGame === "valorant" ? mlSearchType === "agent" ? "Agent Name" : "Weapon Name" : wikiSelectedGame === "genshin" ? mlSearchType === "character" ? "Character Name" : "Weapon Name" : mlSearchType === "champion" ? "Champion Name" : "Item Name"}
               </label>
               <input 
                 type="text"
-                placeholder={mlSearchType === "hero" ? "e.g., Miya, Hanzo, Alice" : "e.g., Bloodlust Axe, Demon Hunter Sword"}
+                placeholder={wikiSelectedGame === "mlbb" ? mlSearchType === "hero" ? "e.g., Miya, Hanzo, Alice" : "e.g., Bloodlust Axe, Demon Hunter Sword" : wikiSelectedGame === "valorant" ? mlSearchType === "agent" ? "e.g., Jett, Phoenix, Sova" : "e.g., Vandal, Phantom, Operator" : wikiSelectedGame === "genshin" ? mlSearchType === "character" ? "e.g., Fischl, Zhongli, Venti" : "e.g., Calamity Queller, Frostbearer" : mlSearchType === "champion" ? "e.g., Ahri, Draven, Lux" : "e.g., Philosopher's Stone, Trinity Force"}
                 value={mlSearchQuery}
                 onChange={(e) => setMlSearchQuery(e.target.value)}
-                onKeyPress={(e) => e.key === "Enter" && searchMlData()}
+                onKeyPress={(e) => e.key === "Enter" && searchGameData()}
                 style={{
                   width: "100%",
                   padding: "0.8rem",
@@ -966,7 +1273,7 @@ export default function App() {
                 {mlCheckResult && mlCheckResult.valid === true ? "Close" : "Cancel"}
               </button>
               <button 
-                onClick={searchMlData}
+                onClick={searchGameData}
                 disabled={mlCheckLoading}
                 style={{
                   flex: 1,
@@ -1224,7 +1531,10 @@ export default function App() {
 
       <div className="container">
         <div style={{ marginBottom: "2rem" }}>
-          <EventCarousel events={eventsData} />
+          <EventCarousel 
+            events={eventsData.filter(event => getEventStatus(event.startDate, event.endDate) !== "ended")} 
+            getEventStatus={getEventStatus}
+          />
         </div>
 
         {activeSection === "games" && (

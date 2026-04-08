@@ -6,10 +6,15 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      '/api/mlbb': {
-        target: 'http://localhost:3001',
+      '/api/heroes': {
+        target: 'https://mlbb-wiki-api.vercel.app',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api\/mlbb/, ''),
+        secure: false
+      },
+      '/api/equipment': {
+        target: 'https://mlbb-wiki-api.vercel.app',
+        changeOrigin: true,
+        secure: false
       }
     }
   }
