@@ -699,7 +699,6 @@ export default function App() {
   const [activeSection, setActiveSection] = useState("games");
   const [searchQuery, setSearchQuery] = useState("");
   const [filterCategory, setFilterCategory] = useState("all");
-  const [breadcrumb, setBreadcrumb] = useState(["Games"]);
   const [showWelcomeNotif, setShowWelcomeNotif] = useState(true);
   const [ignValidatorData, setIgnValidatorData] = useState({
     ign: "",
@@ -1421,18 +1420,6 @@ export default function App() {
           </div>
         </div>
       )}
-
-      {/* Breadcrumb Navigation */}
-      <div style={{ padding: "1rem", maxWidth: "1200px", margin: "0 auto", paddingTop: "0.5rem" }}>
-        <nav style={{ fontSize: "0.9rem", color: "#a0a0a0" }}>
-          {breadcrumb.map((item, index) => (
-            <span key={index}>
-              <span style={{ color: "#ff3333", cursor: "pointer" }}>{item}</span>
-              {index < breadcrumb.length - 1 && <span style={{ margin: "0 0.5rem" }}>/</span>}
-            </span>
-          ))}
-        </nav>
-      </div>
 
       <section className="hero">
         <h1>Browse • Chat • Get Your Currency</h1>
