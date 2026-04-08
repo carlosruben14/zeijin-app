@@ -707,6 +707,7 @@ export default function App() {
     paymentMethod: "GCash",
     otherConcern: ""
   });
+  const [selectedCurrency, setSelectedCurrency] = useState("PHP"); // PHP, USD, etc
   const [showMLIDChecker, setShowMLIDChecker] = useState(false);
   const [wikiSelectedGame, setWikiSelectedGame] = useState("mlbb"); // mlbb, valorant, genshin, lol
   const [mlSearchQuery, setMlSearchQuery] = useState("");
@@ -1659,9 +1660,92 @@ export default function App() {
           />
         </div>
 
+        {/* Wiki Search Prominent Banner */}
+        <div style={{
+          background: "linear-gradient(135deg, rgba(255, 107, 157, 0.15), rgba(102, 126, 234, 0.15))",
+          border: "2px solid rgba(255, 107, 157, 0.4)",
+          borderRadius: "12px",
+          padding: "2rem",
+          marginBottom: "2rem",
+          textAlign: "center"
+        }}>
+          <h2 style={{ color: "#FF6B9D", marginBottom: "0.5rem", fontSize: "1.5rem" }}>🔍 Game Fandom Wiki</h2>
+          <p style={{ color: "#d0d0d0", marginBottom: "1.5rem", fontSize: "0.95rem" }}>
+            Search for hero details, item stats, character info, and champion abilities across all games
+          </p>
+          <button
+            onClick={() => setShowMLIDChecker(true)}
+            style={{
+              background: "linear-gradient(135deg, #FF6B9D, #FF8FB3)",
+              color: "white",
+              border: "none",
+              padding: "0.75rem 2rem",
+              borderRadius: "25px",
+              fontSize: "1rem",
+              fontWeight: "bold",
+              cursor: "pointer",
+              transition: "all 0.3s"
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = "scale(1.05)";
+              e.currentTarget.style.boxShadow = "0 6px 20px rgba(255, 107, 157, 0.4)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = "scale(1)";
+              e.currentTarget.style.boxShadow = "none";
+            }}
+          >
+            🎮 Start Searching
+          </button>
+        </div>
+
+        {/* Currency & Region Selector */}
+        <div style={{
+          background: "rgba(0, 255, 136, 0.08)",
+          border: "1px solid rgba(0, 255, 136, 0.2)",
+          borderRadius: "12px",
+          padding: "1.5rem",
+          marginBottom: "2rem",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          flexWrap: "wrap",
+          gap: "1rem"
+        }}>
+          <div>
+            <h3 style={{ color: "#00ff88", margin: "0 0 0.5rem 0", fontSize: "1rem" }}>💱 Selected Currency</h3>
+            <p style={{ color: "#a0a0a0", margin: 0, fontSize: "0.9rem" }}>All prices displayed in: <strong style={{ color: "#00ff88" }}>{selectedCurrency}</strong></p>
+          </div>
+          <select
+            value={selectedCurrency}
+            onChange={(e) => setSelectedCurrency(e.target.value)}
+            style={{
+              background: "rgba(0, 255, 136, 0.15)",
+              border: "1px solid rgba(0, 255, 136, 0.4)",
+              color: "#00ff88",
+              padding: "0.6rem 1rem",
+              borderRadius: "6px",
+              fontSize: "0.95rem",
+              fontWeight: "bold",
+              cursor: "pointer"
+            }}
+          >
+            <option value="PHP">PHP (₱) - Philippines</option>
+            <option value="USD">USD ($) - United States</option>
+            <option value="SGD">SGD ($) - Singapore</option>
+            <option value="MYR">MYR (RM) - Malaysia</option>
+            <option value="IDR">IDR (Rp) - Indonesia</option>
+            <option value="THB">THB (฿) - Thailand</option>
+            <option value="INR">INR (₹) - India</option>
+          </select>
+        </div>
+
         {activeSection === "games" && (
           <section className="games-container">
             <h2 className="section-title">📊 Available Games</h2>
+            <p style={{ color: "#a0a0a0", marginBottom: "1.5rem", fontSize: "0.9rem" }}>
+              💱 Showing prices in <strong style={{ color: "#00ff88" }}>{selectedCurrency}</strong> • <a href="#" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 1600, behavior: 'smooth' }); }} style={{ color: "#FF6B9D", textDecoration: "none", fontWeight: "bold" }}>Change currency</a>
+            </p>
             
             <div style={{ marginBottom: "2rem" }}>
               <input 
