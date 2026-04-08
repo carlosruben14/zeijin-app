@@ -1659,7 +1659,231 @@ export default function App() {
           />
         </div>
 
+        {/* Wiki Search Prominent Banner */}
+        <div style={{
+          background: "linear-gradient(135deg, rgba(255, 107, 157, 0.15), rgba(102, 126, 234, 0.15))",
+          border: "2px solid rgba(255, 107, 157, 0.4)",
+          borderRadius: "12px",
+          padding: "2rem",
+          marginBottom: "2rem",
+          textAlign: "center"
+        }}>
+          <h2 style={{ color: "#FF6B9D", marginBottom: "0.5rem", fontSize: "1.5rem" }}>🔍 Game Fandom Wiki</h2>
+          <p style={{ color: "#d0d0d0", marginBottom: "1.5rem", fontSize: "0.95rem" }}>
+            Search for hero details, item stats, character info, and champion abilities across all games
+          </p>
+          <button
+            onClick={() => setShowMLIDChecker(true)}
+            style={{
+              background: "linear-gradient(135deg, #FF6B9D, #FF8FB3)",
+              color: "white",
+              border: "none",
+              padding: "0.75rem 2rem",
+              borderRadius: "25px",
+              fontSize: "1rem",
+              fontWeight: "bold",
+              cursor: "pointer",
+              transition: "all 0.3s"
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = "scale(1.05)";
+              e.currentTarget.style.boxShadow = "0 6px 20px rgba(255, 107, 157, 0.4)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = "scale(1)";
+              e.currentTarget.style.boxShadow = "none";
+            }}
+          >
+            🎮 Start Searching
+          </button>
+        </div>
 
+        {activeSection === "games" && (
+          <section className="games-container">
+            
+            <div style={{ marginBottom: "2rem" }}>
+              <input 
+                type="text" 
+                placeholder="Search games..." 
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                style={{
+                  width: "100%",
+                  padding: "0.75rem 1rem",
+                  fontSize: "1rem",
+                  border: "1px solid rgba(255, 51, 51, 0.3)",
+                  borderRadius: "20px",
+                  background: "rgba(255, 51, 51, 0.05)",
+                  color: "#e0e0e0",
+                  boxSizing: "border-box"
+                }}
+              />
+            </div>
+
+            <div className="filter-bar">
+              <button className={`filter-btn ${filterCategory === "all" ? "active" : ""}`} onClick={() => setFilterCategory("all")}>All Games</button>
+              <button className={`filter-btn ${filterCategory === "moba" ? "active" : ""}`} onClick={() => setFilterCategory("moba")}>MOBA</button>
+              <button className={`filter-btn ${filterCategory === "fps" ? "active" : ""}`} onClick={() => setFilterCategory("fps")}>FPS</button>
+              <button className={`filter-btn ${filterCategory === "rpg" ? "active" : ""}`} onClick={() => setFilterCategory("rpg")}>RPG</button>
+            </div>
+
+            {filteredGames.length === 0 ? (
+              <p style={{ color: "#a0a0a0", textAlign: "center", padding: "2rem" }}>No games found matching your search.</p>
+            ) : (
+              <div className="games-grid">
+                {filteredGames.map(game => {
+                  // Define discount percentages by game ID
+                  const discountMap = {
+                    1: "5-6%",    // Mobile Legends
+                    2: "9%",       // Valorant
+                    3: "9%",       // LOL Wild Rift
+                    4: "5-6%",     // Call of Duty Mobile
+                    5: "5-8%",     // Honor of Kings
+                    6: "9%",       // Genshin Impact
+                    7: "9%",       // Teamfight Tactics
+                    8: "9%",       // LOL Riot Points
+                    9: "7-8%",     // Blood Strike
+                    10: "5-6%",    // Magic Chess Go Go
+                    11: "5-6%",    // Crossfire Ecoin
+                    12: "8-10%",   // PUBG Mobile UC
+                    13: "9%",      // Honkai Star Rail
+                    14: "1-2%"     // Steam Wallet Codes
+                  };
+                  
+                  const discount = discountMap[game.id] || "5%";
+                  
+                  const isPopular = game.pricing.length >= 10;
+                  
+                  return (
+                    <div 
+                      key={game.id}
+                      className={`game-card ${game.category}`}
+                      style={{
+                        height: "100%"
+                      }}
+                    >
+                          <div className="game-image" style={{ backgroundImage: `url(${game.image})`, backgroundSize: "cover", backgroundPosition: "center" }}>
+                        {isPopular && (
+                          <div style={{
+                            position: "absolute",
+                            top: "10px",
+                            left: "10px",
+                            background: "linear-gradient(135deg, #ffa500, #ff6347)",
+                            color: "white",
+                            padding: "0.4rem 0.8rem",
+                            borderRadius: "8px",
+                            fontWeight: "bold",
+                            fontSize: "0.75rem",
+                            boxShadow: "0 4px 12px rgba(255, 165, 0, 0.4)",
+                            zIndex: 10,
+                            textTransform: "uppercase"
+                          }}>
+                            🔥 Popular
+                          </div>
+                        )}
+                        {discount && (
+                          <div style={{
+                            position: "absolute",
+                            top: "10px",
+                            right: "10px",
+                            background: "linear-gradient(135deg, #ff3333, #ff6b6b)",
+                            color: "white",
+                            padding: "0.4rem 0.8rem",
+                            borderRadius: "8px",
+                            fontWeight: "bold",
+                            fontSize: "0.85rem",
+                            boxShadow: "0 4px 12px rgba(255, 51, 51, 0.4)",
+                            zIndex: 10
+                          }}>
+                            Save {discount}!
+                          </div>
+                        )}
+                      </div>
+                      <div className="game-info">
+                        <div className="game-title">{game.title}</div>
+                        <div className="game-description">{game.description}</div>
+                        <div style={{ marginTop: "auto", display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%", marginBottom: "1rem" }}>
+                          <div style={{ color: "#00ff88", fontSize: "0.9rem" }}>
+                            {game.pricing.length} packages available
+                          </div>
+                          <div style={{
+                            background: game.category === "moba" ? "rgba(0, 212, 255, 0.2)" : game.category === "fps" ? "rgba(255, 165, 0, 0.2)" : "rgba(157, 78, 221, 0.2)",
+                            color: game.category === "moba" ? "#00d4ff" : game.category === "fps" ? "#ffa500" : "#9d4edd",
+                            padding: "0.3rem 0.8rem",
+                            borderRadius: "15px",
+                            fontSize: "0.75rem",
+                            fontWeight: "bold"
+                          }}>
+                            {game.category.toUpperCase()}
+                          </div>
+                        </div>
+                        {/* Contact CTAs */}
+                        <div style={{ display: "flex", gap: "0.5rem", width: "100%" }}>
+                          <button
+                            onClick={() => setSelectedGame(game)}
+                            style={{
+                              flex: 1,
+                              background: "rgba(255, 51, 51, 0.2)",
+                              border: "1px solid rgba(255, 51, 51, 0.5)",
+                              color: "#ff3333",
+                              padding: "0.5rem",
+                              borderRadius: "6px",
+                              cursor: "pointer",
+                              fontSize: "0.85rem",
+                              fontWeight: "bold",
+                              transition: "all 0.2s"
+                            }}
+                            onMouseEnter={(e) => {
+                              e.currentTarget.style.background = "rgba(255, 51, 51, 0.3)";
+                              e.currentTarget.style.borderColor = "#ff3333";
+                            }}
+                            onMouseLeave={(e) => {
+                              e.currentTarget.style.background = "rgba(255, 51, 51, 0.2)";
+                              e.currentTarget.style.borderColor = "rgba(255, 51, 51, 0.5)";
+                            }}
+                          >
+                            View Prices
+                          </button>
+                          <button
+                            onClick={() => setContactGame(game)}
+                            style={{
+                              flex: 1,
+                              background: "linear-gradient(135deg, #ff3333, #ff6b6b)",
+                              color: "white",
+                              padding: "0.5rem",
+                              borderRadius: "6px",
+                              textDecoration: "none",
+                              fontSize: "0.85rem",
+                              fontWeight: "bold",
+                              textAlign: "center",
+                              transition: "all 0.2s",
+                              cursor: "pointer",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              border: "none"
+                            }}
+                            onMouseEnter={(e) => {
+                              e.currentTarget.style.transform = "scale(1.05)";
+                              e.currentTarget.style.boxShadow = "0 4px 12px rgba(255, 51, 51, 0.4)";
+                            }}
+                            onMouseLeave={(e) => {
+                              e.currentTarget.style.transform = "scale(1)";
+                              e.currentTarget.style.boxShadow = "none";
+                            }}
+                          >
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Facebook_Messenger_logo_2020.svg/960px-Facebook_Messenger_logo_2020.svg.png" alt="Messenger" style={{ width: "16px", height: "16px", marginRight: "0.3rem" }} />
+                            Ask Details
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </section>
+        )}
 
         {/* Customer Feedback & Credibility Section */}
         <section className="container" style={{ marginTop: "3rem" }}>
