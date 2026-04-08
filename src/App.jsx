@@ -2393,21 +2393,6 @@ export default function App() {
                 Yes! Steam Wallet codes are available on our site with 1-2% discount. Just scroll down to find "Steam Wallet Codes" in the list and choose your desired amount. All codes are delivered instantly!
               </p>
             </details>
-
-            <details style={{
-              background: "rgba(255, 51, 51, 0.05)",
-              padding: "1.5rem",
-              borderRadius: "8px",
-              border: "1px solid rgba(255, 51, 51, 0.2)",
-              cursor: "pointer"
-            }}>
-              <summary style={{ color: "#ff3333", fontWeight: "bold", fontSize: "1.1rem", userSelect: "none" }}>
-                What games are available in Coda Shop?
-              </summary>
-              <p style={{ color: "#c0c0c0", marginTop: "1rem" }}>
-                All the games listed on our site (Mobile Legends, Valorant, LOL, Genshin Impact, PUBG, Honkai Star Rail, Blood Strike, and more) are available through Coda Shop! You can also request other games - just message us for availability and pricing.
-              </p>
-            </details>
           </div>
         </section>
 
