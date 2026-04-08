@@ -367,7 +367,7 @@ const getEventStatus = (startDate, endDate) => {
   return "ongoing";
 };
 
-// Calculate string similarity (0-1, where 1 is exact match)
+// Calculate string similarity using Levenshtein distance
 const calculateSimilarity = (str1, str2) => {
   const s1 = str1.toLowerCase();
   const s2 = str2.toLowerCase();
@@ -375,17 +375,30 @@ const calculateSimilarity = (str1, str2) => {
   // Exact match or substring match
   if (s1 === s2 || s1.includes(s2) || s2.includes(s1)) return 1;
   
-  // Levenshtein-like distance
-  const longer = s1.length > s2.length ? s1 : s2;
-  const shorter = s1.length > s2.length ? s2 : s1;
+  // Levenshtein distance
+  const matrix = Array(s2.length + 1).fill(null).map(() => 
+    Array(s1.length + 1).fill(0)
+  );
   
-  let matches = 0;
-  for (let i = 0; i < shorter.length; i++) {
-    if (longer.includes(shorter[i])) matches++;
+  for (let i = 0; i <= s1.length; i++) matrix[0][i] = i;
+  for (let j = 0; j <= s2.length; j++) matrix[j][0] = j;
+  
+  for (let j = 1; j <= s2.length; j++) {
+    for (let i = 1; i <= s1.length; i++) {
+      const indicator = s1[i - 1] === s2[j - 1] ? 0 : 1;
+      matrix[j][i] = Math.min(
+        matrix[j][i - 1] + 1,      // insertion
+        matrix[j - 1][i] + 1,      // deletion
+        matrix[j - 1][i - 1] + indicator  // substitution
+      );
+    }
   }
   
-  // Character match ratio
-  return matches / longer.length;
+  const distance = matrix[s2.length][s1.length];
+  const maxLen = Math.max(s1.length, s2.length);
+  
+  // Convert distance to similarity (0-1)
+  return 1 - (distance / maxLen);
 };
 
 // Find closest match from array
@@ -396,7 +409,7 @@ const findClosestMatch = (query, array, getNameFn) => {
   for (const item of array) {
     const name = getNameFn(item);
     const score = calculateSimilarity(query, name);
-    if (score > bestScore && score > 0.4) { // Threshold of 0.4 similarity
+    if (score > bestScore && score > 0.75) { // Increased threshold to 0.75 for very close matches only
       bestScore = score;
       bestMatch = item;
     }
@@ -688,7 +701,6 @@ export default function App() {
   const [filterCategory, setFilterCategory] = useState("all");
   const [breadcrumb, setBreadcrumb] = useState(["Games"]);
   const [showWelcomeNotif, setShowWelcomeNotif] = useState(true);
-  const [flippedGames, setFlippedGames] = useState(new Set());
   const [ignValidatorData, setIgnValidatorData] = useState({
     ign: "",
     orderedAmount: "",
@@ -993,15 +1005,7 @@ export default function App() {
     }
   };
 
-  const toggleFlip = (gameId) => {
-    const newFlipped = new Set(flippedGames);
-    if (newFlipped.has(gameId)) {
-      newFlipped.delete(gameId);
-    } else {
-      newFlipped.add(gameId);
-    }
-    setFlippedGames(newFlipped);
-  };
+
 
   const filteredGames = useMemo(() => {
     return gamesData.filter(game => {
@@ -1710,37 +1714,15 @@ export default function App() {
                   const discount = discountMap[game.id] || "5%";
                   
                   const isPopular = game.pricing.length >= 10;
-                  const isFlipped = flippedGames.has(game.id);
                   
                   return (
                     <div 
-                      key={game.id} 
+                      key={game.id}
+                      className={`game-card ${game.category}`}
                       style={{
-                        perspective: "1000px",
                         height: "100%"
                       }}
                     >
-                      <div
-                        onClick={() => toggleFlip(game.id)}
-                        style={{
-                          position: "relative",
-                          width: "100%",
-                          height: "100%",
-                          transition: "transform 0.6s",
-                          transformStyle: "preserve-3d",
-                          transform: isFlipped ? "rotateY(180deg)" : "rotateY(0deg)",
-                          cursor: "pointer"
-                        }}
-                      >
-                        {/* Front of card */}
-                        <div 
-                          className={`game-card ${game.category}`}
-                          style={{ 
-                            position: "relative",
-                            backfaceVisibility: "hidden",
-                            WebkitBackfaceVisibility: "hidden"
-                          }}
-                        >
                           <div className="game-image" style={{ backgroundImage: `url(${game.image})`, backgroundSize: "cover", backgroundPosition: "center" }}>
                         {isPopular && (
                           <div style={{
@@ -1854,110 +1836,6 @@ export default function App() {
                             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Facebook_Messenger_logo_2020.svg/960px-Facebook_Messenger_logo_2020.svg.png" alt="Messenger" style={{ width: "16px", height: "16px", marginRight: "0.3rem" }} />
                             Ask Details
                           </button>
-                        </div>
-                      </div>
-                        </div>
-
-                        {/* Back of card */}
-                        <div
-                          style={{
-                            position: "absolute",
-                            top: 0,
-                            left: 0,
-                            width: "100%",
-                            height: "100%",
-                            background: `linear-gradient(135deg, ${game.category === "moba" ? "rgba(0, 212, 255, 0.15), rgba(0, 100, 200, 0.15)" : game.category === "fps" ? "rgba(255, 165, 0, 0.15), rgba(255, 100, 0, 0.15)" : "rgba(157, 78, 221, 0.15), rgba(100, 50, 150, 0.15)"})`,
-                            border: `2px solid ${game.category === "moba" ? "rgba(0, 212, 255, 0.4)" : game.category === "fps" ? "rgba(255, 165, 0, 0.4)" : "rgba(157, 78, 221, 0.4)"}`,
-                            borderRadius: "8px",
-                            padding: "1rem",
-                            display: "flex",
-                            flexDirection: "column",
-                            justifyContent: "space-between",
-                            backfaceVisibility: "hidden",
-                            WebkitBackfaceVisibility: "hidden",
-                            transform: "rotateY(180deg)",
-                            boxSizing: "border-box",
-                            overflow: "hidden"
-                          }}
-                        >
-                          <div style={{ overflow: "auto", flex: 1 }}>
-                            <div style={{ 
-                              color: game.category === "moba" ? "#00d4ff" : game.category === "fps" ? "#ffa500" : "#9d4edd", 
-                              fontWeight: "bold", 
-                              fontSize: "0.95rem", 
-                              marginBottom: "0.75rem",
-                              display: "flex",
-                              alignItems: "center",
-                              gap: "0.4rem"
-                            }}>
-                              <span style={{ fontSize: "1.1rem" }}>⚡</span>
-                              Quick Details
-                            </div>
-                            
-                            {/* Package info */}
-                            <div style={{ 
-                              background: "rgba(0, 255, 136, 0.08)",
-                              border: "1px solid rgba(0, 255, 136, 0.2)",
-                              borderRadius: "6px",
-                              padding: "0.6rem",
-                              marginBottom: "0.6rem"
-                            }}>
-                              <div style={{ color: "#a0a0a0", fontSize: "0.7rem", marginBottom: "0.2rem" }}>📦 Packages</div>
-                              <div style={{ color: "#00ff88", fontWeight: "bold", fontSize: "1.1rem" }}>{game.pricing.length}</div>
-                            </div>
-
-                            {/* Category */}
-                            <div style={{ 
-                              background: game.category === "moba" ? "rgba(0, 212, 255, 0.08)" : game.category === "fps" ? "rgba(255, 165, 0, 0.08)" : "rgba(157, 78, 221, 0.08)",
-                              border: `1px solid ${game.category === "moba" ? "rgba(0, 212, 255, 0.2)" : game.category === "fps" ? "rgba(255, 165, 0, 0.2)" : "rgba(157, 78, 221, 0.2)"}`,
-                              borderRadius: "6px",
-                              padding: "0.6rem",
-                              marginBottom: "0.6rem"
-                            }}>
-                              <div style={{ color: "#a0a0a0", fontSize: "0.7rem", marginBottom: "0.2rem" }}>🎮 Type</div>
-                              <div style={{ 
-                                color: game.category === "moba" ? "#00d4ff" : game.category === "fps" ? "#ffa500" : "#9d4edd",
-                                fontWeight: "bold", 
-                                fontSize: "0.9rem" 
-                              }}>
-                                {game.category.toUpperCase()}
-                              </div>
-                            </div>
-
-                            {/* Discount */}
-                            <div style={{ 
-                              background: "rgba(255, 51, 51, 0.1)",
-                              border: "1px solid rgba(255, 51, 51, 0.3)",
-                              borderRadius: "6px",
-                              padding: "0.6rem",
-                              marginBottom: "0.6rem"
-                            }}>
-                              <div style={{ color: "#a0a0a0", fontSize: "0.7rem", marginBottom: "0.2rem" }}>💰 Savings</div>
-                              <div style={{ color: "#ffb3b3", fontWeight: "bold", fontSize: "0.95rem" }}>Save {discount}!</div>
-                            </div>
-
-                            {/* Delivery */}
-                            <div style={{ 
-                              background: "rgba(100, 200, 255, 0.08)",
-                              border: "1px solid rgba(100, 200, 255, 0.2)",
-                              borderRadius: "6px",
-                              padding: "0.6rem"
-                            }}>
-                              <div style={{ color: "#a0a0a0", fontSize: "0.7rem", marginBottom: "0.2rem" }}>⚡ Delivery</div>
-                              <div style={{ color: "#64c8ff", fontWeight: "bold", fontSize: "0.9rem" }}>5-30 min</div>
-                            </div>
-                          </div>
-
-                          <div style={{ 
-                            color: "#a0a0a0", 
-                            fontSize: "0.7rem", 
-                            textAlign: "center", 
-                            marginTop: "0.75rem",
-                            paddingTop: "0.75rem",
-                            borderTop: "1px solid rgba(255, 51, 51, 0.2)"
-                          }}>
-                            ↺ Click to flip back
-                          </div>
                         </div>
                       </div>
                     </div>
