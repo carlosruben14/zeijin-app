@@ -671,12 +671,13 @@ export default function App() {
     
     try {
       // Step 1: Send verification code to account (checks if account exists)
-      const response = await fetch("https://mlbb.rone.dev/api/user/auth/send-vc", {
+      const response = await fetch("/api/mlbb", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
+          action: "send-vc",
           role_id: parseInt(mlIdData.userId),
           zone_id: parseInt(mlIdData.serverId)
         })
@@ -739,12 +740,13 @@ export default function App() {
 
     try {
       // Step 2: Login with verification code
-      const loginResponse = await fetch("https://mlbb.rone.dev/api/user/auth/login", {
+      const loginResponse = await fetch("/api/mlbb", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
+          action: "login",
           role_id: parseInt(mlIdData.userId),
           zone_id: parseInt(mlIdData.serverId),
           vc: parseInt(mlVcCode)
@@ -755,12 +757,15 @@ export default function App() {
 
       if (loginData.code === 0 && loginData.data.jwt) {
         // Step 3: Get user info
-        const infoResponse = await fetch("https://mlbb.rone.dev/api/user/info", {
-          method: "GET",
+        const infoResponse = await fetch("/api/mlbb", {
+          method: "POST",
           headers: {
-            "Authorization": `Bearer ${loginData.data.jwt}`,
             "Content-Type": "application/json"
-          }
+          },
+          body: JSON.stringify({
+            action: "get-info",
+            jwt: loginData.data.jwt
+          })
         });
 
         const infoData = await infoResponse.json();
