@@ -615,7 +615,6 @@ export default function App() {
   const [mlVcSent, setMlVcSent] = useState(false);
   const [mlVcCode, setMlVcCode] = useState("");
   const [mlRealData, setMlRealData] = useState(null);
-  const [mlRequireDetailedVerification, setMlRequireDetailedVerification] = useState(false);
 
   const getRegionFromServerId = (serverId) => {
     // Determine region based on server ID ranges
@@ -670,14 +669,13 @@ export default function App() {
     setMlCheckLoading(true);
     
     try {
-      // Step 1: Send verification code to account (checks if account exists)
-      const response = await fetch("/api/mlbb", {
+      // Step 1: Send verification code to account
+      const response = await fetch("https://mlbb.rone.dev/api/user/auth/send-vc", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          action: "send-vc",
           role_id: parseInt(mlIdData.userId),
           zone_id: parseInt(mlIdData.serverId)
         })
@@ -686,37 +684,19 @@ export default function App() {
       const data = await response.json();
 
       if (data.code === 0) {
-        // Account exists!
-        const region = getRegionFromServerId(mlIdData.serverId);
-        
-        if (mlRequireDetailedVerification) {
-          // Show VC input for detailed verification
-          setMlVcSent(true);
-          setMlCheckError("");
-          setMlCheckResult({
-            valid: null,
-            message: "✉️ Verification code sent! Check your in-game mail."
-          });
-        } else {
-          // Show basic verification without full details
-          setMlCheckResult({
-            valid: true,
-            ign: "Account Verified",
-            level: "N/A",
-            userId: mlIdData.userId,
-            serverId: mlIdData.serverId,
-            region: region,
-            avatar: null,
-            message: "Account Verified! ✓ (Quick Check)"
-          });
-          setMlVcSent(false);
-        }
+        // Success - VC sent
+        setMlVcSent(true);
+        setMlCheckError("");
+        setMlCheckResult({
+          valid: null,
+          message: "✉️ Verification code sent! Check your in-game mail."
+        });
       } else {
         setMlCheckError(`Account not found or invalid. (Code: ${data.code})`);
         setMlVcSent(false);
       }
     } catch (error) {
-      setMlCheckError(`Error: ${error.message || "Failed to verify account"}`);
+      setMlCheckError(`Error: ${error.message || "Failed to send verification code"}`)
       setMlVcSent(false);
     } finally {
       setMlCheckLoading(false);
@@ -740,13 +720,12 @@ export default function App() {
 
     try {
       // Step 2: Login with verification code
-      const loginResponse = await fetch("/api/mlbb", {
+      const loginResponse = await fetch("https://mlbb.rone.dev/api/user/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          action: "login",
           role_id: parseInt(mlIdData.userId),
           zone_id: parseInt(mlIdData.serverId),
           vc: parseInt(mlVcCode)
@@ -757,15 +736,12 @@ export default function App() {
 
       if (loginData.code === 0 && loginData.data.jwt) {
         // Step 3: Get user info
-        const infoResponse = await fetch("/api/mlbb", {
-          method: "POST",
+        const infoResponse = await fetch("https://mlbb.rone.dev/api/user/info", {
+          method: "GET",
           headers: {
+            "Authorization": `Bearer ${loginData.data.jwt}`,
             "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            action: "get-info",
-            jwt: loginData.data.jwt
-          })
+          }
         });
 
         const infoData = await infoResponse.json();
@@ -1008,31 +984,6 @@ export default function App() {
                   <small style={{ color: "#888", fontSize: "0.8rem", marginTop: "0.3rem", display: "block" }}>
                     Look next to your IGN in-game · 1-999: PH, 1000+: Other regions
                   </small>
-                </div>
-
-                {/* Detailed Verification Checkbox */}
-                <div style={{ marginBottom: "1.5rem", background: "rgba(100, 200, 255, 0.05)", padding: "1rem", borderRadius: "8px", border: "1px solid rgba(100, 200, 255, 0.2)" }}>
-                  <label style={{ display: "flex", alignItems: "center", gap: "0.8rem", cursor: "pointer", margin: 0 }}>
-                    <input 
-                      type="checkbox"
-                      checked={mlRequireDetailedVerification}
-                      onChange={(e) => setMlRequireDetailedVerification(e.target.checked)}
-                      style={{
-                        width: "18px",
-                        height: "18px",
-                        cursor: "pointer",
-                        accentColor: "#FF6B9D"
-                      }}
-                    />
-                    <div>
-                      <p style={{ margin: "0 0 0.3rem 0", color: "#a0a0a0", fontWeight: "bold", fontSize: "0.95rem" }}>
-                        🔐 Verify with In-Game Code
-                      </p>
-                      <p style={{ margin: 0, color: "#888", fontSize: "0.8rem" }}>
-                        Get your real IGN, level, and avatar (requires in-game verification code)
-                      </p>
-                    </div>
-                  </label>
                 </div>
               </>
             )}
