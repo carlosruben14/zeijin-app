@@ -605,172 +605,95 @@ export default function App() {
     otherConcern: ""
   });
   const [showMLIDChecker, setShowMLIDChecker] = useState(false);
-  const [mlIdData, setMlIdData] = useState({
-    userId: "",
-    serverId: ""
-  });
+  const [mlSearchQuery, setMlSearchQuery] = useState("");
+  const [mlSearchType, setMlSearchType] = useState("hero"); // hero, item, or pro
   const [mlCheckResult, setMlCheckResult] = useState(null);
   const [mlCheckError, setMlCheckError] = useState("");
   const [mlCheckLoading, setMlCheckLoading] = useState(false);
-  const [mlVcSent, setMlVcSent] = useState(false);
-  const [mlVcCode, setMlVcCode] = useState("");
-  const [mlRealData, setMlRealData] = useState(null);
 
-  const getRegionFromServerId = (serverId) => {
-    // Determine region based on server ID ranges
-    const id = parseInt(serverId);
-    if (isNaN(id)) return "Unknown";
-    
-    if (id >= 1 && id <= 999) return "Southeast Asia 🇵🇭";
-    if (id >= 1000 && id <= 1999) return "Southeast Asia 🇵🇭";
-    if (id >= 2000 && id <= 2999) return "Europe 🇪🇺";
-    if (id >= 3000 && id <= 3999) return "Americas 🌎";
-    if (id >= 4000 && id <= 4999) return "India 🇮🇳";
-    if (id >= 5000 && id <= 5999) return "Middle East";
-    return "Global";
-  };
-
-  const generateIgnFromUserId = (userId) => {
-    // Simulate generating/retrieving IGN based on User ID
-    const ignNames = [
-      "ShadowKnight", "PhoenixRising", "IceStorm", "ThunderLord", "SilentAssassin",
-      "VoidWalker", "EchoKnight", "ScarletFury", "NovaBlast", "SteelBlade",
-      "LunarEclipse", "InfernoWrath", "CrimsonBlade", "DarkChampion", "VenomStrike"
-    ];
-    
-    const index = (parseInt(userId) % ignNames.length);
-    return ignNames[index] || "Player" + userId.slice(-4);
-  };
-
-  const checkMLID = async () => {
+  const searchMlData = async () => {
     setMlCheckError("");
     setMlCheckResult(null);
-    setMlVcCode("");
     
-    if (!mlIdData.userId.trim()) {
-      setMlCheckError("Please enter your User ID");
-      return;
-    }
-    if (!mlIdData.serverId.trim()) {
-      setMlCheckError("Please enter your Server ID");
-      return;
-    }
-
-    // Validation: Both User ID and Server ID should be numeric
-    if (!/^\d+$/.test(mlIdData.userId)) {
-      setMlCheckError("Invalid User ID. Must contain only numbers.");
-      return;
-    }
-    if (!/^\d+$/.test(mlIdData.serverId)) {
-      setMlCheckError("Invalid Server ID. Must contain only numbers.");
+    if (!mlSearchQuery.trim()) {
+      setMlCheckError(`Please enter a ${mlSearchType} name`);
       return;
     }
 
     setMlCheckLoading(true);
     
     try {
-      // Step 1: Send verification code to account
-      const response = await fetch("https://mlbb.rone.dev/api/user/auth/send-vc", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          role_id: parseInt(mlIdData.userId),
-          zone_id: parseInt(mlIdData.serverId)
-        })
-      });
-
-      const data = await response.json();
-
-      if (data.code === 0) {
-        // Success - VC sent
-        setMlVcSent(true);
-        setMlCheckError("");
-        setMlCheckResult({
-          valid: null,
-          message: "✉️ Verification code sent! Check your in-game mail."
-        });
+      const apiBase = "https://mlbb-wiki-api.vercel.app/api";
+      let endpoint;
+      
+      if (mlSearchType === "hero") {
+        endpoint = `${apiBase}/heroes`;
+      } else if (mlSearchType === "item") {
+        endpoint = `${apiBase}/equipment`;
       } else {
-        setMlCheckError(`Account not found or invalid. (Code: ${data.code})`);
-        setMlVcSent(false);
+        endpoint = `${apiBase}/heroes`;
       }
-    } catch (error) {
-      setMlCheckError(`Error: ${error.message || "Failed to send verification code"}`)
-      setMlVcSent(false);
-    } finally {
-      setMlCheckLoading(false);
-    }
-  };
 
-  const verifyMLID = async () => {
-    setMlCheckError("");
-    
-    if (!mlVcCode.trim()) {
-      setMlCheckError("Please enter the verification code from in-game mail");
-      return;
-    }
+      const response = await fetch(endpoint);
+      if (!response.ok) {
+        throw new Error(`API returned status ${response.status}`);
+      }
 
-    if (!/^\d{4}$/.test(mlVcCode)) {
-      setMlCheckError("Verification code must be 4 digits");
-      return;
-    }
-
-    setMlCheckLoading(true);
-
-    try {
-      // Step 2: Login with verification code
-      const loginResponse = await fetch("https://mlbb.rone.dev/api/user/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          role_id: parseInt(mlIdData.userId),
-          zone_id: parseInt(mlIdData.serverId),
-          vc: parseInt(mlVcCode)
-        })
-      });
-
-      const loginData = await loginResponse.json();
-
-      if (loginData.code === 0 && loginData.data.jwt) {
-        // Step 3: Get user info
-        const infoResponse = await fetch("https://mlbb.rone.dev/api/user/info", {
-          method: "GET",
-          headers: {
-            "Authorization": `Bearer ${loginData.data.jwt}`,
-            "Content-Type": "application/json"
-          }
-        });
-
-        const infoData = await infoResponse.json();
-
-        if (infoData.code === 0 && infoData.data) {
-          const userInfo = infoData.data;
-          const region = getRegionFromServerId(mlIdData.serverId);
-          
-          setMlRealData(userInfo);
+      const result = await response.json();
+      const searchTerm = mlSearchQuery.toLowerCase();
+      
+      if (mlSearchType === "hero" && result.data) {
+        const hero = result.data.find(h => 
+          h.hero_name.toLowerCase().includes(searchTerm) || 
+          h.hero_title.toLowerCase().includes(searchTerm)
+        );
+        
+        if (hero) {
           setMlCheckResult({
             valid: true,
-            ign: userInfo.name || "N/A",
-            level: userInfo.level || "N/A",
-            rankLevel: userInfo.rank_level || "N/A",
-            userId: mlIdData.userId,
-            serverId: mlIdData.serverId,
-            region: region,
-            avatar: userInfo.avatar,
-            message: "Account Verified! ✓"
+            type: "hero",
+            name: hero.hero_name,
+            data: hero,
+            message: `Hero Data Found! ✓`
           });
-          setMlVcSent(false);
         } else {
-          setMlCheckError("Failed to get user information");
+          setMlCheckError(`Hero "${mlSearchQuery}" not found. Try another hero name.`);
+        }
+      } else if (mlSearchType === "item" && result.data) {
+        const item = result.data.find(i => 
+          i.item_name.toLowerCase().includes(searchTerm) ||
+          (i.description && i.description.toLowerCase().includes(searchTerm))
+        );
+        
+        if (item) {
+          setMlCheckResult({
+            valid: true,
+            type: "item",
+            name: item.item_name,
+            data: item,
+            message: `Item Found! ✓`
+          });
+        } else {
+          setMlCheckError(`Item "${mlSearchQuery}" not found. Try another item name.`);
         }
       } else {
-        setMlCheckError("Invalid verification code. Please check and try again.");
+        setMlCheckError(`${mlSearchType.charAt(0).toUpperCase() + mlSearchType.slice(1)} not found. Try a different name.`);
       }
     } catch (error) {
-      setMlCheckError(`Error: ${error.message || "Verification failed"}`)
+      console.error("Search error details:", error);
+      let errorMsg = "Failed to fetch data";
+      
+      if (error.message.includes("Failed to fetch")) {
+        errorMsg = "Network error - check your connection or try again";
+      } else if (error.message.includes("401") || error.message.includes("403")) {
+        errorMsg = "Access denied - API may be temporarily unavailable";
+      } else if (error.message.includes("404")) {
+        errorMsg = "API endpoint not found";
+      } else {
+        errorMsg = error.message;
+      }
+      
+      setMlCheckError(`❌ ${errorMsg}`)
     } finally {
       setMlCheckLoading(false);
     }
@@ -860,11 +783,11 @@ export default function App() {
         <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0, 0, 0, 0.7)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 99998, padding: "1rem" }}>
           <div style={{ background: "linear-gradient(135deg, rgba(30, 30, 45, 1), rgba(40, 20, 35, 1))", padding: "2rem", borderRadius: "12px", border: "2px solid #FF6B9D", maxWidth: "500px", width: "100%", boxShadow: "0 0 60px rgba(255, 107, 157, 0.4)" }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.5rem" }}>
-              <h2 style={{ color: "#FF6B9D", margin: 0, fontSize: "1.5rem" }}>🎮 Mobile Legends ID Checker</h2>
+              <h2 style={{ color: "#FF6B9D", margin: 0, fontSize: "1.5rem" }}>🎮 MLBB Wiki Lookup</h2>
               <button 
                 onClick={() => {
                   setShowMLIDChecker(false);
-                  setMlIdData({ userId: "", serverId: "" });
+                  setMlSearchQuery("");
                   setMlCheckResult(null);
                   setMlCheckError("");
                 }}
@@ -875,7 +798,7 @@ export default function App() {
             </div>
 
             <p style={{ color: "#d0d0d0", marginBottom: "1.5rem", fontSize: "0.95rem" }}>
-              Verify your Mobile Legends account. Enter your User ID and Server ID to check your account details.
+              Search for heroes, items, or pro players from MLBB Wiki.
             </p>
 
             {/* Error Message */}
@@ -888,150 +811,137 @@ export default function App() {
             {/* Waiting for VC Message */}
             {mlCheckResult && mlCheckResult.valid === null && (
               <div style={{ background: "rgba(100, 200, 255, 0.15)", border: "1px solid rgba(100, 200, 255, 0.4)", padding: "1.2rem", borderRadius: "8px", marginBottom: "1.5rem", color: "#64c8ff", fontSize: "0.9rem" }}>
-                <div style={{ fontSize: "1.1rem", marginBottom: "0.8rem", fontWeight: "bold" }}>{mlCheckResult.message}</div>
-                <p style={{ color: "#a0a0a0", margin: "0", fontSize: "0.85rem" }}>Enter the 4-digit code below to complete verification.</p>
+                <div style={{ fontSize: "1.1rem", marginBottom: "0.8rem", fontWeight: "bold" }}>Searching...</div>
               </div>
             )}
 
             {/* Success Result */}
             {mlCheckResult && mlCheckResult.valid === true && (
-              <div style={{ background: "rgba(0, 255, 136, 0.15)", border: "1px solid rgba(0, 255, 136, 0.4)", padding: "1.2rem", borderRadius: "8px", marginBottom: "1.5rem", color: "#00ff88", fontSize: "0.9rem" }}>
-                {mlCheckResult.avatar && (
-                  <div style={{ marginBottom: "1rem", textAlign: "center" }}>
-                    <img src={mlCheckResult.avatar} alt="Avatar" style={{ width: "60px", height: "60px", borderRadius: "50%", border: "2px solid #00ff88" }} />
-                  </div>
-                )}
-                <div style={{ fontSize: "1.2rem", marginBottom: "0.8rem", fontWeight: "bold" }}>✓ {mlCheckResult.message}</div>
-                <div style={{ color: "#a0a0a0", fontSize: "0.85rem", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-                  <div style={{ borderBottom: "1px solid rgba(0, 255, 136, 0.2)", paddingBottom: "0.5rem" }}>
-                    <p style={{ margin: "0", color: "#888", fontSize: "0.75rem" }}>IN-GAME NAME (IGN)</p>
-                    <p style={{ margin: "0.3rem 0 0 0", color: "#00ff88", fontWeight: "bold", fontSize: "1.1rem" }}>{mlCheckResult.ign}</p>
-                  </div>
-                  <div style={{ borderBottom: "1px solid rgba(0, 255, 136, 0.2)", paddingBottom: "0.5rem" }}>
-                    <p style={{ margin: "0", color: "#888", fontSize: "0.75rem" }}>RANK LEVEL</p>
-                    <p style={{ margin: "0.3rem 0 0 0", color: "#00ff88", fontWeight: "bold", fontSize: "1rem" }}>Level {mlCheckResult.level}</p>
-                  </div>
-                  <div style={{ borderBottom: "1px solid rgba(0, 255, 136, 0.2)", paddingBottom: "0.5rem" }}>
-                    <p style={{ margin: "0", color: "#888", fontSize: "0.75rem" }}>ML ID WITH SERVER ID</p>
-                    <p style={{ margin: "0.3rem 0 0 0", color: "#00ff88", fontWeight: "bold", fontSize: "1.15rem" }}>{mlCheckResult.userId}-{mlCheckResult.serverId}</p>
-                  </div>
-                  <div>
-                    <p style={{ margin: "0", color: "#888", fontSize: "0.75rem" }}>REGION</p>
-                    <p style={{ margin: "0.3rem 0 0 0", color: "#00ff88", fontWeight: "bold", fontSize: "1rem" }}>{mlCheckResult.region}</p>
-                  </div>
+              <div style={{ background: "rgba(0, 255, 136, 0.15)", border: "1px solid rgba(0, 255, 136, 0.4)", padding: "1.2rem", borderRadius: "8px", marginBottom: "1.5rem", color: "#00ff88", fontSize: "0.85rem" }}>
+                <div style={{ fontSize: "1.2rem", marginBottom: "0.8rem", fontWeight: "bold", color: "#00ff88" }}>✓ {mlCheckResult.message}</div>
+                <div style={{ color: "#a0a0a0", display: "flex", flexDirection: "column", gap: "0.6rem" }}>
+                  {mlCheckResult.type === "hero" && mlCheckResult.data && (
+                    <>
+                      <div><strong>Hero:</strong> {mlCheckResult.data.hero_name}</div>
+                      <div><strong>Title:</strong> {mlCheckResult.data.hero_title}</div>
+                      <div><strong>Role:</strong> {mlCheckResult.data.role}</div>
+                      <div><strong>Specialty:</strong> {mlCheckResult.data.specialty}</div>
+                      <div><strong>Lane:</strong> {mlCheckResult.data.lane_recommendation}</div>
+                      <div><strong>Region:</strong> {mlCheckResult.data.region_of_origin}</div>
+                      <div><strong>Released:</strong> {mlCheckResult.data.release_date}</div>
+                      <div><strong>Price:</strong> {mlCheckResult.data.bp_price} BP / {mlCheckResult.data.diamond_price} Diamonds</div>
+                    </>
+                  )}
+                  {mlCheckResult.type === "item" && mlCheckResult.data && (
+                    <>
+                      <div><strong>Item:</strong> {mlCheckResult.data.item_name}</div>
+                      <div><strong>Description:</strong> {mlCheckResult.data.description}</div>
+                      {mlCheckResult.data.crit_chance && <div><strong>Crit Chance:</strong> {mlCheckResult.data.crit_chance}</div>}
+                      {mlCheckResult.data.attack_power && <div><strong>Attack Power:</strong> {mlCheckResult.data.attack_power}</div>}
+                      {mlCheckResult.data.magic_power && <div><strong>Magic Power:</strong> {mlCheckResult.data.magic_power}</div>}
+                      {mlCheckResult.data.hp && <div><strong>HP:</strong> {mlCheckResult.data.hp}</div>}
+                    </>
+                  )}
+                  {mlCheckResult.type === "pro" && mlCheckResult.data && (
+                    <>
+                      <div><strong>Player:</strong> {mlCheckResult.data.Name}</div>
+                      <div><strong>Team:</strong> {mlCheckResult.data.Team || "N/A"}</div>
+                      <div><strong>Role:</strong> {mlCheckResult.data.Role || "N/A"}</div>
+                      <div><strong>Nationality:</strong> {mlCheckResult.data.Nationality || "N/A"}</div>
+                      {mlCheckResult.data["Expert Hero"] && (
+                        <div><strong>Expert Heroes:</strong> {mlCheckResult.data["Expert Hero"].join(", ")}</div>
+                      )}
+                    </>
+                  )}
                 </div>
               </div>
             )}
 
-            {/* Step 1: User ID & Server ID Inputs */}
-            {!mlVcSent && (
-              <>
-                <div style={{ marginBottom: "1.5rem" }}>
-                  <label style={{ display: "block", color: "#a0a0a0", marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold" }}>
-                    User ID
-                  </label>
-                  <input 
-                    type="text"
-                    placeholder="Enter your ML User ID (e.g., 12345678)"
-                    value={mlIdData.userId}
-                    onChange={(e) => setMlIdData({ ...mlIdData, userId: e.target.value })}
-                    disabled={mlVcSent}
-                    style={{
-                      width: "100%",
-                      padding: "0.8rem",
-                      background: "rgba(255, 255, 255, 0.05)",
-                      border: "1px solid rgba(255, 107, 157, 0.3)",
-                      borderRadius: "8px",
-                      color: "#fff",
-                      fontSize: "0.95rem",
-                      boxSizing: "border-box",
-                      transition: "border-color 0.3s",
-                      opacity: mlVcSent ? 0.5 : 1
+            {/* Search Type Selector */}
+            <div style={{ marginBottom: "1.5rem" }}>
+              <label style={{ display: "block", color: "#a0a0a0", marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold" }}>
+                What are you looking for?
+              </label>
+              <div style={{ display: "flex", gap: "0.5rem" }}>
+                {["hero", "item"].map(type => (
+                  <button
+                    key={type}
+                    onClick={() => {
+                      setMlSearchType(type);
+                      setMlSearchQuery("");
+                      setMlCheckResult(null);
+                      setMlCheckError("");
                     }}
-                    onFocus={(e) => e.target.style.borderColor = "rgba(255, 107, 157, 0.6)"}
-                    onBlur={(e) => e.target.style.borderColor = "rgba(255, 107, 157, 0.3)"}
-                  />
-                  <small style={{ color: "#888", fontSize: "0.8rem", marginTop: "0.3rem", display: "block" }}>
-                    Find your User ID in-game: Profile → Settings → Account Info
-                  </small>
-                </div>
-
-                <div style={{ marginBottom: "1.5rem" }}>
-                  <label style={{ display: "block", color: "#a0a0a0", marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold" }}>
-                    Server ID
-                  </label>
-                  <input 
-                    type="text"
-                    placeholder="Enter your Server ID (e.g., 1234)"
-                    value={mlIdData.serverId}
-                    onChange={(e) => setMlIdData({ ...mlIdData, serverId: e.target.value })}
-                    disabled={mlVcSent}
                     style={{
-                      width: "100%",
-                      padding: "0.8rem",
-                      background: "rgba(255, 255, 255, 0.05)",
-                      border: "1px solid rgba(255, 107, 157, 0.3)",
-                      borderRadius: "8px",
-                      color: "#fff",
-                      fontSize: "0.95rem",
-                      boxSizing: "border-box",
-                      transition: "border-color 0.3s",
-                      opacity: mlVcSent ? 0.5 : 1
+                      flex: 1,
+                      padding: "0.7rem",
+                      background: mlSearchType === type ? "linear-gradient(135deg, #FF6B9D, #FF4757)" : "rgba(255, 255, 255, 0.05)",
+                      border: mlSearchType === type ? "none" : "1px solid rgba(255, 107, 157, 0.3)",
+                      borderRadius: "6px",
+                      color: mlSearchType === type ? "white" : "#a0a0a0",
+                      fontWeight: "bold",
+                      cursor: "pointer",
+                      textTransform: "capitalize",
+                      transition: "all 0.3s",
+                      fontSize: "0.85rem"
                     }}
-                    onFocus={(e) => e.target.style.borderColor = "rgba(255, 107, 157, 0.6)"}
-                    onBlur={(e) => e.target.style.borderColor = "rgba(255, 107, 157, 0.3)"}
-                  />
-                  <small style={{ color: "#888", fontSize: "0.8rem", marginTop: "0.3rem", display: "block" }}>
-                    Look next to your IGN in-game · 1-999: PH, 1000+: Other regions
-                  </small>
-                </div>
-              </>
-            )}
-
-            {/* Step 2: VC Code Input */}
-            {mlVcSent && (
-              <div style={{ marginBottom: "1.5rem" }}>
-                <label style={{ display: "block", color: "#a0a0a0", marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold" }}>
-                  Verification Code
-                </label>
-                <input 
-                  type="text"
-                  placeholder="Enter 4-digit code from in-game mail"
-                  value={mlVcCode}
-                  onChange={(e) => setMlVcCode(e.target.value.replace(/\D/g, '').slice(0, 4))}
-                  maxLength="4"
-                  style={{
-                    width: "100%",
-                    padding: "0.8rem",
-                    background: "rgba(255, 255, 255, 0.05)",
-                    border: "1px solid rgba(100, 200, 255, 0.3)",
-                    borderRadius: "8px",
-                    color: "#fff",
-                    fontSize: "1.2rem",
-                    textAlign: "center",
-                    letterSpacing: "0.3rem",
-                    boxSizing: "border-box",
-                    transition: "border-color 0.3s"
-                  }}
-                  onFocus={(e) => e.target.style.borderColor = "rgba(100, 200, 255, 0.6)"}
-                  onBlur={(e) => e.target.style.borderColor = "rgba(100, 200, 255, 0.3)"}
-                />
-                <small style={{ color: "#888", fontSize: "0.8rem", marginTop: "0.3rem", display: "block" }}>
-                  Check your in-game mail for the code (valid for 5 minutes)
-                </small>
+                    onMouseEnter={(e) => {
+                      if (mlSearchType !== type) {
+                        e.currentTarget.style.background = "rgba(255, 255, 255, 0.1)";
+                        e.currentTarget.style.borderColor = "rgba(255, 107, 157, 0.5)";
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (mlSearchType !== type) {
+                        e.currentTarget.style.background = "rgba(255, 255, 255, 0.05)";
+                        e.currentTarget.style.borderColor = "rgba(255, 107, 157, 0.3)";
+                      }
+                    }}
+                  >
+                    {type === "hero" ? "🎮" : "⚔️"} {type}
+                  </button>
+                ))}
               </div>
-            )}
+            </div>
+
+            {/* Search Input */}
+            <div style={{ marginBottom: "1.5rem" }}>
+              <label style={{ display: "block", color: "#a0a0a0", marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold" }}>
+                {mlSearchType === "hero" ? "Hero Name" : mlSearchType === "item" ? "Item Name" : "Player Name"}
+              </label>
+              <input 
+                type="text"
+                placeholder={mlSearchType === "hero" ? "e.g., Miya, Hanzo, Alice" : "e.g., Bloodlust Axe, Demon Hunter Sword"}
+                value={mlSearchQuery}
+                onChange={(e) => setMlSearchQuery(e.target.value)}
+                onKeyPress={(e) => e.key === "Enter" && searchMlData()}
+                style={{
+                  width: "100%",
+                  padding: "0.8rem",
+                  background: "rgba(255, 255, 255, 0.05)",
+                  border: "1px solid rgba(255, 107, 157, 0.3)",
+                  borderRadius: "8px",
+                  color: "#fff",
+                  fontSize: "0.95rem",
+                  boxSizing: "border-box",
+                  transition: "border-color 0.3s"
+                }}
+                onFocus={(e) => e.target.style.borderColor = "rgba(255, 107, 157, 0.6)"}
+                onBlur={(e) => e.target.style.borderColor = "rgba(255, 107, 157, 0.3)"}
+              />
+              <small style={{ color: "#888", fontSize: "0.8rem", marginTop: "0.3rem", display: "block" }}>
+                {mlSearchType === "hero" ? "Search for any MLBB hero" : "Search for game equipment/items"}
+              </small>
+            </div>
 
             {/* Action Buttons */}
             <div style={{ display: "flex", gap: "1rem", justifyContent: "space-between" }}>
               <button 
                 onClick={() => {
                   setShowMLIDChecker(false);
-                  setMlIdData({ userId: "", serverId: "" });
+                  setMlSearchQuery("");
                   setMlCheckResult(null);
                   setMlCheckError("");
-                  setMlVcSent(false);
-                  setMlVcCode("");
                 }}
                 style={{
                   flex: 1,
@@ -1056,7 +966,7 @@ export default function App() {
                 {mlCheckResult && mlCheckResult.valid === true ? "Close" : "Cancel"}
               </button>
               <button 
-                onClick={mlVcSent ? verifyMLID : checkMLID}
+                onClick={searchMlData}
                 disabled={mlCheckLoading}
                 style={{
                   flex: 1,
@@ -1073,12 +983,12 @@ export default function App() {
                 onMouseEnter={(e) => !mlCheckLoading && (e.currentTarget.style.transform = "scale(1.02)")}
                 onMouseLeave={(e) => !mlCheckLoading && (e.currentTarget.style.transform = "scale(1)")}
               >
-                {mlCheckLoading ? "Loading..." : mlVcSent ? "✓ Verify Code" : "📨 Send VC"}
+                {mlCheckLoading ? "Searching..." : "🔍 Search"}
               </button>
             </div>
 
             <p style={{ color: "#888", fontSize: "0.8rem", marginTop: "1rem", textAlign: "center" }}>
-              {mlVcSent ? "Check your in-game mail for the verification code" : "Your data is used only to verify your account and won't be stored."}
+              Powered by MLBB Wiki API
             </p>
           </div>
         </div>
