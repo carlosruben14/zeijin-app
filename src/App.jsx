@@ -2,6 +2,28 @@ import { useState, useMemo, useEffect } from "react";
 import "./App.css";
 import "./index.css";
 
+// Skeleton Loader Component for image placeholders
+const SkeletonLoader = ({ width = "100%", height = "200px", borderRadius = "8px" }) => (
+  <div
+    style={{
+      width,
+      height,
+      borderRadius,
+      background: "linear-gradient(90deg, rgba(255,255,255,0.1) 25%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.1) 75%)",
+      backgroundSize: "200% 100%",
+      animation: "loading 1.5s infinite",
+      cursor: "progress"
+    }}
+  >
+    <style>{`
+      @keyframes loading {
+        0% { background-position: 200% 0; }
+        100% { background-position: -200% 0; }
+      }
+    `}</style>
+  </div>
+);
+
 const gamesData = [
   {
     id: 1,
@@ -421,6 +443,7 @@ const findClosestMatch = (query, array, getNameFn) => {
 const EventCarousel = ({ events, getEventStatus }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [autoPlay, setAutoPlay] = useState(true);
+  const [eventImageLoaded, setEventImageLoaded] = useState(false);
 
   useEffect(() => {
     if (!autoPlay || events.length === 0) return;
@@ -431,6 +454,11 @@ const EventCarousel = ({ events, getEventStatus }) => {
 
     return () => clearInterval(interval);
   }, [autoPlay, events.length]);
+
+  // Reset image loaded state when carousel slides
+  useEffect(() => {
+    setEventImageLoaded(false);
+  }, [currentIndex]);
 
   const goToSlide = (index) => {
     setCurrentIndex(index);
@@ -475,20 +503,36 @@ const EventCarousel = ({ events, getEventStatus }) => {
         onMouseEnter={() => setAutoPlay(false)}
         onMouseLeave={() => setAutoPlay(true)}
       >
-        {/* Event Image */}
+        {/* Event Image with Loading Indicator */}
         {currentEvent.image && (
           <div
             style={{
+              position: "relative",
               width: "100%",
               height: "400px",
               backgroundImage: `url(${currentEvent.image})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
-              position: "relative",
               display: "flex",
-              alignItems: "flex-end"
+              alignItems: "flex-end",
+              overflow: "hidden"
             }}
           >
+            {!eventImageLoaded && (
+              <SkeletonLoader width="100%" height="400px" borderRadius="0" />
+            )}
+            
+            {/* Hidden img tag to detect when image loads */}
+            <img
+              src={currentEvent.image}
+              alt={currentEvent.title}
+              onLoad={() => setEventImageLoaded(true)}
+              onError={() => setEventImageLoaded(true)}
+              style={{
+                display: "none"
+              }}
+            />
+            
             {/* Gradient overlay */}
             <div
               style={{
@@ -497,7 +541,8 @@ const EventCarousel = ({ events, getEventStatus }) => {
                 left: 0,
                 right: 0,
                 bottom: 0,
-                background: "linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.8))"
+                background: "linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.8))",
+                zIndex: 1
               }}
             />
             
@@ -706,6 +751,7 @@ export default function App() {
     paymentMethod: "GCash",
     otherConcern: ""
   });
+  const [formValidationErrors, setFormValidationErrors] = useState({});
   const [showMLIDChecker, setShowMLIDChecker] = useState(false);
   const [wikiSelectedGame, setWikiSelectedGame] = useState("mlbb"); // mlbb, valorant, genshin, lol
   const [mlSearchQuery, setMlSearchQuery] = useState("");
@@ -714,6 +760,9 @@ export default function App() {
   const [mlCheckError, setMlCheckError] = useState("");
   const [mlCheckLoading, setMlCheckLoading] = useState(false);
   const [mlSuggestion, setMlSuggestion] = useState(null); // { name, type }
+  const [imageLoadingStates, setImageLoadingStates] = useState({}); // Track image loading by game ID
+  const [wikiDetailTab, setWikiDetailTab] = useState("overview"); // overview, stats, abilities, skins
+  const [eventCarouselImageLoaded, setEventCarouselImageLoaded] = useState(false);
 
   // Auto-set search type when game changes
   useEffect(() => {
@@ -730,6 +779,13 @@ export default function App() {
     setMlSuggestion(null);
   }, [wikiSelectedGame]);
 
+  // Clear form validation errors when contact game modal is opened/closed
+  useEffect(() => {
+    if (contactGame) {
+      setFormValidationErrors({});
+    }
+  }, [contactGame]);
+
   const getSearchTypeOptions = () => {
     switch(wikiSelectedGame) {
       case "mlbb":
@@ -744,6 +800,26 @@ export default function App() {
         return ["hero"];
     }
   };
+
+  const validateContactForm = () => {
+    const errors = {};
+    
+    // Check IGN - required and non-empty
+    if (!ignValidatorData.ign || ignValidatorData.ign.trim() === "") {
+      errors.ign = "In-Game Name (UID) is required";
+    }
+    
+    // Check orderedAmount - required, numeric, and greater than 0
+    if (!ignValidatorData.orderedAmount || ignValidatorData.orderedAmount.trim() === "") {
+      errors.orderedAmount = "Order Amount is required";
+    } else if (isNaN(ignValidatorData.orderedAmount) || parseFloat(ignValidatorData.orderedAmount) <= 0) {
+      errors.orderedAmount = "Order Amount must be a valid number greater than 0";
+    }
+    
+    setFormValidationErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
 
   const searchGameData = async () => {
     setMlCheckError("");
@@ -791,10 +867,8 @@ export default function App() {
       const response = await fetch(endpoint, {
         method: "GET",
         headers: {
-          "Accept": "application/json",
-          "Content-Type": "application/json"
-        },
-        mode: "cors"
+          "Accept": "application/json"
+        }
       });
       
       console.log("Response status:", response.status);
@@ -1006,7 +1080,12 @@ export default function App() {
     }
   };
 
-
+  // Reset detail tab when search result changes
+  useEffect(() => {
+    if (mlCheckResult && mlCheckResult.valid === true) {
+      setWikiDetailTab("overview");
+    }
+  }, [mlCheckResult]);
 
   const filteredGames = useMemo(() => {
     return gamesData.filter(game => {
@@ -1202,81 +1281,233 @@ export default function App() {
               </div>
             )}
 
-            {/* Success Result */}
+            {/* Success Result with Tabs */}
             {mlCheckResult && mlCheckResult.valid === true && (
-              <div style={{ background: "rgba(0, 255, 136, 0.15)", border: "1px solid rgba(0, 255, 136, 0.4)", padding: "1.2rem", borderRadius: "8px", marginBottom: "1.5rem", color: "#00ff88", fontSize: "0.85rem" }}>
-                <div style={{ fontSize: "1.2rem", marginBottom: "0.8rem", fontWeight: "bold", color: "#00ff88" }}>✓ {mlCheckResult.message}</div>
-                <div style={{ color: "#a0a0a0", display: "flex", flexDirection: "column", gap: "0.6rem" }}>
-                  {mlCheckResult.type === "hero" && mlCheckResult.data && (
+              <div style={{ background: "rgba(0, 255, 136, 0.15)", border: "1px solid rgba(0, 255, 136, 0.4)", padding: "1.2rem", borderRadius: "8px", marginBottom: "1.5rem", color: "#00ff88" }}>
+                <div style={{ fontSize: "1.2rem", marginBottom: "1rem", fontWeight: "bold", color: "#00ff88" }}>✓ {mlCheckResult.message}</div>
+                
+                {/* Tab Navigation */}
+                <div style={{ display: "flex", gap: "0.5rem", marginBottom: "1rem", flexWrap: "wrap", borderBottom: "1px solid rgba(0, 255, 136, 0.2)", paddingBottom: "0.8rem" }}>
+                  <button
+                    onClick={() => setWikiDetailTab("overview")}
+                    style={{
+                      padding: "0.5rem 1rem",
+                      background: wikiDetailTab === "overview" ? "rgba(0, 255, 136, 0.3)" : "transparent",
+                      color: wikiDetailTab === "overview" ? "#00ff88" : "#a0a0a0",
+                      border: wikiDetailTab === "overview" ? "1px solid #00ff88" : "1px solid rgba(0, 255, 136, 0.2)",
+                      borderRadius: "6px",
+                      cursor: "pointer",
+                      fontSize: "0.85rem",
+                      fontWeight: "bold",
+                      transition: "all 0.3s"
+                    }}
+                    onMouseEnter={(e) => { if (wikiDetailTab !== "overview") e.currentTarget.style.background = "rgba(0, 255, 136, 0.1)"; }}
+                    onMouseLeave={(e) => { if (wikiDetailTab !== "overview") e.currentTarget.style.background = "transparent"; }}
+                  >
+                    📋 Overview
+                  </button>
+                  
+                  {(mlCheckResult.type === "hero" || mlCheckResult.type === "character" || mlCheckResult.type === "champion" || mlCheckResult.type === "agent") && (
+                    <button
+                      onClick={() => setWikiDetailTab("stats")}
+                      style={{
+                        padding: "0.5rem 1rem",
+                        background: wikiDetailTab === "stats" ? "rgba(0, 255, 136, 0.3)" : "transparent",
+                        color: wikiDetailTab === "stats" ? "#00ff88" : "#a0a0a0",
+                        border: wikiDetailTab === "stats" ? "1px solid #00ff88" : "1px solid rgba(0, 255, 136, 0.2)",
+                        borderRadius: "6px",
+                        cursor: "pointer",
+                        fontSize: "0.85rem",
+                        fontWeight: "bold",
+                        transition: "all 0.3s"
+                      }}
+                      onMouseEnter={(e) => { if (wikiDetailTab !== "stats") e.currentTarget.style.background = "rgba(0, 255, 136, 0.1)"; }}
+                      onMouseLeave={(e) => { if (wikiDetailTab !== "stats") e.currentTarget.style.background = "transparent"; }}
+                    >
+                      📊 Stats
+                    </button>
+                  )}
+                  
+                  {(mlCheckResult.type === "hero" || mlCheckResult.type === "character" || mlCheckResult.type === "champion" || mlCheckResult.type === "agent") && (
+                    <button
+                      onClick={() => setWikiDetailTab("abilities")}
+                      style={{
+                        padding: "0.5rem 1rem",
+                        background: wikiDetailTab === "abilities" ? "rgba(0, 255, 136, 0.3)" : "transparent",
+                        color: wikiDetailTab === "abilities" ? "#00ff88" : "#a0a0a0",
+                        border: wikiDetailTab === "abilities" ? "1px solid #00ff88" : "1px solid rgba(0, 255, 136, 0.2)",
+                        borderRadius: "6px",
+                        cursor: "pointer",
+                        fontSize: "0.85rem",
+                        fontWeight: "bold",
+                        transition: "all 0.3s"
+                      }}
+                      onMouseEnter={(e) => { if (wikiDetailTab !== "abilities") e.currentTarget.style.background = "rgba(0, 255, 136, 0.1)"; }}
+                      onMouseLeave={(e) => { if (wikiDetailTab !== "abilities") e.currentTarget.style.background = "transparent"; }}
+                    >
+                      ⚡ Abilities
+                    </button>
+                  )}
+                </div>
+                
+                {/* Tab Content */}
+                <div style={{ color: "#a0a0a0", display: "flex", flexDirection: "column", gap: "0.6rem", fontSize: "0.85rem" }}>
+                  {/* OVERVIEW TAB */}
+                  {wikiDetailTab === "overview" && (
                     <>
-                      <div><strong>Hero:</strong> {mlCheckResult.data.hero_name}</div>
-                      <div><strong>Title:</strong> {mlCheckResult.data.hero_title}</div>
-                      <div><strong>Role:</strong> {mlCheckResult.data.role}</div>
-                      <div><strong>Specialty:</strong> {mlCheckResult.data.specialty}</div>
-                      <div><strong>Lane:</strong> {mlCheckResult.data.lane_recommendation}</div>
-                      <div><strong>Region:</strong> {mlCheckResult.data.region_of_origin}</div>
-                      <div><strong>Released:</strong> {mlCheckResult.data.release_date}</div>
-                      <div><strong>Price:</strong> {mlCheckResult.data.bp_price} BP / {mlCheckResult.data.diamond_price} Diamonds</div>
+                      {mlCheckResult.type === "hero" && mlCheckResult.data && (
+                        <>
+                          <div><strong>Hero:</strong> {mlCheckResult.data.hero_name}</div>
+                          <div><strong>Title:</strong> {mlCheckResult.data.hero_title}</div>
+                          <div><strong>Role:</strong> <span style={{ color: "#00ff88", fontWeight: "bold" }}>{mlCheckResult.data.role}</span></div>
+                          <div><strong>Specialty:</strong> {mlCheckResult.data.specialty}</div>
+                          <div><strong>Lane:</strong> {mlCheckResult.data.lane_recommendation}</div>
+                          <div><strong>Region:</strong> {mlCheckResult.data.region_of_origin}</div>
+                          <div><strong>Released:</strong> {mlCheckResult.data.release_date}</div>
+                          <div><strong>Price:</strong> {mlCheckResult.data.bp_price} BP / {mlCheckResult.data.diamond_price} Diamonds</div>
+                        </>
+                      )}
+                      {mlCheckResult.type === "item" && mlCheckResult.data && (
+                        <>
+                          <div><strong>Item:</strong> {mlCheckResult.data.item_name}</div>
+                          <div><strong>Description:</strong> {mlCheckResult.data.description}</div>
+                          {mlCheckResult.data.crit_chance && <div><strong>Crit Chance:</strong> {mlCheckResult.data.crit_chance}</div>}
+                          {mlCheckResult.data.attack_power && <div><strong>Attack Power:</strong> {mlCheckResult.data.attack_power}</div>}
+                          {mlCheckResult.data.magic_power && <div><strong>Magic Power:</strong> {mlCheckResult.data.magic_power}</div>}
+                          {mlCheckResult.data.hp && <div><strong>HP:</strong> {mlCheckResult.data.hp}</div>}
+                        </>
+                      )}
+                      {mlCheckResult.type === "agent" && mlCheckResult.data && (
+                        <>
+                          <div><strong>Agent:</strong> {mlCheckResult.data.displayName}</div>
+                          <div><strong>Description:</strong> {mlCheckResult.data.description || "N/A"}</div>
+                          {mlCheckResult.data.role && <div><strong>Role:</strong> <span style={{ color: "#00ff88", fontWeight: "bold" }}>{mlCheckResult.data.role.displayName}</span></div>}
+                        </>
+                      )}
+                      {mlCheckResult.type === "character" && mlCheckResult.data && (
+                        <>
+                          <div><strong>Character:</strong> {mlCheckResult.data.name}</div>
+                          {mlCheckResult.data.title && <div><strong>Title:</strong> {mlCheckResult.data.title}</div>}
+                          {mlCheckResult.data.vision && <div><strong>Element:</strong> <span style={{ color: "#00ff88", fontWeight: "bold" }}>{mlCheckResult.data.vision}</span></div>}
+                          {mlCheckResult.data.nation && <div><strong>Region:</strong> {mlCheckResult.data.nation}</div>}
+                          {mlCheckResult.data.birthday && mlCheckResult.data.birthday !== "0000-05-27" && <div><strong>Birthday:</strong> {mlCheckResult.data.birthday}</div>}
+                          {mlCheckResult.data.release && <div><strong>Release Date:</strong> {mlCheckResult.data.release}</div>}
+                          {mlCheckResult.data.rarity && <div><strong>Rarity:</strong> ⭐ {mlCheckResult.data.rarity}</div>}
+                          {mlCheckResult.data.weapon && <div><strong>Weapon Type:</strong> {mlCheckResult.data.weapon}</div>}
+                          {mlCheckResult.data.wikiUrl && (
+                            <div style={{ marginTop: "0.8rem" }}>
+                              <a 
+                                href={mlCheckResult.data.wikiUrl} 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                style={{ 
+                                  display: "inline-block",
+                                  padding: "0.5rem 1rem",
+                                  background: "linear-gradient(135deg, #FF6B9D, #FF4757)",
+                                  color: "#fff",
+                                  textDecoration: "none",
+                                  borderRadius: "6px",
+                                  fontSize: "0.85rem",
+                                  fontWeight: "bold",
+                                  transition: "all 0.3s"
+                                }}
+                                onMouseEnter={(e) => e.target.style.transform = "scale(1.05)"}
+                                onMouseLeave={(e) => e.target.style.transform = "scale(1)"}
+                              >
+                                📖 View on Fandom Wiki
+                              </a>
+                            </div>
+                          )}
+                        </>
+                      )}
+                      {mlCheckResult.type === "champion" && mlCheckResult.data && (
+                        <>
+                          <div><strong>Champion:</strong> {mlCheckResult.data.name}</div>
+                          <div><strong>Title:</strong> {mlCheckResult.data.title || "N/A"}</div>
+                          <div><strong>Region:</strong> {mlCheckResult.data.regions?.join(", ") || "N/A"}</div>
+                        </>
+                      )}
                     </>
                   )}
-                  {mlCheckResult.type === "item" && mlCheckResult.data && (
+                  
+                  {/* STATS TAB */}
+                  {wikiDetailTab === "stats" && (
                     <>
-                      <div><strong>Item:</strong> {mlCheckResult.data.item_name}</div>
-                      <div><strong>Description:</strong> {mlCheckResult.data.description}</div>
-                      {mlCheckResult.data.crit_chance && <div><strong>Crit Chance:</strong> {mlCheckResult.data.crit_chance}</div>}
-                      {mlCheckResult.data.attack_power && <div><strong>Attack Power:</strong> {mlCheckResult.data.attack_power}</div>}
-                      {mlCheckResult.data.magic_power && <div><strong>Magic Power:</strong> {mlCheckResult.data.magic_power}</div>}
-                      {mlCheckResult.data.hp && <div><strong>HP:</strong> {mlCheckResult.data.hp}</div>}
-                    </>
-                  )}
-                  {mlCheckResult.type === "agent" && mlCheckResult.data && (
-                    <>
-                      <div><strong>Agent:</strong> {mlCheckResult.data.displayName}</div>
-                      <div><strong>Description:</strong> {mlCheckResult.data.description || "N/A"}</div>
-                      {mlCheckResult.data.role && <div><strong>Role:</strong> {mlCheckResult.data.role.displayName}</div>}
-                    </>
-                  )}
-                  {mlCheckResult.type === "character" && mlCheckResult.data && (
-                    <>
-                      <div><strong>Character:</strong> {mlCheckResult.data.name}</div>
-                      {mlCheckResult.data.title && <div><strong>Title:</strong> {mlCheckResult.data.title}</div>}
-                      {mlCheckResult.data.vision && <div><strong>Element:</strong> {mlCheckResult.data.vision}</div>}
-                      {mlCheckResult.data.nation && <div><strong>Region:</strong> {mlCheckResult.data.nation}</div>}
-                      {mlCheckResult.data.birthday && mlCheckResult.data.birthday !== "0000-05-27" && <div><strong>Birthday:</strong> {mlCheckResult.data.birthday}</div>}
-                      {mlCheckResult.data.release && <div><strong>Release Date:</strong> {mlCheckResult.data.release}</div>}
-                      {mlCheckResult.data.rarity && <div><strong>Rarity:</strong> ⭐ {mlCheckResult.data.rarity}</div>}
-                      {mlCheckResult.data.weapon && <div><strong>Weapon Type:</strong> {mlCheckResult.data.weapon}</div>}
-                      {mlCheckResult.data.wikiUrl && (
-                        <div style={{ marginTop: "0.8rem" }}>
-                          <a 
-                            href={mlCheckResult.data.wikiUrl} 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            style={{ 
-                              display: "inline-block",
-                              padding: "0.5rem 1rem",
-                              background: "linear-gradient(135deg, #FF6B9D, #FF4757)",
-                              color: "#fff",
-                              textDecoration: "none",
-                              borderRadius: "6px",
-                              fontSize: "0.85rem",
-                              fontWeight: "bold",
-                              transition: "all 0.3s"
-                            }}
-                            onMouseEnter={(e) => e.target.style.transform = "scale(1.05)"}
-                            onMouseLeave={(e) => e.target.style.transform = "scale(1)"}
-                          >
-                            📖 View on Fandom Wiki
-                          </a>
+                      {mlCheckResult.type === "hero" && mlCheckResult.data && (
+                        <div style={{ background: "rgba(0, 255, 136, 0.05)", padding: "0.8rem", borderRadius: "6px", marginTop: "0.5rem" }}>
+                          <p style={{ marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold", color: "#00ff88" }}>📊 Hero Stats Available</p>
+                          <p style={{ fontSize: "0.8rem", color: "#a0a0a0" }}>Detailed stats information can be found in the official MLBB wiki. Role: <strong>{mlCheckResult.data.role}</strong> | Lane: <strong>{mlCheckResult.data.lane_recommendation}</strong></p>
+                        </div>
+                      )}
+                      {mlCheckResult.type === "item" && mlCheckResult.data && (
+                        <div style={{ background: "rgba(0, 255, 136, 0.05)", padding: "0.8rem", borderRadius: "6px", marginTop: "0.5rem" }}>
+                          <p style={{ marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold", color: "#00ff88" }}>📊 Item Stats</p>
+                          {mlCheckResult.data.attack_power && <div>⚔️ ATK: {mlCheckResult.data.attack_power}</div>}
+                          {mlCheckResult.data.magic_power && <div>✨ Magic: {mlCheckResult.data.magic_power}</div>}
+                          {mlCheckResult.data.crit_chance && <div>💥 Crit: {mlCheckResult.data.crit_chance}</div>}
+                          {mlCheckResult.data.hp && <div>❤️ HP: {mlCheckResult.data.hp}</div>}
+                        </div>
+                      )}
+                      {mlCheckResult.type === "character" && mlCheckResult.data && (
+                        <div style={{ background: "rgba(0, 255, 136, 0.05)", padding: "0.8rem", borderRadius: "6px", marginTop: "0.5rem" }}>
+                          <p style={{ marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold", color: "#00ff88" }}>📊 Character Stats</p>
+                          {mlCheckResult.data.weapon && <div>🗡️ Weapon: {mlCheckResult.data.weapon}</div>}
+                          {mlCheckResult.data.vision && <div>💎 Element: {mlCheckResult.data.vision}</div>}
+                          {mlCheckResult.data.rarity && <div>⭐ Rarity: {mlCheckResult.data.rarity}</div>}
+                          <p style={{ fontSize: "0.8rem", color: "#a0a0a0", marginTop: "0.5rem" }}>Visit the wiki for detailed combat stats and scaling information.</p>
+                        </div>
+                      )}
+                      {mlCheckResult.type === "champion" && mlCheckResult.data && (
+                        <div style={{ background: "rgba(0, 255, 136, 0.05)", padding: "0.8rem", borderRadius: "6px", marginTop: "0.5rem" }}>
+                          <p style={{ marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold", color: "#00ff88" }}>📊 Champion Stats</p>
+                          {mlCheckResult.data.regions && <div>🌍 Regions: {mlCheckResult.data.regions.join(", ")}</div>}
+                          <p style={{ fontSize: "0.8rem", color: "#a0a0a0", marginTop: "0.5rem" }}>Visit League of Legends wiki for detailed base stats, scaling, and matchup information.</p>
+                        </div>
+                      )}
+                      {mlCheckResult.type === "agent" && mlCheckResult.data && (
+                        <div style={{ background: "rgba(0, 255, 136, 0.05)", padding: "0.8rem", borderRadius: "6px", marginTop: "0.5rem" }}>
+                          <p style={{ marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold", color: "#00ff88" }}>📊 Agent Info</p>
+                          {mlCheckResult.data.role && <div>🎯 Role: {mlCheckResult.data.role.displayName}</div>}
+                          <p style={{ fontSize: "0.8rem", color: "#a0a0a0", marginTop: "0.5rem" }}>Visit Valorant official site for detailed ability cooldowns and exact stats.</p>
                         </div>
                       )}
                     </>
                   )}
-                  {mlCheckResult.type === "champion" && mlCheckResult.data && (
+                  
+                  {/* ABILITIES TAB */}
+                  {wikiDetailTab === "abilities" && (
                     <>
-                      <div><strong>Champion:</strong> {mlCheckResult.data.name}</div>
-                      <div><strong>Title:</strong> {mlCheckResult.data.title || "N/A"}</div>
-                      <div><strong>Region:</strong> {mlCheckResult.data.regions?.join(", ") || "N/A"}</div>
+                      <div style={{ background: "rgba(0, 255, 136, 0.05)", padding: "0.8rem", borderRadius: "6px", marginTop: "0.5rem" }}>
+                        <p style={{ marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold", color: "#00ff88" }}>⚡ Abilities & Skills</p>
+                        {mlCheckResult.type === "hero" && (
+                          <div style={{ fontSize: "0.8rem", color: "#a0a0a0", lineHeight: "1.6" }}>
+                            <p>🎮 <strong>{mlCheckResult.data?.hero_name}</strong> has unique skills and mechanics!</p>
+                            <p style={{ marginTop: "0.5rem" }}>Role: <strong>{mlCheckResult.data?.role}</strong> - Specialty: <strong>{mlCheckResult.data?.specialty}</strong></p>
+                            <p style={{ marginTop: "0.5rem", fontSize: "0.75rem", fontStyle: "italic" }}>Visit the MLBB wiki or in-game for complete skill descriptions, cooldowns, and damage scaling.</p>
+                          </div>
+                        )}
+                        {mlCheckResult.type === "character" && (
+                          <div style={{ fontSize: "0.8rem", color: "#a0a0a0", lineHeight: "1.6" }}>
+                            <p>🎮 <strong>{mlCheckResult.data?.name}</strong> ({mlCheckResult.data?.vision}) has special combat abilities!</p>
+                            <p style={{ marginTop: "0.5rem" }}>Element: <strong>{mlCheckResult.data?.vision}</strong> - Weapon: <strong>{mlCheckResult.data?.weapon}</strong></p>
+                            <p style={{ marginTop: "0.5rem", fontSize: "0.75rem", fontStyle: "italic" }}>View detailed talent trees, constellations, and ability upgrades on the official Genshin wiki.</p>
+                          </div>
+                        )}
+                        {mlCheckResult.type === "champion" && (
+                          <div style={{ fontSize: "0.8rem", color: "#a0a0a0", lineHeight: "1.6" }}>
+                            <p>🎮 <strong>{mlCheckResult.data?.name}</strong> has unique abilities!</p>
+                            <p style={{ marginTop: "0.5rem" }}>Each champion has a Passive, Q, W, E, and Ultimate (R) ability with unique mechanics.</p>
+                            <p style={{ marginTop: "0.5rem", fontSize: "0.75rem", fontStyle: "italic" }}>Visit League of Legends wiki for detailed ability descriptions, cooldowns, and AP/AD scaling values.</p>
+                          </div>
+                        )}
+                        {mlCheckResult.type === "agent" && (
+                          <div style={{ fontSize: "0.8rem", color: "#a0a0a0", lineHeight: "1.6" }}>
+                            <p>🎮 <strong>{mlCheckResult.data?.displayName}</strong> has utility and combat abilities!</p>
+                            <p style={{ marginTop: "0.5rem" }}>Role: <strong>{mlCheckResult.data?.role?.displayName}</strong></p>
+                            <p style={{ marginTop: "0.5rem", fontSize: "0.75rem", fontStyle: "italic" }}>Check Valorant official guide for complete ability descriptions, ranges, and cooldown information.</p>
+                          </div>
+                        )}
+                      </div>
                     </>
                   )}
                 </div>
@@ -1749,41 +1980,63 @@ export default function App() {
                         height: "100%"
                       }}
                     >
-                          <div className="game-image" style={{ backgroundImage: `url(${game.image})`, backgroundSize: "cover", backgroundPosition: "center" }}>
-                        {isPopular && (
-                          <div style={{
-                            position: "absolute",
-                            top: "10px",
-                            left: "10px",
-                            background: "linear-gradient(135deg, #ffa500, #ff6347)",
-                            color: "white",
-                            padding: "0.4rem 0.8rem",
-                            borderRadius: "8px",
-                            fontWeight: "bold",
-                            fontSize: "0.75rem",
-                            boxShadow: "0 4px 12px rgba(255, 165, 0, 0.4)",
-                            zIndex: 10,
-                            textTransform: "uppercase"
-                          }}>
-                            🔥 Popular
-                          </div>
+                      {/* Game Image with Skeleton Loader */}
+                      <div className="game-image" style={{ position: "relative", overflow: "hidden" }}>
+                        {!imageLoadingStates[game.id] && (
+                          <SkeletonLoader width="100%" height="200px" borderRadius="0" />
                         )}
-                        {discount && (
-                          <div style={{
-                            position: "absolute",
-                            top: "10px",
-                            right: "10px",
-                            background: "linear-gradient(135deg, #ff3333, #ff6b6b)",
-                            color: "white",
-                            padding: "0.4rem 0.8rem",
-                            borderRadius: "8px",
-                            fontWeight: "bold",
-                            fontSize: "0.85rem",
-                            boxShadow: "0 4px 12px rgba(255, 51, 51, 0.4)",
-                            zIndex: 10
-                          }}>
-                            Save {discount}!
-                          </div>
+                        <img
+                          src={game.image}
+                          alt={game.title}
+                          onLoad={() => setImageLoadingStates(prev => ({ ...prev, [game.id]: true }))}
+                          onError={() => setImageLoadingStates(prev => ({ ...prev, [game.id]: true }))}
+                          style={{
+                            width: "100%",
+                            height: "200px",
+                            objectFit: "cover",
+                            objectPosition: "center",
+                            display: imageLoadingStates[game.id] ? "block" : "none",
+                            transition: "opacity 0.3s ease-in"
+                          }}
+                        />
+                        {imageLoadingStates[game.id] && (
+                          <>
+                            {isPopular && (
+                              <div style={{
+                                position: "absolute",
+                                top: "10px",
+                                left: "10px",
+                                background: "linear-gradient(135deg, #ffa500, #ff6347)",
+                                color: "white",
+                                padding: "0.4rem 0.8rem",
+                                borderRadius: "8px",
+                                fontWeight: "bold",
+                                fontSize: "0.75rem",
+                                boxShadow: "0 4px 12px rgba(255, 165, 0, 0.4)",
+                                zIndex: 10,
+                                textTransform: "uppercase"
+                              }}>
+                                🔥 Popular
+                              </div>
+                            )}
+                            {discount && (
+                              <div style={{
+                                position: "absolute",
+                                top: "10px",
+                                right: "10px",
+                                background: "linear-gradient(135deg, #ff3333, #ff6b6b)",
+                                color: "white",
+                                padding: "0.4rem 0.8rem",
+                                borderRadius: "8px",
+                                fontWeight: "bold",
+                                fontSize: "0.85rem",
+                                boxShadow: "0 4px 12px rgba(255, 51, 51, 0.4)",
+                                zIndex: 10
+                              }}>
+                                Save {discount}!
+                              </div>
+                            )}
+                          </>
                         )}
                       </div>
                       <div className="game-info">
@@ -2375,6 +2628,25 @@ export default function App() {
 
             {/* IGN Validator Form - Step 1 */}
             <h3 style={{ color: "#00ff88", fontSize: "1rem", fontWeight: "bold", marginBottom: "1rem", display: "flex", alignItems: "center", gap: "0.5rem" }}><span style={{ background: "#00ff88", color: "#1a1a1a", width: "24px", height: "24px", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "bold", fontSize: "0.9rem" }}>1</span> Order Details</h3>
+            
+            {/* Validation Error Messages */}
+            {Object.keys(formValidationErrors).length > 0 && (
+              <div style={{
+                background: "rgba(255, 51, 51, 0.15)",
+                border: "1px solid #ff3333",
+                borderRadius: "6px",
+                padding: "1rem",
+                marginBottom: "1rem"
+              }}>
+                <div style={{ color: "#ff6666", fontWeight: "bold", marginBottom: "0.5rem", fontSize: "0.9rem" }}>⚠️ Please fix the following errors:</div>
+                {Object.entries(formValidationErrors).map(([field, error]) => (
+                  <div key={field} style={{ color: "#ff9999", fontSize: "0.85rem", marginBottom: "0.25rem" }}>
+                    • {error}
+                  </div>
+                ))}
+              </div>
+            )}
+            
             <div style={{ background: "rgba(255, 51, 51, 0.05)", padding: "1.5rem", borderRadius: "8px", border: "1px solid rgba(255, 51, 51, 0.2)", marginBottom: "1.5rem" }}>
               <div style={{ marginBottom: "1rem" }}>
                 <label style={{ display: "block", color: "#ff3333", fontSize: "0.9rem", fontWeight: "bold", marginBottom: "0.4rem" }}>
@@ -2388,7 +2660,7 @@ export default function App() {
                   style={{
                     width: "100%",
                     padding: "0.6rem 0.8rem",
-                    border: "1px solid rgba(255, 51, 51, 0.3)",
+                    border: formValidationErrors.orderedAmount ? "2px solid #ff3333" : "1px solid rgba(255, 51, 51, 0.3)",
                     borderRadius: "6px",
                     background: "rgba(255, 51, 51, 0.08)",
                     color: "#e0e0e0",
@@ -2410,7 +2682,7 @@ export default function App() {
                   style={{
                     width: "100%",
                     padding: "0.6rem 0.8rem",
-                    border: "1px solid rgba(0, 255, 136, 0.3)",
+                    border: formValidationErrors.ign ? "2px solid #ff3333" : "1px solid rgba(0, 255, 136, 0.3)",
                     borderRadius: "6px",
                     background: "rgba(0, 255, 136, 0.08)",
                     color: "#e0e0e0",
@@ -2476,10 +2748,14 @@ export default function App() {
             <div style={{ marginBottom: "1rem" }}>
               <div style={{ display: "grid", gap: "0.75rem" }}>
                 {/* Messenger Option */}
-                <a
-                  href={`https://m.me/ZeijinDiscountedTopUpSalePH?text=${encodeURIComponent(`Hi! I'm interested in ${contactGame.title} and would like to know more about the pricing and packages.\n\nOrder Amount: ${ignValidatorData.orderedAmount}\nUID: ${ignValidatorData.ign}\nMode of payment: ${ignValidatorData.paymentMethod}\n\nOther concern: ${ignValidatorData.otherConcern || 'None'}`)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <div
+                  onClick={() => {
+                    if (validateContactForm()) {
+                      const message = `Hi! I'm interested in ${contactGame.title} and would like to know more about the pricing and packages.\n\nOrder Amount: ${ignValidatorData.orderedAmount}\nUID: ${ignValidatorData.ign}\nMode of payment: ${ignValidatorData.paymentMethod}\n\nOther concern: ${ignValidatorData.otherConcern || 'None'}`;
+                      const messengerUrl = `https://m.me/ZeijinDiscountedTopUpSalePH?text=${encodeURIComponent(message)}`;
+                      window.open(messengerUrl, '_blank');
+                    }
+                  }}
                   style={{
                     background: "rgba(0, 132, 255, 0.1)",
                     border: "2px solid #0084ff",
@@ -2507,13 +2783,17 @@ export default function App() {
                     <div style={{ color: "#a0a0a0", fontSize: "0.75rem" }}>Fastest response</div>
                   </div>
                   <span style={{ color: "#0084ff", fontWeight: "bold" }}>→</span>
-                </a>
+                </div>
 
                 {/* Telegram Option */}
-                <a
-                  href={`https://t.me/Zeijin_Discounted_Top_Up_Sale_PH?text=${encodeURIComponent(`Hi! I'm interested in ${contactGame.title} and would like to know more about the pricing and packages.\n\nOrder Amount: ${ignValidatorData.orderedAmount}\nUID: ${ignValidatorData.ign}\nMode of payment: ${ignValidatorData.paymentMethod}\n\nOther concern: ${ignValidatorData.otherConcern || 'None'}`)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <div
+                  onClick={() => {
+                    if (validateContactForm()) {
+                      const message = `Hi! I'm interested in ${contactGame.title} and would like to know more about the pricing and packages.\n\nOrder Amount: ${ignValidatorData.orderedAmount}\nUID: ${ignValidatorData.ign}\nMode of payment: ${ignValidatorData.paymentMethod}\n\nOther concern: ${ignValidatorData.otherConcern || 'None'}`;
+                      const telegramUrl = `https://t.me/Zeijin_Discounted_Top_Up_Sale_PH?text=${encodeURIComponent(message)}`;
+                      window.open(telegramUrl, '_blank');
+                    }
+                  }}
                   style={{
                     background: "rgba(0, 136, 204, 0.1)",
                     border: "2px solid #0088cc",
@@ -2541,13 +2821,17 @@ export default function App() {
                     <div style={{ color: "#a0a0a0", fontSize: "0.75rem" }}>Secure & fast</div>
                   </div>
                   <span style={{ color: "#0088cc", fontWeight: "bold" }}>→</span>
-                </a>
+                </div>
 
                 {/* Instagram Option */}
-                <a
-                  href={`https://www.instagram.com/direct/t/ZeijinDiscountedGames?text=${encodeURIComponent(`Hi! I'm interested in ${contactGame.title} and would like to know more about the pricing and packages.%0A%0AOrder Amount: ${ignValidatorData.orderedAmount}%0AUID: ${ignValidatorData.ign}%0AMode of payment: ${ignValidatorData.paymentMethod}%0A%0AOther concern: ${ignValidatorData.otherConcern || 'None'}`)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <div
+                  onClick={() => {
+                    if (validateContactForm()) {
+                      const message = `Hi! I'm interested in ${contactGame.title} and would like to know more about the pricing and packages.%0A%0AOrder Amount: ${ignValidatorData.orderedAmount}%0AUID: ${ignValidatorData.ign}%0AMode of payment: ${ignValidatorData.paymentMethod}%0A%0AOther concern: ${ignValidatorData.otherConcern || 'None'}`;
+                      const instagramUrl = `https://www.instagram.com/direct/t/ZeijinDiscountedGames?text=${message}`;
+                      window.open(instagramUrl, '_blank');
+                    }
+                  }}
                   style={{
                     background: "rgba(224, 44, 112, 0.1)",
                     border: "2px solid #e02c70",
@@ -2575,7 +2859,7 @@ export default function App() {
                     <div style={{ color: "#a0a0a0", fontSize: "0.75rem" }}>Direct message</div>
                   </div>
                   <span style={{ color: "#e02c70", fontWeight: "bold" }}>→</span>
-                </a>
+                </div>
               </div>
             </div>
 
