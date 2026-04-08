@@ -1070,7 +1070,7 @@ export default function App() {
             <span>Zeijin Discounted</span>
           </div>
           <nav>
-            <a href="#" className={`nav-link ${activeSection === "games" ? "active" : ""}`} onClick={(e) => { e.preventDefault(); setActiveSection("games"); }}>Games</a>
+            <a href="#" className={`nav-link ${activeSection === "games" ? "active" : ""}`} onClick={(e) => { e.preventDefault(); setActiveSection("games"); setTimeout(() => { const gamesSection = document.querySelector('.games-container'); if (gamesSection) gamesSection.scrollIntoView({ behavior: 'smooth' }); }, 0); }}>Games</a>
             <a href="#" style={{ marginLeft: "1.5rem", cursor: "pointer", color: "#FF6B9D", fontWeight: "bold", textDecoration: "none", fontSize: "0.95rem" }} onClick={(e) => { e.preventDefault(); setShowMLIDChecker(true); }}>🔍 Game Fandom Wiki</a>
           </nav>
         </div>
