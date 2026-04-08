@@ -612,9 +612,6 @@ export default function App() {
   const [mlCheckResult, setMlCheckResult] = useState(null);
   const [mlCheckError, setMlCheckError] = useState("");
   const [mlCheckLoading, setMlCheckLoading] = useState(false);
-  const [mlVcSent, setMlVcSent] = useState(false);
-  const [mlVcCode, setMlVcCode] = useState("");
-  const [mlRealData, setMlRealData] = useState(null);
 
   const getRegionFromServerId = (serverId) => {
     // Determine region based on server ID ranges
@@ -645,7 +642,6 @@ export default function App() {
   const checkMLID = async () => {
     setMlCheckError("");
     setMlCheckResult(null);
-    setMlVcCode("");
     
     if (!mlIdData.userId.trim()) {
       setMlCheckError("Please enter your User ID");
@@ -669,112 +665,69 @@ export default function App() {
     setMlCheckLoading(true);
     
     try {
-      // Step 1: Send verification code to account
-      const response = await fetch("https://mlbb.rone.dev/api/user/auth/send-vc", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          role_id: parseInt(mlIdData.userId),
-          zone_id: parseInt(mlIdData.serverId)
-        })
-      });
+      const isProduction = window.location.hostname !== 'localhost';
+      let response;
+
+      if (isProduction) {
+        // Production: Use Vercel serverless function
+        response = await fetch("/api/mlbb", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            endpoint: "user/auth/send-vc",
+            data: {
+              role_id: parseInt(mlIdData.userId),
+              zone_id: parseInt(mlIdData.serverId)
+            }
+          })
+        });
+      } else {
+        // Development: Use local proxy (run 'node scripts/dev-proxy.js' in another terminal)
+        response = await fetch("http://localhost:3001/mlbb", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            endpoint: "user/auth/send-vc",
+            data: {
+              role_id: parseInt(mlIdData.userId),
+              zone_id: parseInt(mlIdData.serverId)
+            }
+          })
+        });
+      }
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
 
       const data = await response.json();
 
       if (data.code === 0) {
-        // Success - VC sent
-        setMlVcSent(true);
-        setMlCheckError("");
+        // Account exists!
+        const region = getRegionFromServerId(mlIdData.serverId);
         setMlCheckResult({
-          valid: null,
-          message: "✉️ Verification code sent! Check your in-game mail."
+          valid: true,
+          userId: mlIdData.userId,
+          serverId: mlIdData.serverId,
+          region: region,
+          message: "Account Exists! ✓"
         });
+        setMlCheckError("");
       } else {
-        setMlCheckError(`Account not found or invalid. (Code: ${data.code})`);
-        setMlVcSent(false);
+        setMlCheckError(data.message || `Account not found. Please check your User ID and Server ID.`);
       }
     } catch (error) {
-      setMlCheckError(`Error: ${error.message || "Failed to send verification code"}`)
-      setMlVcSent(false);
+      console.error("MLIDCheck Error:", error);
+      if (error.message.includes('Failed to fetch') && window.location.hostname === 'localhost') {
+        setMlCheckError("⚠️ Dev proxy not running. Start it with: node scripts/dev-proxy.js");
+      } else {
+        setMlCheckError(`Error: ${error.message || "Failed to check account"}`)
+      }
     } finally {
       setMlCheckLoading(false);
     }
   };
 
-  const verifyMLID = async () => {
-    setMlCheckError("");
-    
-    if (!mlVcCode.trim()) {
-      setMlCheckError("Please enter the verification code from in-game mail");
-      return;
-    }
-
-    if (!/^\d{4}$/.test(mlVcCode)) {
-      setMlCheckError("Verification code must be 4 digits");
-      return;
-    }
-
-    setMlCheckLoading(true);
-
-    try {
-      // Step 2: Login with verification code
-      const loginResponse = await fetch("https://mlbb.rone.dev/api/user/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          role_id: parseInt(mlIdData.userId),
-          zone_id: parseInt(mlIdData.serverId),
-          vc: parseInt(mlVcCode)
-        })
-      });
-
-      const loginData = await loginResponse.json();
-
-      if (loginData.code === 0 && loginData.data.jwt) {
-        // Step 3: Get user info
-        const infoResponse = await fetch("https://mlbb.rone.dev/api/user/info", {
-          method: "GET",
-          headers: {
-            "Authorization": `Bearer ${loginData.data.jwt}`,
-            "Content-Type": "application/json"
-          }
-        });
-
-        const infoData = await infoResponse.json();
-
-        if (infoData.code === 0 && infoData.data) {
-          const userInfo = infoData.data;
-          const region = getRegionFromServerId(mlIdData.serverId);
-          
-          setMlRealData(userInfo);
-          setMlCheckResult({
-            valid: true,
-            ign: userInfo.name || "N/A",
-            level: userInfo.level || "N/A",
-            rankLevel: userInfo.rank_level || "N/A",
-            userId: mlIdData.userId,
-            serverId: mlIdData.serverId,
-            region: region,
-            avatar: userInfo.avatar,
-            message: "Account Verified! ✓"
-          });
-          setMlVcSent(false);
-        } else {
-          setMlCheckError("Failed to get user information");
-        }
-      } else {
-        setMlCheckError("Invalid verification code. Please check and try again.");
-      }
-    } catch (error) {
-      setMlCheckError(`Error: ${error.message || "Verification failed"}`)
-    } finally {
-      setMlCheckLoading(false);
-    }
-  };
 
   const toggleFlip = (gameId) => {
     const newFlipped = new Set(flippedGames);
@@ -923,104 +876,66 @@ export default function App() {
               </div>
             )}
 
-            {/* Step 1: User ID & Server ID Inputs */}
-            {!mlVcSent && (
-              <>
-                <div style={{ marginBottom: "1.5rem" }}>
-                  <label style={{ display: "block", color: "#a0a0a0", marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold" }}>
-                    User ID
-                  </label>
-                  <input 
-                    type="text"
-                    placeholder="Enter your ML User ID (e.g., 12345678)"
-                    value={mlIdData.userId}
-                    onChange={(e) => setMlIdData({ ...mlIdData, userId: e.target.value })}
-                    disabled={mlVcSent}
-                    style={{
-                      width: "100%",
-                      padding: "0.8rem",
-                      background: "rgba(255, 255, 255, 0.05)",
-                      border: "1px solid rgba(255, 107, 157, 0.3)",
-                      borderRadius: "8px",
-                      color: "#fff",
-                      fontSize: "0.95rem",
-                      boxSizing: "border-box",
-                      transition: "border-color 0.3s",
-                      opacity: mlVcSent ? 0.5 : 1
-                    }}
-                    onFocus={(e) => e.target.style.borderColor = "rgba(255, 107, 157, 0.6)"}
-                    onBlur={(e) => e.target.style.borderColor = "rgba(255, 107, 157, 0.3)"}
-                  />
-                  <small style={{ color: "#888", fontSize: "0.8rem", marginTop: "0.3rem", display: "block" }}>
-                    Find your User ID in-game: Profile → Settings → Account Info
-                  </small>
-                </div>
+            {/* User ID & Server ID Inputs */}
+            <div style={{ marginBottom: "1.5rem" }}>
+              <label style={{ display: "block", color: "#a0a0a0", marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold" }}>
+                User ID
+              </label>
+              <input 
+                type="text"
+                placeholder="Enter your ML User ID (e.g., 12345678)"
+                value={mlIdData.userId}
+                onChange={(e) => setMlIdData({ ...mlIdData, userId: e.target.value })}
+                disabled={mlCheckLoading}
+                style={{
+                  width: "100%",
+                  padding: "0.8rem",
+                  background: "rgba(255, 255, 255, 0.05)",
+                  border: "1px solid rgba(255, 107, 157, 0.3)",
+                  borderRadius: "8px",
+                  color: "#fff",
+                  fontSize: "0.95rem",
+                  boxSizing: "border-box",
+                  transition: "border-color 0.3s",
+                  opacity: mlCheckLoading ? 0.5 : 1
+                }}
+                onFocus={(e) => e.target.style.borderColor = "rgba(255, 107, 157, 0.6)"}
+                onBlur={(e) => e.target.style.borderColor = "rgba(255, 107, 157, 0.3)"}
+              />
+              <small style={{ color: "#888", fontSize: "0.8rem", marginTop: "0.3rem", display: "block" }}>
+                Find your User ID in-game: Profile → Settings → Account Info
+              </small>
+            </div>
 
-                <div style={{ marginBottom: "1.5rem" }}>
-                  <label style={{ display: "block", color: "#a0a0a0", marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold" }}>
-                    Server ID
-                  </label>
-                  <input 
-                    type="text"
-                    placeholder="Enter your Server ID (e.g., 1234)"
-                    value={mlIdData.serverId}
-                    onChange={(e) => setMlIdData({ ...mlIdData, serverId: e.target.value })}
-                    disabled={mlVcSent}
-                    style={{
-                      width: "100%",
-                      padding: "0.8rem",
-                      background: "rgba(255, 255, 255, 0.05)",
-                      border: "1px solid rgba(255, 107, 157, 0.3)",
-                      borderRadius: "8px",
-                      color: "#fff",
-                      fontSize: "0.95rem",
-                      boxSizing: "border-box",
-                      transition: "border-color 0.3s",
-                      opacity: mlVcSent ? 0.5 : 1
-                    }}
-                    onFocus={(e) => e.target.style.borderColor = "rgba(255, 107, 157, 0.6)"}
-                    onBlur={(e) => e.target.style.borderColor = "rgba(255, 107, 157, 0.3)"}
-                  />
-                  <small style={{ color: "#888", fontSize: "0.8rem", marginTop: "0.3rem", display: "block" }}>
-                    Look next to your IGN in-game · 1-999: PH, 1000+: Other regions
-                  </small>
-                </div>
-              </>
-            )}
-
-            {/* Step 2: VC Code Input */}
-            {mlVcSent && (
-              <div style={{ marginBottom: "1.5rem" }}>
-                <label style={{ display: "block", color: "#a0a0a0", marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold" }}>
-                  Verification Code
-                </label>
-                <input 
-                  type="text"
-                  placeholder="Enter 4-digit code from in-game mail"
-                  value={mlVcCode}
-                  onChange={(e) => setMlVcCode(e.target.value.replace(/\D/g, '').slice(0, 4))}
-                  maxLength="4"
-                  style={{
-                    width: "100%",
-                    padding: "0.8rem",
-                    background: "rgba(255, 255, 255, 0.05)",
-                    border: "1px solid rgba(100, 200, 255, 0.3)",
-                    borderRadius: "8px",
-                    color: "#fff",
-                    fontSize: "1.2rem",
-                    textAlign: "center",
-                    letterSpacing: "0.3rem",
-                    boxSizing: "border-box",
-                    transition: "border-color 0.3s"
-                  }}
-                  onFocus={(e) => e.target.style.borderColor = "rgba(100, 200, 255, 0.6)"}
-                  onBlur={(e) => e.target.style.borderColor = "rgba(100, 200, 255, 0.3)"}
-                />
-                <small style={{ color: "#888", fontSize: "0.8rem", marginTop: "0.3rem", display: "block" }}>
-                  Check your in-game mail for the code (valid for 5 minutes)
-                </small>
-              </div>
-            )}
+            <div style={{ marginBottom: "1.5rem" }}>
+              <label style={{ display: "block", color: "#a0a0a0", marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold" }}>
+                Server ID
+              </label>
+              <input 
+                type="text"
+                placeholder="Enter your Server ID (e.g., 1234)"
+                value={mlIdData.serverId}
+                onChange={(e) => setMlIdData({ ...mlIdData, serverId: e.target.value })}
+                disabled={mlCheckLoading}
+                style={{
+                  width: "100%",
+                  padding: "0.8rem",
+                  background: "rgba(255, 255, 255, 0.05)",
+                  border: "1px solid rgba(255, 107, 157, 0.3)",
+                  borderRadius: "8px",
+                  color: "#fff",
+                  fontSize: "0.95rem",
+                  boxSizing: "border-box",
+                  transition: "border-color 0.3s",
+                  opacity: mlCheckLoading ? 0.5 : 1
+                }}
+                onFocus={(e) => e.target.style.borderColor = "rgba(255, 107, 157, 0.6)"}
+                onBlur={(e) => e.target.style.borderColor = "rgba(255, 107, 157, 0.3)"}
+              />
+              <small style={{ color: "#888", fontSize: "0.8rem", marginTop: "0.3rem", display: "block" }}>
+                Look next to your IGN in-game · 1-999: PH, 1000+: Other regions
+              </small>
+            </div>
 
             {/* Action Buttons */}
             <div style={{ display: "flex", gap: "1rem", justifyContent: "space-between" }}>
@@ -1030,8 +945,6 @@ export default function App() {
                   setMlIdData({ userId: "", serverId: "" });
                   setMlCheckResult(null);
                   setMlCheckError("");
-                  setMlVcSent(false);
-                  setMlVcCode("");
                 }}
                 style={{
                   flex: 1,
@@ -1056,7 +969,7 @@ export default function App() {
                 {mlCheckResult && mlCheckResult.valid === true ? "Close" : "Cancel"}
               </button>
               <button 
-                onClick={mlVcSent ? verifyMLID : checkMLID}
+                onClick={checkMLID}
                 disabled={mlCheckLoading}
                 style={{
                   flex: 1,
@@ -1073,12 +986,12 @@ export default function App() {
                 onMouseEnter={(e) => !mlCheckLoading && (e.currentTarget.style.transform = "scale(1.02)")}
                 onMouseLeave={(e) => !mlCheckLoading && (e.currentTarget.style.transform = "scale(1)")}
               >
-                {mlCheckLoading ? "Loading..." : mlVcSent ? "✓ Verify Code" : "📨 Send VC"}
+                {mlCheckLoading ? "Loading..." : "🔍 Check Account"}
               </button>
             </div>
 
             <p style={{ color: "#888", fontSize: "0.8rem", marginTop: "1rem", textAlign: "center" }}>
-              {mlVcSent ? "Check your in-game mail for the verification code" : "Your data is used only to verify your account and won't be stored."}
+              Your data is used only to verify your account and won't be stored.
             </p>
           </div>
         </div>
