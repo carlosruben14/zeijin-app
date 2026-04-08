@@ -597,12 +597,194 @@ export default function App() {
   const [filterCategory, setFilterCategory] = useState("all");
   const [breadcrumb, setBreadcrumb] = useState(["Games"]);
   const [showWelcomeNotif, setShowWelcomeNotif] = useState(true);
+  const [flippedGames, setFlippedGames] = useState(new Set());
   const [ignValidatorData, setIgnValidatorData] = useState({
     ign: "",
     orderedAmount: "",
     paymentMethod: "GCash",
     otherConcern: ""
   });
+  const [showMLIDChecker, setShowMLIDChecker] = useState(false);
+  const [mlIdData, setMlIdData] = useState({
+    userId: "",
+    serverId: ""
+  });
+  const [mlCheckResult, setMlCheckResult] = useState(null);
+  const [mlCheckError, setMlCheckError] = useState("");
+  const [mlCheckLoading, setMlCheckLoading] = useState(false);
+  const [mlVcSent, setMlVcSent] = useState(false);
+  const [mlVcCode, setMlVcCode] = useState("");
+  const [mlRealData, setMlRealData] = useState(null);
+
+  const getRegionFromServerId = (serverId) => {
+    // Determine region based on server ID ranges
+    const id = parseInt(serverId);
+    if (isNaN(id)) return "Unknown";
+    
+    if (id >= 1 && id <= 999) return "Southeast Asia 🇵🇭";
+    if (id >= 1000 && id <= 1999) return "Southeast Asia 🇵🇭";
+    if (id >= 2000 && id <= 2999) return "Europe 🇪🇺";
+    if (id >= 3000 && id <= 3999) return "Americas 🌎";
+    if (id >= 4000 && id <= 4999) return "India 🇮🇳";
+    if (id >= 5000 && id <= 5999) return "Middle East";
+    return "Global";
+  };
+
+  const generateIgnFromUserId = (userId) => {
+    // Simulate generating/retrieving IGN based on User ID
+    const ignNames = [
+      "ShadowKnight", "PhoenixRising", "IceStorm", "ThunderLord", "SilentAssassin",
+      "VoidWalker", "EchoKnight", "ScarletFury", "NovaBlast", "SteelBlade",
+      "LunarEclipse", "InfernoWrath", "CrimsonBlade", "DarkChampion", "VenomStrike"
+    ];
+    
+    const index = (parseInt(userId) % ignNames.length);
+    return ignNames[index] || "Player" + userId.slice(-4);
+  };
+
+  const checkMLID = async () => {
+    setMlCheckError("");
+    setMlCheckResult(null);
+    setMlVcCode("");
+    
+    if (!mlIdData.userId.trim()) {
+      setMlCheckError("Please enter your User ID");
+      return;
+    }
+    if (!mlIdData.serverId.trim()) {
+      setMlCheckError("Please enter your Server ID");
+      return;
+    }
+
+    // Validation: Both User ID and Server ID should be numeric
+    if (!/^\d+$/.test(mlIdData.userId)) {
+      setMlCheckError("Invalid User ID. Must contain only numbers.");
+      return;
+    }
+    if (!/^\d+$/.test(mlIdData.serverId)) {
+      setMlCheckError("Invalid Server ID. Must contain only numbers.");
+      return;
+    }
+
+    setMlCheckLoading(true);
+    
+    try {
+      // Step 1: Send verification code to account
+      const response = await fetch("https://mlbb.rone.dev/api/user/auth/send-vc", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          role_id: parseInt(mlIdData.userId),
+          zone_id: parseInt(mlIdData.serverId)
+        })
+      });
+
+      const data = await response.json();
+
+      if (data.code === 0) {
+        // Success - VC sent
+        setMlVcSent(true);
+        setMlCheckError("");
+        setMlCheckResult({
+          valid: null,
+          message: "✉️ Verification code sent! Check your in-game mail."
+        });
+      } else {
+        setMlCheckError(`Account not found or invalid. (Code: ${data.code})`);
+        setMlVcSent(false);
+      }
+    } catch (error) {
+      setMlCheckError(`Error: ${error.message || "Failed to send verification code"}`)
+      setMlVcSent(false);
+    } finally {
+      setMlCheckLoading(false);
+    }
+  };
+
+  const verifyMLID = async () => {
+    setMlCheckError("");
+    
+    if (!mlVcCode.trim()) {
+      setMlCheckError("Please enter the verification code from in-game mail");
+      return;
+    }
+
+    if (!/^\d{4}$/.test(mlVcCode)) {
+      setMlCheckError("Verification code must be 4 digits");
+      return;
+    }
+
+    setMlCheckLoading(true);
+
+    try {
+      // Step 2: Login with verification code
+      const loginResponse = await fetch("https://mlbb.rone.dev/api/user/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          role_id: parseInt(mlIdData.userId),
+          zone_id: parseInt(mlIdData.serverId),
+          vc: parseInt(mlVcCode)
+        })
+      });
+
+      const loginData = await loginResponse.json();
+
+      if (loginData.code === 0 && loginData.data.jwt) {
+        // Step 3: Get user info
+        const infoResponse = await fetch("https://mlbb.rone.dev/api/user/info", {
+          method: "GET",
+          headers: {
+            "Authorization": `Bearer ${loginData.data.jwt}`,
+            "Content-Type": "application/json"
+          }
+        });
+
+        const infoData = await infoResponse.json();
+
+        if (infoData.code === 0 && infoData.data) {
+          const userInfo = infoData.data;
+          const region = getRegionFromServerId(mlIdData.serverId);
+          
+          setMlRealData(userInfo);
+          setMlCheckResult({
+            valid: true,
+            ign: userInfo.name || "N/A",
+            level: userInfo.level || "N/A",
+            rankLevel: userInfo.rank_level || "N/A",
+            userId: mlIdData.userId,
+            serverId: mlIdData.serverId,
+            region: region,
+            avatar: userInfo.avatar,
+            message: "Account Verified! ✓"
+          });
+          setMlVcSent(false);
+        } else {
+          setMlCheckError("Failed to get user information");
+        }
+      } else {
+        setMlCheckError("Invalid verification code. Please check and try again.");
+      }
+    } catch (error) {
+      setMlCheckError(`Error: ${error.message || "Verification failed"}`)
+    } finally {
+      setMlCheckLoading(false);
+    }
+  };
+
+  const toggleFlip = (gameId) => {
+    const newFlipped = new Set(flippedGames);
+    if (newFlipped.has(gameId)) {
+      newFlipped.delete(gameId);
+    } else {
+      newFlipped.add(gameId);
+    }
+    setFlippedGames(newFlipped);
+  };
 
   const filteredGames = useMemo(() => {
     return gamesData.filter(game => {
@@ -668,9 +850,239 @@ export default function App() {
           </div>
           <nav>
             <a href="#" className={`nav-link ${activeSection === "games" ? "active" : ""}`} onClick={(e) => { e.preventDefault(); setActiveSection("games"); }}>Games</a>
+            <a href="#" style={{ marginLeft: "1.5rem", cursor: "pointer", color: "#FF6B9D", fontWeight: "bold", textDecoration: "none", fontSize: "0.95rem" }} onClick={(e) => { e.preventDefault(); setShowMLIDChecker(true); }}>🔍 ML ID Checker</a>
           </nav>
         </div>
       </header>
+
+      {/* ML ID Checker Modal */}
+      {showMLIDChecker && (
+        <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0, 0, 0, 0.7)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 99998, padding: "1rem" }}>
+          <div style={{ background: "linear-gradient(135deg, rgba(30, 30, 45, 1), rgba(40, 20, 35, 1))", padding: "2rem", borderRadius: "12px", border: "2px solid #FF6B9D", maxWidth: "500px", width: "100%", boxShadow: "0 0 60px rgba(255, 107, 157, 0.4)" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.5rem" }}>
+              <h2 style={{ color: "#FF6B9D", margin: 0, fontSize: "1.5rem" }}>🎮 Mobile Legends ID Checker</h2>
+              <button 
+                onClick={() => {
+                  setShowMLIDChecker(false);
+                  setMlIdData({ userId: "", serverId: "" });
+                  setMlCheckResult(null);
+                  setMlCheckError("");
+                }}
+                style={{ background: "none", border: "none", color: "#a0a0a0", fontSize: "1.5rem", cursor: "pointer" }}
+              >
+                ✕
+              </button>
+            </div>
+
+            <p style={{ color: "#d0d0d0", marginBottom: "1.5rem", fontSize: "0.95rem" }}>
+              Verify your Mobile Legends account. Enter your User ID and Server ID to check your account details.
+            </p>
+
+            {/* Error Message */}
+            {mlCheckError && (
+              <div style={{ background: "rgba(255, 51, 51, 0.15)", border: "1px solid rgba(255, 51, 51, 0.4)", padding: "1rem", borderRadius: "8px", marginBottom: "1.5rem", color: "#FFB3B3", fontSize: "0.9rem" }}>
+                ❌ {mlCheckError}
+              </div>
+            )}
+
+            {/* Waiting for VC Message */}
+            {mlCheckResult && mlCheckResult.valid === null && (
+              <div style={{ background: "rgba(100, 200, 255, 0.15)", border: "1px solid rgba(100, 200, 255, 0.4)", padding: "1.2rem", borderRadius: "8px", marginBottom: "1.5rem", color: "#64c8ff", fontSize: "0.9rem" }}>
+                <div style={{ fontSize: "1.1rem", marginBottom: "0.8rem", fontWeight: "bold" }}>{mlCheckResult.message}</div>
+                <p style={{ color: "#a0a0a0", margin: "0", fontSize: "0.85rem" }}>Enter the 4-digit code below to complete verification.</p>
+              </div>
+            )}
+
+            {/* Success Result */}
+            {mlCheckResult && mlCheckResult.valid === true && (
+              <div style={{ background: "rgba(0, 255, 136, 0.15)", border: "1px solid rgba(0, 255, 136, 0.4)", padding: "1.2rem", borderRadius: "8px", marginBottom: "1.5rem", color: "#00ff88", fontSize: "0.9rem" }}>
+                {mlCheckResult.avatar && (
+                  <div style={{ marginBottom: "1rem", textAlign: "center" }}>
+                    <img src={mlCheckResult.avatar} alt="Avatar" style={{ width: "60px", height: "60px", borderRadius: "50%", border: "2px solid #00ff88" }} />
+                  </div>
+                )}
+                <div style={{ fontSize: "1.2rem", marginBottom: "0.8rem", fontWeight: "bold" }}>✓ {mlCheckResult.message}</div>
+                <div style={{ color: "#a0a0a0", fontSize: "0.85rem", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+                  <div style={{ borderBottom: "1px solid rgba(0, 255, 136, 0.2)", paddingBottom: "0.5rem" }}>
+                    <p style={{ margin: "0", color: "#888", fontSize: "0.75rem" }}>IN-GAME NAME (IGN)</p>
+                    <p style={{ margin: "0.3rem 0 0 0", color: "#00ff88", fontWeight: "bold", fontSize: "1.1rem" }}>{mlCheckResult.ign}</p>
+                  </div>
+                  <div style={{ borderBottom: "1px solid rgba(0, 255, 136, 0.2)", paddingBottom: "0.5rem" }}>
+                    <p style={{ margin: "0", color: "#888", fontSize: "0.75rem" }}>RANK LEVEL</p>
+                    <p style={{ margin: "0.3rem 0 0 0", color: "#00ff88", fontWeight: "bold", fontSize: "1rem" }}>Level {mlCheckResult.level}</p>
+                  </div>
+                  <div style={{ borderBottom: "1px solid rgba(0, 255, 136, 0.2)", paddingBottom: "0.5rem" }}>
+                    <p style={{ margin: "0", color: "#888", fontSize: "0.75rem" }}>ML ID WITH SERVER ID</p>
+                    <p style={{ margin: "0.3rem 0 0 0", color: "#00ff88", fontWeight: "bold", fontSize: "1.15rem" }}>{mlCheckResult.userId}-{mlCheckResult.serverId}</p>
+                  </div>
+                  <div>
+                    <p style={{ margin: "0", color: "#888", fontSize: "0.75rem" }}>REGION</p>
+                    <p style={{ margin: "0.3rem 0 0 0", color: "#00ff88", fontWeight: "bold", fontSize: "1rem" }}>{mlCheckResult.region}</p>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Step 1: User ID & Server ID Inputs */}
+            {!mlVcSent && (
+              <>
+                <div style={{ marginBottom: "1.5rem" }}>
+                  <label style={{ display: "block", color: "#a0a0a0", marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold" }}>
+                    User ID
+                  </label>
+                  <input 
+                    type="text"
+                    placeholder="Enter your ML User ID (e.g., 12345678)"
+                    value={mlIdData.userId}
+                    onChange={(e) => setMlIdData({ ...mlIdData, userId: e.target.value })}
+                    disabled={mlVcSent}
+                    style={{
+                      width: "100%",
+                      padding: "0.8rem",
+                      background: "rgba(255, 255, 255, 0.05)",
+                      border: "1px solid rgba(255, 107, 157, 0.3)",
+                      borderRadius: "8px",
+                      color: "#fff",
+                      fontSize: "0.95rem",
+                      boxSizing: "border-box",
+                      transition: "border-color 0.3s",
+                      opacity: mlVcSent ? 0.5 : 1
+                    }}
+                    onFocus={(e) => e.target.style.borderColor = "rgba(255, 107, 157, 0.6)"}
+                    onBlur={(e) => e.target.style.borderColor = "rgba(255, 107, 157, 0.3)"}
+                  />
+                  <small style={{ color: "#888", fontSize: "0.8rem", marginTop: "0.3rem", display: "block" }}>
+                    Find your User ID in-game: Profile → Settings → Account Info
+                  </small>
+                </div>
+
+                <div style={{ marginBottom: "1.5rem" }}>
+                  <label style={{ display: "block", color: "#a0a0a0", marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold" }}>
+                    Server ID
+                  </label>
+                  <input 
+                    type="text"
+                    placeholder="Enter your Server ID (e.g., 1234)"
+                    value={mlIdData.serverId}
+                    onChange={(e) => setMlIdData({ ...mlIdData, serverId: e.target.value })}
+                    disabled={mlVcSent}
+                    style={{
+                      width: "100%",
+                      padding: "0.8rem",
+                      background: "rgba(255, 255, 255, 0.05)",
+                      border: "1px solid rgba(255, 107, 157, 0.3)",
+                      borderRadius: "8px",
+                      color: "#fff",
+                      fontSize: "0.95rem",
+                      boxSizing: "border-box",
+                      transition: "border-color 0.3s",
+                      opacity: mlVcSent ? 0.5 : 1
+                    }}
+                    onFocus={(e) => e.target.style.borderColor = "rgba(255, 107, 157, 0.6)"}
+                    onBlur={(e) => e.target.style.borderColor = "rgba(255, 107, 157, 0.3)"}
+                  />
+                  <small style={{ color: "#888", fontSize: "0.8rem", marginTop: "0.3rem", display: "block" }}>
+                    Look next to your IGN in-game · 1-999: PH, 1000+: Other regions
+                  </small>
+                </div>
+              </>
+            )}
+
+            {/* Step 2: VC Code Input */}
+            {mlVcSent && (
+              <div style={{ marginBottom: "1.5rem" }}>
+                <label style={{ display: "block", color: "#a0a0a0", marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold" }}>
+                  Verification Code
+                </label>
+                <input 
+                  type="text"
+                  placeholder="Enter 4-digit code from in-game mail"
+                  value={mlVcCode}
+                  onChange={(e) => setMlVcCode(e.target.value.replace(/\D/g, '').slice(0, 4))}
+                  maxLength="4"
+                  style={{
+                    width: "100%",
+                    padding: "0.8rem",
+                    background: "rgba(255, 255, 255, 0.05)",
+                    border: "1px solid rgba(100, 200, 255, 0.3)",
+                    borderRadius: "8px",
+                    color: "#fff",
+                    fontSize: "1.2rem",
+                    textAlign: "center",
+                    letterSpacing: "0.3rem",
+                    boxSizing: "border-box",
+                    transition: "border-color 0.3s"
+                  }}
+                  onFocus={(e) => e.target.style.borderColor = "rgba(100, 200, 255, 0.6)"}
+                  onBlur={(e) => e.target.style.borderColor = "rgba(100, 200, 255, 0.3)"}
+                />
+                <small style={{ color: "#888", fontSize: "0.8rem", marginTop: "0.3rem", display: "block" }}>
+                  Check your in-game mail for the code (valid for 5 minutes)
+                </small>
+              </div>
+            )}
+
+            {/* Action Buttons */}
+            <div style={{ display: "flex", gap: "1rem", justifyContent: "space-between" }}>
+              <button 
+                onClick={() => {
+                  setShowMLIDChecker(false);
+                  setMlIdData({ userId: "", serverId: "" });
+                  setMlCheckResult(null);
+                  setMlCheckError("");
+                  setMlVcSent(false);
+                  setMlVcCode("");
+                }}
+                style={{
+                  flex: 1,
+                  padding: "0.9rem",
+                  background: "rgba(255, 255, 255, 0.05)",
+                  border: "1px solid rgba(255, 107, 157, 0.3)",
+                  borderRadius: "8px",
+                  color: "#a0a0a0",
+                  fontWeight: "bold",
+                  cursor: "pointer",
+                  transition: "all 0.3s"
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = "rgba(255, 255, 255, 0.1)";
+                  e.currentTarget.style.borderColor = "rgba(255, 107, 157, 0.5)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = "rgba(255, 255, 255, 0.05)";
+                  e.currentTarget.style.borderColor = "rgba(255, 107, 157, 0.3)";
+                }}
+              >
+                {mlCheckResult && mlCheckResult.valid === true ? "Close" : "Cancel"}
+              </button>
+              <button 
+                onClick={mlVcSent ? verifyMLID : checkMLID}
+                disabled={mlCheckLoading}
+                style={{
+                  flex: 1,
+                  padding: "0.9rem",
+                  background: "linear-gradient(135deg, #FF6B9D, #FF4757)",
+                  border: "none",
+                  borderRadius: "8px",
+                  color: "white",
+                  fontWeight: "bold",
+                  cursor: mlCheckLoading ? "not-allowed" : "pointer",
+                  transition: "all 0.3s",
+                  opacity: mlCheckLoading ? 0.7 : 1
+                }}
+                onMouseEnter={(e) => !mlCheckLoading && (e.currentTarget.style.transform = "scale(1.02)")}
+                onMouseLeave={(e) => !mlCheckLoading && (e.currentTarget.style.transform = "scale(1)")}
+              >
+                {mlCheckLoading ? "Loading..." : mlVcSent ? "✓ Verify Code" : "📨 Send VC"}
+              </button>
+            </div>
+
+            <p style={{ color: "#888", fontSize: "0.8rem", marginTop: "1rem", textAlign: "center" }}>
+              {mlVcSent ? "Check your in-game mail for the verification code" : "Your data is used only to verify your account and won't be stored."}
+            </p>
+          </div>
+        </div>
+      )}
 
       {/* Breadcrumb Navigation */}
       <div style={{ padding: "1rem", maxWidth: "1200px", margin: "0 auto", paddingTop: "0.5rem" }}>
@@ -961,9 +1373,38 @@ export default function App() {
                   const discount = discountMap[game.id] || "5%";
                   
                   const isPopular = game.pricing.length >= 10;
+                  const isFlipped = flippedGames.has(game.id);
+                  
                   return (
-                    <div key={game.id} className={`game-card ${game.category}`} style={{ position: "relative" }}>
-                      <div className="game-image" style={{ backgroundImage: `url(${game.image})`, backgroundSize: "cover", backgroundPosition: "center" }}>
+                    <div 
+                      key={game.id} 
+                      style={{
+                        perspective: "1000px",
+                        height: "100%"
+                      }}
+                    >
+                      <div
+                        onClick={() => toggleFlip(game.id)}
+                        style={{
+                          position: "relative",
+                          width: "100%",
+                          height: "100%",
+                          transition: "transform 0.6s",
+                          transformStyle: "preserve-3d",
+                          transform: isFlipped ? "rotateY(180deg)" : "rotateY(0deg)",
+                          cursor: "pointer"
+                        }}
+                      >
+                        {/* Front of card */}
+                        <div 
+                          className={`game-card ${game.category}`}
+                          style={{ 
+                            position: "relative",
+                            backfaceVisibility: "hidden",
+                            WebkitBackfaceVisibility: "hidden"
+                          }}
+                        >
+                          <div className="game-image" style={{ backgroundImage: `url(${game.image})`, backgroundSize: "cover", backgroundPosition: "center" }}>
                         {isPopular && (
                           <div style={{
                             position: "absolute",
@@ -1076,6 +1517,110 @@ export default function App() {
                             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Facebook_Messenger_logo_2020.svg/960px-Facebook_Messenger_logo_2020.svg.png" alt="Messenger" style={{ width: "16px", height: "16px", marginRight: "0.3rem" }} />
                             Ask Details
                           </button>
+                        </div>
+                      </div>
+                        </div>
+
+                        {/* Back of card */}
+                        <div
+                          style={{
+                            position: "absolute",
+                            top: 0,
+                            left: 0,
+                            width: "100%",
+                            height: "100%",
+                            background: `linear-gradient(135deg, ${game.category === "moba" ? "rgba(0, 212, 255, 0.15), rgba(0, 100, 200, 0.15)" : game.category === "fps" ? "rgba(255, 165, 0, 0.15), rgba(255, 100, 0, 0.15)" : "rgba(157, 78, 221, 0.15), rgba(100, 50, 150, 0.15)"})`,
+                            border: `2px solid ${game.category === "moba" ? "rgba(0, 212, 255, 0.4)" : game.category === "fps" ? "rgba(255, 165, 0, 0.4)" : "rgba(157, 78, 221, 0.4)"}`,
+                            borderRadius: "8px",
+                            padding: "1rem",
+                            display: "flex",
+                            flexDirection: "column",
+                            justifyContent: "space-between",
+                            backfaceVisibility: "hidden",
+                            WebkitBackfaceVisibility: "hidden",
+                            transform: "rotateY(180deg)",
+                            boxSizing: "border-box",
+                            overflow: "hidden"
+                          }}
+                        >
+                          <div style={{ overflow: "auto", flex: 1 }}>
+                            <div style={{ 
+                              color: game.category === "moba" ? "#00d4ff" : game.category === "fps" ? "#ffa500" : "#9d4edd", 
+                              fontWeight: "bold", 
+                              fontSize: "0.95rem", 
+                              marginBottom: "0.75rem",
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "0.4rem"
+                            }}>
+                              <span style={{ fontSize: "1.1rem" }}>⚡</span>
+                              Quick Details
+                            </div>
+                            
+                            {/* Package info */}
+                            <div style={{ 
+                              background: "rgba(0, 255, 136, 0.08)",
+                              border: "1px solid rgba(0, 255, 136, 0.2)",
+                              borderRadius: "6px",
+                              padding: "0.6rem",
+                              marginBottom: "0.6rem"
+                            }}>
+                              <div style={{ color: "#a0a0a0", fontSize: "0.7rem", marginBottom: "0.2rem" }}>📦 Packages</div>
+                              <div style={{ color: "#00ff88", fontWeight: "bold", fontSize: "1.1rem" }}>{game.pricing.length}</div>
+                            </div>
+
+                            {/* Category */}
+                            <div style={{ 
+                              background: game.category === "moba" ? "rgba(0, 212, 255, 0.08)" : game.category === "fps" ? "rgba(255, 165, 0, 0.08)" : "rgba(157, 78, 221, 0.08)",
+                              border: `1px solid ${game.category === "moba" ? "rgba(0, 212, 255, 0.2)" : game.category === "fps" ? "rgba(255, 165, 0, 0.2)" : "rgba(157, 78, 221, 0.2)"}`,
+                              borderRadius: "6px",
+                              padding: "0.6rem",
+                              marginBottom: "0.6rem"
+                            }}>
+                              <div style={{ color: "#a0a0a0", fontSize: "0.7rem", marginBottom: "0.2rem" }}>🎮 Type</div>
+                              <div style={{ 
+                                color: game.category === "moba" ? "#00d4ff" : game.category === "fps" ? "#ffa500" : "#9d4edd",
+                                fontWeight: "bold", 
+                                fontSize: "0.9rem" 
+                              }}>
+                                {game.category.toUpperCase()}
+                              </div>
+                            </div>
+
+                            {/* Discount */}
+                            <div style={{ 
+                              background: "rgba(255, 51, 51, 0.1)",
+                              border: "1px solid rgba(255, 51, 51, 0.3)",
+                              borderRadius: "6px",
+                              padding: "0.6rem",
+                              marginBottom: "0.6rem"
+                            }}>
+                              <div style={{ color: "#a0a0a0", fontSize: "0.7rem", marginBottom: "0.2rem" }}>💰 Savings</div>
+                              <div style={{ color: "#ffb3b3", fontWeight: "bold", fontSize: "0.95rem" }}>Save {discount}!</div>
+                            </div>
+
+                            {/* Delivery */}
+                            <div style={{ 
+                              background: "rgba(100, 200, 255, 0.08)",
+                              border: "1px solid rgba(100, 200, 255, 0.2)",
+                              borderRadius: "6px",
+                              padding: "0.6rem"
+                            }}>
+                              <div style={{ color: "#a0a0a0", fontSize: "0.7rem", marginBottom: "0.2rem" }}>⚡ Delivery</div>
+                              <div style={{ color: "#64c8ff", fontWeight: "bold", fontSize: "0.9rem" }}>5-30 min</div>
+                            </div>
+                          </div>
+
+                          <div style={{ 
+                            color: "#a0a0a0", 
+                            fontSize: "0.7rem", 
+                            textAlign: "center", 
+                            marginTop: "0.75rem",
+                            paddingTop: "0.75rem",
+                            borderTop: "1px solid rgba(255, 51, 51, 0.2)"
+                          }}>
+                            ↺ Click to flip back
+                          </div>
                         </div>
                       </div>
                     </div>

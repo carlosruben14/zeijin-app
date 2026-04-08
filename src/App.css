@@ -195,6 +195,7 @@ nav a.active {
   flex-direction: column;
   position: relative;
   backdrop-filter: blur(10px);
+  height: 520px;
 }
 
 .game-card::before {
@@ -487,6 +488,10 @@ footer {
     gap: 1rem;
   }
 
+  .game-card {
+    height: 440px;
+  }
+
   .game-image {
     height: 160px;
   }
@@ -617,6 +622,7 @@ footer {
 
   .game-card {
     border-radius: 8px;
+    height: 370px;
   }
 
   .game-image {
