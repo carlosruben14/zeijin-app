@@ -367,6 +367,44 @@ const getEventStatus = (startDate, endDate) => {
   return "ongoing";
 };
 
+// Calculate string similarity (0-1, where 1 is exact match)
+const calculateSimilarity = (str1, str2) => {
+  const s1 = str1.toLowerCase();
+  const s2 = str2.toLowerCase();
+  
+  // Exact match or substring match
+  if (s1 === s2 || s1.includes(s2) || s2.includes(s1)) return 1;
+  
+  // Levenshtein-like distance
+  const longer = s1.length > s2.length ? s1 : s2;
+  const shorter = s1.length > s2.length ? s2 : s1;
+  
+  let matches = 0;
+  for (let i = 0; i < shorter.length; i++) {
+    if (longer.includes(shorter[i])) matches++;
+  }
+  
+  // Character match ratio
+  return matches / longer.length;
+};
+
+// Find closest match from array
+const findClosestMatch = (query, array, getNameFn) => {
+  let bestMatch = null;
+  let bestScore = 0;
+  
+  for (const item of array) {
+    const name = getNameFn(item);
+    const score = calculateSimilarity(query, name);
+    if (score > bestScore && score > 0.4) { // Threshold of 0.4 similarity
+      bestScore = score;
+      bestMatch = item;
+    }
+  }
+  
+  return bestMatch;
+};
+
 const EventCarousel = ({ events, getEventStatus }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [autoPlay, setAutoPlay] = useState(true);
@@ -664,6 +702,7 @@ export default function App() {
   const [mlCheckResult, setMlCheckResult] = useState(null);
   const [mlCheckError, setMlCheckError] = useState("");
   const [mlCheckLoading, setMlCheckLoading] = useState(false);
+  const [mlSuggestion, setMlSuggestion] = useState(null); // { name, type }
 
   // Auto-set search type when game changes
   useEffect(() => {
@@ -677,6 +716,7 @@ export default function App() {
     setMlSearchQuery("");
     setMlCheckResult(null);
     setMlCheckError("");
+    setMlSuggestion(null);
   }, [wikiSelectedGame]);
 
   const getSearchTypeOptions = () => {
@@ -784,7 +824,13 @@ export default function App() {
               message: `Hero Data Found! ✓`
             });
           } else {
+            const suggestion = findClosestMatch(mlSearchQuery, result.data, h => h.hero_name);
             setMlCheckError(`Hero "${mlSearchQuery}" not found.`);
+            if (suggestion) {
+              setMlSuggestion({ name: suggestion.hero_name, type: "hero" });
+            } else {
+              setMlSuggestion(null);
+            }
           }
         } else if (mlSearchType === "item") {
           found = result.data.find(i => 
@@ -801,7 +847,13 @@ export default function App() {
               message: `Item Found! ✓`
             });
           } else {
+            const suggestion = findClosestMatch(mlSearchQuery, result.data, i => i.item_name);
             setMlCheckError(`Item "${mlSearchQuery}" not found.`);
+            if (suggestion) {
+              setMlSuggestion({ name: suggestion.item_name, type: "item" });
+            } else {
+              setMlSuggestion(null);
+            }
           }
         }
       } else if (wikiSelectedGame === "valorant") {
@@ -820,7 +872,13 @@ export default function App() {
             message: `Agent Found! ✓`
           });
         } else {
+          const suggestion = findClosestMatch(mlSearchQuery, result.data, a => a.displayName);
           setMlCheckError(`Agent "${mlSearchQuery}" not found.`);
+          if (suggestion) {
+            setMlSuggestion({ name: suggestion.displayName, type: "agent" });
+          } else {
+            setMlSuggestion(null);
+          }
         }
       } else if (wikiSelectedGame === "genshin") {
         // Genshin API returns simple array of character names (strings)
@@ -859,7 +917,13 @@ export default function App() {
             });
           }
         } else {
+          const suggestion = findClosestMatch(mlSearchQuery, dataArray, name => name);
           setMlCheckError(`Character "${mlSearchQuery}" not found.`);
+          if (suggestion) {
+            setMlSuggestion({ name: suggestion, type: "character" });
+          } else {
+            setMlSuggestion(null);
+          }
         }
       } else if (wikiSelectedGame === "lol") {
         let searchData = [];
@@ -876,7 +940,13 @@ export default function App() {
               message: `Champion Found! ✓`
             });
           } else {
+            const suggestion = findClosestMatch(mlSearchQuery, searchData, c => c.name);
             setMlCheckError(`Champion "${mlSearchQuery}" not found.`);
+            if (suggestion) {
+              setMlSuggestion({ name: suggestion.name, type: "champion" });
+            } else {
+              setMlSuggestion(null);
+            }
           }
         } else if (mlSearchType === "item") {
           searchData = result.data && typeof result.data === 'object' ? Object.values(result.data) : [];
@@ -891,7 +961,13 @@ export default function App() {
               message: `Item Found! ✓`
             });
           } else {
+            const suggestion = findClosestMatch(mlSearchQuery, searchData, i => i.name);
             setMlCheckError(`Item "${mlSearchQuery}" not found.`);
+            if (suggestion) {
+              setMlSuggestion({ name: suggestion.name, type: "item" });
+            } else {
+              setMlSuggestion(null);
+            }
           }
         }
       }
@@ -1069,8 +1145,49 @@ export default function App() {
 
             {/* Error Message */}
             {mlCheckError && (
-              <div style={{ background: "rgba(255, 51, 51, 0.15)", border: "1px solid rgba(255, 51, 51, 0.4)", padding: "1rem", borderRadius: "8px", marginBottom: "1.5rem", color: "#FFB3B3", fontSize: "0.9rem" }}>
-                ❌ {mlCheckError}
+              <div>
+                <div style={{ background: "rgba(255, 51, 51, 0.15)", border: "1px solid rgba(255, 51, 51, 0.4)", padding: "1rem", borderRadius: "8px", marginBottom: "1.5rem", color: "#FFB3B3", fontSize: "0.9rem" }}>
+                  ❌ {mlCheckError}
+                </div>
+                
+                {/* Suggestion Box */}
+                {mlSuggestion && (
+                  <div style={{ background: "rgba(100, 200, 255, 0.15)", border: "1px solid rgba(100, 200, 255, 0.4)", padding: "1rem", borderRadius: "8px", marginBottom: "1.5rem", color: "#64c8ff" }}>
+                    <div style={{ fontSize: "0.85rem", marginBottom: "0.5rem" }}>💡 Did you mean:</div>
+                    <button
+                      onClick={() => {
+                        // Simulate what the search would do with the suggestion
+                        const oldQuery = mlSearchQuery;
+                        setMlSearchQuery(mlSuggestion.name);
+                        setMlCheckError("");
+                        setMlSuggestion(null);
+                        // The form will automatically search with the new query
+                        // User would need to click search, or we can make it auto-trigger
+                      }}
+                      style={{
+                        background: "rgba(100, 200, 255, 0.2)",
+                        border: "1px solid rgba(100, 200, 255, 0.6)",
+                        color: "#64c8ff",
+                        padding: "0.5rem 1rem",
+                        borderRadius: "6px",
+                        cursor: "pointer",
+                        fontSize: "0.9rem",
+                        fontWeight: "bold",
+                        transition: "all 0.3s"
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.background = "rgba(100, 200, 255, 0.3)";
+                        e.currentTarget.style.transform = "scale(1.05)";
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.background = "rgba(100, 200, 255, 0.2)";
+                        e.currentTarget.style.transform = "scale(1)";
+                      }}
+                    >
+                      🔍 {mlSuggestion.name}
+                    </button>
+                  </div>
+                )}
               </div>
             )}
 
