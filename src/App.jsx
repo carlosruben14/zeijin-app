@@ -764,9 +764,9 @@ export default function App() {
       // Build endpoint based on game and search type
       if (wikiSelectedGame === "mlbb") {
         if (mlSearchType === "hero") {
-          endpoint = `/api/heroes`;
+          endpoint = `https://mlbb-wiki-api.vercel.app/api/heroes`;
         } else if (mlSearchType === "item") {
-          endpoint = `/api/equipment`;
+          endpoint = `https://mlbb-wiki-api.vercel.app/api/equipment`;
         }
       } else if (wikiSelectedGame === "valorant") {
         if (mlSearchType === "agent") {
@@ -792,8 +792,10 @@ export default function App() {
       const response = await fetch(endpoint, {
         method: "GET",
         headers: {
-          "Accept": "application/json"
-        }
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        },
+        mode: "cors"
       });
       
       console.log("Response status:", response.status);
