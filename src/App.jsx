@@ -30,7 +30,7 @@ const gamesData = [
     title: "Mobile Legends: Bang Bang",
     category: "moba",
     description: "MLBB Discounted Dias - Fight with your team!",
-    image: "https://assets-prd.ignimgs.com/2023/09/30/mobilelegends-1696089976653.jpg?crop=1%3A1%2Csmart&format=jpg&auto=webp&quality=80",
+    image: "/images/games/mlbb.jpg",
     pricing: [
       { amount: "56", price: 50, currency: "₱" },
       { amount: "112", price: 98 },
@@ -56,7 +56,7 @@ const gamesData = [
     title: "Valorant",
     category: "fps",
     description: "Valorant Discounted VP - Tactical Shooter",
-    image: "https://www.riotgames.com/darkroom/1440/8d5c497da1c2eeec8cffa99b01abc64b:5329ca773963a5b739e98e715957ab39/ps-f2p-val-console-launch-16x9.jpg",
+    image: "/images/games/valorant.jpg",
     pricing: [
       { amount: "475 VP", price: 186 },
       { amount: "1,000 VP", price: 372 },
@@ -81,7 +81,7 @@ const gamesData = [
     title: "League of Legends - Wild Rift",
     category: "moba",
     description: "LOL Discounted Wildcore - MOBA Fantasy",
-    image: "https://www.riotgames.com/darkroom/1440/08bcc251757a1f64e30e0d7e8c513d35:be16374e056f8268996ef96555c7a113/wr-cb1-announcementarticle-banner-1920x1080.png",
+    image: "/images/games/lol-wildrift.png",
     pricing: [
       { amount: "425 WC", price: 186 },
       { amount: "1,000 WC", price: 420 },
@@ -99,7 +99,7 @@ const gamesData = [
     title: "Call of Duty Mobile",
     category: "fps",
     description: "COD Mobile Discounted CP Points - Action Shooter",
-    image: "https://cdn.moogold.com/2022/03/call-of-duty-mobile-logo-416x416.jpg",
+    image: "/images/games/codm.jpg",
     pricing: [
       { amount: "20 CP", price: 15 },
       { amount: "100 CP", price: 55 },
@@ -120,7 +120,7 @@ const gamesData = [
     title: "Honor of Kings",
     category: "moba",
     description: "HOK Discounted Game Credits - Strategy MOBA",
-    image: "https://cdn.moogold.com/2024/03/Honor-of-king.jpg",
+    image: "/images/games/hok.jpg",
     pricing: [
       { amount: "80 Credits", price: 58 },
       { amount: "240 Credits", price: 174 },
@@ -137,7 +137,7 @@ const gamesData = [
     title: "Genshin Impact",
     category: "rpg",
     description: "Genshin Crystals - Open World RPG Adventure",
-    image: "https://fastcdn.hoyoverse.com/content-v2/plat/124031/5d2ba4371115d26de4c574b28311aed8_576844151847376526.jpeg",
+    image: "/images/games/genshin.jpeg",
     pricing: [
       { amount: "60 Crystals", price: 50 },
       { amount: "330 Crystals", price: 242 },
@@ -153,7 +153,7 @@ const gamesData = [
     title: "Teamfight Tactics",
     category: "moba",
     description: "TFT Discounted Riot Points - Strategic Card Game",
-    image: "https://www.riotgames.com/darkroom/1440/fab68f870f6da8998086165e608ea621:ca159930b811b32033d8714a948586c8/tft.jpg",
+    image: "/images/games/tft.jpg",
     pricing: [
       { amount: "575 RP", price: 184 },
       { amount: "1,380 RP", price: 415 },
@@ -170,7 +170,7 @@ const gamesData = [
     title: "League of Legends - Riot Points",
     category: "moba",
     description: "LOL Discounted RP - Classic MOBA",
-    image: "https://static1-es.millenium.gg/articles/6/23/38/6/@/108739-lol-article_image_d-1.jpg",
+    image: "/images/games/lol-rp.jpg",
     pricing: [
       { amount: "575 RP", price: 186 },
       { amount: "1,380 RP", price: 419 },
@@ -185,7 +185,7 @@ const gamesData = [
     title: "Blood Strike",
     category: "fps",
     description: "Blood Strike Discounted Gold - Action Shooter",
-    image: "https://gfn.ru/media/images/art_im_l8wXqPJ.2e16d0ba.fill-308x308.format-webp.webpquality-50.webp",
+    image: "/images/games/bloodstrike.webp",
     pricing: [
       { amount: "105 Gold", price: 47 },
       { amount: "210 Gold", price: 91 },
@@ -216,7 +216,7 @@ const gamesData = [
     title: "Magic Chess Go Go",
     category: "moba",
     description: "Magic Chess Discounted Dias - Strategic Card Game",
-    image: "https://cdn.bynogame.com/banner/1745584232648.webp",
+    image: "/images/games/magic-chess.webp",
     pricing: [
       { amount: "56", price: 50, currency: "₱" },
       { amount: "112", price: 98 },
@@ -239,7 +239,7 @@ const gamesData = [
     title: "Crossfire Ecoin",
     category: "fps",
     description: "Crossfire Discounted Ecoin - Tactical Shooter",
-    image: "https://club.jollymax.com/wp-content/uploads/2025/03/134-tmb-1024x506.webp",
+    image: "/images/games/crossfire.webp",
     pricing: [
       { amount: "100 Ecoin", price: 90 },
       { amount: "200 Ecoin", price: 180 },
@@ -260,7 +260,7 @@ const gamesData = [
     title: "PUBG Mobile UC",
     category: "fps",
     description: "PUBG Mobile Discounted UC - Battle Royale",
-    image: "https://static0.xdaimages.com/wordpress/wp-content/uploads/2018/06/pubg.jpg?q=50&fit=crop&w=1200&h=675&dpr=1.5",
+    image: "/images/games/pubg.jpg",
     pricing: [
       { amount: "60 UC", price: 53 },
       { amount: "325 UC", price: 260 },
@@ -275,7 +275,7 @@ const gamesData = [
     title: "Honkai Star Rail",
     category: "rpg",
     description: "Honkai Star Rail Discounted Oneric Shards - Space RPG",
-    image: "https://i.ytimg.com/vi/NU6J88t4luM/maxresdefault.jpg",
+    image: "/images/games/duke-nukem.jpg",
     pricing: [
       { amount: "60 Shards", price: 50 },
       { amount: "330 Shards", price: 213 },
@@ -295,7 +295,7 @@ const gamesData = [
     title: "Steam Wallet Codes",
     category: "rpg",
     description: "Steam Wallet Gift Cards - Play Thousands of Games",
-    image: "https://cdn.moogold.com/2025/11/Steam-Gift-Card-PHP.jpg",
+    image: "/images/games/steam-wallet.jpg",
     pricing: [
       { amount: "$0.50 USD", price: 25 },
       { amount: "$1 USD", price: 50 },
@@ -329,7 +329,7 @@ const eventsData = [
     startDate: "2026-04-10",
     endDate: "2026-06-10",
     badge: "New",
-    image: "https://www.riotgames.com/darkroom/1440/8d5c497da1c2eeec8cffa99b01abc64b:5329ca773963a5b739e98e715957ab39/ps-f2p-val-console-launch-16x9.jpg",
+    image: "/images/games/valorant.jpg",
     wikiUrl: "https://valorant.fandom.com/wiki/Battle_Pass"
   },
   {
@@ -340,7 +340,7 @@ const eventsData = [
     startDate: "2026-04-20",
     endDate: "2026-05-20",
     badge: "Hot Event",
-    image: "https://fastcdn.hoyoverse.com/content-v2/plat/124031/5d2ba4371115d26de4c574b28311aed8_576844151847376526.jpeg",
+    image: "/images/games/genshin.jpeg",
     wikiUrl: "https://genshin-impact.fandom.com/wiki/Lantern_Rite_Festival"
   },
   {
@@ -351,7 +351,7 @@ const eventsData = [
     startDate: "2026-04-07",
     endDate: "2026-04-15",
     badge: "Featured Shop",
-    image: "https://valorantstrike.com/wp-content/uploads/Valorant-Jellybeam-Collection-HD-1280x640.jpg",
+    image: "/images/games/valorant-jellybeam.jpg",
     wikiUrl: "https://valorant.fandom.com/wiki/Featured_Bundle"
   },
   {
@@ -362,7 +362,7 @@ const eventsData = [
     startDate: "2026-04-07",
     endDate: "2026-04-08",
     badge: "Ending Soon",
-    image: "https://valorantstrike.com/wp-content/uploads/Valorant-Blackthorn-Collection-HD-1280x640.jpg",
+    image: "/images/games/valorant-blackthorn.jpg",
     wikiUrl: "https://valorant.fandom.com/wiki/Featured_Bundle"
   }
 ];
