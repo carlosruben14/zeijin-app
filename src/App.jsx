@@ -1,13 +1,6 @@
 ﻿import { useState, useMemo, useEffect, useRef, useLayoutEffect } from "react";
 import "./App.css";
 import "./index.css";
-import ErrorBoundary from "./components/ErrorBoundary";
-import gamesData from "./data/gamesData";
-import eventsData from "./data/eventsData";
-import GameCard from "./components/GameCard";
-import PricingModal from "./components/PricingModal";
-import ContactForm from "./components/ContactForm";
-import WikiSearch from "./components/WikiSearch";
 
 // Skeleton Loader Component for image placeholders
 const SkeletonLoader = ({ width = "100%", height = "200px", borderRadius = "8px" }) => (
@@ -31,7 +24,328 @@ const SkeletonLoader = ({ width = "100%", height = "200px", borderRadius = "8px"
   </div>
 );
 
+const gamesData = [
+  {
+    id: 1,
+    title: "Mobile Legends: Bang Bang",
+    category: "moba",
+    description: "MLBB Discounted Dias - Fight with your team!",
+    image: "/images/games/mlbb.jpg",
+    pricing: [
+      { amount: "56", price: 50, currency: "₱" },
+      { amount: "112", price: 98 },
+      { amount: "168", price: 147 },
+      { amount: "223", price: 192 },
+      { amount: "279", price: 242 },
+      { amount: "336", price: 287 },
+      { amount: "570", price: 480 },
+      { amount: "793", price: 670 },
+      { amount: "906", price: 768 },
+      { amount: "1163", price: 945 },
+      { amount: "2398", price: 1890 },
+      { amount: "3561", price: 2835 },
+      { amount: "5132", price: 4067 },
+      { amount: "6042", price: 4765 },
+      { amount: "Starlight Normal 301", price: 267 },
+      { amount: "Starlight Normal 760", price: 655 },
+      { amount: "WDP", price: 98 }
+    ]
+  },
+  {
+    id: 2,
+    title: "Valorant",
+    category: "fps",
+    description: "Valorant Discounted VP - Tactical Shooter",
+    image: "/images/games/valorant.jpg",
+    pricing: [
+      { amount: "475 VP", price: 186 },
+      { amount: "1,000 VP", price: 372 },
+      { amount: "1,475 VP", price: 558 },
+      { amount: "2,050 VP", price: 744 },
+      { amount: "2,525 VP", price: 930 },
+      { amount: "3,050 VP", price: 1116 },
+      { amount: "3,650 VP", price: 1302 },
+      { amount: "4,650 VP", price: 1674 },
+      { amount: "5,350 VP", price: 1860 },
+      { amount: "7,400 VP", price: 2604 },
+      { amount: "8,400 VP", price: 2976 },
+      { amount: "9,000 VP", price: 3162 },
+      { amount: "10,000 VP", price: 3534 },
+      { amount: "10,700 VP", price: 3720 },
+      { amount: "16,050 VP", price: 5580 },
+      { amount: "21,400 VP", price: 7449 }
+    ]
+  },
+  {
+    id: 3,
+    title: "League of Legends - Wild Rift",
+    category: "moba",
+    description: "LOL Discounted Wildcore - MOBA Fantasy",
+    image: "/images/games/lol-wildrift.png",
+    pricing: [
+      { amount: "425 WC", price: 186 },
+      { amount: "1,000 WC", price: 420 },
+      { amount: "1,425 WC", price: 644 },
+      { amount: "1,850 WC", price: 754 },
+      { amount: "2,275 WC", price: 938 },
+      { amount: "2,850 WC", price: 1214 },
+      { amount: "3,275 WC", price: 1316 },
+      { amount: "6,550 WC", price: 2631 },
+      { amount: "9,825 WC", price: 3947 }
+    ]
+  },
+  {
+    id: 4,
+    title: "Call of Duty Mobile",
+    category: "fps",
+    description: "COD Mobile Discounted CP Points - Action Shooter",
+    image: "/images/games/codm.jpg",
+    pricing: [
+      { amount: "20 CP", price: 15 },
+      { amount: "100 CP", price: 55 },
+      { amount: "208 CP", price: 98 },
+      { amount: "328 CP", price: 165 },
+      { amount: "416 CP", price: 196 },
+      { amount: "648 CP", price: 295 },
+      { amount: "1,080 CP", price: 485 },
+      { amount: "2,320 CP", price: 965 },
+      { amount: "4,640 CP", price: 1930 },
+      { amount: "6,960 CP", price: 2895 },
+      { amount: "9,280 CP", price: 3860 },
+      { amount: "11,600 CP", price: 4825 }
+    ]
+  },
+  {
+    id: 5,
+    title: "Honor of Kings",
+    category: "moba",
+    description: "HOK Discounted Game Credits - Strategy MOBA",
+    image: "/images/games/hok.jpg",
+    pricing: [
+      { amount: "80 Credits", price: 58 },
+      { amount: "240 Credits", price: 174 },
+      { amount: "400 Credits", price: 285 },
+      { amount: "830 Credits", price: 570 },
+      { amount: "1,245 Credits", price: 830 },
+      { amount: "2,508 Credits", price: 1635 },
+      { amount: "4,180 Credits", price: 2710 },
+      { amount: "8,360 Credits", price: 5680 }
+    ]
+  },
+  {
+    id: 6,
+    title: "Genshin Impact",
+    category: "rpg",
+    description: "Genshin Crystals - Open World RPG Adventure",
+    image: "/images/games/genshin.jpeg",
+    pricing: [
+      { amount: "60 Crystals", price: 50 },
+      { amount: "330 Crystals", price: 242 },
+      { amount: "1,090 Crystals", price: 755 },
+      { amount: "2,240 Crystals", price: 1460 },
+      { amount: "3,880 Crystals", price: 2440 },
+      { amount: "8,080 Crystals", price: 4870 },
+      { amount: "Blessing Welkin Moon", price: 245 }
+    ]
+  },
+  {
+    id: 7,
+    title: "Teamfight Tactics",
+    category: "moba",
+    description: "TFT Discounted Riot Points - Strategic Card Game",
+    image: "/images/games/tft.jpg",
+    pricing: [
+      { amount: "575 RP", price: 184 },
+      { amount: "1,380 RP", price: 415 },
+      { amount: "2,800 RP", price: 828 },
+      { amount: "4,500 RP", price: 1288 },
+      { amount: "6,500 RP", price: 1840 },
+      { amount: "7,800 RP", price: 2255 },
+      { amount: "9,300 RP", price: 2668 },
+      { amount: "13,000 RP", price: 3680 }
+    ]
+  },
+  {
+    id: 8,
+    title: "League of Legends - Riot Points",
+    category: "moba",
+    description: "LOL Discounted RP - Classic MOBA",
+    image: "/images/games/lol-rp.jpg",
+    pricing: [
+      { amount: "575 RP", price: 186 },
+      { amount: "1,380 RP", price: 419 },
+      { amount: "2,800 RP", price: 837 },
+      { amount: "4,500 RP", price: 1302 },
+      { amount: "6,500 RP", price: 1860 },
+      { amount: "13,000 RP", price: 3720 }
+    ]
+  },
+  {
+    id: 9,
+    title: "Blood Strike",
+    category: "fps",
+    description: "Blood Strike Discounted Gold - Action Shooter",
+    image: "/images/games/bloodstrike.webp",
+    pricing: [
+      { amount: "105 Gold", price: 47 },
+      { amount: "210 Gold", price: 91 },
+      { amount: "320 Gold", price: 137 },
+      { amount: "420 Gold", price: 182 },
+      { amount: "540 Gold", price: 228 },
+      { amount: "640 Gold", price: 273 },
+      { amount: "750 Gold", price: 320 },
+      { amount: "860 Gold", price: 365 },
+      { amount: "965 Gold", price: 410 },
+      { amount: "1,100 Gold", price: 455 },
+      { amount: "2,260 Gold", price: 910 },
+      { amount: "3,360 Gold", price: 1365 },
+      { amount: "4,520 Gold", price: 1820 },
+      { amount: "5,800 Gold", price: 2280 },
+      { amount: "6,900 Gold", price: 2730 },
+      { amount: "8,060 Gold", price: 3180 },
+      { amount: "9,160 Gold", price: 3630 },
+      { amount: "10,320 Gold", price: 4080 },
+      { amount: "11,600 Gold", price: 4550 },
+      { amount: "Level Up Pass", price: 95 },
+      { amount: "Strike Elite Pass", price: 190 },
+      { amount: "Strike Premium Pass", price: 425 }
+    ]
+  },
+  {
+    id: 10,
+    title: "Magic Chess Go Go",
+    category: "moba",
+    description: "Magic Chess Discounted Dias - Strategic Card Game",
+    image: "/images/games/magic-chess.webp",
+    pricing: [
+      { amount: "56", price: 50, currency: "₱" },
+      { amount: "112", price: 98 },
+      { amount: "168", price: 147 },
+      { amount: "223", price: 192 },
+      { amount: "279", price: 242 },
+      { amount: "336", price: 287 },
+      { amount: "570", price: 480 },
+      { amount: "793", price: 670 },
+      { amount: "906", price: 768 },
+      { amount: "1163", price: 945 },
+      { amount: "2398", price: 1890 },
+      { amount: "3561", price: 2835 },
+      { amount: "5132", price: 4067 },
+      { amount: "6042", price: 4765 }
+    ]
+  },
+  {
+    id: 11,
+    title: "Crossfire Ecoin",
+    category: "fps",
+    description: "Crossfire Discounted Ecoin - Tactical Shooter",
+    image: "/images/games/crossfire.webp",
+    pricing: [
+      { amount: "100 Ecoin", price: 90 },
+      { amount: "200 Ecoin", price: 180 },
+      { amount: "300 Ecoin", price: 270 },
+      { amount: "400 Ecoin", price: 360 },
+      { amount: "500 Ecoin", price: 450 },
+      { amount: "1,000 Ecoin", price: 900 },
+      { amount: "2,000 Ecoin", price: 1800 },
+      { amount: "3,000 Ecoin", price: 2700 },
+      { amount: "4,000 Ecoin", price: 3600 },
+      { amount: "5,000 Ecoin", price: 4500 },
+      { amount: "6,000 Ecoin", price: 5400 },
+      { amount: "10,000 Ecoin", price: 9000 }
+    ]
+  },
+  {
+    id: 12,
+    title: "PUBG Mobile UC",
+    category: "fps",
+    description: "PUBG Mobile Discounted UC - Battle Royale",
+    image: "/images/games/pubg.jpg",
+    pricing: [
+      { amount: "60 UC", price: 53 },
+      { amount: "325 UC", price: 260 },
+      { amount: "660 UC", price: 520 },
+      { amount: "1,800 UC", price: 1300 },
+      { amount: "3,850 UC", price: 2600 },
+      { amount: "8,100 UC", price: 5186 }
+    ]
+  },
+  {
+    id: 14,
+    title: "Steam Wallet Codes",
+    category: "rpg",
+    description: "Steam Wallet Gift Cards - Play Thousands of Games",
+    image: "/images/games/steam-wallet.jpg",
+    pricing: [
+      { amount: "$0.50 USD", price: 25 },
+      { amount: "$1 USD", price: 50 },
+      { amount: "$2 USD", price: 98 },
+      { amount: "$5 USD", price: 245 },
+      { amount: "$10 USD", price: 490 },
+      { amount: "$20 USD", price: 980 },
+      { amount: "$50 USD", price: 2450 },
+      { amount: "$100 USD", price: 4900 }
+    ]
+  }
+];
 
+const eventsData = [
+  {
+    id: 1,
+    game: "Mobile Legends: Bang Bang",
+    title: "MLBB x NARUTO Collaboration Event",
+    description: "Get up to 50% off on selected Dias packages. Limited time offer!",
+    startDate: "2026-04-07",
+    endDate: "2026-04-30",
+    badge: "Hot Event",
+    image: "https://scontent.fcrk2-3.fna.fbcdn.net/v/t39.30808-6/492477191_1119214773576815_6014578049500213380_n.jpg?stp=dst-jpg_p526x296_tt6&_nc_cat=107&ccb=1-7&_nc_sid=13d280&_nc_eui2=AeEaBfvYk4kVB-I4qlCvq2xIhe84nehSclOF7zid6FJyUy3JFZm-fKKBH1x9LJdE9viRluv0r3xQLhbAo4BpXWIe&_nc_ohc=1PPaSltSAusQ7kNvwGHJg9P&_nc_oc=AdoGkj3c0FCI6CXpcRvkSPNpqoLHg22C59z873BVvoEGNqf9rfBYAf8MJWDZhWXCjE0&_nc_zt=23&_nc_ht=scontent.fcrk2-3.fna&_nc_gid=PiGEVZEBcFjaGkimSVbYlA&_nc_ss=7a3a8&oh=00_Af3AlNRttxWfckW8xefW7jzSI389EL2sierX5GgBDyQwDA&oe=69DA58C2",
+    wikiUrl: "https://mobile-legends.fandom.com/wiki/Event"
+  },
+  {
+    id: 2,
+    game: "Valorant",
+    title: "Battle Pass Season 8 Launch",
+    description: "New battle pass with exclusive rewards and cosmetics.",
+    startDate: "2026-04-10",
+    endDate: "2026-06-10",
+    badge: "New",
+    image: "/images/games/valorant.jpg",
+    wikiUrl: "https://valorant.fandom.com/wiki/Battle_Pass"
+  },
+  {
+    id: 5,
+    game: "Genshin Impact",
+    title: "Lantern Rite Festival 2026",
+    description: "Celebrate with special quests, rewards, and limited-time banner!",
+    startDate: "2026-04-20",
+    endDate: "2026-05-20",
+    badge: "Hot Event",
+    image: "/images/games/genshin.jpeg",
+    wikiUrl: "https://genshin-impact.fandom.com/wiki/Lantern_Rite_Festival"
+  },
+  {
+    id: 6,
+    game: "Valorant",
+    title: "Jellybeam Collection Bundle",
+    description: "Featured jellybeam weapon skins collection. Includes stunning blue and pink gradient designs across multiple weapons.",
+    startDate: "2026-04-07",
+    endDate: "2026-04-15",
+    badge: "Featured Shop",
+    image: "/images/games/valorant-jellybeam.jpg",
+    wikiUrl: "https://valorant.fandom.com/wiki/Featured_Bundle"
+  },
+  {
+    id: 7,
+    game: "Valorant",
+    title: "Blackthorn Collection Bundle",
+    description: "Featured blackthorn weapon skins with dark red and black thematic designs. Limited time exclusive bundle!",
+    startDate: "2026-04-07",
+    endDate: "2026-04-08",
+    badge: "Ending Soon",
+    image: "/images/games/valorant-blackthorn.jpg",
+    wikiUrl: "https://valorant.fandom.com/wiki/Featured_Bundle"
+  }
+];
 
 // Calculate event status
 const getEventStatus = (startDate, endDate) => {
@@ -421,7 +735,6 @@ export default function App() {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 480);
   const [copiedPriceId, setCopiedPriceId] = useState(null); // Track which package was copied
   const [showPriceCopiedModal, setShowPriceCopiedModal] = useState(false); // Show options after copy
-  const [isSubmittingForm, setIsSubmittingForm] = useState(false); // Track form submission state
   const abortControllerRef = useRef(null);
 
   // Track window size changes
@@ -556,6 +869,8 @@ export default function App() {
         dataKey = "data";
       }
 
+      console.log("Fetching from:", endpoint);
+      
       const response = await fetch(endpoint, {
         method: "GET",
         headers: {
@@ -563,6 +878,8 @@ export default function App() {
         },
         signal: abortControllerRef.current.signal
       });
+      
+      console.log("Response status:", response.status);
       
       if (!response.ok) {
         throw new Error(`API returned status ${response.status}: ${response.statusText}`);
@@ -575,6 +892,8 @@ export default function App() {
         console.error("JSON parse error:", parseError);
         throw new Error("Invalid JSON response from API");
       }
+      
+      console.log("API response data:", result);
       
       const searchTerm = mlSearchQuery.toLowerCase();
       let found = null;
@@ -785,8 +1104,7 @@ export default function App() {
   }, [searchQuery, filterCategory]);
 
   return (
-    <ErrorBoundary>
-      <div>
+    <div>
       {/* Welcome Notification Modal */}
       {showWelcomeNotif && (
         <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0, 0, 0, 0.6)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 99999, padding: "1rem" }}>
@@ -840,7 +1158,7 @@ export default function App() {
           </div>
           <nav>
             <a href="#" className={`nav-link ${activeSection === "games" ? "active" : ""}`} onClick={(e) => { e.preventDefault(); setActiveSection("games"); setTimeout(() => { const gamesSection = document.querySelector('.games-container'); if (gamesSection) gamesSection.scrollIntoView({ behavior: 'smooth' }); }, 0); }}>Games</a>
-            <a href="#" style={{ marginLeft: "1.5rem", cursor: "pointer", color: "#FF6B9D", fontWeight: "bold", textDecoration: "none", fontSize: "0.95rem" }} onClick={(e) => { e.preventDefault(); setShowMLIDChecker(true); }}>ðŸ” Game Fandom Wiki</a>
+            <a href="#" style={{ marginLeft: "1.5rem", cursor: "pointer", color: "#FF6B9D", fontWeight: "bold", textDecoration: "none", fontSize: "0.95rem" }} onClick={(e) => { e.preventDefault(); setShowMLIDChecker(true); }}>🔍 Game Fandom Wiki</a>
           </nav>
         </div>
       </header>
@@ -910,7 +1228,7 @@ export default function App() {
                       }
                     }}
                   >
-                    {game === "mlbb" ? "🎮 MLBB" : game === "valorant" ? "📱 Valorant" : game === "genshin" ? "⭐ Genshin" : "âš”ï¸ LoL"}
+                    {game === "mlbb" ? "🎮 MLBB" : game === "valorant" ? "🔫 Valorant" : game === "genshin" ? "⭐ Genshin" : "⚔️ LoL"}
                   </button>
                 ))}
               </div>
@@ -957,7 +1275,7 @@ export default function App() {
                         e.currentTarget.style.transform = "scale(1)";
                       }}
                     >
-                      ðŸ” {mlSuggestion.name}
+                      🔍 {mlSuggestion.name}
                     </button>
                   </div>
                 )}
@@ -994,7 +1312,7 @@ export default function App() {
                     onMouseEnter={(e) => { if (wikiDetailTab !== "overview") e.currentTarget.style.background = "rgba(0, 255, 136, 0.1)"; }}
                     onMouseLeave={(e) => { if (wikiDetailTab !== "overview") e.currentTarget.style.background = "transparent"; }}
                   >
-                    📖‹ Overview
+                    📋 Overview
                   </button>
                   
                   {(mlCheckResult.type === "hero" || mlCheckResult.type === "character" || mlCheckResult.type === "champion" || mlCheckResult.type === "agent") && (
@@ -1014,7 +1332,7 @@ export default function App() {
                       onMouseEnter={(e) => { if (wikiDetailTab !== "stats") e.currentTarget.style.background = "rgba(0, 255, 136, 0.1)"; }}
                       onMouseLeave={(e) => { if (wikiDetailTab !== "stats") e.currentTarget.style.background = "transparent"; }}
                     >
-                      📖Š Stats
+                      📊 Stats
                     </button>
                   )}
                   
@@ -1082,7 +1400,7 @@ export default function App() {
                           {mlCheckResult.data.nation && <div><strong>Region:</strong> {mlCheckResult.data.nation}</div>}
                           {mlCheckResult.data.birthday && mlCheckResult.data.birthday !== "0000-05-27" && <div><strong>Birthday:</strong> {mlCheckResult.data.birthday}</div>}
                           {mlCheckResult.data.release && <div><strong>Release Date:</strong> {mlCheckResult.data.release}</div>}
-                          {mlCheckResult.data.rarity && <div><strong>Rarity:</strong> ⭐ {mlCheckResult.data.rarity}</div>}
+                          {mlCheckResult.data.rarity && <div><strong>Rarity:</strong> ⭐ {mlCheckResult.data.rarity}</div>}
                           {mlCheckResult.data.weapon && <div><strong>Weapon Type:</strong> {mlCheckResult.data.weapon}</div>}
                           {mlCheckResult.data.wikiUrl && (
                             <div style={{ marginTop: "0.8rem" }}>
@@ -1125,39 +1443,39 @@ export default function App() {
                     <>
                       {mlCheckResult.type === "hero" && mlCheckResult.data && (
                         <div style={{ background: "rgba(0, 255, 136, 0.05)", padding: "0.8rem", borderRadius: "6px", marginTop: "0.5rem" }}>
-                          <p style={{ marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold", color: "#00ff88" }}>📖Š Hero Stats Available</p>
+                          <p style={{ marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold", color: "#00ff88" }}>📊 Hero Stats Available</p>
                           <p style={{ fontSize: "0.8rem", color: "#a0a0a0" }}>Detailed stats information can be found in the official MLBB wiki. Role: <strong>{mlCheckResult.data.role}</strong> | Lane: <strong>{mlCheckResult.data.lane_recommendation}</strong></p>
                         </div>
                       )}
                       {mlCheckResult.type === "item" && mlCheckResult.data && (
                         <div style={{ background: "rgba(0, 255, 136, 0.05)", padding: "0.8rem", borderRadius: "6px", marginTop: "0.5rem" }}>
-                          <p style={{ marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold", color: "#00ff88" }}>📖Š Item Stats</p>
-                          {mlCheckResult.data.attack_power && <div>âš”ï¸ ATK: {mlCheckResult.data.attack_power}</div>}
+                          <p style={{ marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold", color: "#00ff88" }}>📊 Item Stats</p>
+                          {mlCheckResult.data.attack_power && <div>⚔️ ATK: {mlCheckResult.data.attack_power}</div>}
                           {mlCheckResult.data.magic_power && <div>✨ Magic: {mlCheckResult.data.magic_power}</div>}
                           {mlCheckResult.data.crit_chance && <div>💥 Crit: {mlCheckResult.data.crit_chance}</div>}
-                          {mlCheckResult.data.hp && <div>â¤ï¸ HP: {mlCheckResult.data.hp}</div>}
+                          {mlCheckResult.data.hp && <div>❤️ HP: {mlCheckResult.data.hp}</div>}
                         </div>
                       )}
                       {mlCheckResult.type === "character" && mlCheckResult.data && (
                         <div style={{ background: "rgba(0, 255, 136, 0.05)", padding: "0.8rem", borderRadius: "6px", marginTop: "0.5rem" }}>
-                          <p style={{ marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold", color: "#00ff88" }}>📖Š Character Stats</p>
-                          {mlCheckResult.data.weapon && <div>🗡️ Weapon: {mlCheckResult.data.weapon}</div>}
-                          {mlCheckResult.data.vision && <div>ðŸ’Ž Element: {mlCheckResult.data.vision}</div>}
-                          {mlCheckResult.data.rarity && <div>⭐ Rarity: {mlCheckResult.data.rarity}</div>}
+                          <p style={{ marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold", color: "#00ff88" }}>📊 Character Stats</p>
+                          {mlCheckResult.data.weapon && <div>🗡️ Weapon: {mlCheckResult.data.weapon}</div>}
+                          {mlCheckResult.data.vision && <div>💎 Element: {mlCheckResult.data.vision}</div>}
+                          {mlCheckResult.data.rarity && <div>⭐ Rarity: {mlCheckResult.data.rarity}</div>}
                           <p style={{ fontSize: "0.8rem", color: "#a0a0a0", marginTop: "0.5rem" }}>Visit the wiki for detailed combat stats and scaling information.</p>
                         </div>
                       )}
                       {mlCheckResult.type === "champion" && mlCheckResult.data && (
                         <div style={{ background: "rgba(0, 255, 136, 0.05)", padding: "0.8rem", borderRadius: "6px", marginTop: "0.5rem" }}>
-                          <p style={{ marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold", color: "#00ff88" }}>📖Š Champion Stats</p>
-                          {mlCheckResult.data.regions && <div>🌍 Regions: {mlCheckResult.data.regions.join(", ")}</div>}
+                          <p style={{ marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold", color: "#00ff88" }}>📊 Champion Stats</p>
+                          {mlCheckResult.data.regions && <div>🌍 Regions: {mlCheckResult.data.regions.join(", ")}</div>}
                           <p style={{ fontSize: "0.8rem", color: "#a0a0a0", marginTop: "0.5rem" }}>Visit League of Legends wiki for detailed base stats, scaling, and matchup information.</p>
                         </div>
                       )}
                       {mlCheckResult.type === "agent" && mlCheckResult.data && (
                         <div style={{ background: "rgba(0, 255, 136, 0.05)", padding: "0.8rem", borderRadius: "6px", marginTop: "0.5rem" }}>
-                          <p style={{ marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold", color: "#00ff88" }}>📖Š Agent Info</p>
-                          {mlCheckResult.data.role && <div>ðŸŽ¯ Role: {mlCheckResult.data.role.displayName}</div>}
+                          <p style={{ marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold", color: "#00ff88" }}>📊 Agent Info</p>
+                          {mlCheckResult.data.role && <div>🎯 Role: {mlCheckResult.data.role.displayName}</div>}
                           <p style={{ fontSize: "0.8rem", color: "#a0a0a0", marginTop: "0.5rem" }}>Visit Valorant official site for detailed ability cooldowns and exact stats.</p>
                         </div>
                       )}
@@ -1168,7 +1486,7 @@ export default function App() {
                   {wikiDetailTab === "abilities" && (
                     <>
                       <div style={{ background: "rgba(0, 255, 136, 0.05)", padding: "0.8rem", borderRadius: "6px", marginTop: "0.5rem" }}>
-                        <p style={{ marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold", color: "#00ff88" }}>âš¡ Abilities & Skills</p>
+                        <p style={{ marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold", color: "#00ff88" }}>⚡ Abilities & Skills</p>
                         {mlCheckResult.type === "hero" && (
                           <div style={{ fontSize: "0.8rem", color: "#a0a0a0", lineHeight: "1.6" }}>
                             <p>🎮 <strong>{mlCheckResult.data?.hero_name}</strong> has unique skills and mechanics!</p>
@@ -1246,7 +1564,7 @@ export default function App() {
                       }
                     }}
                   >
-                    {type === "hero" ? "🎮" : type === "agent" ? "🕵️" : type === "weapon" ? "âš”ï¸" : type === "character" ? "⭐" : type === "champion" ? "ðŸ‘‘" : type === "item" ? "âš™ï¸" : "📖¦"} {type}
+                    {type === "hero" ? "🎮" : type === "agent" ? "🕵️" : type === "weapon" ? "⚔️" : type === "character" ? "⭐" : type === "champion" ? "👑" : type === "item" ? "⚙️" : "📦"} {type}
                   </button>
                 ))}
               </div>
@@ -1332,7 +1650,7 @@ export default function App() {
                 onMouseEnter={(e) => !mlCheckLoading && (e.currentTarget.style.transform = "scale(1.02)")}
                 onMouseLeave={(e) => !mlCheckLoading && (e.currentTarget.style.transform = "scale(1)")}
               >
-                {mlCheckLoading ? "Searching..." : "ðŸ” Search"}
+                {mlCheckLoading ? "Searching..." : "🔍 Search"}
               </button>
             </div>
 
@@ -1538,7 +1856,7 @@ export default function App() {
             e.currentTarget.style.boxShadow = "0 4px 15px rgba(102, 126, 234, 0.5)";
           }}
         >
-          📖¢
+          📢
         </a>
       </div>
 
@@ -1559,7 +1877,7 @@ export default function App() {
           marginBottom: "2rem",
           textAlign: "center"
         }}>
-          <h2 style={{ color: "#FF6B9D", marginBottom: "0.5rem", fontSize: "1.5rem" }}>ðŸ” Game Fandom Wiki</h2>
+          <h2 style={{ color: "#FF6B9D", marginBottom: "0.5rem", fontSize: "1.5rem" }}>🔍 Game Fandom Wiki</h2>
           <p style={{ color: "#d0d0d0", marginBottom: "1.5rem", fontSize: "0.95rem" }}>
             Search for hero details, item stats, character info, and champion abilities across all games
           </p>
@@ -1690,7 +2008,7 @@ export default function App() {
                                 zIndex: 10,
                                 textTransform: "uppercase"
                               }}>
-                                ðŸ”¥ Popular
+                                🔥 Popular
                               </div>
                             )}
                             {discount && (
@@ -1848,7 +2166,7 @@ export default function App() {
 
         {/* Customer Feedback & Credibility Section */}
         <section className="container" style={{ marginTop: "3rem" }}>
-          <h2 className="section-title">⭐ Customer Feedback & Trust</h2>
+          <h2 className="section-title">⭐ Customer Feedback & Trust</h2>
           <div style={{
             display: "grid",
             gridTemplateColumns: isMobile ? "1fr" : "repeat(2, 1fr)",
@@ -1886,7 +2204,7 @@ export default function App() {
                 e.currentTarget.style.transform = "translateY(0)";
               }}
             >
-              <div style={{ fontSize: "3rem" }}>⭐⭐⭐⭐⭐</div>
+              <div style={{ fontSize: "3rem" }}>⭐⭐⭐⭐⭐</div>
               <div>
                 <h3 style={{ color: "#00ff88", marginBottom: "0.5rem", fontSize: "1.3rem", fontWeight: "bold" }}>See All Customer Reviews</h3>
                 <p style={{ color: "#a0a0a0", fontSize: "0.95rem" }}>Real feedback from thousands of satisfied Filipino gamers on Facebook</p>
@@ -1934,14 +2252,14 @@ export default function App() {
                     </div>
                   </div>
                   <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-                    <div style={{ fontSize: "1.8rem", minWidth: "40px" }}>📖‹</div>
+                    <div style={{ fontSize: "1.8rem", minWidth: "40px" }}>📋</div>
                     <div>
                       <div style={{ color: "#ffa500", fontWeight: "bold", marginBottom: "0.2rem" }}>DTI Registered</div>
                       <div style={{ color: "#a0a0a0", fontSize: "0.9rem" }}>Legitimate business registered with PH Department of Trade & Industry</div>
                     </div>
                   </div>
                   <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-                    <div style={{ fontSize: "1.8rem", minWidth: "40px" }}>ðŸ”’</div>
+                    <div style={{ fontSize: "1.8rem", minWidth: "40px" }}>🔒</div>
                     <div>
                       <div style={{ color: "#00ff88", fontWeight: "bold", marginBottom: "0.2rem" }}>100% Safe & Secure</div>
                       <div style={{ color: "#a0a0a0", fontSize: "0.9rem" }}>Trusted by thousands of PH and global players</div>
@@ -1962,7 +2280,7 @@ export default function App() {
 
         {/* Payment Methods & Info Section */}
         <section className="container" style={{ marginTop: "3rem" }}>
-          <h2 className="section-title">ðŸ’³ Payment Methods</h2>
+          <h2 className="section-title">💳 Payment Methods</h2>
           <div style={{
             background: "rgba(255, 51, 51, 0.05)",
             border: "2px solid rgba(255, 51, 51, 0.2)",
@@ -1975,22 +2293,22 @@ export default function App() {
               <div style={{ background: "rgba(0, 132, 255, 0.1)", padding: "1.5rem", borderRadius: "8px", border: "1px solid #0084ff", textAlign: "center" }}>
                 <img src="https://static.vecteezy.com/system/resources/previews/067/065/665/non_2x/gcash-logo-square-rounded-gcash-logo-free-download-gcash-logo-free-png.png" alt="GCash" style={{ width: "48px", height: "48px", marginBottom: "0.5rem" }} />
                 <div style={{ color: "#0084ff", fontWeight: "bold", fontSize: "1.1rem", marginBottom: "0.75rem" }}>GCash</div>
-                <div style={{ fontSize: "0.85rem", color: "#a0a0a0" }}>âš¡ Fastest delivery (5-10 mins)</div>
+                <div style={{ fontSize: "0.85rem", color: "#a0a0a0" }}>⚡ Fastest delivery (5-10 mins)</div>
               </div>
               <div style={{ background: "rgba(255, 165, 0, 0.1)", padding: "1.5rem", borderRadius: "8px", border: "1px solid #ffa500", textAlign: "center" }}>
                 <img src="https://logodix.com/logo/2206759.jpg" alt="PayMaya" style={{ width: "48px", height: "48px", marginBottom: "0.5rem" }} />
                 <div style={{ color: "#ffa500", fontWeight: "bold", fontSize: "1.1rem", marginBottom: "0.75rem" }}>PayMaya</div>
-                <div style={{ fontSize: "0.85rem", color: "#a0a0a0" }}>âš¡ Fast delivery (10-15 mins)</div>
+                <div style={{ fontSize: "0.85rem", color: "#a0a0a0" }}>⚡ Fast delivery (10-15 mins)</div>
               </div>
               <div style={{ background: "rgba(0, 51, 102, 0.1)", padding: "1.5rem", borderRadius: "8px", border: "1px solid #003366", textAlign: "center" }}>
                 <img src="https://logodix.com/logo/925694.png" alt="BDO" style={{ width: "48px", height: "48px", marginBottom: "0.5rem" }} />
                 <div style={{ color: "#4a90e2", fontWeight: "bold", fontSize: "1.1rem", marginBottom: "0.75rem" }}>BDO Bank Transfer</div>
-                <div style={{ fontSize: "0.85rem", color: "#a0a0a0" }}>â± Standard delivery (15-30 mins)</div>
+                <div style={{ fontSize: "0.85rem", color: "#a0a0a0" }}>⏱ Standard delivery (15-30 mins)</div>
               </div>
               <div style={{ background: "rgba(204, 0, 0, 0.1)", padding: "1.5rem", borderRadius: "8px", border: "1px solid #cc0000", textAlign: "center" }}>
                 <img src="https://images.seeklogo.com/logo-png/35/1/bpi-bank-of-the-philippine-islands-logo-png_seeklogo-352316.png" alt="BPI" style={{ width: "48px", height: "48px", marginBottom: "0.5rem" }} />
                 <div style={{ color: "#cc0000", fontWeight: "bold", fontSize: "1.1rem", marginBottom: "0.75rem" }}>BPI Bank Transfer</div>
-                <div style={{ fontSize: "0.85rem", color: "#a0a0a0" }}>â± Standard delivery (15-30 mins)</div>
+                <div style={{ fontSize: "0.85rem", color: "#a0a0a0" }}>⏱ Standard delivery (15-30 mins)</div>
               </div>
             </div>
             <p style={{ color: "#a0a0a0", fontSize: "0.9rem", marginBottom: "1rem" }}>
@@ -1998,7 +2316,7 @@ export default function App() {
             </p>
             <div style={{ background: "rgba(0, 255, 136, 0.1)", padding: "1rem", borderRadius: "8px", border: "1px solid #00ff88" }}>
               <p style={{ color: "#00ff88", fontSize: "0.95rem", margin: "0", fontWeight: "bold" }}>
-                ðŸ” <strong>Important:</strong> Final payment is processed directly via Messenger. We never ask for sensitive payment info upfront!
+                🔐 <strong>Important:</strong> Final payment is processed directly via Messenger. We never ask for sensitive payment info upfront!
               </p>
             </div>
           </div>
@@ -2006,7 +2324,7 @@ export default function App() {
 
         {/* FAQ Section */}
         <section className="container" style={{ marginTop: "3rem", marginBottom: "3rem" }}>
-          <h2 className="section-title">â“ Frequently Asked Questions</h2>
+          <h2 className="section-title">❓ Frequently Asked Questions</h2>
           <div style={{ display: "grid", gap: "1rem" }}>
             <details style={{
               background: "rgba(255, 51, 51, 0.05)",
@@ -2016,7 +2334,7 @@ export default function App() {
               cursor: "pointer"
             }} open>
               <summary style={{ color: "#ff3333", fontWeight: "bold", fontSize: "1.1rem", userSelect: "none" }}>
-                📖‹ How to Order - Step by Step
+                📋 How to Order - Step by Step
               </summary>
               <div style={{ color: "#c0c0c0", marginTop: "1rem" }}>
                 <ol style={{ marginLeft: "1.5rem", lineHeight: "2" }}>
@@ -2129,7 +2447,7 @@ export default function App() {
       <footer>
         <p>&copy; Since 2021 Zeijin Discounted Top Up Sale PH.</p>
         <p style={{ fontSize: "0.85rem", color: "#707070", marginTop: "0.5rem" }}>
-          NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming ðŸ’–
+          NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖
         </p>
       </footer>
 
@@ -2139,7 +2457,7 @@ export default function App() {
           <div style={{ background: "rgba(20, 20, 30, 0.98)", padding: isMobile ? "1.5rem" : "2rem", borderRadius: "8px", border: "2px solid #ff3333", maxWidth: "550px", width: "100%", maxHeight: isMobile ? "90vh" : "85vh", overflowY: "auto" }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start", marginBottom: "1.5rem" }}>
               <div>
-                <h2 style={{ color: "#ff3333", marginBottom: "0.3rem", fontSize: "1.6rem" }}>📖 Order Details</h2>
+                <h2 style={{ color: "#ff3333", marginBottom: "0.3rem", fontSize: "1.6rem" }}>📝 Order Details</h2>
                 <p style={{ color: "#a0a0a0", marginBottom: "0", fontSize: "0.85rem" }}>{contactGame.title}</p>
               </div>
               <button 
@@ -2153,7 +2471,7 @@ export default function App() {
                   padding: "0.5rem"
                 }}
               >
-                âœ•
+                ✕
               </button>
             </div>
 
@@ -2169,10 +2487,10 @@ export default function App() {
                 padding: "1rem",
                 marginBottom: "1rem"
               }}>
-                <div style={{ color: "#ff6666", fontWeight: "bold", marginBottom: "0.5rem", fontSize: "0.9rem" }}>âš ï¸ Please fix the following errors:</div>
+                <div style={{ color: "#ff6666", fontWeight: "bold", marginBottom: "0.5rem", fontSize: "0.9rem" }}>⚠️ Please fix the following errors:</div>
                 {Object.entries(formValidationErrors).map(([field, error]) => (
                   <div key={field} style={{ color: "#ff9999", fontSize: "0.85rem", marginBottom: "0.25rem" }}>
-                    â€¢ {error}
+                    • {error}
                   </div>
                 ))}
               </div>
@@ -2204,7 +2522,7 @@ export default function App() {
 
               <div style={{ marginBottom: "1rem" }}>
                 <label style={{ display: "block", color: "#00ff88", fontSize: "0.9rem", fontWeight: "bold", marginBottom: "0.4rem" }}>
-                  ðŸ‘¤ In-Game User ID / Username
+                  👤 In-Game User ID / Username
                 </label>
                 <input
                   type="text"
@@ -2227,7 +2545,7 @@ export default function App() {
 
               <div style={{ marginBottom: "1rem" }}>
                 <label style={{ display: "block", color: "#0084ff", fontSize: "0.9rem", fontWeight: "bold", marginBottom: "0.4rem" }}>
-                  ðŸ’³ Payment Method
+                  💳 Payment Method
                 </label>
                 <select
                   value={ignValidatorData.paymentMethod}
@@ -2253,7 +2571,7 @@ export default function App() {
 
               <div style={{ marginBottom: "0" }}>
                 <label style={{ display: "block", color: "#ffa500", fontSize: "0.9rem", fontWeight: "bold", marginBottom: "0.4rem" }}>
-                  â“ Other Concerns (Optional)
+                  ❓ Other Concerns (Optional)
                 </label>
                 <textarea
                   placeholder="Any questions or special requests?"
@@ -2284,26 +2602,14 @@ export default function App() {
                 {/* Messenger Option */}
                 <div
                   onClick={() => {
-                    if (validateContactForm() && !isSubmittingForm) {
-                      setIsSubmittingForm(true);
+                    if (validateContactForm()) {
                       const message = `Hi! I'm interested in ${contactGame.title} and would like to know more about the pricing and packages.\n\nOrder Amount: ${ignValidatorData.orderedAmount}\nUID: ${ignValidatorData.ign}\nMode of payment: ${ignValidatorData.paymentMethod}\n\nOther concern: ${ignValidatorData.otherConcern || 'None'}`;
                       const messengerUrl = `https://m.me/ZeijinDiscountedTopUpSalePH?text=${encodeURIComponent(message)}`;
                       window.open(messengerUrl, '_blank');
-                      setTimeout(() => setIsSubmittingForm(false), 1000);
-                    }
-                  }}
-                  role="button"
-                  tabIndex={isSubmittingForm ? -1 : 0}
-                  aria-label="Send order via Facebook Messenger"
-                  aria-busy={isSubmittingForm}
-                  onKeyPress={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      e.preventDefault();
-                      e.currentTarget.click();
                     }
                   }}
                   style={{
-                    background: isSubmittingForm ? "rgba(0, 132, 255, 0.05)" : "rgba(0, 132, 255, 0.1)",
+                    background: "rgba(0, 132, 255, 0.1)",
                     border: "2px solid #0084ff",
                     borderRadius: "8px",
                     padding: "1rem",
@@ -2312,14 +2618,11 @@ export default function App() {
                     alignItems: "center",
                     gap: "0.8rem",
                     transition: "all 0.3s",
-                    cursor: isSubmittingForm ? "not-allowed" : "pointer",
-                    opacity: isSubmittingForm ? 0.6 : 1
+                    cursor: "pointer"
                   }}
                   onMouseEnter={(e) => {
-                    if (!isSubmittingForm) {
-                      e.currentTarget.style.background = "rgba(0, 132, 255, 0.2)";
-                      e.currentTarget.style.transform = "translateY(-2px)";
-                    }
+                    e.currentTarget.style.background = "rgba(0, 132, 255, 0.2)";
+                    e.currentTarget.style.transform = "translateY(-2px)";
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.background = "rgba(0, 132, 255, 0.1)";
@@ -2328,9 +2631,7 @@ export default function App() {
                 >
                   <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Facebook_Messenger_logo_2020.svg/960px-Facebook_Messenger_logo_2020.svg.png" alt="Messenger" style={{ width: "32px", height: "32px" }} />
                   <div style={{ textAlign: "left", flex: 1 }}>
-                    <div style={{ color: "#0084ff", fontWeight: "bold", fontSize: "0.95rem" }}>
-                      {isSubmittingForm ? "Opening Messenger..." : "Messenger"}
-                    </div>
+                    <div style={{ color: "#0084ff", fontWeight: "bold", fontSize: "0.95rem" }}>Messenger</div>
                     <div style={{ color: "#a0a0a0", fontSize: "0.75rem" }}>Fastest response</div>
                   </div>
                   <span style={{ color: "#0084ff", fontWeight: "bold" }}>→</span>
@@ -2339,26 +2640,14 @@ export default function App() {
                 {/* Telegram Option */}
                 <div
                   onClick={() => {
-                    if (validateContactForm() && !isSubmittingForm) {
-                      setIsSubmittingForm(true);
+                    if (validateContactForm()) {
                       const message = `Hi! I'm interested in ${contactGame.title} and would like to know more about the pricing and packages.\n\nOrder Amount: ${ignValidatorData.orderedAmount}\nUID: ${ignValidatorData.ign}\nMode of payment: ${ignValidatorData.paymentMethod}\n\nOther concern: ${ignValidatorData.otherConcern || 'None'}`;
                       const telegramUrl = `https://t.me/Zeijin_Discounted_Top_Up_Sale_PH?text=${encodeURIComponent(message)}`;
                       window.open(telegramUrl, '_blank');
-                      setTimeout(() => setIsSubmittingForm(false), 1000);
-                    }
-                  }}
-                  role="button"
-                  tabIndex={isSubmittingForm ? -1 : 0}
-                  aria-label="Send order via Telegram"
-                  aria-busy={isSubmittingForm}
-                  onKeyPress={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      e.preventDefault();
-                      e.currentTarget.click();
                     }
                   }}
                   style={{
-                    background: isSubmittingForm ? "rgba(0, 136, 204, 0.05)" : "rgba(0, 136, 204, 0.1)",
+                    background: "rgba(0, 136, 204, 0.1)",
                     border: "2px solid #0088cc",
                     borderRadius: "8px",
                     padding: "1rem",
@@ -2367,14 +2656,11 @@ export default function App() {
                     alignItems: "center",
                     gap: "0.8rem",
                     transition: "all 0.3s",
-                    cursor: isSubmittingForm ? "not-allowed" : "pointer",
-                    opacity: isSubmittingForm ? 0.6 : 1
+                    cursor: "pointer"
                   }}
                   onMouseEnter={(e) => {
-                    if (!isSubmittingForm) {
-                      e.currentTarget.style.background = "rgba(0, 136, 204, 0.2)";
-                      e.currentTarget.style.transform = "translateY(-2px)";
-                    }
+                    e.currentTarget.style.background = "rgba(0, 136, 204, 0.2)";
+                    e.currentTarget.style.transform = "translateY(-2px)";
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.background = "rgba(0, 136, 204, 0.1)";
@@ -2383,9 +2669,7 @@ export default function App() {
                 >
                   <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/960px-Telegram_logo.svg.png" alt="Telegram" style={{ width: "32px", height: "32px" }} />
                   <div style={{ textAlign: "left", flex: 1 }}>
-                    <div style={{ color: "#0088cc", fontWeight: "bold", fontSize: "0.95rem" }}>
-                      {isSubmittingForm ? "Opening Telegram..." : "Telegram"}
-                    </div>
+                    <div style={{ color: "#0088cc", fontWeight: "bold", fontSize: "0.95rem" }}>Telegram</div>
                     <div style={{ color: "#a0a0a0", fontSize: "0.75rem" }}>Secure & fast</div>
                   </div>
                   <span style={{ color: "#0088cc", fontWeight: "bold" }}>→</span>
@@ -2394,26 +2678,14 @@ export default function App() {
                 {/* Instagram Option */}
                 <div
                   onClick={() => {
-                    if (validateContactForm() && !isSubmittingForm) {
-                      setIsSubmittingForm(true);
+                    if (validateContactForm()) {
                       const message = `Hi! I'm interested in ${contactGame.title} and would like to know more about the pricing and packages.%0A%0AOrder Amount: ${ignValidatorData.orderedAmount}%0AUID: ${ignValidatorData.ign}%0AMode of payment: ${ignValidatorData.paymentMethod}%0A%0AOther concern: ${ignValidatorData.otherConcern || 'None'}`;
                       const instagramUrl = `https://www.instagram.com/direct/t/ZeijinDiscountedGames?text=${message}`;
                       window.open(instagramUrl, '_blank');
-                      setTimeout(() => setIsSubmittingForm(false), 1000);
-                    }
-                  }}
-                  role="button"
-                  tabIndex={isSubmittingForm ? -1 : 0}
-                  aria-label="Send order via Instagram Direct Message"
-                  aria-busy={isSubmittingForm}
-                  onKeyPress={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      e.preventDefault();
-                      e.currentTarget.click();
                     }
                   }}
                   style={{
-                    background: isSubmittingForm ? "rgba(224, 44, 112, 0.05)" : "rgba(224, 44, 112, 0.1)",
+                    background: "rgba(224, 44, 112, 0.1)",
                     border: "2px solid #e02c70",
                     borderRadius: "8px",
                     padding: "1rem",
@@ -2422,14 +2694,11 @@ export default function App() {
                     alignItems: "center",
                     gap: "0.8rem",
                     transition: "all 0.3s",
-                    cursor: isSubmittingForm ? "not-allowed" : "pointer",
-                    opacity: isSubmittingForm ? 0.6 : 1
+                    cursor: "pointer"
                   }}
                   onMouseEnter={(e) => {
-                    if (!isSubmittingForm) {
-                      e.currentTarget.style.background = "rgba(224, 44, 112, 0.2)";
-                      e.currentTarget.style.transform = "translateY(-2px)";
-                    }
+                    e.currentTarget.style.background = "rgba(224, 44, 112, 0.2)";
+                    e.currentTarget.style.transform = "translateY(-2px)";
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.background = "rgba(224, 44, 112, 0.1)";
@@ -2438,9 +2707,7 @@ export default function App() {
                 >
                   <img src="https://upload.wikimedia.org/wikipedia/commons/9/95/Instagram_logo_2022.svg" alt="Instagram" style={{ width: "32px", height: "32px" }} />
                   <div style={{ textAlign: "left", flex: 1 }}>
-                    <div style={{ color: "#e02c70", fontWeight: "bold", fontSize: "0.95rem" }}>
-                      {isSubmittingForm ? "Opening Instagram..." : "Instagram DM"}
-                    </div>
+                    <div style={{ color: "#e02c70", fontWeight: "bold", fontSize: "0.95rem" }}>Instagram DM</div>
                     <div style={{ color: "#a0a0a0", fontSize: "0.75rem" }}>Direct message</div>
                   </div>
                   <span style={{ color: "#e02c70", fontWeight: "bold" }}>→</span>
@@ -2502,7 +2769,7 @@ export default function App() {
                   minWidth: "40px"
                 }}
               >
-                âœ•
+                ✕
               </button>
             </div>
 
@@ -2538,13 +2805,13 @@ export default function App() {
                         {pkg.amount}
                       </div>
                       <div style={{ fontSize: "1.5rem", color: "#00ff88", fontWeight: "bold" }}>
-                        {pkg.currency || "â‚±"}{pkg.price}
+                        {pkg.currency || "₱"}{pkg.price}
                       </div>
                     </div>
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
-                        const priceText = `${pkg.amount} - ${pkg.currency || "â‚±"}${pkg.price}`;
+                        const priceText = `${pkg.amount} - ${pkg.currency || "₱"}${pkg.price}`;
                         navigator.clipboard.writeText(priceText);
                         setShowPriceCopiedModal(true);
                       }}
@@ -2567,7 +2834,7 @@ export default function App() {
                         e.currentTarget.style.background = "rgba(0, 255, 136, 0.2)";
                       }}
                     >
-                      {copiedPriceId === `price-${selectedGame.id}-${idx}` ? 'âœ… Copied!' : '📖‹ Copy Price'}
+                      {copiedPriceId === `price-${selectedGame.id}-${idx}` ? '✅ Copied!' : '📋 Copy Price'}
                     </button>
                   </div>
                 ))}
@@ -2575,7 +2842,7 @@ export default function App() {
 
               {selectedGame.pricing.some(pkg => pkg.amount.includes("Starlight") || pkg.amount === "WDP") && (
                 <div style={{ marginTop: "2rem", paddingTop: "1.5rem", borderTop: "2px solid rgba(255, 51, 51, 0.3)" }}>
-                  <h3 style={{ color: "#ffa500", marginBottom: "1rem" }}>ðŸŽ Special Offers</h3>
+                  <h3 style={{ color: "#ffa500", marginBottom: "1rem" }}>🎁 Special Offers</h3>
                   <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
                     {selectedGame.pricing.filter(pkg => pkg.amount.includes("Starlight") || pkg.amount === "WDP").map((pkg, idx) => (
                       <div 
@@ -2605,13 +2872,13 @@ export default function App() {
                             {pkg.amount}
                           </div>
                           <div style={{ fontSize: "1.5rem", color: "#00ff88", fontWeight: "bold" }}>
-                            {pkg.currency || "â‚±"}{pkg.price}
+                            {pkg.currency || "₱"}{pkg.price}
                           </div>
                         </div>
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
-                            const priceText = `${pkg.amount} - ${pkg.currency || "â‚±"}${pkg.price}`;
+                            const priceText = `${pkg.amount} - ${pkg.currency || "₱"}${pkg.price}`;
                             navigator.clipboard.writeText(priceText);
                             setShowPriceCopiedModal(true);
                           }}
@@ -2634,7 +2901,7 @@ export default function App() {
                             e.currentTarget.style.background = "rgba(0, 255, 136, 0.2)";
                           }}
                         >
-                          {copiedPriceId === `special-${selectedGame.id}-${idx}` ? 'âœ… Copied!' : '📖‹ Copy Price'}
+                          {copiedPriceId === `special-${selectedGame.id}-${idx}` ? '✅ Copied!' : '📋 Copy Price'}
                         </button>
                       </div>
                     ))}
@@ -2643,12 +2910,12 @@ export default function App() {
               )}
 
               <p style={{ color: "#a0a0a0", fontSize: "0.85rem", marginTop: "1.5rem", fontStyle: "italic" }}>
-                💡 NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming! ðŸ’–
+                💡 NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming! 💖
               </p>
 
               {selectedGame.id === 4 && (
                 <div style={{ background: "rgba(100, 200, 255, 0.1)", border: "1px solid rgba(100, 200, 255, 0.4)", padding: "1.5rem", borderRadius: "8px", marginTop: "1.5rem" }}>
-                  <h4 style={{ color: "#64c8ff", marginBottom: "1rem", fontSize: "1rem" }}>📖± How to Redeem CP</h4>
+                  <h4 style={{ color: "#64c8ff", marginBottom: "1rem", fontSize: "1rem" }}>📱 How to Redeem CP</h4>
                   <ol style={{ color: "#d0d0d0", fontSize: "0.9rem", lineHeight: "1.8", margin: "0", paddingLeft: "1.5rem" }}>
                     <li>Go to <strong>shop.garena.ph</strong></li>
                     <li>Choose <strong>Call of Duty Mobile</strong></li>
@@ -2714,7 +2981,7 @@ export default function App() {
                       marginBottom: "1.5rem",
                       animation: "pulse 0.5s ease-out"
                     }}>
-                      âœ…
+                      ✅
                     </div>
 
                     {/* Message */}
@@ -2768,7 +3035,7 @@ export default function App() {
                           e.currentTarget.style.boxShadow = "none";
                         }}
                       >
-                        ðŸ”™ Continue Shopping
+                        🔙 Continue Shopping
                       </button>
 
                       <button
@@ -2799,7 +3066,7 @@ export default function App() {
                           e.currentTarget.style.boxShadow = "none";
                         }}
                       >
-                        📖‹ Fill Order Form
+                        📋 Fill Order Form
                       </button>
                     </div>
                   </div>
@@ -2809,8 +3076,6 @@ export default function App() {
           </div>
         </div>
       )}
-      </div>
-    </ErrorBoundary>
+    </div>
   );
 }
-
