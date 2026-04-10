@@ -262,7 +262,7 @@ const EventCarousel = ({ events, getEventStatus }) => {
             {currentEvent.title}
           </h2>
           <p style={{ color: "#999", marginBottom: "1rem", fontSize: "0.95rem" }}>
-            ðŸŽ® {currentEvent.game}
+            🎮 {currentEvent.game}
           </p>
           <p style={{ color: "#d0d0d0", marginBottom: "1.5rem", lineHeight: "1.6" }}>
             {currentEvent.description}
@@ -851,7 +851,7 @@ export default function App() {
           <div style={{ background: "linear-gradient(135deg, rgba(30, 30, 45, 1), rgba(40, 20, 35, 1))", padding: isMobile ? "1.5rem" : "2rem", borderRadius: "12px", border: "2px solid #FF6B9D", maxWidth: "500px", width: "100%", maxHeight: "90vh", overflow: "auto", boxShadow: "0 0 60px rgba(255, 107, 157, 0.4)" }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.5rem" }}>
               <h2 style={{ color: "#FF6B9D", margin: 0, fontSize: "1.5rem" }}>
-                ðŸŽ® {wikiSelectedGame === "mlbb" ? "MLBB" : wikiSelectedGame === "valorant" ? "Valorant" : wikiSelectedGame === "genshin" ? "Genshin Impact" : "League of Legends"} Wiki
+                🎮 {wikiSelectedGame === "mlbb" ? "MLBB" : wikiSelectedGame === "valorant" ? "Valorant" : wikiSelectedGame === "genshin" ? "Genshin Impact" : "League of Legends"} Wiki
               </h2>
               <button 
                 onClick={() => {
@@ -910,7 +910,7 @@ export default function App() {
                       }
                     }}
                   >
-                    {game === "mlbb" ? "ðŸŽ® MLBB" : game === "valorant" ? "ðŸ”« Valorant" : game === "genshin" ? "â­ Genshin" : "âš”ï¸ LoL"}
+                    {game === "mlbb" ? "🎮 MLBB" : game === "valorant" ? "ðŸ”« Valorant" : game === "genshin" ? "⭐ Genshin" : "âš”ï¸ LoL"}
                   </button>
                 ))}
               </div>
@@ -1082,7 +1082,7 @@ export default function App() {
                           {mlCheckResult.data.nation && <div><strong>Region:</strong> {mlCheckResult.data.nation}</div>}
                           {mlCheckResult.data.birthday && mlCheckResult.data.birthday !== "0000-05-27" && <div><strong>Birthday:</strong> {mlCheckResult.data.birthday}</div>}
                           {mlCheckResult.data.release && <div><strong>Release Date:</strong> {mlCheckResult.data.release}</div>}
-                          {mlCheckResult.data.rarity && <div><strong>Rarity:</strong> â­ {mlCheckResult.data.rarity}</div>}
+                          {mlCheckResult.data.rarity && <div><strong>Rarity:</strong> ⭐ {mlCheckResult.data.rarity}</div>}
                           {mlCheckResult.data.weapon && <div><strong>Weapon Type:</strong> {mlCheckResult.data.weapon}</div>}
                           {mlCheckResult.data.wikiUrl && (
                             <div style={{ marginTop: "0.8rem" }}>
@@ -1143,14 +1143,14 @@ export default function App() {
                           <p style={{ marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold", color: "#00ff88" }}>ðŸ“Š Character Stats</p>
                           {mlCheckResult.data.weapon && <div>ðŸ—¡ï¸ Weapon: {mlCheckResult.data.weapon}</div>}
                           {mlCheckResult.data.vision && <div>ðŸ’Ž Element: {mlCheckResult.data.vision}</div>}
-                          {mlCheckResult.data.rarity && <div>â­ Rarity: {mlCheckResult.data.rarity}</div>}
+                          {mlCheckResult.data.rarity && <div>⭐ Rarity: {mlCheckResult.data.rarity}</div>}
                           <p style={{ fontSize: "0.8rem", color: "#a0a0a0", marginTop: "0.5rem" }}>Visit the wiki for detailed combat stats and scaling information.</p>
                         </div>
                       )}
                       {mlCheckResult.type === "champion" && mlCheckResult.data && (
                         <div style={{ background: "rgba(0, 255, 136, 0.05)", padding: "0.8rem", borderRadius: "6px", marginTop: "0.5rem" }}>
                           <p style={{ marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold", color: "#00ff88" }}>ðŸ“Š Champion Stats</p>
-                          {mlCheckResult.data.regions && <div>ðŸŒ Regions: {mlCheckResult.data.regions.join(", ")}</div>}
+                          {mlCheckResult.data.regions && <div>🌍 Regions: {mlCheckResult.data.regions.join(", ")}</div>}
                           <p style={{ fontSize: "0.8rem", color: "#a0a0a0", marginTop: "0.5rem" }}>Visit League of Legends wiki for detailed base stats, scaling, and matchup information.</p>
                         </div>
                       )}
@@ -1171,28 +1171,28 @@ export default function App() {
                         <p style={{ marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold", color: "#00ff88" }}>âš¡ Abilities & Skills</p>
                         {mlCheckResult.type === "hero" && (
                           <div style={{ fontSize: "0.8rem", color: "#a0a0a0", lineHeight: "1.6" }}>
-                            <p>ðŸŽ® <strong>{mlCheckResult.data?.hero_name}</strong> has unique skills and mechanics!</p>
+                            <p>🎮 <strong>{mlCheckResult.data?.hero_name}</strong> has unique skills and mechanics!</p>
                             <p style={{ marginTop: "0.5rem" }}>Role: <strong>{mlCheckResult.data?.role}</strong> - Specialty: <strong>{mlCheckResult.data?.specialty}</strong></p>
                             <p style={{ marginTop: "0.5rem", fontSize: "0.75rem", fontStyle: "italic" }}>Visit the MLBB wiki or in-game for complete skill descriptions, cooldowns, and damage scaling.</p>
                           </div>
                         )}
                         {mlCheckResult.type === "character" && (
                           <div style={{ fontSize: "0.8rem", color: "#a0a0a0", lineHeight: "1.6" }}>
-                            <p>ðŸŽ® <strong>{mlCheckResult.data?.name}</strong> ({mlCheckResult.data?.vision}) has special combat abilities!</p>
+                            <p>🎮 <strong>{mlCheckResult.data?.name}</strong> ({mlCheckResult.data?.vision}) has special combat abilities!</p>
                             <p style={{ marginTop: "0.5rem" }}>Element: <strong>{mlCheckResult.data?.vision}</strong> - Weapon: <strong>{mlCheckResult.data?.weapon}</strong></p>
                             <p style={{ marginTop: "0.5rem", fontSize: "0.75rem", fontStyle: "italic" }}>View detailed talent trees, constellations, and ability upgrades on the official Genshin wiki.</p>
                           </div>
                         )}
                         {mlCheckResult.type === "champion" && (
                           <div style={{ fontSize: "0.8rem", color: "#a0a0a0", lineHeight: "1.6" }}>
-                            <p>ðŸŽ® <strong>{mlCheckResult.data?.name}</strong> has unique abilities!</p>
+                            <p>🎮 <strong>{mlCheckResult.data?.name}</strong> has unique abilities!</p>
                             <p style={{ marginTop: "0.5rem" }}>Each champion has a Passive, Q, W, E, and Ultimate (R) ability with unique mechanics.</p>
                             <p style={{ marginTop: "0.5rem", fontSize: "0.75rem", fontStyle: "italic" }}>Visit League of Legends wiki for detailed ability descriptions, cooldowns, and AP/AD scaling values.</p>
                           </div>
                         )}
                         {mlCheckResult.type === "agent" && (
                           <div style={{ fontSize: "0.8rem", color: "#a0a0a0", lineHeight: "1.6" }}>
-                            <p>ðŸŽ® <strong>{mlCheckResult.data?.displayName}</strong> has utility and combat abilities!</p>
+                            <p>🎮 <strong>{mlCheckResult.data?.displayName}</strong> has utility and combat abilities!</p>
                             <p style={{ marginTop: "0.5rem" }}>Role: <strong>{mlCheckResult.data?.role?.displayName}</strong></p>
                             <p style={{ marginTop: "0.5rem", fontSize: "0.75rem", fontStyle: "italic" }}>Check Valorant official guide for complete ability descriptions, ranges, and cooldown information.</p>
                           </div>
@@ -1246,7 +1246,7 @@ export default function App() {
                       }
                     }}
                   >
-                    {type === "hero" ? "ðŸŽ®" : type === "agent" ? "ðŸ•µï¸" : type === "weapon" ? "âš”ï¸" : type === "character" ? "â­" : type === "champion" ? "ðŸ‘‘" : type === "item" ? "âš™ï¸" : "ðŸ“¦"} {type}
+                    {type === "hero" ? "🎮" : type === "agent" ? "ðŸ•µï¸" : type === "weapon" ? "âš”ï¸" : type === "character" ? "⭐" : type === "champion" ? "ðŸ‘‘" : type === "item" ? "âš™ï¸" : "ðŸ“¦"} {type}
                   </button>
                 ))}
               </div>
@@ -1585,7 +1585,7 @@ export default function App() {
               e.currentTarget.style.boxShadow = "none";
             }}
           >
-            ðŸŽ® Start Searching
+            🎮 Start Searching
           </button>
         </div>
 
@@ -1808,7 +1808,7 @@ export default function App() {
               maxWidth: "600px",
               margin: "3rem auto 0"
             }}>
-              <h3 style={{ color: "#FF6B9D", marginBottom: "1rem", fontSize: "1.2rem" }}>ðŸŽ® Game Not Listed?</h3>
+              <h3 style={{ color: "#FF6B9D", marginBottom: "1rem", fontSize: "1.2rem" }}>🎮 Game Not Listed?</h3>
               <p style={{ color: "#d0d0d0", marginBottom: "1.5rem", fontSize: "0.95rem" }}>
                 Don't see the game you want? No problem! We offer top-ups for many other games as well.
               </p>
@@ -1848,7 +1848,7 @@ export default function App() {
 
         {/* Customer Feedback & Credibility Section */}
         <section className="container" style={{ marginTop: "3rem" }}>
-          <h2 className="section-title">â­ Customer Feedback & Trust</h2>
+          <h2 className="section-title">⭐ Customer Feedback & Trust</h2>
           <div style={{
             display: "grid",
             gridTemplateColumns: isMobile ? "1fr" : "repeat(2, 1fr)",
@@ -1886,7 +1886,7 @@ export default function App() {
                 e.currentTarget.style.transform = "translateY(0)";
               }}
             >
-              <div style={{ fontSize: "3rem" }}>â­â­â­â­â­</div>
+              <div style={{ fontSize: "3rem" }}>⭐⭐⭐⭐⭐</div>
               <div>
                 <h3 style={{ color: "#00ff88", marginBottom: "0.5rem", fontSize: "1.3rem", fontWeight: "bold" }}>See All Customer Reviews</h3>
                 <p style={{ color: "#a0a0a0", fontSize: "0.95rem" }}>Real feedback from thousands of satisfied Filipino gamers on Facebook</p>
