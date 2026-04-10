@@ -800,7 +800,7 @@ export default function App() {
                 <strong>💰 Actual Transaction:</strong> All payments and transactions happen through <strong>Messenger, Telegram, or Instagram DM</strong> - NOT on this website.
               </p>
               <p style={{ marginBottom: "0", fontSize: "0.9rem" }}>
-                <strong>✓ How it works:</strong> Browse prices â†’ Ask Details on social media â†’ Complete transaction there
+                <strong>✓ How it works:</strong> Browse prices → Ask Details on social media → Complete transaction there
               </p>
             </div>
             <button 
@@ -826,7 +826,7 @@ export default function App() {
                 e.currentTarget.style.boxShadow = "none";
               }}
             >
-              Got it! Let's Browse â†’
+              Got it! Let's Browse →
             </button>
           </div>
         </div>
@@ -910,7 +910,7 @@ export default function App() {
                       }
                     }}
                   >
-                    {game === "mlbb" ? "🎮 MLBB" : game === "valorant" ? "ðŸ”« Valorant" : game === "genshin" ? "⭐ Genshin" : "âš”ï¸ LoL"}
+                    {game === "mlbb" ? "🎮 MLBB" : game === "valorant" ? "📱 Valorant" : game === "genshin" ? "⭐ Genshin" : "âš”ï¸ LoL"}
                   </button>
                 ))}
               </div>
@@ -926,7 +926,7 @@ export default function App() {
                 {/* Suggestion Box */}
                 {mlSuggestion && (
                   <div style={{ background: "rgba(100, 200, 255, 0.15)", border: "1px solid rgba(100, 200, 255, 0.4)", padding: "1rem", borderRadius: "8px", marginBottom: "1.5rem", color: "#64c8ff" }}>
-                    <div style={{ fontSize: "0.85rem", marginBottom: "0.5rem" }}>ðŸ’¡ Did you mean:</div>
+                    <div style={{ fontSize: "0.85rem", marginBottom: "0.5rem" }}>💡 Did you mean:</div>
                     <button
                       onClick={() => {
                         // Simulate what the search would do with the suggestion
@@ -1134,14 +1134,14 @@ export default function App() {
                           <p style={{ marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold", color: "#00ff88" }}>📖Š Item Stats</p>
                           {mlCheckResult.data.attack_power && <div>âš”ï¸ ATK: {mlCheckResult.data.attack_power}</div>}
                           {mlCheckResult.data.magic_power && <div>âœ¨ Magic: {mlCheckResult.data.magic_power}</div>}
-                          {mlCheckResult.data.crit_chance && <div>ðŸ’¥ Crit: {mlCheckResult.data.crit_chance}</div>}
+                          {mlCheckResult.data.crit_chance && <div>💥 Crit: {mlCheckResult.data.crit_chance}</div>}
                           {mlCheckResult.data.hp && <div>â¤ï¸ HP: {mlCheckResult.data.hp}</div>}
                         </div>
                       )}
                       {mlCheckResult.type === "character" && mlCheckResult.data && (
                         <div style={{ background: "rgba(0, 255, 136, 0.05)", padding: "0.8rem", borderRadius: "6px", marginTop: "0.5rem" }}>
                           <p style={{ marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold", color: "#00ff88" }}>📖Š Character Stats</p>
-                          {mlCheckResult.data.weapon && <div>ðŸ—¡ï¸ Weapon: {mlCheckResult.data.weapon}</div>}
+                          {mlCheckResult.data.weapon && <div>🗡️ Weapon: {mlCheckResult.data.weapon}</div>}
                           {mlCheckResult.data.vision && <div>ðŸ’Ž Element: {mlCheckResult.data.vision}</div>}
                           {mlCheckResult.data.rarity && <div>⭐ Rarity: {mlCheckResult.data.rarity}</div>}
                           <p style={{ fontSize: "0.8rem", color: "#a0a0a0", marginTop: "0.5rem" }}>Visit the wiki for detailed combat stats and scaling information.</p>
@@ -1246,7 +1246,7 @@ export default function App() {
                       }
                     }}
                   >
-                    {type === "hero" ? "🎮" : type === "agent" ? "ðŸ•µï¸" : type === "weapon" ? "âš”ï¸" : type === "character" ? "⭐" : type === "champion" ? "ðŸ‘‘" : type === "item" ? "âš™ï¸" : "📖¦"} {type}
+                    {type === "hero" ? "🎮" : type === "agent" ? "🕵️" : type === "weapon" ? "âš”ï¸" : type === "character" ? "⭐" : type === "champion" ? "ðŸ‘‘" : type === "item" ? "âš™ï¸" : "📖¦"} {type}
                   </button>
                 ))}
               </div>
@@ -1374,7 +1374,7 @@ export default function App() {
             e.currentTarget.style.boxShadow = "0 4px 15px rgba(255, 51, 51, 0.4)";
           }}
         >
-          ðŸ’¬ Message Us on Messenger
+          💬 Message Us on Messenger
         </a>
       </section>
 
@@ -1840,7 +1840,7 @@ export default function App() {
                   e.currentTarget.style.boxShadow = "0 4px 15px rgba(255, 51, 51, 0.4)";
                 }}
               >
-                ðŸ’¬ Message Us Now
+                💬 Message Us Now
               </a>
             </div>
           </section>
@@ -1908,7 +1908,7 @@ export default function App() {
               onMouseLeave={(e) => {
                 e.currentTarget.style.background = "rgba(0, 255, 136, 0.2)";
               }}>
-                View on Facebook â†’
+                View on Facebook →
               </button>
             </a>
 
@@ -1994,7 +1994,7 @@ export default function App() {
               </div>
             </div>
             <p style={{ color: "#a0a0a0", fontSize: "0.9rem", marginBottom: "1rem" }}>
-              ðŸ’¡ Other bank transfers available via GCash. Contact us for details!
+              💡 Other bank transfers available via GCash. Contact us for details!
             </p>
             <div style={{ background: "rgba(0, 255, 136, 0.1)", padding: "1rem", borderRadius: "8px", border: "1px solid #00ff88" }}>
               <p style={{ color: "#00ff88", fontSize: "0.95rem", margin: "0", fontWeight: "bold" }}>
@@ -2021,13 +2021,13 @@ export default function App() {
               <div style={{ color: "#c0c0c0", marginTop: "1rem" }}>
                 <ol style={{ marginLeft: "1.5rem", lineHeight: "2" }}>
                   <li><strong>Browse Products:</strong> Scroll through our games and select the one you want. Each game has multiple currency packages.</li>
-                  <li><strong>Message Us:</strong> Click "ðŸ’¬ Ask Details" on the game card or use the floating messenger button in the bottom right corner.</li>
+                  <li><strong>Message Us:</strong> Click "💬 Ask Details" on the game card or use the floating messenger button in the bottom right corner.</li>
                   <li><strong>Confirm Details:</strong> Tell us which game currency you want and how much. We'll confirm the price and payment method.</li>
                   <li><strong>Send Payment:</strong> Transfer payment via GCash, PayMaya, BDO, or BPI (fastest with GCash).</li>
                   <li><strong>Receive Instantly:</strong> Once payment is confirmed, we'll deliver your game currency within 5-30 minutes.</li>
                 </ol>
                 <p style={{ marginTop: "1rem", fontStyle: "italic", color: "#a0a0a0" }}>
-                  ðŸ’¡ Tip: Use the "Copy Price" button to quickly copy package details and send them via Messenger!
+                  💡 Tip: Use the "Copy Price" button to quickly copy package details and send them via Messenger!
                 </p>
               </div>
             </details>
@@ -2333,7 +2333,7 @@ export default function App() {
                     </div>
                     <div style={{ color: "#a0a0a0", fontSize: "0.75rem" }}>Fastest response</div>
                   </div>
-                  <span style={{ color: "#0084ff", fontWeight: "bold" }}>â†’</span>
+                  <span style={{ color: "#0084ff", fontWeight: "bold" }}>→</span>
                 </div>
 
                 {/* Telegram Option */}
@@ -2388,7 +2388,7 @@ export default function App() {
                     </div>
                     <div style={{ color: "#a0a0a0", fontSize: "0.75rem" }}>Secure & fast</div>
                   </div>
-                  <span style={{ color: "#0088cc", fontWeight: "bold" }}>â†’</span>
+                  <span style={{ color: "#0088cc", fontWeight: "bold" }}>→</span>
                 </div>
 
                 {/* Instagram Option */}
@@ -2443,7 +2443,7 @@ export default function App() {
                     </div>
                     <div style={{ color: "#a0a0a0", fontSize: "0.75rem" }}>Direct message</div>
                   </div>
-                  <span style={{ color: "#e02c70", fontWeight: "bold" }}>â†’</span>
+                  <span style={{ color: "#e02c70", fontWeight: "bold" }}>→</span>
                 </div>
               </div>
             </div>
@@ -2643,7 +2643,7 @@ export default function App() {
               )}
 
               <p style={{ color: "#a0a0a0", fontSize: "0.85rem", marginTop: "1.5rem", fontStyle: "italic" }}>
-                ðŸ’¡ NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming! ðŸ’–
+                💡 NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming! ðŸ’–
               </p>
 
               {selectedGame.id === 4 && (
