@@ -1,6 +1,9 @@
 import { useState, useMemo, useEffect, useRef, useLayoutEffect } from "react";
 import "./App.css";
 import "./index.css";
+import ErrorBoundary from "./components/ErrorBoundary";
+import gamesData from "./data/gamesData";
+import eventsData from "./data/eventsData";
 
 // Skeleton Loader Component for image placeholders
 const SkeletonLoader = ({ width = "100%", height = "200px", borderRadius = "8px" }) => (
@@ -735,6 +738,7 @@ export default function App() {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 480);
   const [copiedPriceId, setCopiedPriceId] = useState(null); // Track which package was copied
   const [showPriceCopiedModal, setShowPriceCopiedModal] = useState(false); // Show options after copy
+  const [isSubmittingForm, setIsSubmittingForm] = useState(false); // Track form submission state
   const abortControllerRef = useRef(null);
 
   // Track window size changes
@@ -869,8 +873,6 @@ export default function App() {
         dataKey = "data";
       }
 
-      console.log("Fetching from:", endpoint);
-      
       const response = await fetch(endpoint, {
         method: "GET",
         headers: {
@@ -878,8 +880,6 @@ export default function App() {
         },
         signal: abortControllerRef.current.signal
       });
-      
-      console.log("Response status:", response.status);
       
       if (!response.ok) {
         throw new Error(`API returned status ${response.status}: ${response.statusText}`);
@@ -892,8 +892,6 @@ export default function App() {
         console.error("JSON parse error:", parseError);
         throw new Error("Invalid JSON response from API");
       }
-      
-      console.log("API response data:", result);
       
       const searchTerm = mlSearchQuery.toLowerCase();
       let found = null;
@@ -1104,7 +1102,8 @@ export default function App() {
   }, [searchQuery, filterCategory]);
 
   return (
-    <div>
+    <ErrorBoundary>
+      <div>
       {/* Welcome Notification Modal */}
       {showWelcomeNotif && (
         <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0, 0, 0, 0.6)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 99999, padding: "1rem" }}>
@@ -3076,6 +3075,7 @@ export default function App() {
           </div>
         </div>
       )}
-    </div>
+      </div>
+    </ErrorBoundary>
   );
 }
