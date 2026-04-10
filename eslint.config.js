@@ -24,6 +24,14 @@ export default defineConfig([
     },
     rules: {
       'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
+      'react-hooks/exhaustive-deps': 'warn',
+      'react-hooks/rules-of-hooks': 'error',
+      'no-console': ['warn', { allow: ['error', 'warn'] }],
+      'react-refresh/only-export-components': 'warn',
+      'no-implicit-coercion': 'warn',
+      'no-eval': 'error',
+      'no-duplicate-imports': 'error',
+      'prefer-const': 'warn',
     },
   },
 ])
