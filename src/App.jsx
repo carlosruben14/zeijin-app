@@ -1035,7 +1035,7 @@ export default function App() {
                       onMouseEnter={(e) => { if (wikiDetailTab !== "abilities") e.currentTarget.style.background = "rgba(0, 255, 136, 0.1)"; }}
                       onMouseLeave={(e) => { if (wikiDetailTab !== "abilities") e.currentTarget.style.background = "transparent"; }}
                     >
-                      âš¡ Abilities
+                      ⚡ Abilities
                     </button>
                   )}
                 </div>
@@ -1133,7 +1133,7 @@ export default function App() {
                         <div style={{ background: "rgba(0, 255, 136, 0.05)", padding: "0.8rem", borderRadius: "6px", marginTop: "0.5rem" }}>
                           <p style={{ marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold", color: "#00ff88" }}>📖Š Item Stats</p>
                           {mlCheckResult.data.attack_power && <div>âš”ï¸ ATK: {mlCheckResult.data.attack_power}</div>}
-                          {mlCheckResult.data.magic_power && <div>âœ¨ Magic: {mlCheckResult.data.magic_power}</div>}
+                          {mlCheckResult.data.magic_power && <div>✨ Magic: {mlCheckResult.data.magic_power}</div>}
                           {mlCheckResult.data.crit_chance && <div>💥 Crit: {mlCheckResult.data.crit_chance}</div>}
                           {mlCheckResult.data.hp && <div>â¤ï¸ HP: {mlCheckResult.data.hp}</div>}
                         </div>
