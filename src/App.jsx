@@ -734,6 +734,7 @@ export default function App() {
   const [eventCarouselImageLoaded, setEventCarouselImageLoaded] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 480);
   const [copiedPriceId, setCopiedPriceId] = useState(null); // Track which package was copied
+  const [showPriceCopiedModal, setShowPriceCopiedModal] = useState(false); // Show options after copy
   const abortControllerRef = useRef(null);
 
   // Track window size changes
@@ -2812,9 +2813,7 @@ export default function App() {
                         e.stopPropagation();
                         const priceText = `${pkg.amount} - ${pkg.currency || "₱"}${pkg.price}`;
                         navigator.clipboard.writeText(priceText);
-                        const buttonId = `price-${selectedGame.id}-${idx}`;
-                        setCopiedPriceId(buttonId);
-                        setTimeout(() => setCopiedPriceId(null), 2000);
+                        setShowPriceCopiedModal(true);
                       }}
                       style={{
                         background: "rgba(0, 255, 136, 0.2)",
@@ -2881,9 +2880,7 @@ export default function App() {
                             e.stopPropagation();
                             const priceText = `${pkg.amount} - ${pkg.currency || "₱"}${pkg.price}`;
                             navigator.clipboard.writeText(priceText);
-                            const buttonId = `special-${selectedGame.id}-${idx}`;
-                            setCopiedPriceId(buttonId);
-                            setTimeout(() => setCopiedPriceId(null), 2000);
+                            setShowPriceCopiedModal(true);
                           }}
                           style={{
                             background: "rgba(0, 255, 136, 0.2)",
@@ -2947,6 +2944,129 @@ export default function App() {
             >
               Close
             </button>
+          </div>
+        </div>
+      )}
+
+      {/* Price Copied Modal */}
+      {showPriceCopiedModal && (
+        <div style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: "rgba(0, 0, 0, 0.75)",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          zIndex: 100,
+          animation: "fadeIn 0.3s ease-in-out"
+        }}>
+          <div style={{
+            background: "linear-gradient(135deg, rgba(50, 50, 80, 0.95), rgba(30, 30, 60, 0.95))",
+            border: "2px solid #ff3333",
+            borderRadius: "20px",
+            padding: "3rem 2rem",
+            maxWidth: "500px",
+            width: "90%",
+            textAlign: "center",
+            boxShadow: "0 20px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(255, 51, 51, 0.3)",
+            animation: "slideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)"
+          }}>
+            {/* Success Icon */}
+            <div style={{
+              fontSize: "4rem",
+              marginBottom: "1.5rem",
+              animation: "pulse 0.5s ease-out"
+            }}>
+              ✅
+            </div>
+
+            {/* Message */}
+            <h2 style={{
+              color: "#00ff88",
+              fontSize: "1.5rem",
+              marginBottom: "0.5rem",
+              fontWeight: "bold",
+              textShadow: "0 0 10px rgba(0, 255, 136, 0.5)"
+            }}>
+              Price Copied!
+            </h2>
+
+            <p style={{
+              color: "#b0b0b0",
+              fontSize: "0.95rem",
+              marginBottom: "2rem",
+              lineHeight: "1.6"
+            }}>
+              The price has been copied to your clipboard. What would you like to do next?
+            </p>
+
+            {/* Action Buttons */}
+            <div style={{
+              display: "flex",
+              gap: "1rem",
+              justifyContent: "center",
+              flexWrap: "wrap"
+            }}>
+              <button
+                onClick={() => setShowPriceCopiedModal(false)}
+                style={{
+                  background: "rgba(100, 150, 200, 0.3)",
+                  border: "2px solid #6496c8",
+                  color: "#6496c8",
+                  padding: "0.9rem 2rem",
+                  borderRadius: "15px",
+                  cursor: "pointer",
+                  fontSize: "1rem",
+                  fontWeight: "bold",
+                  transition: "all 0.3s ease",
+                  flex: "1",
+                  minWidth: "150px"
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = "rgba(100, 150, 200, 0.5)";
+                  e.currentTarget.style.boxShadow = "0 0 20px rgba(100, 150, 200, 0.4)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = "rgba(100, 150, 200, 0.3)";
+                  e.currentTarget.style.boxShadow = "none";
+                }}
+              >
+                🔙 Continue Shopping
+              </button>
+
+              <button
+                onClick={() => {
+                  setShowPriceCopiedModal(false);
+                  setContactGame(selectedGame);
+                }}
+                style={{
+                  background: "linear-gradient(135deg, rgba(255, 51, 51, 0.4), rgba(255, 100, 100, 0.3))",
+                  border: "2px solid #ff3333",
+                  color: "#ff6666",
+                  padding: "0.9rem 2rem",
+                  borderRadius: "15px",
+                  cursor: "pointer",
+                  fontSize: "1rem",
+                  fontWeight: "bold",
+                  transition: "all 0.3s ease",
+                  flex: "1",
+                  minWidth: "150px"
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = "linear-gradient(135deg, rgba(255, 51, 51, 0.6), rgba(255, 100, 100, 0.5))";
+                  e.currentTarget.style.boxShadow = "0 0 20px rgba(255, 51, 51, 0.5)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = "linear-gradient(135deg, rgba(255, 51, 51, 0.4), rgba(255, 100, 100, 0.3))";
+                  e.currentTarget.style.boxShadow = "none";
+                }}
+              >
+                📋 Fill Order Form
+              </button>
+            </div>
           </div>
         </div>
       )}
