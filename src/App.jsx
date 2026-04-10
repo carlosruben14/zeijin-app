@@ -3040,8 +3040,9 @@ export default function App() {
 
                       <button
                         onClick={() => {
-                          setShowPriceCopiedModal(false);
                           setContactGame(selectedGame);
+                          setSelectedGame(null);
+                          setShowPriceCopiedModal(false);
                         }}
                         style={{
                           background: "linear-gradient(135deg, rgba(255, 51, 51, 0.4), rgba(255, 100, 100, 0.3))",
