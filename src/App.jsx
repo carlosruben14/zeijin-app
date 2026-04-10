@@ -315,7 +315,7 @@ const EventCarousel = ({ events, getEventStatus }) => {
             e.currentTarget.style.transform = "translateY(-50%) scale(1)";
           }}
         >
-          â—€
+          ◀
         </button>
 
         <button
@@ -348,7 +348,7 @@ const EventCarousel = ({ events, getEventStatus }) => {
             e.currentTarget.style.transform = "translateY(-50%) scale(1)";
           }}
         >
-          â–¶
+          ▶
         </button>
       </div>
 
@@ -1344,7 +1344,7 @@ export default function App() {
       )}
 
       <section className="hero">
-        <h1>Browse â€¢ Chat â€¢ Get Your Currency</h1>
+        <h1>Browse • Chat • Get Your Currency</h1>
         <p>Discover the latest discounted game currency packages. Best prices for Philippine servers!</p>
       
         <a 
