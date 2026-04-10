@@ -249,7 +249,7 @@ const EventCarousel = ({ events, getEventStatus }) => {
                     e.currentTarget.style.transform = "scale(1)";
                   }}
                 >
-                  ðŸ“– Event Details
+                  📖 Event Details
                 </a>
               )}
             </div>
@@ -597,7 +597,7 @@ export default function App() {
               game: "mlbb",
               name: found.hero_name,
               data: found,
-              message: `Hero Data Found! âœ“`
+              message: `Hero Data Found! ✓`
             });
           } else {
             const suggestion = findClosestMatch(mlSearchQuery, result.data, h => h.hero_name);
@@ -620,7 +620,7 @@ export default function App() {
               game: "mlbb",
               name: found.item_name,
               data: found,
-              message: `Item Found! âœ“`
+              message: `Item Found! ✓`
             });
           } else {
             const suggestion = findClosestMatch(mlSearchQuery, result.data, i => i.item_name);
@@ -645,7 +645,7 @@ export default function App() {
             game: "valorant",
             name: found.displayName,
             data: found,
-            message: `Agent Found! âœ“`
+            message: `Agent Found! ✓`
           });
         } else {
           const suggestion = findClosestMatch(mlSearchQuery, result.data, a => a.displayName);
@@ -674,7 +674,7 @@ export default function App() {
                 game: "genshin",
                 name: characterDetail.name || found,
                 data: { ...characterDetail, wikiUrl },
-                message: `Character Found! âœ“`
+                message: `Character Found! ✓`
               });
             } else {
               throw new Error("Failed to fetch character details");
@@ -689,7 +689,7 @@ export default function App() {
               game: "genshin",
               name: found,
               data: { name: found, wikiUrl },
-              message: `Character Found! âœ“`
+              message: `Character Found! ✓`
             });
           }
         } else {
@@ -713,7 +713,7 @@ export default function App() {
               game: "lol",
               name: found.name,
               data: found,
-              message: `Champion Found! âœ“`
+              message: `Champion Found! ✓`
             });
           } else {
             const suggestion = findClosestMatch(mlSearchQuery, searchData, c => c.name);
@@ -734,7 +734,7 @@ export default function App() {
               game: "lol",
               name: found.name,
               data: found,
-              message: `Item Found! âœ“`
+              message: `Item Found! ✓`
             });
           } else {
             const suggestion = findClosestMatch(mlSearchQuery, searchData, i => i.name);
@@ -763,7 +763,7 @@ export default function App() {
         errorMsg = error.message;
       }
       
-      setMlCheckError(`âŒ ${errorMsg}`)
+      setMlCheckError(`❌ ${errorMsg}`)
     } finally {
       setMlCheckLoading(false);
     }
@@ -793,14 +793,14 @@ export default function App() {
           <div style={{ background: "linear-gradient(135deg, rgba(30, 30, 45, 1), rgba(50, 20, 20, 1))", padding: "2rem", borderRadius: "12px", border: "2px solid #ff3333", maxWidth: "500px", width: "100%", textAlign: "center", boxShadow: "0 0 60px rgba(255, 51, 51, 0.5)" }}>
             <h2 style={{ color: "#ff3333", marginBottom: "1rem", fontSize: "1.8rem", fontWeight: "bold" }}>Welcome to Zeijin!</h2>
             <p style={{ color: "#d0d0d0", marginBottom: "1.5rem", lineHeight: "1.6", fontSize: "0.95rem" }}>
-              ðŸ‘‹ This website is for <strong>checking prices and game details</strong>. 
+              👋 This website is for <strong>checking prices and game details</strong>. 
             </p>
             <div style={{ background: "rgba(255, 51, 51, 0.1)", border: "1px solid rgba(255, 51, 51, 0.3)", padding: "1.5rem", borderRadius: "8px", marginBottom: "1.5rem", color: "#FFB3B3" }}>
               <p style={{ marginBottom: "0.7rem", fontSize: "0.9rem" }}>
-                <strong>ðŸ’° Actual Transaction:</strong> All payments and transactions happen through <strong>Messenger, Telegram, or Instagram DM</strong> - NOT on this website.
+                <strong>💰 Actual Transaction:</strong> All payments and transactions happen through <strong>Messenger, Telegram, or Instagram DM</strong> - NOT on this website.
               </p>
               <p style={{ marginBottom: "0", fontSize: "0.9rem" }}>
-                <strong>âœ“ How it works:</strong> Browse prices â†’ Ask Details on social media â†’ Complete transaction there
+                <strong>✓ How it works:</strong> Browse prices â†’ Ask Details on social media â†’ Complete transaction there
               </p>
             </div>
             <button 
@@ -862,7 +862,7 @@ export default function App() {
                 }}
                 style={{ background: "none", border: "none", color: "#a0a0a0", fontSize: "1.5rem", cursor: "pointer" }}
               >
-                âœ•
+                ✕
               </button>
             </div>
 
@@ -920,7 +920,7 @@ export default function App() {
             {mlCheckError && (
               <div>
                 <div style={{ background: "rgba(255, 51, 51, 0.15)", border: "1px solid rgba(255, 51, 51, 0.4)", padding: "1rem", borderRadius: "8px", marginBottom: "1.5rem", color: "#FFB3B3", fontSize: "0.9rem" }}>
-                  âŒ {mlCheckError}
+                  ❌ {mlCheckError}
                 </div>
                 
                 {/* Suggestion Box */}
@@ -974,7 +974,7 @@ export default function App() {
             {/* Success Result with Tabs */}
             {mlCheckResult && mlCheckResult.valid === true && (
               <div style={{ background: "rgba(0, 255, 136, 0.15)", border: "1px solid rgba(0, 255, 136, 0.4)", padding: "1.2rem", borderRadius: "8px", marginBottom: "1.5rem", color: "#00ff88" }}>
-                <div style={{ fontSize: "1.2rem", marginBottom: "1rem", fontWeight: "bold", color: "#00ff88" }}>âœ“ {mlCheckResult.message}</div>
+                <div style={{ fontSize: "1.2rem", marginBottom: "1rem", fontWeight: "bold", color: "#00ff88" }}>✓ {mlCheckResult.message}</div>
                 
                 {/* Tab Navigation */}
                 <div style={{ display: "flex", gap: "0.5rem", marginBottom: "1rem", flexWrap: "wrap", borderBottom: "1px solid rgba(0, 255, 136, 0.2)", paddingBottom: "0.8rem" }}>
@@ -994,7 +994,7 @@ export default function App() {
                     onMouseEnter={(e) => { if (wikiDetailTab !== "overview") e.currentTarget.style.background = "rgba(0, 255, 136, 0.1)"; }}
                     onMouseLeave={(e) => { if (wikiDetailTab !== "overview") e.currentTarget.style.background = "transparent"; }}
                   >
-                    ðŸ“‹ Overview
+                    📖‹ Overview
                   </button>
                   
                   {(mlCheckResult.type === "hero" || mlCheckResult.type === "character" || mlCheckResult.type === "champion" || mlCheckResult.type === "agent") && (
@@ -1014,7 +1014,7 @@ export default function App() {
                       onMouseEnter={(e) => { if (wikiDetailTab !== "stats") e.currentTarget.style.background = "rgba(0, 255, 136, 0.1)"; }}
                       onMouseLeave={(e) => { if (wikiDetailTab !== "stats") e.currentTarget.style.background = "transparent"; }}
                     >
-                      ðŸ“Š Stats
+                      📖Š Stats
                     </button>
                   )}
                   
@@ -1104,7 +1104,7 @@ export default function App() {
                                 onMouseEnter={(e) => e.target.style.transform = "scale(1.05)"}
                                 onMouseLeave={(e) => e.target.style.transform = "scale(1)"}
                               >
-                                ðŸ“– View on Fandom Wiki
+                                📖 View on Fandom Wiki
                               </a>
                             </div>
                           )}
@@ -1125,13 +1125,13 @@ export default function App() {
                     <>
                       {mlCheckResult.type === "hero" && mlCheckResult.data && (
                         <div style={{ background: "rgba(0, 255, 136, 0.05)", padding: "0.8rem", borderRadius: "6px", marginTop: "0.5rem" }}>
-                          <p style={{ marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold", color: "#00ff88" }}>ðŸ“Š Hero Stats Available</p>
+                          <p style={{ marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold", color: "#00ff88" }}>📖Š Hero Stats Available</p>
                           <p style={{ fontSize: "0.8rem", color: "#a0a0a0" }}>Detailed stats information can be found in the official MLBB wiki. Role: <strong>{mlCheckResult.data.role}</strong> | Lane: <strong>{mlCheckResult.data.lane_recommendation}</strong></p>
                         </div>
                       )}
                       {mlCheckResult.type === "item" && mlCheckResult.data && (
                         <div style={{ background: "rgba(0, 255, 136, 0.05)", padding: "0.8rem", borderRadius: "6px", marginTop: "0.5rem" }}>
-                          <p style={{ marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold", color: "#00ff88" }}>ðŸ“Š Item Stats</p>
+                          <p style={{ marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold", color: "#00ff88" }}>📖Š Item Stats</p>
                           {mlCheckResult.data.attack_power && <div>âš”ï¸ ATK: {mlCheckResult.data.attack_power}</div>}
                           {mlCheckResult.data.magic_power && <div>âœ¨ Magic: {mlCheckResult.data.magic_power}</div>}
                           {mlCheckResult.data.crit_chance && <div>ðŸ’¥ Crit: {mlCheckResult.data.crit_chance}</div>}
@@ -1140,7 +1140,7 @@ export default function App() {
                       )}
                       {mlCheckResult.type === "character" && mlCheckResult.data && (
                         <div style={{ background: "rgba(0, 255, 136, 0.05)", padding: "0.8rem", borderRadius: "6px", marginTop: "0.5rem" }}>
-                          <p style={{ marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold", color: "#00ff88" }}>ðŸ“Š Character Stats</p>
+                          <p style={{ marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold", color: "#00ff88" }}>📖Š Character Stats</p>
                           {mlCheckResult.data.weapon && <div>ðŸ—¡ï¸ Weapon: {mlCheckResult.data.weapon}</div>}
                           {mlCheckResult.data.vision && <div>ðŸ’Ž Element: {mlCheckResult.data.vision}</div>}
                           {mlCheckResult.data.rarity && <div>⭐ Rarity: {mlCheckResult.data.rarity}</div>}
@@ -1149,14 +1149,14 @@ export default function App() {
                       )}
                       {mlCheckResult.type === "champion" && mlCheckResult.data && (
                         <div style={{ background: "rgba(0, 255, 136, 0.05)", padding: "0.8rem", borderRadius: "6px", marginTop: "0.5rem" }}>
-                          <p style={{ marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold", color: "#00ff88" }}>ðŸ“Š Champion Stats</p>
+                          <p style={{ marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold", color: "#00ff88" }}>📖Š Champion Stats</p>
                           {mlCheckResult.data.regions && <div>🌍 Regions: {mlCheckResult.data.regions.join(", ")}</div>}
                           <p style={{ fontSize: "0.8rem", color: "#a0a0a0", marginTop: "0.5rem" }}>Visit League of Legends wiki for detailed base stats, scaling, and matchup information.</p>
                         </div>
                       )}
                       {mlCheckResult.type === "agent" && mlCheckResult.data && (
                         <div style={{ background: "rgba(0, 255, 136, 0.05)", padding: "0.8rem", borderRadius: "6px", marginTop: "0.5rem" }}>
-                          <p style={{ marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold", color: "#00ff88" }}>ðŸ“Š Agent Info</p>
+                          <p style={{ marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold", color: "#00ff88" }}>📖Š Agent Info</p>
                           {mlCheckResult.data.role && <div>ðŸŽ¯ Role: {mlCheckResult.data.role.displayName}</div>}
                           <p style={{ fontSize: "0.8rem", color: "#a0a0a0", marginTop: "0.5rem" }}>Visit Valorant official site for detailed ability cooldowns and exact stats.</p>
                         </div>
@@ -1246,7 +1246,7 @@ export default function App() {
                       }
                     }}
                   >
-                    {type === "hero" ? "🎮" : type === "agent" ? "ðŸ•µï¸" : type === "weapon" ? "âš”ï¸" : type === "character" ? "⭐" : type === "champion" ? "ðŸ‘‘" : type === "item" ? "âš™ï¸" : "ðŸ“¦"} {type}
+                    {type === "hero" ? "🎮" : type === "agent" ? "ðŸ•µï¸" : type === "weapon" ? "âš”ï¸" : type === "character" ? "⭐" : type === "champion" ? "ðŸ‘‘" : type === "item" ? "âš™ï¸" : "📖¦"} {type}
                   </button>
                 ))}
               </div>
@@ -1538,7 +1538,7 @@ export default function App() {
             e.currentTarget.style.boxShadow = "0 4px 15px rgba(102, 126, 234, 0.5)";
           }}
         >
-          ðŸ“¢
+          📖¢
         </a>
       </div>
 
@@ -1924,17 +1924,17 @@ export default function App() {
               gap: "1.5rem"
             }}>
               <div>
-                <h3 style={{ color: "#ff3333", marginBottom: "1rem", fontSize: "1.2rem", fontWeight: "bold" }}>âœ“ Verified & Registered</h3>
+                <h3 style={{ color: "#ff3333", marginBottom: "1rem", fontSize: "1.2rem", fontWeight: "bold" }}>✓ Verified & Registered</h3>
                 <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
                   <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-                    <div style={{ fontSize: "1.8rem", minWidth: "40px" }}>âœ“</div>
+                    <div style={{ fontSize: "1.8rem", minWidth: "40px" }}>✓</div>
                     <div>
                       <div style={{ color: "#0084ff", fontWeight: "bold", marginBottom: "0.2rem" }}>Facebook Verified Business</div>
                       <div style={{ color: "#a0a0a0", fontSize: "0.9rem" }}>Officially verified on Meta platforms</div>
                     </div>
                   </div>
                   <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-                    <div style={{ fontSize: "1.8rem", minWidth: "40px" }}>ðŸ“‹</div>
+                    <div style={{ fontSize: "1.8rem", minWidth: "40px" }}>📖‹</div>
                     <div>
                       <div style={{ color: "#ffa500", fontWeight: "bold", marginBottom: "0.2rem" }}>DTI Registered</div>
                       <div style={{ color: "#a0a0a0", fontSize: "0.9rem" }}>Legitimate business registered with PH Department of Trade & Industry</div>
@@ -1948,7 +1948,7 @@ export default function App() {
                     </div>
                   </div>
                   <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-                    <div style={{ fontSize: "1.8rem", minWidth: "40px" }}>âœ“</div>
+                    <div style={{ fontSize: "1.8rem", minWidth: "40px" }}>✓</div>
                     <div>
                       <div style={{ color: "#00ff88", fontWeight: "bold", marginBottom: "0.2rem" }}>Trusted by PH and Global Players</div>
                       <div style={{ color: "#a0a0a0", fontSize: "0.9rem" }}>Thousands of satisfied customers worldwide</div>
@@ -2016,7 +2016,7 @@ export default function App() {
               cursor: "pointer"
             }} open>
               <summary style={{ color: "#ff3333", fontWeight: "bold", fontSize: "1.1rem", userSelect: "none" }}>
-                ðŸ“‹ How to Order - Step by Step
+                📖‹ How to Order - Step by Step
               </summary>
               <div style={{ color: "#c0c0c0", marginTop: "1rem" }}>
                 <ol style={{ marginLeft: "1.5rem", lineHeight: "2" }}>
@@ -2139,7 +2139,7 @@ export default function App() {
           <div style={{ background: "rgba(20, 20, 30, 0.98)", padding: isMobile ? "1.5rem" : "2rem", borderRadius: "8px", border: "2px solid #ff3333", maxWidth: "550px", width: "100%", maxHeight: isMobile ? "90vh" : "85vh", overflowY: "auto" }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start", marginBottom: "1.5rem" }}>
               <div>
-                <h2 style={{ color: "#ff3333", marginBottom: "0.3rem", fontSize: "1.6rem" }}>ðŸ“ Order Details</h2>
+                <h2 style={{ color: "#ff3333", marginBottom: "0.3rem", fontSize: "1.6rem" }}>📖 Order Details</h2>
                 <p style={{ color: "#a0a0a0", marginBottom: "0", fontSize: "0.85rem" }}>{contactGame.title}</p>
               </div>
               <button 
@@ -2181,7 +2181,7 @@ export default function App() {
             <div style={{ background: "rgba(255, 51, 51, 0.05)", padding: "1.5rem", borderRadius: "8px", border: "1px solid rgba(255, 51, 51, 0.2)", marginBottom: "1.5rem" }}>
               <div style={{ marginBottom: "1rem" }}>
                 <label style={{ display: "block", color: "#ff3333", fontSize: "0.9rem", fontWeight: "bold", marginBottom: "0.4rem" }}>
-                  ðŸ’° Order Amount (Php)
+                  💰 Order Amount (Php)
                 </label>
                 <input
                   type="number"
@@ -2507,7 +2507,7 @@ export default function App() {
             </div>
 
             <div style={{ background: "rgba(255, 51, 51, 0.05)", padding: "1.5rem", borderRadius: "8px", border: "1px solid rgba(255, 51, 51, 0.2)" }}>
-              <h3 style={{ color: "#ff3333", marginBottom: "1rem" }}>ðŸ’° Diamond Packages</h3>
+              <h3 style={{ color: "#ff3333", marginBottom: "1rem" }}>💰 Diamond Packages</h3>
               
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", marginBottom: "2rem" }}>
                 {selectedGame.pricing.filter(pkg => !pkg.amount.includes("Starlight") && pkg.amount !== "WDP").map((pkg, idx) => (
@@ -2567,7 +2567,7 @@ export default function App() {
                         e.currentTarget.style.background = "rgba(0, 255, 136, 0.2)";
                       }}
                     >
-                      {copiedPriceId === `price-${selectedGame.id}-${idx}` ? 'âœ… Copied!' : 'ðŸ“‹ Copy Price'}
+                      {copiedPriceId === `price-${selectedGame.id}-${idx}` ? 'âœ… Copied!' : '📖‹ Copy Price'}
                     </button>
                   </div>
                 ))}
@@ -2634,7 +2634,7 @@ export default function App() {
                             e.currentTarget.style.background = "rgba(0, 255, 136, 0.2)";
                           }}
                         >
-                          {copiedPriceId === `special-${selectedGame.id}-${idx}` ? 'âœ… Copied!' : 'ðŸ“‹ Copy Price'}
+                          {copiedPriceId === `special-${selectedGame.id}-${idx}` ? 'âœ… Copied!' : '📖‹ Copy Price'}
                         </button>
                       </div>
                     ))}
@@ -2648,7 +2648,7 @@ export default function App() {
 
               {selectedGame.id === 4 && (
                 <div style={{ background: "rgba(100, 200, 255, 0.1)", border: "1px solid rgba(100, 200, 255, 0.4)", padding: "1.5rem", borderRadius: "8px", marginTop: "1.5rem" }}>
-                  <h4 style={{ color: "#64c8ff", marginBottom: "1rem", fontSize: "1rem" }}>ðŸ“± How to Redeem CP</h4>
+                  <h4 style={{ color: "#64c8ff", marginBottom: "1rem", fontSize: "1rem" }}>📖± How to Redeem CP</h4>
                   <ol style={{ color: "#d0d0d0", fontSize: "0.9rem", lineHeight: "1.8", margin: "0", paddingLeft: "1.5rem" }}>
                     <li>Go to <strong>shop.garena.ph</strong></li>
                     <li>Choose <strong>Call of Duty Mobile</strong></li>
@@ -2799,7 +2799,7 @@ export default function App() {
                           e.currentTarget.style.boxShadow = "none";
                         }}
                       >
-                        ðŸ“‹ Fill Order Form
+                        📖‹ Fill Order Form
                       </button>
                     </div>
                   </div>
