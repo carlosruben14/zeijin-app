@@ -2601,14 +2601,26 @@ export default function App() {
                 {/* Messenger Option */}
                 <div
                   onClick={() => {
-                    if (validateContactForm()) {
+                    if (validateContactForm() && !isSubmittingForm) {
+                      setIsSubmittingForm(true);
                       const message = `Hi! I'm interested in ${contactGame.title} and would like to know more about the pricing and packages.\n\nOrder Amount: ${ignValidatorData.orderedAmount}\nUID: ${ignValidatorData.ign}\nMode of payment: ${ignValidatorData.paymentMethod}\n\nOther concern: ${ignValidatorData.otherConcern || 'None'}`;
                       const messengerUrl = `https://m.me/ZeijinDiscountedTopUpSalePH?text=${encodeURIComponent(message)}`;
                       window.open(messengerUrl, '_blank');
+                      setTimeout(() => setIsSubmittingForm(false), 1000);
+                    }
+                  }}
+                  role="button"
+                  tabIndex={isSubmittingForm ? -1 : 0}
+                  aria-label="Send order via Facebook Messenger"
+                  aria-busy={isSubmittingForm}
+                  onKeyPress={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      e.currentTarget.click();
                     }
                   }}
                   style={{
-                    background: "rgba(0, 132, 255, 0.1)",
+                    background: isSubmittingForm ? "rgba(0, 132, 255, 0.05)" : "rgba(0, 132, 255, 0.1)",
                     border: "2px solid #0084ff",
                     borderRadius: "8px",
                     padding: "1rem",
@@ -2617,11 +2629,14 @@ export default function App() {
                     alignItems: "center",
                     gap: "0.8rem",
                     transition: "all 0.3s",
-                    cursor: "pointer"
+                    cursor: isSubmittingForm ? "not-allowed" : "pointer",
+                    opacity: isSubmittingForm ? 0.6 : 1
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.background = "rgba(0, 132, 255, 0.2)";
-                    e.currentTarget.style.transform = "translateY(-2px)";
+                    if (!isSubmittingForm) {
+                      e.currentTarget.style.background = "rgba(0, 132, 255, 0.2)";
+                      e.currentTarget.style.transform = "translateY(-2px)";
+                    }
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.background = "rgba(0, 132, 255, 0.1)";
@@ -2630,7 +2645,9 @@ export default function App() {
                 >
                   <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Facebook_Messenger_logo_2020.svg/960px-Facebook_Messenger_logo_2020.svg.png" alt="Messenger" style={{ width: "32px", height: "32px" }} />
                   <div style={{ textAlign: "left", flex: 1 }}>
-                    <div style={{ color: "#0084ff", fontWeight: "bold", fontSize: "0.95rem" }}>Messenger</div>
+                    <div style={{ color: "#0084ff", fontWeight: "bold", fontSize: "0.95rem" }}>
+                      {isSubmittingForm ? "Opening Messenger..." : "Messenger"}
+                    </div>
                     <div style={{ color: "#a0a0a0", fontSize: "0.75rem" }}>Fastest response</div>
                   </div>
                   <span style={{ color: "#0084ff", fontWeight: "bold" }}>→</span>
@@ -2639,14 +2656,26 @@ export default function App() {
                 {/* Telegram Option */}
                 <div
                   onClick={() => {
-                    if (validateContactForm()) {
+                    if (validateContactForm() && !isSubmittingForm) {
+                      setIsSubmittingForm(true);
                       const message = `Hi! I'm interested in ${contactGame.title} and would like to know more about the pricing and packages.\n\nOrder Amount: ${ignValidatorData.orderedAmount}\nUID: ${ignValidatorData.ign}\nMode of payment: ${ignValidatorData.paymentMethod}\n\nOther concern: ${ignValidatorData.otherConcern || 'None'}`;
                       const telegramUrl = `https://t.me/Zeijin_Discounted_Top_Up_Sale_PH?text=${encodeURIComponent(message)}`;
                       window.open(telegramUrl, '_blank');
+                      setTimeout(() => setIsSubmittingForm(false), 1000);
+                    }
+                  }}
+                  role="button"
+                  tabIndex={isSubmittingForm ? -1 : 0}
+                  aria-label="Send order via Telegram"
+                  aria-busy={isSubmittingForm}
+                  onKeyPress={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      e.currentTarget.click();
                     }
                   }}
                   style={{
-                    background: "rgba(0, 136, 204, 0.1)",
+                    background: isSubmittingForm ? "rgba(0, 136, 204, 0.05)" : "rgba(0, 136, 204, 0.1)",
                     border: "2px solid #0088cc",
                     borderRadius: "8px",
                     padding: "1rem",
@@ -2655,11 +2684,14 @@ export default function App() {
                     alignItems: "center",
                     gap: "0.8rem",
                     transition: "all 0.3s",
-                    cursor: "pointer"
+                    cursor: isSubmittingForm ? "not-allowed" : "pointer",
+                    opacity: isSubmittingForm ? 0.6 : 1
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.background = "rgba(0, 136, 204, 0.2)";
-                    e.currentTarget.style.transform = "translateY(-2px)";
+                    if (!isSubmittingForm) {
+                      e.currentTarget.style.background = "rgba(0, 136, 204, 0.2)";
+                      e.currentTarget.style.transform = "translateY(-2px)";
+                    }
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.background = "rgba(0, 136, 204, 0.1)";
@@ -2668,7 +2700,9 @@ export default function App() {
                 >
                   <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/960px-Telegram_logo.svg.png" alt="Telegram" style={{ width: "32px", height: "32px" }} />
                   <div style={{ textAlign: "left", flex: 1 }}>
-                    <div style={{ color: "#0088cc", fontWeight: "bold", fontSize: "0.95rem" }}>Telegram</div>
+                    <div style={{ color: "#0088cc", fontWeight: "bold", fontSize: "0.95rem" }}>
+                      {isSubmittingForm ? "Opening Telegram..." : "Telegram"}
+                    </div>
                     <div style={{ color: "#a0a0a0", fontSize: "0.75rem" }}>Secure & fast</div>
                   </div>
                   <span style={{ color: "#0088cc", fontWeight: "bold" }}>→</span>
@@ -2677,14 +2711,26 @@ export default function App() {
                 {/* Instagram Option */}
                 <div
                   onClick={() => {
-                    if (validateContactForm()) {
+                    if (validateContactForm() && !isSubmittingForm) {
+                      setIsSubmittingForm(true);
                       const message = `Hi! I'm interested in ${contactGame.title} and would like to know more about the pricing and packages.%0A%0AOrder Amount: ${ignValidatorData.orderedAmount}%0AUID: ${ignValidatorData.ign}%0AMode of payment: ${ignValidatorData.paymentMethod}%0A%0AOther concern: ${ignValidatorData.otherConcern || 'None'}`;
                       const instagramUrl = `https://www.instagram.com/direct/t/ZeijinDiscountedGames?text=${message}`;
                       window.open(instagramUrl, '_blank');
+                      setTimeout(() => setIsSubmittingForm(false), 1000);
+                    }
+                  }}
+                  role="button"
+                  tabIndex={isSubmittingForm ? -1 : 0}
+                  aria-label="Send order via Instagram Direct Message"
+                  aria-busy={isSubmittingForm}
+                  onKeyPress={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      e.currentTarget.click();
                     }
                   }}
                   style={{
-                    background: "rgba(224, 44, 112, 0.1)",
+                    background: isSubmittingForm ? "rgba(224, 44, 112, 0.05)" : "rgba(224, 44, 112, 0.1)",
                     border: "2px solid #e02c70",
                     borderRadius: "8px",
                     padding: "1rem",
@@ -2693,11 +2739,14 @@ export default function App() {
                     alignItems: "center",
                     gap: "0.8rem",
                     transition: "all 0.3s",
-                    cursor: "pointer"
+                    cursor: isSubmittingForm ? "not-allowed" : "pointer",
+                    opacity: isSubmittingForm ? 0.6 : 1
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.background = "rgba(224, 44, 112, 0.2)";
-                    e.currentTarget.style.transform = "translateY(-2px)";
+                    if (!isSubmittingForm) {
+                      e.currentTarget.style.background = "rgba(224, 44, 112, 0.2)";
+                      e.currentTarget.style.transform = "translateY(-2px)";
+                    }
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.background = "rgba(224, 44, 112, 0.1)";
@@ -2706,7 +2755,9 @@ export default function App() {
                 >
                   <img src="https://upload.wikimedia.org/wikipedia/commons/9/95/Instagram_logo_2022.svg" alt="Instagram" style={{ width: "32px", height: "32px" }} />
                   <div style={{ textAlign: "left", flex: 1 }}>
-                    <div style={{ color: "#e02c70", fontWeight: "bold", fontSize: "0.95rem" }}>Instagram DM</div>
+                    <div style={{ color: "#e02c70", fontWeight: "bold", fontSize: "0.95rem" }}>
+                      {isSubmittingForm ? "Opening Instagram..." : "Instagram DM"}
+                    </div>
                     <div style={{ color: "#a0a0a0", fontSize: "0.75rem" }}>Direct message</div>
                   </div>
                   <span style={{ color: "#e02c70", fontWeight: "bold" }}>→</span>
