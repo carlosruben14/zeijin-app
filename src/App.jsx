@@ -1978,7 +1978,6 @@ export default function App() {
                         <img
                           src={game.image}
                           alt={game.title}
-                          loading="lazy"
                           onLoad={() => setImageLoadingStates(prev => ({ ...prev, [game.id]: true }))}
                           onError={() => setImageLoadingStates(prev => ({ ...prev, [game.id]: true }))}
                           style={{
@@ -1986,7 +1985,8 @@ export default function App() {
                             height: "200px",
                             objectFit: "cover",
                             objectPosition: "center",
-                            display: imageLoadingStates[game.id] ? "block" : "none",
+                            opacity: imageLoadingStates[game.id] ? 1 : 0,
+                            pointerEvents: imageLoadingStates[game.id] ? "auto" : "none",
                             transition: "opacity 0.3s ease-in"
                           }}
                         />
