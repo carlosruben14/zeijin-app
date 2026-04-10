@@ -271,26 +271,6 @@ const gamesData = [
     ]
   },
   {
-    id: 13,
-    title: "Honkai Star Rail",
-    category: "rpg",
-    description: "Honkai Star Rail Discounted Oneric Shards - Space RPG",
-    image: "/images/games/duke-nukem.jpg",
-    pricing: [
-      { amount: "60 Shards", price: 50 },
-      { amount: "330 Shards", price: 213 },
-      { amount: "1,090 Shards", price: 655 },
-      { amount: "1,420 Shards", price: 869 },
-      { amount: "2,240 Shards", price: 1336 },
-      { amount: "3,880 Shards", price: 2200 },
-      { amount: "6,120 Shards", price: 3536 },
-      { amount: "8,080 Shards", price: 4299 },
-      { amount: "9,170 Shards", price: 4955 },
-      { amount: "11,960 Shards", price: 6440 },
-      { amount: "Express Supply Pass", price: 215 }
-    ]
-  },
-  {
     id: 14,
     title: "Steam Wallet Codes",
     category: "rpg",
