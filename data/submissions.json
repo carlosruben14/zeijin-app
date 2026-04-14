@@ -22,5 +22,17 @@
     "timestamp": "2026-04-14T03:01:07.532Z",
     "status": "new",
     "read": false
+  },
+  {
+    "id": "1776153225662",
+    "name": "carlos",
+    "email": "test@example.com",
+    "category": "question",
+    "priority": "medium",
+    "subject": "Email test",
+    "message": "Testing",
+    "timestamp": "2026-04-14T07:53:45.662Z",
+    "status": "new",
+    "read": false
   }
 ]
