@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import nodemailer from 'nodemailer';
+import sgMail from '@sendgrid/mail';
 import dotenv from 'dotenv';
 
 // Load .env.local only in development (local dev)
@@ -19,39 +20,18 @@ const PORT = process.env.PORT || 3001;
 
 // Log environment variables for debugging
 console.log('\n🔧 Environment Configuration:');
-console.log(`SMTP_HOST: ${process.env.SMTP_HOST}`);
-console.log(`SMTP_PORT: ${process.env.SMTP_PORT}`);
-console.log(`SMTP_USER: ${process.env.SMTP_USER}`);
+console.log(`SENDGRID_API_KEY: ${process.env.SENDGRID_API_KEY ? '✓ Configured' : '✗ Missing'}`);
+console.log(`SMTP_USER (From email): ${process.env.SMTP_USER}`);
 console.log(`ADMIN_EMAIL: ${process.env.ADMIN_EMAIL}`);
 console.log(`NODE_ENV: ${process.env.NODE_ENV}\n`);
 
-// Configure email transporter
-let transporter = null;
-const emailConfigured = process.env.SMTP_USER && process.env.SMTP_PASSWORD;
-
+// Configure SendGrid
+const emailConfigured = process.env.SENDGRID_API_KEY && process.env.SMTP_USER;
 if (emailConfigured) {
-  transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST || 'smtp.gmail.com',
-    port: parseInt(process.env.SMTP_PORT) || 587,
-    secure: parseInt(process.env.SMTP_PORT) === 465, // Use SSL for port 465, TLS for 587
-    family: 4, // Force IPv4 (Railway blocks IPv6)
-    auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASSWORD
-    }
-  });
-
-  // Verify transporter connection
-  transporter.verify((error, success) => {
-    if (error) {
-      console.log('⚠️  Email service not available:', error.message);
-      transporter = null;
-    } else {
-      console.log('✅ Email service connected successfully');
-    }
-  });
+  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+  console.log('✅ SendGrid configured for HTTP API email');
 } else {
-  console.log('⚠️  Email credentials not configured in .env.local');
+  console.log('⚠️  SendGrid API key or sender email not configured');
 }
 
 // Middleware
@@ -127,9 +107,10 @@ app.post('/api/ask-us', async (req, res) => {
     console.log(`Subject: ${subject}\n`);
 
     // Send email if configured
-    if (transporter) {
+    if (emailConfigured) {
       try {
         const adminEmail = process.env.ADMIN_EMAIL || process.env.SMTP_USER;
+        const fromEmail = process.env.SMTP_USER;
         const categoryLabel = {
           bug_report: '🐛 Bug Report',
           feature_request: '💡 Feature Request',
@@ -138,34 +119,36 @@ app.post('/api/ask-us', async (req, res) => {
           other: 'Other'
         }[category] || category;
 
-        const mailOptions = {
-          from: process.env.SMTP_USER,
+        const emailContent = `
+          <h2>New ${categoryLabel} from Zeijin Ask Us</h2>
+          <p><strong>Name:</strong> ${name}</p>
+          <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
+          <p><strong>Category:</strong> ${categoryLabel}</p>
+          <p><strong>Priority:</strong> <span style="color: ${priority === 'high' ? 'red' : priority === 'medium' ? 'orange' : 'green'}">${priority.toUpperCase()}</span></p>
+          <p><strong>Subject:</strong> ${subject}</p>
+          <hr>
+          <h3>Message:</h3>
+          <p>${message.replace(/\n/g, '<br>')}</p>
+          <hr>
+          <p style="color: #666; font-size: 12px;">
+            Submitted: ${new Date(newSubmission.timestamp).toLocaleString()}<br>
+            Submission ID: ${newSubmission.id}
+          </p>
+          <p style="color: #999; font-size: 11px;">
+            <strong>Reply directly to this email</strong> to respond to the user.
+          </p>
+        `;
+
+        const msg = {
           to: adminEmail,
+          from: fromEmail,
           replyTo: email,
           subject: `[${priority.toUpperCase()}] ${subject} - ${categoryLabel}`,
-          html: `
-            <h2>New ${categoryLabel} from Zeijin Ask Us</h2>
-            <p><strong>Name:</strong> ${name}</p>
-            <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
-            <p><strong>Category:</strong> ${categoryLabel}</p>
-            <p><strong>Priority:</strong> <span style="color: ${priority === 'high' ? 'red' : priority === 'medium' ? 'orange' : 'green'}">${priority.toUpperCase()}</span></p>
-            <p><strong>Subject:</strong> ${subject}</p>
-            <hr>
-            <h3>Message:</h3>
-            <p>${message.replace(/\n/g, '<br>')}</p>
-            <hr>
-            <p style="color: #666; font-size: 12px;">
-              Submitted: ${new Date(newSubmission.timestamp).toLocaleString()}<br>
-              Submission ID: ${newSubmission.id}
-            </p>
-            <p style="color: #999; font-size: 11px;">
-              <strong>Reply directly to this email</strong> to respond to the user.
-            </p>
-          `
+          html: emailContent
         };
 
-        await transporter.sendMail(mailOptions);
-        console.log(`✉️  Email sent to ${adminEmail}`);
+        await sgMail.send(msg);
+        console.log(`✉️  Email sent via SendGrid to ${adminEmail}`);
       } catch (emailError) {
         console.log(`⚠️  Failed to send email: ${emailError.message}`);
         // Don't fail the submission if email fails

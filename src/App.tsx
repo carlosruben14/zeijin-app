@@ -1732,7 +1732,10 @@ export default function App(): ReactElement {
                         {/* Contact CTAs */}
                         <div style={{ display: "flex", gap: "0.5rem", width: "100%" }}>
                           <button
-                            onClick={() => setSelectedGame(game)}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setSelectedGame(game);
+                            }}
                             style={{
                               flex: 1,
                               background: "rgba(255, 51, 51, 0.2)",
@@ -1757,7 +1760,10 @@ export default function App(): ReactElement {
                             View Prices
                           </button>
                           <button
-                            onClick={() => setContactGame(game)}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setContactGame(game);
+                            }}
                             style={{
                               flex: 1,
                               background: "linear-gradient(135deg, #ff3333, #ff6b6b)",

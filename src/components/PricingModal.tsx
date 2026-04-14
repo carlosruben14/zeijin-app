@@ -42,6 +42,7 @@ const PricingModal: FC<PricingModalProps> = ({
   if (!game) return null;
 
   const [copiedAmount, setCopiedAmount] = useState<number | null>(null);
+  const [showPostCopyNotification, setShowPostCopyNotification] = useState<boolean>(false);
 
   const handleCopyPrice = (priceId: number, price: number): void => {
     try {
@@ -50,7 +51,11 @@ const PricingModal: FC<PricingModalProps> = ({
         .writeText(price.toString())
         .then(() => {
           Logger.info('Price copied successfully', { price });
-          setTimeout(() => setCopiedAmount(null), 2000);
+          // Show notification after 500ms
+          setTimeout(() => {
+            setCopiedAmount(null);
+            setShowPostCopyNotification(true);
+          }, 500);
         })
         .catch((err) => {
           Logger.error(
@@ -212,6 +217,104 @@ const PricingModal: FC<PricingModalProps> = ({
           )}
         </div>
       </div>
+
+      {/* Post-Copy Notification */}
+      {showPostCopyNotification && (
+        <div
+          style={{
+            position: 'fixed',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)',
+            border: '2px solid #00ff88',
+            borderRadius: '12px',
+            padding: '2rem',
+            maxWidth: '320px',
+            width: '90%',
+            textAlign: 'center',
+            zIndex: Z_INDEX.MODAL + 1,
+            boxShadow: '0 0 40px rgba(0, 255, 136, 0.3)',
+            animation: 'slideIn 0.3s ease-out'
+          }}
+        >
+          <style>{`
+            @keyframes slideIn {
+              from {
+                opacity: 0;
+                transform: translate(-50%, -60%);
+              }
+              to {
+                opacity: 1;
+                transform: translate(-50%, -50%);
+              }
+            }
+          `}</style>
+          
+          <h3 style={{ color: '#00ff88', marginBottom: '1rem', fontSize: '1.3rem', marginTop: 0 }}>
+            ✓ Price Copied!
+          </h3>
+          
+          <p style={{ color: '#d0d0d0', marginBottom: '1.5rem', fontSize: '0.95rem', lineHeight: 1.5 }}>
+            What would you like to do next?
+          </p>
+          
+          <div style={{ display: 'flex', gap: '0.75rem', flexDirection: 'column' }}>
+            <button
+              onClick={() => {
+                setShowPostCopyNotification(false);
+                handleContinueToForm();
+              }}
+              style={{
+                background: 'linear-gradient(135deg, #ff3333, #ff5555)',
+                color: 'white',
+                border: 'none',
+                padding: '0.75rem',
+                borderRadius: '6px',
+                cursor: 'pointer',
+                fontSize: '0.9rem',
+                fontWeight: 'bold',
+                transition: 'all 0.2s ease'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'scale(1.05)';
+                e.currentTarget.style.boxShadow = '0 0 15px rgba(255, 51, 51, 0.5)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'scale(1)';
+                e.currentTarget.style.boxShadow = 'none';
+              }}
+            >
+              📋 Fill up Form
+            </button>
+            
+            <button
+              onClick={() => {
+                setShowPostCopyNotification(false);
+              }}
+              style={{
+                background: 'rgba(0, 255, 136, 0.2)',
+                color: '#00ff88',
+                border: '1px solid rgba(0, 255, 136, 0.5)',
+                padding: '0.75rem',
+                borderRadius: '6px',
+                cursor: 'pointer',
+                fontSize: '0.9rem',
+                fontWeight: 'bold',
+                transition: 'all 0.2s ease'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = 'rgba(0, 255, 136, 0.3)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'rgba(0, 255, 136, 0.2)';
+              }}
+            >
+              🛍️ Continue Shopping
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
