@@ -1100,8 +1100,7 @@ export default function App(): ReactElement {
       <header>
         <div className="header-container">
           <div className="logo" onClick={() => { window.scrollTo(0, 0); window.location.reload(); }} style={{ cursor: "pointer", transition: "opacity 0.3s", display: "flex", alignItems: "center", gap: "0.8rem" }} onMouseEnter={(e) => { e.currentTarget.style.opacity = "0.8"; }} onMouseLeave={(e) => { e.currentTarget.style.opacity = "1"; }}>
-            <span style={{ fontSize: "1.8rem", fontWeight: "bold", color: "#FF6B9D" }}>💎</span>
-            <span style={{ color: "#FF6B9D", fontWeight: "bold", fontSize: "1rem" }}>Zeijin Top Up Sale PH</span>
+            <img src="/images/zeijin-logo.jpg" alt="Zeijin" style={{ height: "50px", width: "auto" }} />
           </div>
           <nav>
             <a href="#" className={`nav-link ${activeSection === "games" ? "active" : ""}`} onClick={(e) => { e.preventDefault(); setActiveSection("games"); setTimeout(() => { const gamesSection = document.querySelector('.games-container'); if (gamesSection) gamesSection.scrollIntoView({ behavior: 'smooth' }); }, 0); }}>Games</a>

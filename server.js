@@ -10,6 +10,14 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+// Log environment variables for debugging
+console.log('\n🔧 Environment Configuration:');
+console.log(`SMTP_HOST: ${process.env.SMTP_HOST}`);
+console.log(`SMTP_PORT: ${process.env.SMTP_PORT}`);
+console.log(`SMTP_USER: ${process.env.SMTP_USER}`);
+console.log(`ADMIN_EMAIL: ${process.env.ADMIN_EMAIL}`);
+console.log(`NODE_ENV: ${process.env.NODE_ENV}\n`);
+
 // Configure email transporter
 let transporter = null;
 const emailConfigured = process.env.SMTP_USER && process.env.SMTP_PASSWORD;
