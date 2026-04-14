@@ -303,6 +303,7 @@ const eventsData = [
       { amount: "$50 USD", price: 2450 },
       { amount: "$100 USD", price: 4900 }
     ]
+  }
 ];
 
 const eventsData = [
