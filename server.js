@@ -34,6 +34,7 @@ if (emailConfigured) {
     host: process.env.SMTP_HOST || 'smtp.gmail.com',
     port: parseInt(process.env.SMTP_PORT) || 587,
     secure: parseInt(process.env.SMTP_PORT) === 465, // Use SSL for port 465, TLS for 587
+    family: 4, // Force IPv4 (Railway blocks IPv6)
     auth: {
       user: process.env.SMTP_USER,
       pass: process.env.SMTP_PASSWORD
