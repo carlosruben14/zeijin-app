@@ -8,6 +8,7 @@
     "dev:proxy": "node scripts/dev-proxy.js",
     "dev:all": "npm run dev & npm run dev:proxy",
     "build": "vite build",
+    "start": "npm run build && node server.js",
     "lint": "eslint .",
     "preview": "vite preview"
   },

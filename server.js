@@ -66,6 +66,13 @@ app.use((req, res, next) => {
   }
 });
 
+// Serve static frontend files from dist folder (production)
+const distDir = path.join(__dirname, 'dist');
+if (fs.existsSync(distDir)) {
+  app.use(express.static(distDir));
+  console.log('📁 Serving static files from:', distDir);
+}
+
 // Data directory
 const dataDir = path.join(__dirname, 'data');
 const submissionsFile = path.join(dataDir, 'submissions.json');
@@ -204,6 +211,15 @@ app.get('/api/ask-us/:id', (req, res) => {
     console.error('❌ Error retrieving submission:', error);
     return res.status(500).json({ error: 'Failed to retrieve submission' });
   }
+});
+
+// Catch-all route: serve index.html for all non-API routes (SPA routing)
+app.get('*', (req, res) => {
+  const indexPath = path.join(distDir, 'index.html');
+  if (fs.existsSync(indexPath)) {
+    return res.sendFile(indexPath);
+  }
+  res.status(404).json({ error: 'Not found' });
 });
 
 // Start server
