@@ -6,6 +6,7 @@ export const gamesData = [
     category: "moba",
     description: "MLBB Discounted Diamonds - Popular Mobile MOBA",
     image: "/images/games/mlbb.jpg",
+    note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
     pricing: [
       { amount: "5 Diamonds", price: 8 },
       { amount: "19 Diamonds", price: 29 },
@@ -14,6 +15,28 @@ export const gamesData = [
       { amount: "59 Diamonds", price: 87 },
       { amount: "99 Diamonds", price: 143 },
       { amount: "159 Diamonds", price: 228 }
+    ],
+    pricingSections: [
+      {
+        title: "💎 Diamond Packages",
+        items: [
+          { amount: "5 Diamonds", price: 8 },
+          { amount: "19 Diamonds", price: 29 },
+          { amount: "28 Diamonds", price: 42 },
+          { amount: "49 Diamonds", price: 72 },
+          { amount: "59 Diamonds", price: 87 },
+          { amount: "99 Diamonds", price: 143 },
+          { amount: "159 Diamonds", price: 228 }
+        ]
+      },
+      {
+        title: "🎖️ Battle Pass & Cosmetics",
+        items: [
+          { amount: "Starlight Normal 301", price: 267 },
+          { amount: "Starlight Normal 760", price: 655 },
+          { amount: "WDP", price: 98 }
+        ]
+      }
     ]
   },
   {
@@ -22,6 +45,7 @@ export const gamesData = [
     category: "shooter",
     description: "Valorant Discounted VP - FPS Competitive",
     image: "/images/games/valorant.jpg",
+    note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
     pricing: [
       { amount: "475 VP", price: 179 },
       { amount: "1050 VP", price: 399 },
@@ -39,6 +63,7 @@ export const gamesData = [
     category: "moba",
     description: "LOL Discounted Wildcore - MOBA Fantasy",
     image: "/images/games/lol-wildrift.png",
+    note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
     pricing: [
       { amount: "425 WC", price: 186 },
       { amount: "1,000 WC", price: 420 },
@@ -54,6 +79,7 @@ export const gamesData = [
     category: "shooter",
     description: "COD Mobile Discounted CP - FPS Action",
     image: "/images/games/codm.jpg",
+    note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
     pricing: [
       { amount: "70 CP", price: 49 },
       { amount: "200 CP", price: 140 },
@@ -64,6 +90,34 @@ export const gamesData = [
       { amount: "6,960 CP", price: 2895 },
       { amount: "9,280 CP", price: 3860 },
       { amount: "11,600 CP", price: 4825 }
+    ],
+    pricingSections: [
+      {
+        title: "🎯 CP Packages",
+        items: [
+          { amount: "70 CP", price: 49 },
+          { amount: "200 CP", price: 140 },
+          { amount: "500 CP", price: 349 },
+          { amount: "1,000 CP", price: 649 },
+          { amount: "2,320 CP", price: 965 },
+          { amount: "4,640 CP", price: 1930 },
+          { amount: "6,960 CP", price: 2895 },
+          { amount: "9,280 CP", price: 3860 },
+          { amount: "11,600 CP", price: 4825 }
+        ]
+      },
+      {
+        title: "📋 Paano Magredeem ng CP",
+        type: "instructions",
+        content: [
+          "1. Go to shop.garena.ph",
+          "2. Choose Call of Duty Mobile",
+          "3. Login your account via Facebook or Garena",
+          "4. Choose Garena Prepaid Card",
+          "5. Put the Card Password (sinend ni seller)",
+          "6. Click confirm then check your CP ingame"
+        ]
+      }
     ]
   },
   {
@@ -72,6 +126,7 @@ export const gamesData = [
     category: "moba",
     description: "HOK Discounted Game Credits - Strategy MOBA",
     image: "/images/games/hok.jpg",
+    note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
     pricing: [
       { amount: "80 Credits", price: 58 },
       { amount: "240 Credits", price: 174 },
@@ -88,6 +143,7 @@ export const gamesData = [
     category: "rpg",
     description: "Genshin Impact Discounted Genesis Crystals",
     image: "/images/games/genshin.jpeg",
+    note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
     pricing: [
       { amount: "60 Crystals", price: 58 },
       { amount: "300 Crystals", price: 290 },
@@ -103,6 +159,7 @@ export const gamesData = [
     category: "strategy",
     description: "TFT Discounted RP - Strategy Auto Battler",
     image: "/images/games/tft.jpg",
+    note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
     pricing: [
       { amount: "400 RP", price: 149 },
       { amount: "1,110 RP", price: 399 },
@@ -117,6 +174,7 @@ export const gamesData = [
     category: "moba",
     description: "LOL Discounted RP - MOBA Pick",
     image: "/images/games/lol-rp.jpg",
+    note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
     pricing: [
       { amount: "400 RP", price: 149 },
       { amount: "1,110 RP", price: 399 },
@@ -131,6 +189,7 @@ export const gamesData = [
     category: "strategy",
     description: "Magic Chess - Auto Chess Mobile Game",
     image: "/images/games/magic-chess.webp",
+    note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
     pricing: [
       { amount: "72 Coins", price: 48 },
       { amount: "360 Coins", price: 240 },
@@ -144,6 +203,7 @@ export const gamesData = [
     category: "shooter",
     description: "PUBG Mobile Discounted UC - Battle Royale",
     image: "/images/games/pubg.jpg",
+    note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
     pricing: [
       { amount: "60 UC", price: 48 },
       { amount: "325 UC", price: 250 },
@@ -157,6 +217,7 @@ export const gamesData = [
     category: "shooter",
     description: "CrossFire Discounted GP - Classic FPS",
     image: "/images/games/crossfire.webp",
+    note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
     pricing: [
       { amount: "2,400 GP", price: 200 },
       { amount: "6,400 GP", price: 500 },
@@ -169,6 +230,7 @@ export const gamesData = [
     category: "action",
     description: "Duke Nukem Discounted Gems - Action Game",
     image: "/images/games/duke-nukem.jpg",
+    note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
     pricing: [
       { amount: "100 Gems", price: 99 },
       { amount: "500 Gems", price: 450 },
@@ -181,6 +243,7 @@ export const gamesData = [
     category: "wallet",
     description: "Steam Discounted Wallet - Games Platform",
     image: "/images/games/steam-wallet.jpg",
+    note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
     pricing: [
       { amount: "₱500 PHP", price: 490 },
       { amount: "₱1,000 PHP", price: 980 },
@@ -199,6 +262,7 @@ export const gamesData = [
     category: "shooter",
     description: "Bloodstrike Discounted Credits - Tactical Shooter",
     image: "/images/games/bloodstrike.webp",
+    note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
     pricing: [
       { amount: "300 Credits", price: 99 },
       { amount: "1,000 Credits", price: 299 },

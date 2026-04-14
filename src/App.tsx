@@ -1,9 +1,26 @@
-﻿import { useState, useMemo, useEffect, useRef, useLayoutEffect } from "react";
+﻿import React, { FC, useState, useMemo, useEffect, useRef, useLayoutEffect, ReactElement } from "react";
 import "./App.css";
 import "./index.css";
+import PricingModal from "./components/PricingModal";
+import AskUs from "./components/AskUs";
+import Logger from "./utils/errorHandler";
+import { Z_INDEX } from "./constants/zIndex";
+import { gamesData } from "./data/gamesData";
+import type { Game } from "./types";
+import { calculateSimilarity, findClosestMatch, getEventStatus, calculateDaysLeft } from "./utils/searchUtils";
 
 // Skeleton Loader Component for image placeholders
-const SkeletonLoader = ({ width = "100%", height = "200px", borderRadius = "8px" }) => (
+interface SkeletonLoaderProps {
+  width?: string;
+  height?: string;
+  borderRadius?: string;
+}
+
+const SkeletonLoader: FC<SkeletonLoaderProps> = ({ 
+  width = "100%", 
+  height = "200px", 
+  borderRadius = "8px" 
+}): ReactElement => (
   <div
     style={{
       width,
@@ -347,72 +364,10 @@ const eventsData = [
   }
 ];
 
-// Calculate event status
-const getEventStatus = (startDate, endDate) => {
-  const today = new Date();
-  const start = new Date(startDate);
-  const end = new Date(endDate);
-  
-  if (today < start) return "upcoming";
-  if (today > end) return "ended";
-  return "ongoing";
-};
-
-// Calculate string similarity using Levenshtein distance
-const calculateSimilarity = (str1, str2) => {
-  const s1 = str1.toLowerCase();
-  const s2 = str2.toLowerCase();
-  
-  // Exact match or substring match
-  if (s1 === s2 || s1.includes(s2) || s2.includes(s1)) return 1;
-  
-  // Levenshtein distance
-  const matrix = Array(s2.length + 1).fill(null).map(() => 
-    Array(s1.length + 1).fill(0)
-  );
-  
-  for (let i = 0; i <= s1.length; i++) matrix[0][i] = i;
-  for (let j = 0; j <= s2.length; j++) matrix[j][0] = j;
-  
-  for (let j = 1; j <= s2.length; j++) {
-    for (let i = 1; i <= s1.length; i++) {
-      const indicator = s1[i - 1] === s2[j - 1] ? 0 : 1;
-      matrix[j][i] = Math.min(
-        matrix[j][i - 1] + 1,      // insertion
-        matrix[j - 1][i] + 1,      // deletion
-        matrix[j - 1][i - 1] + indicator  // substitution
-      );
-    }
-  }
-  
-  const distance = matrix[s2.length][s1.length];
-  const maxLen = Math.max(s1.length, s2.length);
-  
-  // Convert distance to similarity (0-1)
-  return 1 - (distance / maxLen);
-};
-
-// Find closest match from array
-const findClosestMatch = (query, array, getNameFn) => {
-  let bestMatch = null;
-  let bestScore = 0;
-  
-  for (const item of array) {
-    const name = getNameFn(item);
-    const score = calculateSimilarity(query, name);
-    if (score > bestScore && score > 0.75) { // Increased threshold to 0.75 for very close matches only
-      bestScore = score;
-      bestMatch = item;
-    }
-  }
-  
-  return bestMatch;
-};
-
-const EventCarousel = ({ events, getEventStatus }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [autoPlay, setAutoPlay] = useState(true);
-  const [eventImageLoaded, setEventImageLoaded] = useState(false);
+const EventCarousel: FC<{ events: any[]; getEventStatus: (startDate: string, endDate: string) => string }> = ({ events }) => {
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [autoPlay, setAutoPlay] = useState<boolean>(true);
+  const [eventImageLoaded, setEventImageLoaded] = useState<boolean>(false);
 
   useEffect(() => {
     if (!autoPlay || events.length === 0) return;
@@ -452,9 +407,7 @@ const EventCarousel = ({ events, getEventStatus }) => {
   }
 
   const currentEvent = events[currentIndex];
-  const endDate = new Date(currentEvent.endDate);
-  const today = new Date();
-  const daysLeft = Math.ceil((endDate - today) / (1000 * 60 * 60 * 24));
+  const daysLeft = calculateDaysLeft(currentEvent.endDate);
   const eventStatus = getEventStatus(currentEvent.startDate, currentEvent.endDate);
 
   return (
@@ -706,36 +659,34 @@ const EventCarousel = ({ events, getEventStatus }) => {
   );
 };
 
-export default function App() {
-  const [selectedGame, setSelectedGame] = useState(null);
-  const [contactGame, setContactGame] = useState(null);
-  const [packageDetailsModal, setPackageDetailsModal] = useState(null);
-  const [activeSection, setActiveSection] = useState("games");
-  const [searchQuery, setSearchQuery] = useState("");
-  const [filterCategory, setFilterCategory] = useState("all");
-  const [showWelcomeNotif, setShowWelcomeNotif] = useState(true);
-  const [ignValidatorData, setIgnValidatorData] = useState({
+export default function App(): ReactElement {
+  const [selectedGame, setSelectedGame] = useState<Game | null>(null);
+  const [contactGame, setContactGame] = useState<Game | null>(null);
+  const [_packageDetailsModal, _setPackageDetailsModal] = useState<any>(null); // Legacy: unused
+  const [activeSection, setActiveSection] = useState<string>("games");
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [filterCategory, setFilterCategory] = useState<string>("all");
+  const [showWelcomeNotif, setShowWelcomeNotif] = useState<boolean>(true);
+  const [ignValidatorData, setIgnValidatorData] = useState<Record<string, string>>({
     ign: "",
     orderedAmount: "",
     paymentMethod: "GCash",
     otherConcern: ""
   });
-  const [formValidationErrors, setFormValidationErrors] = useState({});
-  const [showMLIDChecker, setShowMLIDChecker] = useState(false);
-  const [wikiSelectedGame, setWikiSelectedGame] = useState("mlbb"); // mlbb, valorant, genshin, lol
-  const [mlSearchQuery, setMlSearchQuery] = useState("");
-  const [mlSearchType, setMlSearchType] = useState("hero");
-  const [mlCheckResult, setMlCheckResult] = useState(null);
-  const [mlCheckError, setMlCheckError] = useState("");
-  const [mlCheckLoading, setMlCheckLoading] = useState(false);
-  const [mlSuggestion, setMlSuggestion] = useState(null); // { name, type }
-  const [imageLoadingStates, setImageLoadingStates] = useState({}); // Track image loading by game ID
-  const [wikiDetailTab, setWikiDetailTab] = useState("overview"); // overview, stats, abilities, skins
-  const [eventCarouselImageLoaded, setEventCarouselImageLoaded] = useState(false);
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 480);
-  const [copiedPriceId, setCopiedPriceId] = useState(null); // Track which package was copied
-  const [showPriceCopiedModal, setShowPriceCopiedModal] = useState(false); // Show options after copy
-  const abortControllerRef = useRef(null);
+  const [formValidationErrors, setFormValidationErrors] = useState<Record<string, string>>({});
+  const [showMLIDChecker, setShowMLIDChecker] = useState<boolean>(false);
+  const [wikiSelectedGame, setWikiSelectedGame] = useState<string>("mlbb"); // mlbb, valorant, genshin, lol
+  const [mlSearchQuery, setMlSearchQuery] = useState<string>("");
+  const [mlSearchType, setMlSearchType] = useState<string>("hero");
+  const [mlCheckResult, setMlCheckResult] = useState<any>(null);
+  const [mlCheckError, setMlCheckError] = useState<string>("");
+  const [mlCheckLoading, setMlCheckLoading] = useState<boolean>(false);
+  const [mlSuggestion, setMlSuggestion] = useState<any>(null); // { name, type }
+  const [imageLoadingStates, setImageLoadingStates] = useState<Record<string, boolean>>({}); // Track image loading by game ID
+  const [wikiDetailTab, setWikiDetailTab] = useState<string>("overview"); // overview, stats, abilities, skins
+  const [_eventCarouselImageLoaded, _setEventCarouselImageLoaded] = useState<boolean>(false); // Legacy: unused
+  const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth < 480);
+  const abortControllerRef = useRef<AbortController | null>(null);
 
   // Track window size changes
   useLayoutEffect(() => {
@@ -841,7 +792,6 @@ export default function App() {
     
     try {
       let endpoint;
-      let dataKey = "data";
       
       // Build endpoint based on game and search type
       if (wikiSelectedGame === "mlbb") {
@@ -854,19 +804,16 @@ export default function App() {
         if (mlSearchType === "agent") {
           endpoint = `https://valorant-api.com/v1/agents`;
         }
-        dataKey = "data";
       } else if (wikiSelectedGame === "genshin") {
         if (mlSearchType === "character") {
           endpoint = `https://genshin.jmp.blue/characters`;
         }
-        dataKey = "characters";
       } else if (wikiSelectedGame === "lol") {
         if (mlSearchType === "champion") {
           endpoint = `https://ddragon.leagueoflegends.com/cdn/14.1.1/data/en_US/champion.json`;
         } else if (mlSearchType === "item") {
           endpoint = `https://ddragon.leagueoflegends.com/cdn/14.1.1/data/en_US/item.json`;
         }
-        dataKey = "data";
       }
 
       console.log("Fetching from:", endpoint);
@@ -1247,8 +1194,6 @@ export default function App() {
                     <div style={{ fontSize: "0.85rem", marginBottom: "0.5rem" }}>💡 Did you mean:</div>
                     <button
                       onClick={() => {
-                        // Simulate what the search would do with the suggestion
-                        const oldQuery = mlSearchQuery;
                         setMlSearchQuery(mlSuggestion.name);
                         setMlCheckError("");
                         setMlSuggestion(null);
@@ -2742,340 +2687,15 @@ export default function App() {
         </div>
       )}
 
-      {selectedGame && (
-        <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0, 0, 0, 0.9)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 9999, overflowY: "auto", padding: isMobile ? "1rem" : "2rem", paddingTop: isMobile ? "2rem" : "2rem", paddingBottom: isMobile ? "2rem" : "2rem" }}>
-          <div style={{ position: "relative", background: "rgba(20, 20, 30, 0.98)", padding: isMobile ? "1.5rem" : "2rem", borderRadius: "8px", border: "2px solid #ff3333", maxWidth: "600px", width: "100%", maxHeight: isMobile ? "90vh" : "90vh", overflowY: "auto" }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start", marginBottom: "1.5rem" }}>
-              <div style={{ flex: 1 }}>
-                <div style={{ display: "flex", gap: "1rem", alignItems: "flex-start", marginBottom: "1rem" }}>
-                  {selectedGame.image && (
-                    <img src={selectedGame.image} alt={selectedGame.title} loading="lazy" style={{ width: "80px", height: "80px", borderRadius: "8px", border: "2px solid #ff3333", objectFit: "cover" }} />
-                  )}
-                  <div>
-                    <h2 style={{ color: "#ff3333", marginBottom: "0.5rem", fontSize: "1.8rem" }}>{selectedGame.title}</h2>
-                    <p style={{ color: "#a0a0a0", marginBottom: "0", fontSize: "0.9rem" }}>{selectedGame.description}</p>
-                  </div>
-                </div>
-              </div>
-              <button 
-                onClick={() => setSelectedGame(null)} 
-                style={{ 
-                  background: "transparent", 
-                  border: "none", 
-                  color: "#ff3333", 
-                  fontSize: "1.5rem", 
-                  cursor: "pointer",
-                  padding: "0.5rem",
-                  minWidth: "40px"
-                }}
-              >
-                ✕
-              </button>
-            </div>
+      {/* Pricing Modal Component */}
+      <PricingModal
+        game={selectedGame}
+        onClose={() => setSelectedGame(null)}
+        isMobile={isMobile}
+      />
 
-            <div style={{ background: "rgba(255, 51, 51, 0.05)", padding: "1.5rem", borderRadius: "8px", border: "1px solid rgba(255, 51, 51, 0.2)" }}>
-              <h3 style={{ color: "#ff3333", marginBottom: "1rem" }}>💰 Diamond Packages</h3>
-              
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", marginBottom: "2rem" }}>
-                {selectedGame.pricing.filter(pkg => !pkg.amount.includes("Starlight") && pkg.amount !== "WDP").map((pkg, idx) => (
-                  <div 
-                    key={idx} 
-                    style={{
-                      background: "rgba(255, 51, 51, 0.1)",
-                      padding: "1rem",
-                      borderRadius: "6px",
-                      border: "1px solid rgba(255, 51, 51, 0.3)",
-                      transition: "all 0.3s ease",
-                      cursor: "pointer",
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: "0.75rem"
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.background = "rgba(255, 51, 51, 0.2)";
-                      e.currentTarget.style.borderColor = "#ff3333";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.background = "rgba(255, 51, 51, 0.1)";
-                      e.currentTarget.style.borderColor = "rgba(255, 51, 51, 0.3)";
-                    }}
-                  >
-                    <div>
-                      <div style={{ fontSize: "1.2rem", fontWeight: "bold", color: "white", marginBottom: "0.5rem" }}>
-                        {pkg.amount}
-                      </div>
-                      <div style={{ fontSize: "1.5rem", color: "#00ff88", fontWeight: "bold" }}>
-                        {pkg.currency || "₱"}{pkg.price}
-                      </div>
-                    </div>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        const priceText = `${pkg.amount} - ${pkg.currency || "₱"}${pkg.price}`;
-                        navigator.clipboard.writeText(priceText);
-                        setShowPriceCopiedModal(true);
-                      }}
-                      style={{
-                        background: "rgba(0, 255, 136, 0.2)",
-                        border: "1px solid #00ff88",
-                        color: "#00ff88",
-                        padding: "0.4rem 0.8rem",
-                        borderRadius: "4px",
-                        cursor: "pointer",
-                        fontSize: "0.8rem",
-                        fontWeight: "bold",
-                        transition: "all 0.2s",
-                        width: "100%"
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.background = "rgba(0, 255, 136, 0.3)";
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.background = "rgba(0, 255, 136, 0.2)";
-                      }}
-                    >
-                      {copiedPriceId === `price-${selectedGame.id}-${idx}` ? '✅ Copied!' : '📋 Copy Price'}
-                    </button>
-                  </div>
-                ))}
-              </div>
-
-              {selectedGame.pricing.some(pkg => pkg.amount.includes("Starlight") || pkg.amount === "WDP") && (
-                <div style={{ marginTop: "2rem", paddingTop: "1.5rem", borderTop: "2px solid rgba(255, 51, 51, 0.3)" }}>
-                  <h3 style={{ color: "#ffa500", marginBottom: "1rem" }}>🎁 Special Offers</h3>
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
-                    {selectedGame.pricing.filter(pkg => pkg.amount.includes("Starlight") || pkg.amount === "WDP").map((pkg, idx) => (
-                      <div 
-                        key={idx} 
-                        style={{
-                          background: "rgba(255, 165, 0, 0.1)",
-                          padding: "1rem",
-                          borderRadius: "6px",
-                          border: "2px solid rgba(255, 165, 0, 0.4)",
-                          transition: "all 0.3s ease",
-                          cursor: "pointer",
-                          display: "flex",
-                          flexDirection: "column",
-                          gap: "0.75rem"
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.background = "rgba(255, 165, 0, 0.2)";
-                          e.currentTarget.style.borderColor = "#ffa500";
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.background = "rgba(255, 165, 0, 0.1)";
-                          e.currentTarget.style.borderColor = "rgba(255, 165, 0, 0.4)";
-                        }}
-                      >
-                        <div>
-                          <div style={{ fontSize: "1.2rem", fontWeight: "bold", color: "#ffa500", marginBottom: "0.5rem" }}>
-                            {pkg.amount}
-                          </div>
-                          <div style={{ fontSize: "1.5rem", color: "#00ff88", fontWeight: "bold" }}>
-                            {pkg.currency || "₱"}{pkg.price}
-                          </div>
-                        </div>
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            const priceText = `${pkg.amount} - ${pkg.currency || "₱"}${pkg.price}`;
-                            navigator.clipboard.writeText(priceText);
-                            setShowPriceCopiedModal(true);
-                          }}
-                          style={{
-                            background: "rgba(0, 255, 136, 0.2)",
-                            border: "1px solid #00ff88",
-                            color: "#00ff88",
-                            padding: "0.4rem 0.8rem",
-                            borderRadius: "4px",
-                            cursor: "pointer",
-                            fontSize: "0.8rem",
-                            fontWeight: "bold",
-                            transition: "all 0.2s",
-                            width: "100%"
-                          }}
-                          onMouseEnter={(e) => {
-                            e.currentTarget.style.background = "rgba(0, 255, 136, 0.3)";
-                          }}
-                          onMouseLeave={(e) => {
-                            e.currentTarget.style.background = "rgba(0, 255, 136, 0.2)";
-                          }}
-                        >
-                          {copiedPriceId === `special-${selectedGame.id}-${idx}` ? '✅ Copied!' : '📋 Copy Price'}
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              <p style={{ color: "#a0a0a0", fontSize: "0.85rem", marginTop: "1.5rem", fontStyle: "italic" }}>
-                💡 NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming! 💖
-              </p>
-
-              {selectedGame.id === 4 && (
-                <div style={{ background: "rgba(100, 200, 255, 0.1)", border: "1px solid rgba(100, 200, 255, 0.4)", padding: "1.5rem", borderRadius: "8px", marginTop: "1.5rem" }}>
-                  <h4 style={{ color: "#64c8ff", marginBottom: "1rem", fontSize: "1rem" }}>📱 How to Redeem CP</h4>
-                  <ol style={{ color: "#d0d0d0", fontSize: "0.9rem", lineHeight: "1.8", margin: "0", paddingLeft: "1.5rem" }}>
-                    <li>Go to <strong>shop.garena.ph</strong></li>
-                    <li>Choose <strong>Call of Duty Mobile</strong></li>
-                    <li>Login your account via Facebook or Garena</li>
-                    <li>Choose <strong>Garena Prepaid Card</strong></li>
-                    <li>Put the Card Password (sent by seller)</li>
-                    <li>Click confirm then check your CP in-game</li>
-                  </ol>
-                </div>
-              )}
-            </div>
-
-            <button 
-              onClick={() => setSelectedGame(null)} 
-              style={{ 
-                background: "#ff3333", 
-                color: "white", 
-                padding: "0.75rem 2rem", 
-                border: "none", 
-                borderRadius: "20px", 
-                cursor: "pointer", 
-                fontSize: "1rem",
-                marginTop: "1.5rem",
-                width: "100%"
-              }}
-            >
-              Close
-            </button>
-
-            {/* Price Copied Notification Modal - Overlays on prices view */}
-            {showPriceCopiedModal && (
-              <>
-                {/* Backdrop to darken content behind notification - uses flexbox for proper centering */}
-                <div style={{
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  background: "rgba(0, 0, 0, 0.6)",
-                  borderRadius: "8px",
-                  zIndex: 49,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  padding: "1rem"
-                }}>
-                  {/* Notification Modal Card */}
-                  <div style={{
-                    background: "linear-gradient(135deg, rgba(50, 50, 80, 0.98), rgba(30, 30, 60, 0.98))",
-                    border: "2px solid #ff3333",
-                    borderRadius: "20px",
-                    padding: "3rem 2rem",
-                    maxWidth: "450px",
-                    width: "100%",
-                    textAlign: "center",
-                    boxShadow: "0 20px 60px rgba(0, 0, 0, 0.9), 0 0 40px rgba(255, 51, 51, 0.4)",
-                    animation: "slideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)"
-                  }}>
-                    {/* Success Icon */}
-                    <div style={{
-                      fontSize: "4rem",
-                      marginBottom: "1.5rem",
-                      animation: "pulse 0.5s ease-out"
-                    }}>
-                      ✅
-                    </div>
-
-                    {/* Message */}
-                    <h2 style={{
-                      color: "#00ff88",
-                      fontSize: "1.5rem",
-                      marginBottom: "0.5rem",
-                      fontWeight: "bold",
-                      textShadow: "0 0 10px rgba(0, 255, 136, 0.5)"
-                    }}>
-                      Price Copied!
-                    </h2>
-
-                    <p style={{
-                      color: "#b0b0b0",
-                      fontSize: "0.95rem",
-                      marginBottom: "2rem",
-                      lineHeight: "1.6"
-                    }}>
-                      The price has been copied to your clipboard. What would you like to do next?
-                    </p>
-
-                    {/* Action Buttons */}
-                    <div style={{
-                      display: "flex",
-                      gap: "1rem",
-                      justifyContent: "center",
-                      flexWrap: "wrap"
-                    }}>
-                      <button
-                        onClick={() => setShowPriceCopiedModal(false)}
-                        style={{
-                          background: "rgba(100, 150, 200, 0.3)",
-                          border: "2px solid #6496c8",
-                          color: "#6496c8",
-                          padding: "0.9rem 2rem",
-                          borderRadius: "15px",
-                          cursor: "pointer",
-                          fontSize: "1rem",
-                          fontWeight: "bold",
-                          transition: "all 0.3s ease",
-                          flex: "1",
-                          minWidth: "150px"
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.background = "rgba(100, 150, 200, 0.5)";
-                          e.currentTarget.style.boxShadow = "0 0 20px rgba(100, 150, 200, 0.4)";
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.background = "rgba(100, 150, 200, 0.3)";
-                          e.currentTarget.style.boxShadow = "none";
-                        }}
-                      >
-                        🔙 Continue Shopping
-                      </button>
-
-                      <button
-                        onClick={() => {
-                          setContactGame(selectedGame);
-                          setSelectedGame(null);
-                          setShowPriceCopiedModal(false);
-                        }}
-                        style={{
-                          background: "linear-gradient(135deg, rgba(255, 51, 51, 0.4), rgba(255, 100, 100, 0.3))",
-                          border: "2px solid #ff3333",
-                          color: "#ff6666",
-                          padding: "0.9rem 2rem",
-                          borderRadius: "15px",
-                          cursor: "pointer",
-                          fontSize: "1rem",
-                          fontWeight: "bold",
-                          transition: "all 0.3s ease",
-                          flex: "1",
-                          minWidth: "150px"
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.background = "linear-gradient(135deg, rgba(255, 51, 51, 0.6), rgba(255, 100, 100, 0.5))";
-                          e.currentTarget.style.boxShadow = "0 0 20px rgba(255, 51, 51, 0.5)";
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.background = "linear-gradient(135deg, rgba(255, 51, 51, 0.4), rgba(255, 100, 100, 0.3))";
-                          e.currentTarget.style.boxShadow = "none";
-                        }}
-                      >
-                        📋 Fill Order Form
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </>
-            )}
-          </div>
-        </div>
-      )}
+      {/* Ask Us Feature - Floating Button */}
+      <AskUs />
     </div>
   );
 }

@@ -1,0 +1,183 @@
+/* App-wide Styles */
+
+/* Containers & Layouts */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.section {
+  padding: 4rem 2rem;
+}
+
+.sectionMobile {
+  padding: 2rem 1rem;
+}
+
+.centerContent {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* Modals & Overlays */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+.modalContent {
+  background: rgba(20, 20, 30, 0.98);
+  border: 2px solid #ff3333;
+  border-radius: 8px;
+  padding: 2rem;
+  max-width: 600px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modalContentMobile {
+  padding: 1.5rem;
+}
+
+/* Cards & Boxes */
+.card {
+  background: rgba(0, 255, 136, 0.05);
+  border: 1px solid rgba(0, 255, 136, 0.3);
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.errorCard {
+  background: rgba(255, 51, 51, 0.15);
+  border: 1px solid rgba(255, 51, 51, 0.4);
+  color: #FFB3B3;
+}
+
+.successCard {
+  background: rgba(0, 255, 136, 0.15);
+  border: 1px solid rgba(0, 255, 136, 0.4);
+  color: #00ff88;
+}
+
+.warningCard {
+  background: rgba(255, 165, 0, 0.1);
+  border: 1px solid rgba(255, 165, 0, 0.4);
+  color: #ffa500;
+}
+
+/* Headings */
+.heading1 {
+  color: #ff3333;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.heading2 {
+  color: #ff3333;
+  font-size: 1.6rem;
+  font-weight: bold;
+  margin-bottom: 0.8rem;
+}
+
+.heading3 {
+  color: #00ff88;
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-bottom: 0.6rem;
+}
+
+/* Text Utilities */
+.textPrimary {
+  color: #d0d0d0;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.textSecondary {
+  color: #a0a0a0;
+  font-size: 0.9rem;
+}
+
+.textSmall {
+  font-size: 0.85rem;
+}
+
+.textMuted {
+  color: #888;
+  font-size: 0.8rem;
+  font-style: italic;
+}
+
+/* Grid Utilities */
+.gridSpaced {
+  display: grid;
+  gap: 1rem;
+}
+
+.gridTwoCol {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+@media (max-width: 768px) {
+  .gridTwoCol {
+    grid-template-columns: 1fr;
+  }
+
+  .section {
+    padding: 2rem 1rem;
+  }
+
+  .modalContent {
+    padding: 1.5rem;
+  }
+}
+
+/* Loading Animation */
+@keyframes loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.loadingAnimation {
+  animation: loading 1.5s infinite;
+}
+
+.pulseAnimation {
+  animation: pulse 2s infinite;
+}
+
+.slideUpAnimation {
+  animation: slideUp 0.4s ease-out;
+}

@@ -1,23 +1,90 @@
-import React, { useState } from 'react';
+import React, { useState, FC, ChangeEvent, MouseEvent, FormEvent } from 'react';
+import { WikiSearchResult } from '../types';
 
-const WikiSearch = ({ 
-  wikiSearchQuery, 
-  setWikiSearchQuery, 
-  wikiSearchResults, 
-  isWikiLoading, 
-  selectedHero, 
+interface WikiSearchProps {
+  wikiSearchQuery: string;
+  setWikiSearchQuery: (query: string) => void;
+  wikiSearchResults: WikiSearchResult[];
+  isWikiLoading: boolean;
+  selectedHero: WikiSearchResult | null;
+  setSelectedHero: (hero: WikiSearchResult | null) => void;
+  isMobile: boolean;
+  onFetchWiki?: (searchType: string) => void | Promise<void>;
+}
+
+type SearchType = 'hero' | 'champion' | 'agent';
+
+const WikiSearch: FC<WikiSearchProps> = ({
+  wikiSearchQuery,
+  setWikiSearchQuery,
+  wikiSearchResults,
+  isWikiLoading,
+  selectedHero,
   setSelectedHero,
   isMobile,
   onFetchWiki
 }) => {
-  const [wikiSearchType, setWikiSearchType] = useState('hero');
+  const [wikiSearchType, setWikiSearchType] = useState<SearchType>('hero');
 
-  const handleWikiSearch = async (e) => {
+  const handleWikiSearch = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     if (wikiSearchQuery.trim()) {
       onFetchWiki?.(wikiSearchType);
     }
   };
+
+  const handleSearchTypeClick = (type: SearchType): void => {
+    setWikiSearchType(type);
+  };
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    setWikiSearchQuery(e.target.value);
+  };
+
+  const handleResultClick = (result: WikiSearchResult): void => {
+    setSelectedHero(result);
+  };
+
+  const handleButtonMouseEnter = (e: MouseEvent<HTMLButtonElement>): void => {
+    if (!isMobile) {
+      e.currentTarget.style.borderColor = 'rgba(0, 255, 136, 0.6)';
+    }
+  };
+
+  const handleButtonMouseLeave = (e: MouseEvent<HTMLButtonElement>): void => {
+    e.currentTarget.style.borderColor = 'rgba(0, 255, 136, 0.3)';
+  };
+
+  const handleResultCardMouseEnter = (e: MouseEvent<HTMLDivElement>): void => {
+    if (!isMobile) {
+      e.currentTarget.style.transform = 'scale(1.05)';
+      e.currentTarget.style.borderColor = 'rgba(0, 255, 136, 0.6)';
+      e.currentTarget.style.boxShadow = '0 0 15px rgba(0, 255, 136, 0.3)';
+    }
+  };
+
+  const handleResultCardMouseLeave = (e: MouseEvent<HTMLDivElement>): void => {
+    e.currentTarget.style.transform = 'scale(1)';
+    e.currentTarget.style.borderColor = 'rgba(0, 255, 136, 0.3)';
+    e.currentTarget.style.boxShadow = 'none';
+  };
+
+  const handleViewDetailsClick = (e: MouseEvent<HTMLButtonElement>, result: WikiSearchResult): void => {
+    e.stopPropagation();
+    setSelectedHero(result);
+  };
+
+  const handleViewDetailsMouseEnter = (e: MouseEvent<HTMLButtonElement>): void => {
+    if (!isMobile) {
+      e.currentTarget.style.background = 'rgba(0, 255, 136, 0.3)';
+    }
+  };
+
+  const handleViewDetailsMouseLeave = (e: MouseEvent<HTMLButtonElement>): void => {
+    e.currentTarget.style.background = 'rgba(0, 255, 136, 0.2)';
+  };
+
+  const searchTypes: SearchType[] = ['hero', 'champion', 'agent'];
 
   return (
     <section
@@ -47,11 +114,11 @@ const WikiSearch = ({
           <div style={{ display: 'grid', gap: '1rem' }}>
             {/* Search Type Tabs */}
             <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-              {['hero', 'champion', 'agent'].map(type => (
+              {searchTypes.map((type: SearchType) => (
                 <button
                   key={type}
                   type="button"
-                  onClick={() => setWikiSearchType(type)}
+                  onClick={() => handleSearchTypeClick(type)}
                   style={{
                     padding: '0.6rem 1.2rem',
                     borderRadius: '6px',
@@ -64,16 +131,8 @@ const WikiSearch = ({
                     transition: 'all 0.3s ease',
                     textTransform: 'capitalize'
                   }}
-                  onMouseEnter={(e) => {
-                    if (!isMobile && wikiSearchType !== type) {
-                      e.currentTarget.style.borderColor = 'rgba(0, 255, 136, 0.6)';
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (wikiSearchType !== type) {
-                      e.currentTarget.style.borderColor = 'rgba(0, 255, 136, 0.3)';
-                    }
-                  }}
+                  onMouseEnter={handleButtonMouseEnter}
+                  onMouseLeave={handleButtonMouseLeave}
                 >
                   {type === 'hero' && '🎮 '}
                   {type === 'champion' && '⚔️ '}
@@ -88,7 +147,7 @@ const WikiSearch = ({
               <input
                 type="text"
                 value={wikiSearchQuery}
-                onChange={(e) => setWikiSearchQuery(e.target.value)}
+                onChange={handleInputChange}
                 placeholder={`Search for a ${wikiSearchType}...`}
                 style={{
                   flex: 1,
@@ -168,11 +227,17 @@ const WikiSearch = ({
 
         {/* Results */}
         {!isWikiLoading && wikiSearchResults.length > 0 && (
-          <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem' }}>
-            {wikiSearchResults.slice(0, 12).map((result, idx) => (
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(250px, 1fr))',
+              gap: '1.5rem'
+            }}
+          >
+            {wikiSearchResults.slice(0, 12).map((result: WikiSearchResult, idx: number) => (
               <div
                 key={idx}
-                onClick={() => setSelectedHero(result)}
+                onClick={() => handleResultClick(result)}
                 style={{
                   background: 'rgba(0, 255, 136, 0.08)',
                   border: '1px solid rgba(0, 255, 136, 0.3)',
@@ -182,23 +247,13 @@ const WikiSearch = ({
                   transition: 'all 0.3s ease',
                   transform: 'scale(1)'
                 }}
-                onMouseEnter={(e) => {
-                  if (!isMobile) {
-                    e.currentTarget.style.transform = 'scale(1.05)';
-                    e.currentTarget.style.borderColor = 'rgba(0, 255, 136, 0.6)';
-                    e.currentTarget.style.boxShadow = '0 0 15px rgba(0, 255, 136, 0.3)';
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'scale(1)';
-                  e.currentTarget.style.borderColor = 'rgba(0, 255, 136, 0.3)';
-                  e.currentTarget.style.boxShadow = 'none';
-                }}
+                onMouseEnter={handleResultCardMouseEnter}
+                onMouseLeave={handleResultCardMouseLeave}
               >
                 {/* Result Image */}
-                {result.image && (
+                {result.data?.image && (
                   <img
-                    src={result.image}
+                    src={result.data.image}
                     alt={result.name}
                     style={{
                       width: '100%',
@@ -212,26 +267,46 @@ const WikiSearch = ({
                 )}
 
                 {/* Result Name */}
-                <h3 style={{ color: '#00ff88', marginTop: 0, marginBottom: '0.4rem', fontSize: '1rem' }}>
+                <h3
+                  style={{
+                    color: '#00ff88',
+                    marginTop: 0,
+                    marginBottom: '0.4rem',
+                    fontSize: '1rem'
+                  }}
+                >
                   {result.name}
                 </h3>
 
                 {/* Result Type */}
                 {result.type && (
-                  <p style={{ color: '#a0a0a0', fontSize: '0.8rem', marginBottom: '0.4rem' }}>
+                  <p
+                    style={{
+                      color: '#a0a0a0',
+                      fontSize: '0.8rem',
+                      marginBottom: '0.4rem'
+                    }}
+                  >
                     {result.type}
                   </p>
                 )}
 
                 {/* Result Role/Class */}
-                {result.role && (
-                  <p style={{ color: '#00ff88', fontSize: '0.8rem', marginBottom: '0.4rem', fontWeight: 'bold' }}>
-                    Role: {result.role}
+                {result.data?.role && (
+                  <p
+                    style={{
+                      color: '#00ff88',
+                      fontSize: '0.8rem',
+                      marginBottom: '0.4rem',
+                      fontWeight: 'bold'
+                    }}
+                  >
+                    Role: {result.data.role}
                   </p>
                 )}
 
                 {/* Result Description */}
-                {result.description && (
+                {result.data?.description && (
                   <p
                     style={{
                       color: '#a0a0a0',
@@ -246,7 +321,7 @@ const WikiSearch = ({
                       WebkitBoxOrient: 'vertical'
                     }}
                   >
-                    {result.description}
+                    {result.data.description}
                   </p>
                 )}
 
@@ -264,18 +339,11 @@ const WikiSearch = ({
                     fontWeight: 'bold',
                     transition: 'all 0.3s ease'
                   }}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setSelectedHero(result);
-                  }}
-                  onMouseEnter={(e) => {
-                    if (!isMobile) {
-                      e.currentTarget.style.background = 'rgba(0, 255, 136, 0.3)';
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = 'rgba(0, 255, 136, 0.2)';
-                  }}
+                  onClick={(e: MouseEvent<HTMLButtonElement>) =>
+                    handleViewDetailsClick(e, result)
+                  }
+                  onMouseEnter={handleViewDetailsMouseEnter}
+                  onMouseLeave={handleViewDetailsMouseLeave}
                 >
                   View Details
                 </button>
@@ -293,10 +361,19 @@ const WikiSearch = ({
               color: '#a0a0a0'
             }}
           >
-            <p style={{ fontSize: '1.1rem', marginBottom: '0.5rem' }}>
+            <p
+              style={{
+                fontSize: '1.1rem',
+                marginBottom: '0.5rem'
+              }}
+            >
               No results found for "{wikiSearchQuery}"
             </p>
-            <p style={{ fontSize: '0.9rem' }}>
+            <p
+              style={{
+                fontSize: '0.9rem'
+              }}
+            >
               Try searching with different keywords
             </p>
           </div>

@@ -26,7 +26,7 @@ export default defineConfig([
       'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
       'react-hooks/exhaustive-deps': 'warn',
       'react-hooks/rules-of-hooks': 'error',
-      'no-console': ['warn', { allow: ['error', 'warn'] }],
+      'no-console': ['warn', { allow: ['error', 'warn', 'log'] }],
       'react-refresh/only-export-components': 'warn',
       'no-implicit-coercion': 'warn',
       'no-eval': 'error',

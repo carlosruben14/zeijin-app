@@ -6,6 +6,10 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
+      '/api/ask-us': {
+        target: 'http://localhost:3001',
+        changeOrigin: true
+      },
       '/api/heroes': {
         target: 'https://mlbb-wiki-api.vercel.app',
         changeOrigin: true,

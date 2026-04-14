@@ -1,17 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, FC, ChangeEvent, MouseEvent, KeyboardEvent } from 'react';
+import { Game, ContactFormData } from '../types';
 
-const ContactForm = ({ 
-  game, 
-  onClose, 
-  isMobile, 
-  isSubmittingForm, 
+interface ContactFormProps {
+  game: Game;
+  onClose?: () => void;
+  isMobile: boolean;
+  isSubmittingForm: boolean;
+  setIsSubmittingForm: (value: boolean) => void;
+  setValidationError: (error: string) => void;
+  validationError: string;
+}
+
+const ContactForm: FC<ContactFormProps> = ({
+  game,
+  onClose,
+  isMobile,
+  isSubmittingForm,
   setIsSubmittingForm,
   setValidationError,
-  validationError 
+  validationError
 }) => {
   if (!game) return null;
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<ContactFormData>({
     playerName: '',
     playerID: '',
     email: '',
@@ -19,9 +30,9 @@ const ContactForm = ({
     message: ''
   });
 
-  const validateContactForm = () => {
+  const validateContactForm = (): boolean => {
     const { playerName, playerID, email, phone } = formData;
-    
+
     if (!playerName.trim() || !playerID.trim() || !email.trim() || !phone.trim()) {
       setValidationError('All fields are required');
       return false;
@@ -33,7 +44,7 @@ const ContactForm = ({
       return false;
     }
 
-    const phoneRegex = /^[0-9\s\-\+\(\)]+$/;
+    const phoneRegex = /^[0-9\s\-+()]+$/;
     if (!phoneRegex.test(phone) || phone.replace(/\D/g, '').length < 10) {
       setValidationError('Invalid phone number');
       return false;
@@ -43,16 +54,16 @@ const ContactForm = ({
     return true;
   };
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev: ContactFormData) => ({
       ...prev,
       [name]: value
     }));
     if (validationError) setValidationError('');
   };
 
-  const handlePlatformClick = (platform) => {
+  const handlePlatformClick = (platform: 'messenger' | 'telegram' | 'instagram'): void => {
     if (!validateContactForm() || isSubmittingForm) return;
 
     setIsSubmittingForm(true);
@@ -78,7 +89,7 @@ ${formData.message ? `Message: ${formData.message}` : ''}
     }
 
     window.open(url, '_blank');
-    
+
     setTimeout(() => {
       setIsSubmittingForm(false);
       setFormData({
@@ -89,6 +100,19 @@ ${formData.message ? `Message: ${formData.message}` : ''}
         message: ''
       });
     }, 1000);
+  };
+
+  const handleBackdropClick = (e: MouseEvent<HTMLDivElement>): void => {
+    if (e.target === e.currentTarget) {
+      onClose?.();
+    }
+  };
+
+  const handleKeyPress = (e: KeyboardEvent<HTMLButtonElement>, platform: 'messenger' | 'telegram' | 'instagram'): void => {
+    if ((e.key === 'Enter' || e.key === ' ') && !isSubmittingForm) {
+      e.preventDefault();
+      e.currentTarget.click();
+    }
   };
 
   return (
@@ -106,7 +130,7 @@ ${formData.message ? `Message: ${formData.message}` : ''}
         zIndex: 10000,
         padding: isMobile ? '1rem' : '0'
       }}
-      onClick={(e) => e.target === e.currentTarget && onClose?.()}
+      onClick={handleBackdropClick}
     >
       <div
         style={{
@@ -152,6 +176,7 @@ ${formData.message ? `Message: ${formData.message}` : ''}
               alignItems: 'center',
               justifyContent: 'center'
             }}
+            aria-label="Close form"
           >
             ✕
           </button>
@@ -333,12 +358,7 @@ ${formData.message ? `Message: ${formData.message}` : ''}
               tabIndex={isSubmittingForm ? -1 : 0}
               aria-label="Send order via Messenger"
               aria-busy={isSubmittingForm}
-              onKeyPress={(e) => {
-                if ((e.key === 'Enter' || e.key === ' ') && !isSubmittingForm) {
-                  e.preventDefault();
-                  e.currentTarget.click();
-                }
-              }}
+              onKeyPress={(e: KeyboardEvent<HTMLButtonElement>) => handleKeyPress(e, 'messenger')}
               style={{
                 background: 'linear-gradient(135deg, #0084ff 0%, #0052cc 100%)',
                 color: 'white',
@@ -351,12 +371,12 @@ ${formData.message ? `Message: ${formData.message}` : ''}
                 transition: 'all 0.3s ease',
                 opacity: isSubmittingForm ? 0.6 : 1
               }}
-              onMouseEnter={(e) => {
+              onMouseEnter={(e: MouseEvent<HTMLButtonElement>) => {
                 if (!isMobile && !isSubmittingForm) {
                   e.currentTarget.style.boxShadow = '0 0 15px rgba(0, 132, 255, 0.5)';
                 }
               }}
-              onMouseLeave={(e) => {
+              onMouseLeave={(e: MouseEvent<HTMLButtonElement>) => {
                 e.currentTarget.style.boxShadow = 'none';
               }}
             >
@@ -371,12 +391,7 @@ ${formData.message ? `Message: ${formData.message}` : ''}
               tabIndex={isSubmittingForm ? -1 : 0}
               aria-label="Send order via Telegram"
               aria-busy={isSubmittingForm}
-              onKeyPress={(e) => {
-                if ((e.key === 'Enter' || e.key === ' ') && !isSubmittingForm) {
-                  e.preventDefault();
-                  e.currentTarget.click();
-                }
-              }}
+              onKeyPress={(e: KeyboardEvent<HTMLButtonElement>) => handleKeyPress(e, 'telegram')}
               style={{
                 background: 'linear-gradient(135deg, #0088cc 0%, #0055aa 100%)',
                 color: 'white',
@@ -389,12 +404,12 @@ ${formData.message ? `Message: ${formData.message}` : ''}
                 transition: 'all 0.3s ease',
                 opacity: isSubmittingForm ? 0.6 : 1
               }}
-              onMouseEnter={(e) => {
+              onMouseEnter={(e: MouseEvent<HTMLButtonElement>) => {
                 if (!isMobile && !isSubmittingForm) {
                   e.currentTarget.style.boxShadow = '0 0 15px rgba(0, 136, 204, 0.5)';
                 }
               }}
-              onMouseLeave={(e) => {
+              onMouseLeave={(e: MouseEvent<HTMLButtonElement>) => {
                 e.currentTarget.style.boxShadow = 'none';
               }}
             >
@@ -409,12 +424,7 @@ ${formData.message ? `Message: ${formData.message}` : ''}
               tabIndex={isSubmittingForm ? -1 : 0}
               aria-label="Send order via Instagram"
               aria-busy={isSubmittingForm}
-              onKeyPress={(e) => {
-                if ((e.key === 'Enter' || e.key === ' ') && !isSubmittingForm) {
-                  e.preventDefault();
-                  e.currentTarget.click();
-                }
-              }}
+              onKeyPress={(e: KeyboardEvent<HTMLButtonElement>) => handleKeyPress(e, 'instagram')}
               style={{
                 background: 'linear-gradient(135deg, #E1306C 0%, #C13584 100%)',
                 color: 'white',
@@ -427,12 +437,12 @@ ${formData.message ? `Message: ${formData.message}` : ''}
                 transition: 'all 0.3s ease',
                 opacity: isSubmittingForm ? 0.6 : 1
               }}
-              onMouseEnter={(e) => {
+              onMouseEnter={(e: MouseEvent<HTMLButtonElement>) => {
                 if (!isMobile && !isSubmittingForm) {
                   e.currentTarget.style.boxShadow = '0 0 15px rgba(225, 48, 108, 0.5)';
                 }
               }}
-              onMouseLeave={(e) => {
+              onMouseLeave={(e: MouseEvent<HTMLButtonElement>) => {
                 e.currentTarget.style.boxShadow = 'none';
               }}
             >

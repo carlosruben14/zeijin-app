@@ -1,0 +1,174 @@
+/* Reusable Component Styles */
+
+/* Buttons */
+.buttonBase {
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  padding: 0.8rem 1.2rem;
+  font-size: 1rem;
+}
+
+.buttonPrimary {
+  composes: buttonBase;
+  background: #ff3333;
+  color: white;
+}
+
+.buttonPrimary:hover {
+  background: #ff5555;
+  box-shadow: 0 0 15px rgba(255, 51, 51, 0.5);
+}
+
+.buttonSecondary {
+  composes: buttonBase;
+  background: rgba(100, 150, 200, 0.3);
+  border: 2px solid #6496c8;
+  color: #6496c8;
+}
+
+.buttonSecondary:hover {
+  background: rgba(100, 150, 200, 0.5);
+  box-shadow: 0 0 15px rgba(100, 150, 200, 0.4);
+}
+
+.buttonDanger {
+  composes: buttonBase;
+  background: linear-gradient(135deg, rgba(255, 51, 51, 0.4), rgba(255, 100, 100, 0.3));
+  border: 2px solid #ff3333;
+  color: #ff6666;
+}
+
+.buttonDanger:hover {
+  background: linear-gradient(135deg, rgba(255, 51, 51, 0.6), rgba(255, 100, 100, 0.5));
+  box-shadow: 0 0 15px rgba(255, 51, 51, 0.5);
+}
+
+.buttonSmall {
+  padding: 0.5rem 0.8rem;
+  font-size: 0.85rem;
+}
+
+.buttonWide {
+  width: 100%;
+}
+
+/* Input Fields */
+.input {
+  padding: 0.8rem;
+  border-radius: 6px;
+  border: 1px solid rgba(0, 255, 136, 0.3);
+  background: rgba(0, 255, 136, 0.05);
+  color: #fff;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: all 0.2s ease;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #00ff88;
+  background: rgba(0, 255, 136, 0.1);
+}
+
+.inputError {
+  border-color: #ff3333;
+  background: rgba(255, 51, 51, 0.05);
+}
+
+/* Form Groups */
+.formGroup {
+  margin-bottom: 1.5rem;
+}
+
+.formLabel {
+  display: block;
+  color: #a0a0a0;
+  font-size: 0.9rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.formError {
+  color: #ff6666;
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+}
+
+/* Badges */
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+.badgeSuccess {
+  background: rgba(0, 255, 136, 0.2);
+  color: #00ff88;
+}
+
+.badgeError {
+  background: rgba(255, 51, 51, 0.2);
+  color: #ff3333;
+}
+
+.badgeWarning {
+  background: rgba(255, 165, 0, 0.2);
+  color: #ffa500;
+}
+
+/* Icons & Emojis */
+.icon {
+  margin-right: 0.5rem;
+}
+
+.iconLarge {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+/* Dividers */
+.divider {
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin: 1.5rem 0;
+}
+
+.dividerGreen {
+  border-top: 1px solid rgba(0, 255, 136, 0.3);
+}
+
+.dividerRed {
+  border-top: 1px solid rgba(255, 51, 51, 0.3);
+}
+
+/* Spinner/Loading */
+.spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(0, 255, 136, 0.2);
+  border-top-color: #00ff88;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Responsive Utilities */
+@media (max-width: 480px) {
+  .buttonBase {
+    width: 100%;
+    padding: 0.7rem 1rem;
+  }
+
+  .formGroup {
+    margin-bottom: 1rem;
+  }
+}

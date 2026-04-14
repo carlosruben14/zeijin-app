@@ -1,0 +1,26 @@
+[
+  {
+    "id": "1776133332273",
+    "name": "carlos",
+    "email": "ceapanganiban@gmail.com",
+    "category": "game_request",
+    "priority": "low",
+    "subject": "Game add",
+    "message": "add ka clash of clan",
+    "timestamp": "2026-04-14T02:22:12.273Z",
+    "status": "new",
+    "read": false
+  },
+  {
+    "id": "1776135667532",
+    "name": "carlos",
+    "email": "carlosrubengupit@gmail.com",
+    "category": "game_request",
+    "priority": "high",
+    "subject": "Game add",
+    "message": "add ka coc",
+    "timestamp": "2026-04-14T03:01:07.532Z",
+    "status": "new",
+    "read": false
+  }
+]
