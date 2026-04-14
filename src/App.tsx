@@ -42,8 +42,9 @@ const SkeletonLoader: FC<SkeletonLoaderProps> = ({
 );
 
 const eventsData = [
+  {
     id: 1,
-    title: "Mobile Legends: Bang Bang",
+    game: "Mobile Legends: Bang Bang",
     category: "moba",
     description: "MLBB Discounted Dias - Fight with your team!",
     image: "/images/games/mlbb.jpg",
