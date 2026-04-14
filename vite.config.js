@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api/ask-us': {
-        target: 'https://zeijin-app-production.up.railway.app',
+        target: 'http://localhost:3001',
         changeOrigin: true
       },
       '/api/heroes': {
