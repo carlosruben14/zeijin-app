@@ -2433,6 +2433,7 @@ export default function App(): ReactElement {
         game={selectedGame}
         onClose={() => setSelectedGame(null)}
         isMobile={isMobile}
+        onContactForm={(game) => setContactGame(game)}
       />
 
       {/* Ask Us Feature - Floating Button */}
