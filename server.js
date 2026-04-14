@@ -2,8 +2,7 @@ import express from 'express';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import nodemailer from 'nodemailer';
-import sgMail from '@sendgrid/mail';
+import { Resend } from 'resend';
 import dotenv from 'dotenv';
 
 // Load .env.local only in development (local dev)
@@ -20,18 +19,20 @@ const PORT = process.env.PORT || 3001;
 
 // Log environment variables for debugging
 console.log('\n🔧 Environment Configuration:');
-console.log(`SENDGRID_API_KEY: ${process.env.SENDGRID_API_KEY ? '✓ Configured' : '✗ Missing'}`);
+console.log(`RESEND_API_KEY: ${process.env.RESEND_API_KEY ? '✓ Configured' : '✗ Missing'}`);
 console.log(`SMTP_USER (From email): ${process.env.SMTP_USER}`);
 console.log(`ADMIN_EMAIL: ${process.env.ADMIN_EMAIL}`);
 console.log(`NODE_ENV: ${process.env.NODE_ENV}\n`);
 
-// Configure SendGrid
-const emailConfigured = process.env.SENDGRID_API_KEY && process.env.SMTP_USER;
+// Configure Resend
+const emailConfigured = process.env.RESEND_API_KEY && process.env.SMTP_USER;
+let resend = null;
+
 if (emailConfigured) {
-  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-  console.log('✅ SendGrid configured for HTTP API email');
+  resend = new Resend(process.env.RESEND_API_KEY);
+  console.log('✅ Resend configured for HTTP API email');
 } else {
-  console.log('⚠️  SendGrid API key or sender email not configured');
+  console.log('⚠️  Resend API key or sender email not configured');
 }
 
 // Middleware
@@ -139,16 +140,14 @@ app.post('/api/ask-us', async (req, res) => {
           </p>
         `;
 
-        const msg = {
+        await resend.emails.send({
+          from: `Zeijin Ask Us <onboarding@resend.dev>`,
           to: adminEmail,
-          from: fromEmail,
           replyTo: email,
           subject: `[${priority.toUpperCase()}] ${subject} - ${categoryLabel}`,
           html: emailContent
-        };
-
-        await sgMail.send(msg);
-        console.log(`✉️  Email sent via SendGrid to ${adminEmail}`);
+        });
+        console.log(`✉️  Email sent via Resend to ${adminEmail}`);
       } catch (emailError) {
         console.log(`⚠️  Failed to send email: ${emailError.message}`);
         // Don't fail the submission if email fails
