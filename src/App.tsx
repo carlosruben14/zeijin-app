@@ -41,8 +41,7 @@ const SkeletonLoader: FC<SkeletonLoaderProps> = ({
   </div>
 );
 
-const gamesData = [
-  {
+const eventsData = [
     id: 1,
     title: "Mobile Legends: Bang Bang",
     category: "moba",
@@ -303,7 +302,6 @@ const gamesData = [
       { amount: "$50 USD", price: 2450 },
       { amount: "$100 USD", price: 4900 }
     ]
-  }
 ];
 
 const eventsData = [
@@ -1101,7 +1099,7 @@ export default function App(): ReactElement {
         <div className="header-container">
           <div className="logo" onClick={() => { window.scrollTo(0, 0); window.location.reload(); }} style={{ cursor: "pointer", transition: "opacity 0.3s", display: "flex", alignItems: "center", gap: "0.8rem" }} onMouseEnter={(e) => { e.currentTarget.style.opacity = "0.8"; }} onMouseLeave={(e) => { e.currentTarget.style.opacity = "1"; }}>
             <img src="/images/zeijin-logo.jpg" alt="Zeijin" style={{ height: "50px", width: "auto" }} />
-            <span style={{ color: "#FF6B9D", fontWeight: "bold", fontSize: "1rem" }}>Zeijin Discounted Top Up Sale PH</span>
+            <span style={{ color: "#ff0000", fontWeight: "bold", fontSize: "1rem" }}>Zeijin Discounted Top Up Sale PH</span>
           </div>
           <nav>
             <a href="#" className={`nav-link ${activeSection === "games" ? "active" : ""}`} onClick={(e) => { e.preventDefault(); setActiveSection("games"); setTimeout(() => { const gamesSection = document.querySelector('.games-container'); if (gamesSection) gamesSection.scrollIntoView({ behavior: 'smooth' }); }, 0); }}>Games</a>
