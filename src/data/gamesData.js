@@ -357,6 +357,40 @@ export const gamesData = [
         ]
       }
     ]
+  },
+  {
+    id: 18,
+    title: "Valorant - Holo Meridian Collection",
+    category: "fps",
+    description: "Valorant Holo Meridian Event Skins & Cosmetics",
+    image: "/images/games/valorant.jpg",
+    note: "NOTE: Limited-time cosmetic collection! Includes exclusive weapon skins and finishers. Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
+    pricing: [
+      { amount: "175 VP (Standard)", price: 65 },
+      { amount: "375 VP (Select)", price: 140 },
+      { amount: "875 VP (Deluxe)", price: 325 },
+      { amount: "1,775 VP (Premium)", price: 660 },
+      { amount: "3,550 VP Bundle", price: 1320 }
+    ],
+    pricingSections: [
+      {
+        title: "🎨 Weapon Skins",
+        items: [
+          { amount: "Standard Skin (1x)", price: 65 },
+          { amount: "Select Skin (1x)", price: 140 },
+          { amount: "Deluxe Skin (1x)", price: 325 },
+          { amount: "Premium Skin (1x)", price: 660 }
+        ]
+      },
+      {
+        title: "✨ Event Bundles",
+        items: [
+          { amount: "2x Skins Bundle", price: 280 },
+          { amount: "3x Skins Bundle", price: 420 },
+          { amount: "Full Collection (5x)", price: 1320 }
+        ]
+      }
+    ]
   }
 ];
 
