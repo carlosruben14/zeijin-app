@@ -254,19 +254,6 @@ const EventCarousel = ({ events, getEventStatus }) => {
               }}
             />
             
-            {/* Gradient overlay */}
-            <div
-              style={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                background: "linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.8))",
-                zIndex: 1
-              }}
-            />
-            
             {/* Badge and Wiki Button */}
             <div style={{ position: "relative", zIndex: 2, padding: "1.5rem", width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
               <span
