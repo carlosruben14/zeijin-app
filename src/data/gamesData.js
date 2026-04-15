@@ -2,7 +2,7 @@
 export const gamesData = [
   {
     id: 1,
-    title: "Mobile Legends: Bang Bang",
+    title: "Mobile Legends: Bang Bang PH",
     category: "moba",
     description: "MLBB Discounted Diamonds - Popular Mobile MOBA",
     image: "/images/games/mlbb.jpg",

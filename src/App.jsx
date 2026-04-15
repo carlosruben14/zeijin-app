@@ -39,7 +39,7 @@ const eventsData = [
     startDate: "2026-04-07",
     endDate: "2026-04-30",
     badge: "Hot Event",
-    image: "/images/games/mlbb.jpg",
+    image: "/images/games/mlbbxnaruto.jpg",
     wikiUrl: "https://mobile-legends.fandom.com/wiki/Event"
   },
   {
