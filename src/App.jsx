@@ -1486,11 +1486,9 @@ export default function App() {
             padding: "8px"
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.transform = "scale(1.15)";
             e.currentTarget.style.boxShadow = "0 6px 20px rgba(24, 119, 242, 0.8)";
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.transform = "scale(1)";
             e.currentTarget.style.boxShadow = "0 4px 15px rgba(24, 119, 242, 0.5)";
           }}
         >
@@ -1546,11 +1544,9 @@ export default function App() {
             cursor: "pointer"
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.transform = "scale(1.15)";
             e.currentTarget.style.boxShadow = "0 6px 20px rgba(224, 44, 112, 0.8)";
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.transform = "scale(1)";
             e.currentTarget.style.boxShadow = "0 4px 15px rgba(224, 44, 112, 0.5)";
           }}
         >
@@ -1577,11 +1573,9 @@ export default function App() {
             padding: "8px"
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.transform = "scale(1.15)";
             e.currentTarget.style.boxShadow = "0 6px 20px rgba(102, 126, 234, 0.8)";
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.transform = "scale(1)";
             e.currentTarget.style.boxShadow = "0 4px 15px rgba(102, 126, 234, 0.5)";
           }}
         >
