@@ -39,7 +39,7 @@ const eventsData = [
     startDate: "2026-04-07",
     endDate: "2026-04-30",
     badge: "Hot Event",
-    image: "https://scontent.fcrk2-3.fna.fbcdn.net/v/t39.30808-6/492477191_1119214773576815_6014578049500213380_n.jpg?stp=dst-jpg_p526x296_tt6&_nc_cat=107&ccb=1-7&_nc_sid=13d280&_nc_eui2=AeEaBfvYk4kVB-I4qlCvq2xIhe84nehSclOF7zid6FJyUy3JFZm-fKKBH1x9LJdE9viRluv0r3xQLhbAo4BpXWIe&_nc_ohc=1PPaSltSAusQ7kNvwGHJg9P&_nc_oc=AdoGkj3c0FCI6CXpcRvkSPNpqoLHg22C59z873BVvoEGNqf9rfBYAf8MJWDZhWXCjE0&_nc_zt=23&_nc_ht=scontent.fcrk2-3.fna&_nc_gid=PiGEVZEBcFjaGkimSVbYlA&_nc_ss=7a3a8&oh=00_Af3AlNRttxWfckW8xefW7jzSI389EL2sierX5GgBDyQwDA&oe=69DA58C2",
+    image: "/images/games/mlbb.jpg",
     wikiUrl: "https://mobile-legends.fandom.com/wiki/Event"
   },
   {
