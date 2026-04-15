@@ -240,7 +240,6 @@ nav a.active {
 }
 
 .game-card:hover {
-  transform: translateY(-8px) scale(1.02);
   border-color: #ff3333;
   box-shadow: 0 12px 40px rgba(255, 51, 51, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
@@ -305,7 +304,7 @@ nav a.active {
 }
 
 .game-card:hover .game-image img {
-  transform: scale(1.08);
+  transform: none;
 }
 
 .game-info {

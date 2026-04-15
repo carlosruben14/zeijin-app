@@ -996,11 +996,9 @@ export default function App() {
                       }}
                       onMouseEnter={(e) => {
                         e.currentTarget.style.background = "rgba(100, 200, 255, 0.3)";
-                        e.currentTarget.style.transform = "scale(1.05)";
                       }}
                       onMouseLeave={(e) => {
                         e.currentTarget.style.background = "rgba(100, 200, 255, 0.2)";
-                        e.currentTarget.style.transform = "scale(1)";
                       }}
                     >
                       🔍 {mlSuggestion.name}
@@ -1147,8 +1145,8 @@ export default function App() {
                                   fontWeight: "bold",
                                   transition: "all 0.3s"
                                 }}
-                                onMouseEnter={(e) => e.target.style.transform = "scale(1.05)"}
-                                onMouseLeave={(e) => e.target.style.transform = "scale(1)"}
+                                onMouseEnter={(e) => {}}
+                                onMouseLeave={(e) => {}}
                               >
                                 📖 View on Fandom Wiki
                               </a>
@@ -1375,8 +1373,8 @@ export default function App() {
                   transition: "all 0.3s",
                   opacity: mlCheckLoading ? 0.7 : 1
                 }}
-                onMouseEnter={(e) => !mlCheckLoading && (e.currentTarget.style.transform = "scale(1.02)")}
-                onMouseLeave={(e) => !mlCheckLoading && (e.currentTarget.style.transform = "scale(1)")}
+                onMouseEnter={(e) => {}}
+                onMouseLeave={(e) => {}}
               >
                 {mlCheckLoading ? "Searching..." : "🔍 Search"}
               </button>
@@ -1412,11 +1410,9 @@ export default function App() {
             cursor: "pointer"
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.transform = "scale(1.05)";
             e.currentTarget.style.boxShadow = "0 6px 20px rgba(255, 51, 51, 0.6)";
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.transform = "scale(1)";
             e.currentTarget.style.boxShadow = "0 4px 15px rgba(255, 51, 51, 0.4)";
           }}
         >
