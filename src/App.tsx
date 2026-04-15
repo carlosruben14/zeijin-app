@@ -8,6 +8,7 @@ import { Z_INDEX } from "./constants/zIndex";
 import { gamesData } from "./data/gamesData";
 import type { Game } from "./types";
 import { calculateSimilarity, findClosestMatch, getEventStatus, calculateDaysLeft } from "./utils/searchUtils";
+import { Analytics } from "@vercel/analytics/react";
 
 // Skeleton Loader Component for image placeholders
 interface SkeletonLoaderProps {
@@ -2438,6 +2439,9 @@ export default function App(): ReactElement {
 
       {/* Ask Us Feature - Floating Button */}
       <AskUs />
+
+      {/* Vercel Web Analytics */}
+      <Analytics />
     </div>
   );
 }
