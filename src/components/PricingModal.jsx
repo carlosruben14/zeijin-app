@@ -32,6 +32,8 @@ const PricingModal = ({
 }) => {
   if (!game) return null;
   const [copiedAmount, setCopiedAmount] = useState(null);
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
 
   // DEBUG: Log what we're working with
   console.log('PricingModal game:', game);
@@ -43,10 +45,15 @@ const PricingModal = ({
       setCopiedAmount(priceId);
       navigator.clipboard.writeText(price.toString()).then(() => {
         Logger.info('Price copied successfully', { price });
+        setToastMessage(`₱${price} copied to clipboard!`);
+        setShowToast(true);
         setTimeout(() => setCopiedAmount(null), 2000);
+        setTimeout(() => setShowToast(false), 3000);
       }).catch(err => {
         Logger.error('Failed to copy price', err);
-        alert('Failed to copy price to clipboard');
+        setToastMessage('Failed to copy price');
+        setShowToast(true);
+        setTimeout(() => setShowToast(false), 3000);
       });
     } catch (error) {
       Logger.error('Copy price error', error);
@@ -76,6 +83,28 @@ const PricingModal = ({
       }}
       onClick={(e) => e.target === e.currentTarget && onClose?.()}
     >
+      {/* Toast Notification */}
+      {showToast && (
+        <div
+          style={{
+            position: "fixed",
+            top: "20px",
+            left: "50%",
+            transform: "translateX(-50%)",
+            background: "#00ff88",
+            color: "#1a1a1a",
+            padding: "0.8rem 1.5rem",
+            borderRadius: "6px",
+            fontWeight: "bold",
+            fontSize: "0.95rem",
+            zIndex: Z_INDEX.MODAL + 100,
+            boxShadow: "0 4px 12px rgba(0, 255, 136, 0.3)",
+            animation: "slideDown 0.3s ease-out"
+          }}
+        >
+          ✓ {toastMessage}
+        </div>
+      )}
       <div className={styles.modalBackdrop}>
         {/* Header */}
         <div className={styles.header}>
@@ -135,7 +164,10 @@ const PricingModal = ({
                           </div>
                         </div>
                         <button
-                          onClick={() => handleCopyPrice(pkg.amount, pkg.price)}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleCopyPrice(pkg.amount, pkg.price);
+                          }}
                           className={`${styles.copyButton} ${copiedAmount === pkg.amount ? styles.copied : ''}`}
                         >
                           {copiedAmount === pkg.amount ? "✓ Copied!" : "Copy"}
@@ -167,7 +199,10 @@ const PricingModal = ({
                       </div>
                     </div>
                     <button
-                      onClick={() => handleCopyPrice(pkg.amount, pkg.price)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleCopyPrice(pkg.amount, pkg.price);
+                      }}
                       className={`${styles.copyButton} ${copiedAmount === pkg.amount ? styles.copied : ''}`}
                     >
                       {copiedAmount === pkg.amount ? "✓ Copied!" : "Copy"}

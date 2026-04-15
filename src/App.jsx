@@ -2188,7 +2188,8 @@ export default function App() {
               </div>
               <div style={{ display: "flex", gap: "0.5rem" }}>
                 <button 
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.stopPropagation();
                     setContactGame(null);
                     setIgnValidatorData({ ign: "", orderedAmount: "", paymentMethod: "GCash", otherConcern: "" });
                     setFormValidationErrors({});
