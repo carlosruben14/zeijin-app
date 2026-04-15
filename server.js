@@ -19,6 +19,7 @@ const PORT = process.env.PORT || 3001;
 
 // Log environment variables for debugging
 console.log('\n🔧 Environment Configuration:');
+console.log(`PORT: ${PORT}`);
 console.log(`RESEND_API_KEY: ${process.env.RESEND_API_KEY ? '✓ Configured' : '✗ Missing'}`);
 console.log(`SMTP_USER (From email): ${process.env.SMTP_USER}`);
 console.log(`ADMIN_EMAIL: ${process.env.ADMIN_EMAIL}`);
@@ -245,7 +246,21 @@ app.get('*', (req, res) => {
 });
 
 // Start server
-app.listen(PORT, () => {
-  console.log(`\n✅ Ask Us Backend Server running on http://localhost:${PORT}`);
+const server = app.listen(PORT, '0.0.0.0', () => {
+  console.log(`\n✅ Ask Us Backend Server running on port ${PORT}`);
   console.log(`📝 Submissions stored in: ${submissionsFile}\n`);
+});
+
+// Handle server errors
+server.on('error', (err) => {
+  if (err.code === 'EADDRINUSE') {
+    console.error(`❌ Port ${PORT} is already in use`);
+  } else {
+    console.error('❌ Server error:', err);
+  }
+  process.exit(1);
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('❌ Unhandled Rejection at:', promise, 'reason:', reason);
 });
