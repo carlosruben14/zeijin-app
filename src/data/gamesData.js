@@ -318,9 +318,6 @@ export const gamesData = [
     image: "/images/games/bloodstrike.webp",
     note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
     pricing: [
-      { amount: "Level Up Pass", price: 95 },
-      { amount: "Strike Elite Pass", price: 190 },
-      { amount: "Strike Premium Pass", price: 425 },
       { amount: "105 Gold", price: 47 },
       { amount: "210 Gold", price: 91 },
       { amount: "320 Gold", price: 137 },
