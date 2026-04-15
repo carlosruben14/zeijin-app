@@ -76,6 +76,17 @@ export const eventsData = [
     badge: "Ending Soon",
     image: "/images/games/valorant-blackthorn.jpg",
     wikiUrl: "https://valorant.fandom.com/wiki/Featured_Bundle"
+  },
+  {
+    id: 8,
+    game: "Valorant",
+    title: "Holo Meridian Collection",
+    description: "Exclusive holographic-themed weapon skins with futuristic neon design. Limited edition cosmetics featuring stunning visual effects!",
+    startDate: "2026-04-16",
+    endDate: "2026-04-30",
+    badge: "Hot Event",
+    image: "/images/games/valorant.jpg",
+    wikiUrl: "https://valorant.fandom.com/wiki/Featured_Bundle"
   }
 ];
 
