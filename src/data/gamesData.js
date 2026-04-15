@@ -164,14 +164,14 @@ export const gamesData = [
     image: "/images/games/hok.jpg",
     note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
     pricing: [
-      { amount: "80 Credits", price: 58 },
-      { amount: "240 Credits", price: 174 },
-      { amount: "400 Credits", price: 285 },
-      { amount: "830 Credits", price: 570 },
-      { amount: "1,245 Credits", price: 830 },
-      { amount: "2,508 Credits", price: 1635 },
-      { amount: "4,180 Credits", price: 2710 },
-      { amount: "8,360 Credits", price: 5680 }
+      { amount: "80 Tokens", price: 58 },
+      { amount: "240 Tokens", price: 174 },
+      { amount: "400 Tokens", price: 285 },
+      { amount: "830 Tokens", price: 570 },
+      { amount: "1,245 Tokens", price: 830 },
+      { amount: "2,508 Tokens", price: 1635 },
+      { amount: "4,180 Tokens", price: 2705 },
+      { amount: "8,360 Tokens", price: 5665 }
     ]
   },
   {
@@ -187,7 +187,8 @@ export const gamesData = [
       { amount: "980 Crystals", price: 920 },
       { amount: "1,980 Crystals", price: 1880 },
       { amount: "3,280 Crystals", price: 3200 },
-      { amount: "6,480 Crystals", price: 6300 }
+      { amount: "6,480 Crystals", price: 6300 },
+      { amount: "Blessings of the Welkin Moon", price: 250 }
     ]
   },
   {
@@ -320,25 +321,25 @@ export const gamesData = [
       { amount: "Level Up Pass", price: 95 },
       { amount: "Strike Elite Pass", price: 190 },
       { amount: "Strike Premium Pass", price: 425 },
-      { amount: "105", price: 47 },
-      { amount: "210", price: 91 },
-      { amount: "320", price: 137 },
-      { amount: "420", price: 182 },
-      { amount: "540", price: 228 },
-      { amount: "640", price: 273 },
-      { amount: "750", price: 320 },
-      { amount: "860", price: 365 },
-      { amount: "965", price: 410 },
-      { amount: "1,100", price: 455 },
-      { amount: "2,260", price: 910 },
-      { amount: "3,360", price: 1365 },
-      { amount: "4,520", price: 1820 },
-      { amount: "5,800", price: 2280 },
-      { amount: "6,900", price: 2730 },
-      { amount: "8,060", price: 3180 },
-      { amount: "9,160", price: 3630 },
-      { amount: "10,320", price: 4080 },
-      { amount: "11,600", price: 4550 }
+      { amount: "105 Gold", price: 47 },
+      { amount: "210 Gold", price: 91 },
+      { amount: "320 Gold", price: 137 },
+      { amount: "420 Gold", price: 182 },
+      { amount: "540 Gold", price: 228 },
+      { amount: "640 Gold", price: 273 },
+      { amount: "750 Gold", price: 320 },
+      { amount: "860 Gold", price: 365 },
+      { amount: "965 Gold", price: 410 },
+      { amount: "1,100 Gold", price: 455 },
+      { amount: "2,260 Gold", price: 910 },
+      { amount: "3,360 Gold", price: 1365 },
+      { amount: "4,520 Gold", price: 1820 },
+      { amount: "5,800 Gold", price: 2280 },
+      { amount: "6,900 Gold", price: 2730 },
+      { amount: "8,060 Gold", price: 3180 },
+      { amount: "9,160 Gold", price: 3630 },
+      { amount: "10,320 Gold", price: 4080 },
+      { amount: "11,600 Gold", price: 4550 }
     ]
   },
   {

@@ -532,6 +532,64 @@ export default function App() {
     return () => clearTimeout(timer);
   }, []);
 
+  // Auto-refresh open tabs when a new deployment is live
+  useEffect(() => {
+    if (import.meta.env.DEV) return;
+
+    const currentScript = document.querySelector('script[type="module"][src*="/assets/index-"]');
+    const currentBundleSrc = currentScript?.getAttribute('src');
+    if (!currentBundleSrc) return;
+
+    let isChecking = false;
+
+    const getLatestBundleSrc = async () => {
+      const response = await fetch(`/index.html?ts=${Date.now()}`, {
+        cache: 'no-store',
+        headers: {
+          'Cache-Control': 'no-cache'
+        }
+      });
+
+      if (!response.ok) return null;
+
+      const html = await response.text();
+      const bundleMatch = html.match(/<script[^>]+type="module"[^>]+src="([^"]*\/assets\/index-[^"]+\.js)"/i);
+      return bundleMatch?.[1] || null;
+    };
+
+    const checkForNewDeployment = async () => {
+      if (isChecking || document.visibilityState === 'hidden') return;
+      isChecking = true;
+
+      try {
+        const latestBundleSrc = await getLatestBundleSrc();
+        if (latestBundleSrc && latestBundleSrc !== currentBundleSrc) {
+          window.location.reload();
+        }
+      } catch (error) {
+        Logger.warn('Auto-update check failed', { error: String(error) });
+      } finally {
+        isChecking = false;
+      }
+    };
+
+    const intervalId = setInterval(checkForNewDeployment, 60 * 1000);
+    const onVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        checkForNewDeployment();
+      }
+    };
+
+    window.addEventListener('focus', checkForNewDeployment);
+    document.addEventListener('visibilitychange', onVisibilityChange);
+
+    return () => {
+      clearInterval(intervalId);
+      window.removeEventListener('focus', checkForNewDeployment);
+      document.removeEventListener('visibilitychange', onVisibilityChange);
+    };
+  }, []);
+
   const getSearchTypeOptions = () => {
     switch(wikiSelectedGame) {
       case "mlbb":
@@ -880,9 +938,6 @@ export default function App() {
             <div style={{ background: "rgba(255, 51, 51, 0.1)", border: "1px solid rgba(255, 51, 51, 0.3)", padding: isMobile ? "1rem" : "1.5rem", borderRadius: "8px", marginBottom: isMobile ? "1rem" : "1.5rem", color: "#FFB3B3" }}>
               <p style={{ marginBottom: "0.7rem", fontSize: isMobile ? "0.78rem" : "0.9rem" }}>
                 <strong>💰 Actual Transaction:</strong> All payments and transactions happen through <strong>Messenger, Telegram, or Instagram DM</strong> - NOT on this website.
-              </p>
-              <p style={{ marginBottom: "0", fontSize: isMobile ? "0.78rem" : "0.9rem" }}>
-                <strong>✓ How it works:</strong> Browse prices → Ask Details on social media → Complete transaction there
               </p>
             </div>
             <button 
