@@ -32,8 +32,7 @@ const PricingModal = ({
 }) => {
   if (!game) return null;
   const [copiedAmount, setCopiedAmount] = useState(null);
-  const [showToast, setShowToast] = useState(false);
-  const [toastMessage, setToastMessage] = useState('');
+  const [showPostCopyNotification, setShowPostCopyNotification] = useState(false);
 
   // DEBUG: Log what we're working with
   console.log('PricingModal game:', game);
@@ -43,17 +42,16 @@ const PricingModal = ({
   const handleCopyPrice = (priceId, price) => {
     try {
       setCopiedAmount(priceId);
+
       navigator.clipboard.writeText(price.toString()).then(() => {
         Logger.info('Price copied successfully', { price });
-        setToastMessage(`₱${price} copied to clipboard!`);
-        setShowToast(true);
-        setTimeout(() => setCopiedAmount(null), 2000);
-        setTimeout(() => setShowToast(false), 3000);
+        setTimeout(() => {
+          setCopiedAmount(null);
+          setShowPostCopyNotification(true);
+        }, 500);
       }).catch(err => {
         Logger.error('Failed to copy price', err);
-        setToastMessage('Failed to copy price');
-        setShowToast(true);
-        setTimeout(() => setShowToast(false), 3000);
+        alert('Failed to copy price to clipboard');
       });
     } catch (error) {
       Logger.error('Copy price error', error);
@@ -64,6 +62,7 @@ const PricingModal = ({
     if (onContactForm) {
       onContactForm(game);
     }
+    onClose?.();
   };
 
   return (
@@ -83,28 +82,6 @@ const PricingModal = ({
       }}
       onClick={(e) => e.target === e.currentTarget && onClose?.()}
     >
-      {/* Toast Notification */}
-      {showToast && (
-        <div
-          style={{
-            position: "fixed",
-            top: "20px",
-            left: "50%",
-            transform: "translateX(-50%)",
-            background: "#00ff88",
-            color: "#1a1a1a",
-            padding: "0.8rem 1.5rem",
-            borderRadius: "6px",
-            fontWeight: "bold",
-            fontSize: "0.95rem",
-            zIndex: Z_INDEX.MODAL + 100,
-            boxShadow: "0 4px 12px rgba(0, 255, 136, 0.3)",
-            animation: "slideDown 0.3s ease-out"
-          }}
-        >
-          ✓ {toastMessage}
-        </div>
-      )}
       <div className={styles.modalBackdrop}>
         {/* Header */}
         <div className={styles.header}>
@@ -164,10 +141,7 @@ const PricingModal = ({
                           </div>
                         </div>
                         <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleCopyPrice(pkg.amount, pkg.price);
-                          }}
+                          onClick={() => handleCopyPrice(pkg.amount, pkg.price)}
                           className={`${styles.copyButton} ${copiedAmount === pkg.amount ? styles.copied : ''}`}
                         >
                           {copiedAmount === pkg.amount ? "✓ Copied!" : "Copy"}
@@ -199,10 +173,7 @@ const PricingModal = ({
                       </div>
                     </div>
                     <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleCopyPrice(pkg.amount, pkg.price);
-                      }}
+                      onClick={() => handleCopyPrice(pkg.amount, pkg.price)}
                       className={`${styles.copyButton} ${copiedAmount === pkg.amount ? styles.copied : ''}`}
                     >
                       {copiedAmount === pkg.amount ? "✓ Copied!" : "Copy"}
@@ -237,6 +208,92 @@ const PricingModal = ({
           )}
         </div>
       </div>
+
+      {showPostCopyNotification && (
+        <div
+          style={{
+            position: 'fixed',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)',
+            border: '2px solid #00ff88',
+            borderRadius: '12px',
+            padding: isMobile ? '1.25rem' : '2rem',
+            maxWidth: '320px',
+            width: '90%',
+            textAlign: 'center',
+            zIndex: Z_INDEX.MODAL + 1,
+            boxShadow: '0 0 40px rgba(0, 255, 136, 0.3)',
+            animation: 'slideIn 0.3s ease-out'
+          }}
+        >
+          <style>{`\n            @keyframes slideIn {\n              from {\n                opacity: 0;\n                transform: translate(-50%, -60%);\n              }\n              to {\n                opacity: 1;\n                transform: translate(-50%, -50%);\n              }\n            }\n          `}</style>
+
+          <h3 style={{ color: '#00ff88', marginBottom: '1rem', fontSize: '1.3rem', marginTop: 0 }}>
+            ✓ Price Copied!
+          </h3>
+
+          <p style={{ color: '#d0d0d0', marginBottom: '1.5rem', fontSize: '0.95rem', lineHeight: 1.5 }}>
+            What would you like to do next?
+          </p>
+
+          <div style={{ display: 'flex', gap: '0.75rem', flexDirection: 'column' }}>
+            <button
+              onClick={() => {
+                setShowPostCopyNotification(false);
+                handleContinueToForm();
+              }}
+              style={{
+                background: 'linear-gradient(135deg, #ff3333, #ff5555)',
+                color: 'white',
+                border: 'none',
+                padding: '0.75rem',
+                borderRadius: '6px',
+                cursor: 'pointer',
+                fontSize: '0.9rem',
+                fontWeight: 'bold',
+                transition: 'all 0.2s ease'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'scale(1.05)';
+                e.currentTarget.style.boxShadow = '0 0 15px rgba(255, 51, 51, 0.5)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'scale(1)';
+                e.currentTarget.style.boxShadow = 'none';
+              }}
+            >
+              📋 Fill up Form
+            </button>
+
+            <button
+              onClick={() => {
+                setShowPostCopyNotification(false);
+              }}
+              style={{
+                background: 'rgba(0, 255, 136, 0.2)',
+                color: '#00ff88',
+                border: '1px solid rgba(0, 255, 136, 0.5)',
+                padding: '0.75rem',
+                borderRadius: '6px',
+                cursor: 'pointer',
+                fontSize: '0.9rem',
+                fontWeight: 'bold',
+                transition: 'all 0.2s ease'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = 'rgba(0, 255, 136, 0.3)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'rgba(0, 255, 136, 0.2)';
+              }}
+            >
+              🛍️ Continue Shopping
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
