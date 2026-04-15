@@ -884,8 +884,7 @@ export default function App() {
             <span>Zeijin Discounted Top Up Sale PH</span>
           </div>
           <nav>
-            <a href="#" className={`nav-link ${activeSection === "games" ? "active" : ""}`} onClick={(e) => { e.preventDefault(); setActiveSection("games"); setTimeout(() => { const gamesSection = document.querySelector('.games-container'); if (gamesSection) gamesSection.scrollIntoView({ behavior: 'smooth' }); }, 0); }}>Games</a>
-            <a href="#" style={{ marginLeft: "1.5rem", cursor: "pointer", color: "#FF6B9D", fontWeight: "bold", textDecoration: "none", fontSize: "0.95rem" }} onClick={(e) => { e.preventDefault(); setShowHowItWorks(true); }}>❓ How It Works</a>
+            <a href="#" style={{ marginLeft: "0", cursor: "pointer", color: "#FF6B9D", fontWeight: "bold", textDecoration: "none", fontSize: "0.95rem" }} onClick={(e) => { e.preventDefault(); setShowHowItWorks(true); }}>❓ How It Works</a>
             <a href="#" style={{ marginLeft: "1.5rem", cursor: "pointer", color: "#FF6B9D", fontWeight: "bold", textDecoration: "none", fontSize: "0.95rem" }} onClick={(e) => { e.preventDefault(); setShowMLIDChecker(true); }}>🔍 Game Fandom Wiki</a>
           </nav>
         </div>
@@ -1732,23 +1731,6 @@ export default function App() {
                                 textTransform: "uppercase"
                               }}>
                                 🔥 Popular
-                              </div>
-                            )}
-                            {discount && (
-                              <div style={{
-                                position: "absolute",
-                                top: "10px",
-                                right: "10px",
-                                background: "linear-gradient(135deg, #ff3333, #ff6b6b)",
-                                color: "white",
-                                padding: "0.4rem 0.8rem",
-                                borderRadius: "8px",
-                                fontWeight: "bold",
-                                fontSize: "0.85rem",
-                                boxShadow: "0 4px 12px rgba(255, 51, 51, 0.4)",
-                                zIndex: 10
-                              }}>
-                                Save {discount}!
                               </div>
                             )}
                           </>
