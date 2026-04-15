@@ -360,11 +360,9 @@ const EventCarousel = ({ events, getEventStatus }) => {
           }}
           onMouseEnter={(e) => {
             e.currentTarget.style.background = "rgba(255, 51, 51, 0.5)";
-            e.currentTarget.style.transform = "translateY(-50%) scale(1.1)";
           }}
           onMouseLeave={(e) => {
             e.currentTarget.style.background = "rgba(255, 51, 51, 0.3)";
-            e.currentTarget.style.transform = "translateY(-50%) scale(1)";
           }}
         >
           ◀
@@ -393,11 +391,9 @@ const EventCarousel = ({ events, getEventStatus }) => {
           }}
           onMouseEnter={(e) => {
             e.currentTarget.style.background = "rgba(255, 51, 51, 0.5)";
-            e.currentTarget.style.transform = "translateY(-50%) scale(1.1)";
           }}
           onMouseLeave={(e) => {
             e.currentTarget.style.background = "rgba(255, 51, 51, 0.3)";
-            e.currentTarget.style.transform = "translateY(-50%) scale(1)";
           }}
         >
           ▶
@@ -869,11 +865,9 @@ export default function App() {
                 width: "100%"
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.transform = "scale(1.05)";
                 e.currentTarget.style.boxShadow = "0 6px 20px rgba(255, 51, 51, 0.5)";
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.transform = "scale(1)";
                 e.currentTarget.style.boxShadow = "none";
               }}
             >
