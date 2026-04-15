@@ -837,11 +837,25 @@ export default function App() {
       {/* Welcome Notification Modal */}
       {showWelcomeNotif && (
         <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0, 0, 0, 0.6)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 99999, padding: "1rem" }}>
-          <div style={{ background: "linear-gradient(135deg, rgba(30, 30, 45, 1), rgba(50, 20, 20, 1))", padding: "2rem", borderRadius: "12px", border: "2px solid #ff3333", maxWidth: "500px", width: "100%", textAlign: "center", boxShadow: "0 0 60px rgba(255, 51, 51, 0.5)" }}>
+          <div style={{ background: "linear-gradient(135deg, rgba(30, 30, 45, 1), rgba(50, 20, 20, 1))", padding: "2rem", borderRadius: "12px", border: "2px solid #ff3333", maxWidth: "500px", width: "100%", textAlign: "center", boxShadow: "0 0 60px rgba(255, 51, 51, 0.5)", maxHeight: "90vh", overflowY: "auto" }}>
             <h2 style={{ color: "#ff3333", marginBottom: "1rem", fontSize: "1.8rem", fontWeight: "bold" }}>Welcome to Zeijin!</h2>
             <p style={{ color: "#d0d0d0", marginBottom: "1.5rem", lineHeight: "1.6", fontSize: "0.95rem" }}>
               👋 This website is for <strong>checking prices and game details</strong>. 
             </p>
+            
+            {/* 6 Steps */}
+            <div style={{ background: "rgba(255, 51, 51, 0.08)", padding: "1.5rem", borderRadius: "8px", marginBottom: "1.5rem", textAlign: "left" }}>
+              <p style={{ color: "#FF6B9D", fontWeight: "bold", marginBottom: "1rem", fontSize: "0.95rem" }}>📋 How It Works (6 Steps):</p>
+              <div style={{ display: "grid", gap: "0.8rem", fontSize: "0.85rem" }}>
+                <div style={{ color: "#e0e0e0", lineHeight: "1.4" }}><strong style={{ color: "#00ff88" }}>1. Browse Games</strong> 🎮 - Explore our 16+ popular games</div>
+                <div style={{ color: "#e0e0e0", lineHeight: "1.4" }}><strong style={{ color: "#00ff88" }}>2. View Pricing</strong> 💰 - See currency packages in PHP</div>
+                <div style={{ color: "#e0e0e0", lineHeight: "1.4" }}><strong style={{ color: "#00ff88" }}>3. Copy or Contact</strong> 📋 - Copy price or ask details</div>
+                <div style={{ color: "#e0e0e0", lineHeight: "1.4" }}><strong style={{ color: "#00ff88" }}>4. Fill Details</strong> ✍️ - Enter your account info</div>
+                <div style={{ color: "#e0e0e0", lineHeight: "1.4" }}><strong style={{ color: "#00ff88" }}>5. Submit</strong> 📤 - Send your order</div>
+                <div style={{ color: "#e0e0e0", lineHeight: "1.4" }}><strong style={{ color: "#00ff88" }}>6. We Process</strong> ⚡ - Get your currency!</div>
+              </div>
+            </div>
+            
             <div style={{ background: "rgba(255, 51, 51, 0.1)", border: "1px solid rgba(255, 51, 51, 0.3)", padding: "1.5rem", borderRadius: "8px", marginBottom: "1.5rem", color: "#FFB3B3" }}>
               <p style={{ marginBottom: "0.7rem", fontSize: "0.9rem" }}>
                 <strong>💰 Actual Transaction:</strong> All payments and transactions happen through <strong>Messenger, Telegram, or Instagram DM</strong> - NOT on this website.
@@ -2161,22 +2175,50 @@ export default function App() {
                 <h2 style={{ color: "#ff3333", marginBottom: "0.3rem", fontSize: "1.6rem" }}>📝 Order Details</h2>
                 <p style={{ color: "#a0a0a0", marginBottom: "0", fontSize: "0.85rem" }}>{contactGame.title}</p>
               </div>
-              <button 
-                onClick={() => {
-                  setContactGame(null);
-                  setActiveSection("games");
-                }} 
-                style={{ 
-                  background: "transparent", 
-                  border: "none", 
-                  color: "#ff3333", 
-                  fontSize: "1.5rem", 
-                  cursor: "pointer",
-                  padding: "0.5rem"
-                }}
-              >
-                ✕
-              </button>
+              <div style={{ display: "flex", gap: "0.5rem" }}>
+                <button 
+                  onClick={() => {
+                    setContactGame(null);
+                    setIgnValidatorData({ ign: "", orderedAmount: "", paymentMethod: "GCash", otherConcern: "" });
+                  }} 
+                  style={{ 
+                    background: "rgba(0, 132, 255, 0.2)", 
+                    border: "1px solid rgba(0, 132, 255, 0.5)", 
+                    color: "#0084ff", 
+                    fontSize: "0.75rem", 
+                    cursor: "pointer",
+                    padding: "0.5rem 1rem",
+                    borderRadius: "6px",
+                    fontWeight: "bold",
+                    transition: "all 0.3s"
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = "rgba(0, 132, 255, 0.3)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = "rgba(0, 132, 255, 0.2)";
+                  }}
+                >
+                  ← Back to Games
+                </button>
+                <button 
+                  onClick={() => {
+                    setContactGame(null);
+                    setIgnValidatorData({ ign: "", orderedAmount: "", paymentMethod: "GCash", otherConcern: "" });
+                  }} 
+                  style={{ 
+                    background: "transparent", 
+                    border: "none", 
+                    color: "#ff3333", 
+                    fontSize: "1.5rem", 
+                    cursor: "pointer",
+                    padding: "0.5rem",
+                    lineHeight: "1"
+                  }}
+                >
+                  ✕
+                </button>
+              </div>
             </div>
 
             {/* IGN Validator Form - Step 1 */}

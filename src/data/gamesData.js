@@ -357,47 +357,6 @@ export const gamesData = [
         ]
       }
     ]
-  },
-  {
-    id: 17,
-    title: "Where Winds Meet",
-    category: "rpg",
-    description: "Where Winds Meet Discounted Currency - Story RPG",
-    image: "/images/games/where-winds-meet.jpg",
-    note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
-    pricing: [
-      { amount: "60 Points", price: 59 },
-      { amount: "180 Points", price: 170 },
-      { amount: "300 Points", price: 285 },
-      { amount: "600 Points", price: 570 },
-      { amount: "900 Points", price: 855 },
-      { amount: "1,800 Points", price: 1700 },
-      { amount: "3,000 Points", price: 2840 },
-      { amount: "6,000 Points", price: 5670 }
-    ],
-    pricingSections: [
-      {
-        title: "⭐ Points",
-        items: [
-          { amount: "60 Points", price: 59 },
-          { amount: "180 Points", price: 170 },
-          { amount: "300 Points", price: 285 },
-          { amount: "600 Points", price: 570 },
-          { amount: "900 Points", price: 855 },
-          { amount: "1,800 Points", price: 1700 },
-          { amount: "3,000 Points", price: 2840 },
-          { amount: "6,000 Points", price: 5670 }
-        ]
-      },
-      {
-        title: "🎖️ Battle Passes",
-        items: [
-          { amount: "Monthly Pass", price: 325 },
-          { amount: "Elite Battle Pass", price: 635 },
-          { amount: "Premium Pass", price: 1270 }
-        ]
-      }
-    ]
   }
 ];
 
