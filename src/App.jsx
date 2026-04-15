@@ -2189,8 +2189,8 @@ export default function App() {
               <div style={{ display: "flex", gap: "0.5rem" }}>
                 <button 
                   onClick={() => {
-                    setSelectedGame(contactGame);
                     setContactGame(null);
+                    setSelectedGame(null);
                     setIgnValidatorData({ ign: "", orderedAmount: "", paymentMethod: "GCash", otherConcern: "" });
                     setFormValidationErrors({});
                   }} 
@@ -2212,12 +2212,12 @@ export default function App() {
                     e.currentTarget.style.background = "rgba(0, 132, 255, 0.2)";
                   }}
                 >
-                  ← Back to Prices
+                  ← Back to Games
                 </button>
                 <button 
                   onClick={() => {
-                    setSelectedGame(contactGame);
                     setContactGame(null);
+                    setSelectedGame(null);
                     setIgnValidatorData({ ign: "", orderedAmount: "", paymentMethod: "GCash", otherConcern: "" });
                     setFormValidationErrors({});
                   }} 
@@ -2478,8 +2478,8 @@ export default function App() {
 
             <button 
               onClick={() => {
-                setSelectedGame(contactGame);
                 setContactGame(null);
+                setSelectedGame(null);
                 setIgnValidatorData({ ign: "", orderedAmount: "", paymentMethod: "GCash", otherConcern: "" });
                 setFormValidationErrors({});
               }} 
