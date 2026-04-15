@@ -296,11 +296,9 @@ const EventCarousel = ({ events, getEventStatus }) => {
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.background = "rgba(255, 51, 51, 0.3)";
-                    e.currentTarget.style.transform = "scale(1.05)";
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.background = "rgba(255, 51, 51, 0.2)";
-                    e.currentTarget.style.transform = "scale(1)";
                   }}
                 >
                   📖 Event Details

@@ -129,15 +129,13 @@ const HowItWorksModal = ({ isOpen, onClose }) => {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              transition: "all 0.3s"
+              transition: "background 0.3s"
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.background = "rgba(255, 51, 51, 0.4)";
-              e.currentTarget.style.transform = "rotate(90deg)";
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.background = "rgba(255, 51, 51, 0.2)";
-              e.currentTarget.style.transform = "rotate(0deg)";
             }}
           >
             ✕
