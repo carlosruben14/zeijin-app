@@ -69,8 +69,11 @@ export const gamesData = [
       { amount: "1,000 WC", price: 420 },
       { amount: "1,425 WC", price: 644 },
       { amount: "1,850 WC", price: 754 },
-      { amount: "2,800 WC", price: 1200 },
-      { amount: "4,200 WC", price: 1800 }
+      { amount: "2,275 WC", price: 938 },
+      { amount: "2,850 WC", price: 1214 },
+      { amount: "3,275 WC", price: 1316 },
+      { amount: "6,550 WC", price: 2631 },
+      { amount: "9,825 WC", price: 3947 }
     ]
   },
   {
@@ -161,11 +164,12 @@ export const gamesData = [
     image: "/images/games/tft.jpg",
     note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
     pricing: [
-      { amount: "400 RP", price: 149 },
-      { amount: "1,110 RP", price: 399 },
-      { amount: "2,350 RP", price: 799 },
-      { amount: "4,850 RP", price: 1530 },
-      { amount: "9,200 RP", price: 2850 }
+      { amount: "575 RP", price: 186 },
+      { amount: "1,380 RP", price: 419 },
+      { amount: "2,800 RP", price: 837 },
+      { amount: "4,500 RP", price: 1302 },
+      { amount: "6,500 RP", price: 1860 },
+      { amount: "13,000 RP", price: 3720 }
     ]
   },
   {
@@ -176,11 +180,12 @@ export const gamesData = [
     image: "/images/games/lol-rp.jpg",
     note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
     pricing: [
-      { amount: "400 RP", price: 149 },
-      { amount: "1,110 RP", price: 399 },
-      { amount: "2,350 RP", price: 799 },
-      { amount: "4,850 RP", price: 1530 },
-      { amount: "9,200 RP", price: 2850 }
+      { amount: "575 RP", price: 186 },
+      { amount: "1,380 RP", price: 419 },
+      { amount: "2,800 RP", price: 837 },
+      { amount: "4,500 RP", price: 1302 },
+      { amount: "6,500 RP", price: 1860 },
+      { amount: "13,000 RP", price: 3720 }
     ]
   },
   {
@@ -191,10 +196,13 @@ export const gamesData = [
     image: "/images/games/magic-chess.webp",
     note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
     pricing: [
-      { amount: "72 Coins", price: 48 },
-      { amount: "360 Coins", price: 240 },
-      { amount: "720 Coins", price: 480 },
-      { amount: "1,080 Coins", price: 680 }
+      { amount: "5 Diamonds", price: 8 },
+      { amount: "19 Diamonds", price: 29 },
+      { amount: "28 Diamonds", price: 42 },
+      { amount: "49 Diamonds", price: 72 },
+      { amount: "59 Diamonds", price: 87 },
+      { amount: "99 Diamonds", price: 143 },
+      { amount: "159 Diamonds", price: 228 }
     ]
   },
   {
@@ -205,10 +213,12 @@ export const gamesData = [
     image: "/images/games/pubg.jpg",
     note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
     pricing: [
-      { amount: "60 UC", price: 48 },
-      { amount: "325 UC", price: 250 },
-      { amount: "660 UC", price: 500 },
-      { amount: "1,800 UC", price: 1400 }
+      { amount: "60 UC", price: 57 },
+      { amount: "325 UC", price: 279 },
+      { amount: "660 UC", price: 557 },
+      { amount: "1,800 UC", price: 1380 },
+      { amount: "3,850 UC", price: 2780 },
+      { amount: "8,100 UC", price: 5549 }
     ]
   },
   {
@@ -224,19 +234,7 @@ export const gamesData = [
       { amount: "12,800 GP", price: 1000 }
     ]
   },
-  {
-    id: 12,
-    title: "Duke Nukem Mobile",
-    category: "action",
-    description: "Duke Nukem Discounted Gems - Action Game",
-    image: "/images/games/duke-nukem.jpg",
-    note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
-    pricing: [
-      { amount: "100 Gems", price: 99 },
-      { amount: "500 Gems", price: 450 },
-      { amount: "1,200 Gems", price: 999 }
-    ]
-  },
+
   {
     id: 13,
     title: "Steam Wallet",
