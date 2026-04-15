@@ -2190,7 +2190,6 @@ export default function App() {
                 <button 
                   onClick={() => {
                     setContactGame(null);
-                    setSelectedGame(null);
                     setIgnValidatorData({ ign: "", orderedAmount: "", paymentMethod: "GCash", otherConcern: "" });
                     setFormValidationErrors({});
                   }} 
@@ -2212,12 +2211,11 @@ export default function App() {
                     e.currentTarget.style.background = "rgba(0, 132, 255, 0.2)";
                   }}
                 >
-                  ← Back to Games
+                  ← Back to Prices
                 </button>
                 <button 
                   onClick={() => {
                     setContactGame(null);
-                    setSelectedGame(null);
                     setIgnValidatorData({ ign: "", orderedAmount: "", paymentMethod: "GCash", otherConcern: "" });
                     setFormValidationErrors({});
                   }} 
@@ -2479,7 +2477,6 @@ export default function App() {
             <button 
               onClick={() => {
                 setContactGame(null);
-                setSelectedGame(null);
                 setIgnValidatorData({ ign: "", orderedAmount: "", paymentMethod: "GCash", otherConcern: "" });
                 setFormValidationErrors({});
               }} 
