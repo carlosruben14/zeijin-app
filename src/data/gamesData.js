@@ -56,7 +56,7 @@ export const gamesData = [
   {
     id: 2,
     title: "Valorant Points",
-    category: "shooter",
+    category: "fps",
     description: "Valorant Discounted VP - FPS Competitive",
     image: "/images/games/valorant.jpg",
     note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
@@ -93,7 +93,7 @@ export const gamesData = [
   {
     id: 4,
     title: "Call of Duty Mobile",
-    category: "shooter",
+    category: "fps",
     description: "COD Mobile Discounted CP - FPS Action",
     image: "/images/games/codm.jpg",
     note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
@@ -229,7 +229,7 @@ export const gamesData = [
   {
     id: 10,
     title: "PUBG Mobile",
-    category: "shooter",
+    category: "fps",
     description: "PUBG Mobile Discounted UC - Battle Royale",
     image: "/images/games/pubg.jpg",
     note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
@@ -245,7 +245,7 @@ export const gamesData = [
   {
     id: 11,
     title: "CrossFire",
-    category: "shooter",
+    category: "fps",
     description: "CrossFire Discounted GP - Classic FPS",
     image: "/images/games/crossfire.webp",
     note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
@@ -278,7 +278,7 @@ export const gamesData = [
   {
     id: 14,
     title: "Bloodstrike",
-    category: "shooter",
+    category: "fps",
     description: "Bloodstrike Discounted Credits - Tactical Shooter",
     image: "/images/games/bloodstrike.webp",
     note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
@@ -291,7 +291,7 @@ export const gamesData = [
   {
     id: 15,
     title: "Marvel Rivals",
-    category: "shooter",
+    category: "fps",
     description: "Marvel Rivals Discounted Game Credits - Superhero Shooter",
     image: "/images/games/marvel-rivals.jpg",
     note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
