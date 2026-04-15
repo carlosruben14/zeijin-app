@@ -847,31 +847,31 @@ export default function App() {
     <div>
       {/* Welcome Notification Modal */}
       {showWelcomeNotif && (
-        <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0, 0, 0, 0.6)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 99999, padding: "1rem" }}>
-          <div style={{ background: "linear-gradient(135deg, rgba(30, 30, 45, 1), rgba(50, 20, 20, 1))", padding: "2rem", borderRadius: "12px", border: "2px solid #ff3333", maxWidth: "500px", width: "100%", textAlign: "center", boxShadow: "0 0 60px rgba(255, 51, 51, 0.5)", maxHeight: "90vh", overflowY: "auto" }}>
-            <h2 style={{ color: "#ff3333", marginBottom: "1rem", fontSize: "1.8rem", fontWeight: "bold" }}>Welcome to Zeijin!</h2>
-            <p style={{ color: "#d0d0d0", marginBottom: "1.5rem", lineHeight: "1.6", fontSize: "0.95rem" }}>
+        <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0, 0, 0, 0.6)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 99999, padding: isMobile ? "0.75rem" : "1rem" }}>
+          <div style={{ background: "linear-gradient(135deg, rgba(30, 30, 45, 1), rgba(50, 20, 20, 1))", padding: isMobile ? "1rem 0.75rem" : "2rem", borderRadius: "12px", border: "2px solid #ff3333", maxWidth: "500px", width: "100%", textAlign: "center", boxShadow: "0 0 60px rgba(255, 51, 51, 0.5)", maxHeight: isMobile ? "70vh" : "90vh", overflowY: "auto" }}>
+            <h2 style={{ color: "#ff3333", marginBottom: isMobile ? "0.75rem" : "1rem", fontSize: isMobile ? "1.4rem" : "1.8rem", fontWeight: "bold" }}>Welcome to Zeijin!</h2>
+            <p style={{ color: "#d0d0d0", marginBottom: isMobile ? "1rem" : "1.5rem", lineHeight: "1.6", fontSize: isMobile ? "0.8rem" : "0.95rem" }}>
               👋 This website is for <strong>checking prices and game details</strong>. 
             </p>
             
             {/* 6 Steps */}
-            <div style={{ background: "rgba(255, 51, 51, 0.08)", padding: "1.5rem", borderRadius: "8px", marginBottom: "1.5rem", textAlign: "left" }}>
-              <p style={{ color: "#FF6B9D", fontWeight: "bold", marginBottom: "1rem", fontSize: "0.95rem" }}>📋 How It Works (6 Steps):</p>
-              <div style={{ display: "grid", gap: "0.8rem", fontSize: "0.85rem" }}>
-                <div style={{ color: "#e0e0e0", lineHeight: "1.4" }}><strong style={{ color: "#00ff88" }}>1. Browse Games</strong> 🎮 - Explore our 16+ popular games</div>
-                <div style={{ color: "#e0e0e0", lineHeight: "1.4" }}><strong style={{ color: "#00ff88" }}>2. View Pricing</strong> 💰 - See currency packages in PHP</div>
-                <div style={{ color: "#e0e0e0", lineHeight: "1.4" }}><strong style={{ color: "#00ff88" }}>3. Copy or Contact</strong> 📋 - Copy price or ask details</div>
-                <div style={{ color: "#e0e0e0", lineHeight: "1.4" }}><strong style={{ color: "#00ff88" }}>4. Fill Details</strong> ✍️ - Enter your account info</div>
-                <div style={{ color: "#e0e0e0", lineHeight: "1.4" }}><strong style={{ color: "#00ff88" }}>5. Submit</strong> 📤 - Send your order</div>
-                <div style={{ color: "#e0e0e0", lineHeight: "1.4" }}><strong style={{ color: "#00ff88" }}>6. We Process</strong> ⚡ - Get your currency!</div>
+            <div style={{ background: "rgba(255, 51, 51, 0.08)", padding: isMobile ? "1rem 0.75rem" : "1.5rem", borderRadius: "8px", marginBottom: isMobile ? "1rem" : "1.5rem", textAlign: "left" }}>
+              <p style={{ color: "#FF6B9D", fontWeight: "bold", marginBottom: isMobile ? "0.75rem" : "1rem", fontSize: isMobile ? "0.75rem" : "0.95rem" }}>📋 How It Works (6 Steps):</p>
+              <div style={{ display: "grid", gap: isMobile ? "0.5rem" : "0.8rem", fontSize: isMobile ? "0.7rem" : "0.85rem" }}>
+                <div style={{ color: "#e0e0e0", lineHeight: "1.3" }}><strong style={{ color: "#00ff88" }}>1. Browse Games</strong> 🎮 - Explore our 16+ popular games</div>
+                <div style={{ color: "#e0e0e0", lineHeight: "1.3" }}><strong style={{ color: "#00ff88" }}>2. View Pricing</strong> 💰 - See currency packages in PHP</div>
+                <div style={{ color: "#e0e0e0", lineHeight: "1.3" }}><strong style={{ color: "#00ff88" }}>3. Copy or Contact</strong> 📋 - Copy price or ask details</div>
+                <div style={{ color: "#e0e0e0", lineHeight: "1.3" }}><strong style={{ color: "#00ff88" }}>4. Fill Details</strong> ✍️ - Enter your account info</div>
+                <div style={{ color: "#e0e0e0", lineHeight: "1.3" }}><strong style={{ color: "#00ff88" }}>5. Submit</strong> 📤 - Send your order</div>
+                <div style={{ color: "#e0e0e0", lineHeight: "1.3" }}><strong style={{ color: "#00ff88" }}>6. We Process</strong> ⚡ - Get your currency!</div>
               </div>
             </div>
             
-            <div style={{ background: "rgba(255, 51, 51, 0.1)", border: "1px solid rgba(255, 51, 51, 0.3)", padding: "1.5rem", borderRadius: "8px", marginBottom: "1.5rem", color: "#FFB3B3" }}>
-              <p style={{ marginBottom: "0.7rem", fontSize: "0.9rem" }}>
+            <div style={{ background: "rgba(255, 51, 51, 0.1)", border: "1px solid rgba(255, 51, 51, 0.3)", padding: isMobile ? "0.75rem 0.5rem" : "1.5rem", borderRadius: "8px", marginBottom: isMobile ? "1rem" : "1.5rem", color: "#FFB3B3" }}>
+              <p style={{ marginBottom: isMobile ? "0.4rem" : "0.7rem", fontSize: isMobile ? "0.7rem" : "0.9rem" }}>
                 <strong>💰 Actual Transaction:</strong> All payments and transactions happen through <strong>Messenger, Telegram, or Instagram DM</strong> - NOT on this website.
               </p>
-              <p style={{ marginBottom: "0", fontSize: "0.9rem" }}>
+              <p style={{ marginBottom: "0", fontSize: isMobile ? "0.7rem" : "0.9rem" }}>
                 <strong>✓ How it works:</strong> Browse prices → Ask Details on social media → Complete transaction there
               </p>
             </div>
@@ -881,9 +881,9 @@ export default function App() {
                 background: "linear-gradient(135deg, #ff3333, #ff6b6b)",
                 color: "white",
                 border: "none",
-                padding: "0.9rem 2.5rem",
+                padding: isMobile ? "0.7rem 1.5rem" : "0.9rem 2.5rem",
                 borderRadius: "25px",
-                fontSize: "1rem",
+                fontSize: isMobile ? "0.85rem" : "1rem",
                 fontWeight: "bold",
                 cursor: "pointer",
                 transition: "all 0.3s",
