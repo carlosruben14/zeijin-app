@@ -15,12 +15,13 @@ const getPackageTitle = (gameTitle) => {
   if (titleLower.includes('league of legends')) return '🔥 RP Packages';
   if (titleLower.includes('call of duty')) return '🎯 CP Packages';
   if (titleLower.includes('honor of kings')) return '🏆 Credit Packages';
-  if (titleLower.includes('blood strike')) return '🔫 Gold Packages';
+  if (titleLower.includes('bloodstrike')) return '🔫 Gold Packages';
   if (titleLower.includes('pubg')) return '🎖️ UC Packages';
   if (titleLower.includes('crossfire')) return '⚔️ Ecoin Packages';
   if (titleLower.includes('teamfight')) return '🎲 RP Packages';
   if (titleLower.includes('steam')) return '💳 Wallet Packages';
   if (titleLower.includes('magic chess')) return '♟️ Dias Packages';
+  if (titleLower.includes('marvel')) return '💎 Lattice Packages';
   
   return '💎 Diamond Packages';
 };
