@@ -1,5 +1,6 @@
 ﻿import React, { FC, useState, useMemo, useEffect, useRef, useLayoutEffect, ReactElement } from "react";
 import { SpeedInsights } from "@vercel/speed-insights/react";
+import { Analytics } from "@vercel/analytics/react";
 import "./App.css";
 import "./index.css";
 import PricingModal from "./components/PricingModal";
@@ -2442,6 +2443,9 @@ export default function App(): ReactElement {
 
       {/* Vercel Speed Insights - Performance Monitoring */}
       <SpeedInsights />
+
+      {/* Vercel Analytics - User Analytics & Events Tracking */}
+      <Analytics />
     </div>
   );
 }
