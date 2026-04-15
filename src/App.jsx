@@ -2189,17 +2189,10 @@ export default function App() {
               <div style={{ display: "flex", gap: "0.5rem" }}>
                 <button 
                   onClick={() => {
+                    setSelectedGame(contactGame);
                     setContactGame(null);
                     setIgnValidatorData({ ign: "", orderedAmount: "", paymentMethod: "GCash", otherConcern: "" });
                     setFormValidationErrors({});
-                    setTimeout(() => {
-                      const gamesContainer = document.querySelector('.games-container');
-                      if (gamesContainer) {
-                        gamesContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                      } else {
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                      }
-                    }, 100);
                   }} 
                   style={{ 
                     background: "rgba(0, 132, 255, 0.2)", 
@@ -2219,21 +2212,14 @@ export default function App() {
                     e.currentTarget.style.background = "rgba(0, 132, 255, 0.2)";
                   }}
                 >
-                  ← Back to Games
+                  ← Back to Prices
                 </button>
                 <button 
                   onClick={() => {
+                    setSelectedGame(contactGame);
                     setContactGame(null);
                     setIgnValidatorData({ ign: "", orderedAmount: "", paymentMethod: "GCash", otherConcern: "" });
                     setFormValidationErrors({});
-                    setTimeout(() => {
-                      const gamesContainer = document.querySelector('.games-container');
-                      if (gamesContainer) {
-                        gamesContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                      } else {
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                      }
-                    }, 100);
                   }} 
                   style={{ 
                     background: "transparent", 
@@ -2492,8 +2478,10 @@ export default function App() {
 
             <button 
               onClick={() => {
+                setSelectedGame(contactGame);
                 setContactGame(null);
-                setActiveSection("games");
+                setIgnValidatorData({ ign: "", orderedAmount: "", paymentMethod: "GCash", otherConcern: "" });
+                setFormValidationErrors({});
               }} 
               style={{ 
                 background: "rgba(255, 51, 51, 0.2)", 
