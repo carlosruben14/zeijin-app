@@ -53,7 +53,7 @@ const AskUs: FC = () => {
 
       // Determine API URL based on environment
       const apiUrl = import.meta.env.PROD 
-        ? 'https://zeijin-app-production.up.railway.app/api/ask-us'
+        ? `${import.meta.env.VITE_API_URL}/api/ask-us`
         : '/api/ask-us';
 
       console.log('📤 Submitting Ask Us form to:', apiUrl);
