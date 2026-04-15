@@ -1,4 +1,5 @@
 ﻿import React, { FC, useState, useMemo, useEffect, useRef, useLayoutEffect, ReactElement } from "react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 import "./App.css";
 import "./index.css";
 import PricingModal from "./components/PricingModal";
@@ -2438,6 +2439,9 @@ export default function App(): ReactElement {
 
       {/* Ask Us Feature - Floating Button */}
       <AskUs />
+
+      {/* Vercel Speed Insights - Performance Monitoring */}
+      <SpeedInsights />
     </div>
   );
 }
