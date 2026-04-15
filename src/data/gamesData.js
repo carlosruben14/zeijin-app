@@ -287,6 +287,117 @@ export const gamesData = [
       { amount: "1,000 Credits", price: 299 },
       { amount: "2,500 Credits", price: 699 }
     ]
+  },
+  {
+    id: 15,
+    title: "Marvel Rivals",
+    category: "shooter",
+    description: "Marvel Rivals Discounted Game Credits - Superhero Shooter",
+    image: "/images/games/marvel-rivals.jpg",
+    note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
+    pricing: [
+      { amount: "100 Points", price: 57 },
+      { amount: "500 Points", price: 280 },
+      { amount: "1,000 Points", price: 560 },
+      { amount: "2,180 Points", price: 1120 },
+      { amount: "5,680 Points", price: 2800 },
+      { amount: "11,660 Points", price: 5600 },
+      { amount: "23,320 Points", price: 11200 }
+    ]
+  },
+  {
+    id: 16,
+    title: "Crystal of Atlan",
+    category: "rpg",
+    description: "Crystal of Atlan Discounted Currency - Fantasy RPG",
+    image: "/images/games/crystal-of-atlan.jpg",
+    note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
+    pricing: [
+      { amount: "63 Vouchers", price: 58 },
+      { amount: "315 Vouchers", price: 270 },
+      { amount: "1,029 Vouchers", price: 826 },
+      { amount: "2,079 Vouchers", price: 1583 },
+      { amount: "3,445 Vouchers", price: 2638 },
+      { amount: "6,806 Vouchers", price: 5271 },
+      { amount: "20,800 Vouchers", price: 15813 },
+      { amount: "34,460 Vouchers", price: 26356 }
+    ],
+    pricingSections: [
+      {
+        title: "🎫 Vouchers",
+        items: [
+          { amount: "63 Vouchers", price: 58 },
+          { amount: "315 Vouchers", price: 270 },
+          { amount: "1,029 Vouchers", price: 826 },
+          { amount: "2,079 Vouchers", price: 1583 },
+          { amount: "3,445 Vouchers", price: 2638 },
+          { amount: "6,806 Vouchers", price: 5271 },
+          { amount: "20,800 Vouchers", price: 15813 },
+          { amount: "34,460 Vouchers", price: 26356 }
+        ]
+      },
+      {
+        title: "💎 Opals",
+        items: [
+          { amount: "69 Opals", price: 58 },
+          { amount: "360 Opals", price: 270 },
+          { amount: "1,209 Opals", price: 826 },
+          { amount: "2,479 Opals", price: 1583 },
+          { amount: "4,245 Opals", price: 2638 },
+          { amount: "8,606 Opals", price: 5271 },
+          { amount: "26,300 Opals", price: 15813 },
+          { amount: "43,571 Opals", price: 26356 }
+        ]
+      },
+      {
+        title: "🎖️ Passes",
+        items: [
+          { amount: "Phantasium Pass 15 Days", price: 146 },
+          { amount: "Phantasium Pass 30 Days", price: 253 }
+        ]
+      }
+    ]
+  },
+  {
+    id: 17,
+    title: "Where Winds Meet",
+    category: "rpg",
+    description: "Where Winds Meet Discounted Currency - Story RPG",
+    image: "/images/games/where-winds-meet.jpg",
+    note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
+    pricing: [
+      { amount: "60 Points", price: 59 },
+      { amount: "180 Points", price: 170 },
+      { amount: "300 Points", price: 285 },
+      { amount: "600 Points", price: 570 },
+      { amount: "900 Points", price: 855 },
+      { amount: "1,800 Points", price: 1700 },
+      { amount: "3,000 Points", price: 2840 },
+      { amount: "6,000 Points", price: 5670 }
+    ],
+    pricingSections: [
+      {
+        title: "⭐ Points",
+        items: [
+          { amount: "60 Points", price: 59 },
+          { amount: "180 Points", price: 170 },
+          { amount: "300 Points", price: 285 },
+          { amount: "600 Points", price: 570 },
+          { amount: "900 Points", price: 855 },
+          { amount: "1,800 Points", price: 1700 },
+          { amount: "3,000 Points", price: 2840 },
+          { amount: "6,000 Points", price: 5670 }
+        ]
+      },
+      {
+        title: "🎖️ Battle Passes",
+        items: [
+          { amount: "Monthly Pass", price: 325 },
+          { amount: "Elite Battle Pass", price: 635 },
+          { amount: "Premium Pass", price: 1270 }
+        ]
+      }
+    ]
   }
 ];
 
