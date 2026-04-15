@@ -48,7 +48,7 @@ export const gamesData = [
         items: [
           { amount: "Starlight Normal 301", price: 267 },
           { amount: "Starlight Normal 760", price: 655 },
-          { amount: "WDP", price: 98 }
+          { amount: "Weekly Diamond Pass", price: 98 }
         ]
       }
     ]
@@ -89,13 +89,15 @@ export const gamesData = [
     pricing: [
       { amount: "425 WC", price: 186 },
       { amount: "1,000 WC", price: 420 },
-      { amount: "1,425 WC", price: 644 },
-      { amount: "1,850 WC", price: 754 },
-      { amount: "2,275 WC", price: 938 },
-      { amount: "2,850 WC", price: 1214 },
-      { amount: "3,275 WC", price: 1316 },
-      { amount: "6,550 WC", price: 2631 },
-      { amount: "9,825 WC", price: 3947 }
+      { amount: "1,425 WC", price: 606 },
+      { amount: "1,850 WC", price: 762 },
+      { amount: "2,275 WC", price: 948 },
+      { amount: "2,850 WC", price: 1182 },
+      { amount: "3,275 WC", price: 1330 },
+      { amount: "4,800 WC", price: 1905 },
+      { amount: "9,600 WC", price: 3810 },
+      { amount: "Stellacorn's", price: 186 },
+      { amount: "Celestial Blessing", price: 1330 }
     ]
   },
   {
@@ -106,29 +108,38 @@ export const gamesData = [
     image: "/images/games/codm.jpg",
     note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
     pricing: [
-      { amount: "70 CP", price: 49 },
-      { amount: "200 CP", price: 140 },
-      { amount: "500 CP", price: 349 },
-      { amount: "1,000 CP", price: 649 },
-      { amount: "2,320 CP", price: 965 },
-      { amount: "4,640 CP", price: 1930 },
-      { amount: "6,960 CP", price: 2895 },
-      { amount: "9,280 CP", price: 3860 },
-      { amount: "11,600 CP", price: 4825 }
+      { amount: "100 GS / 208 CP", price: 98 },
+      { amount: "200 GS / 416 CP", price: 195 },
+      { amount: "300 GS / 648 CP", price: 295 },
+      { amount: "500 GS / 1,080 CP", price: 485 },
+      { amount: "1,000 GS / 2,320 CP", price: 965 },
+      { amount: "2,000 GS / 4,640 CP", price: 1930 },
+      { amount: "3,000 GS / 6,960 CP", price: 2895 },
+      { amount: "4,000 GS / 9,280 CP", price: 3860 },
+      { amount: "5,000 GS / 11,600 CP", price: 4820 },
+      { amount: "Regular Battle Pass", price: 165 },
+      { amount: "Premium Battle Pass", price: 295 }
     ],
     pricingSections: [
       {
-        title: "🎯 CP Packages",
+        title: "🎯 GS / CP Packages",
         items: [
-          { amount: "70 CP", price: 49 },
-          { amount: "200 CP", price: 140 },
-          { amount: "500 CP", price: 349 },
-          { amount: "1,000 CP", price: 649 },
-          { amount: "2,320 CP", price: 965 },
-          { amount: "4,640 CP", price: 1930 },
-          { amount: "6,960 CP", price: 2895 },
-          { amount: "9,280 CP", price: 3860 },
-          { amount: "11,600 CP", price: 4825 }
+          { amount: "100 GS / 208 CP", price: 98 },
+          { amount: "200 GS / 416 CP", price: 195 },
+          { amount: "300 GS / 648 CP", price: 295 },
+          { amount: "500 GS / 1,080 CP", price: 485 },
+          { amount: "1,000 GS / 2,320 CP", price: 965 },
+          { amount: "2,000 GS / 4,640 CP", price: 1930 },
+          { amount: "3,000 GS / 6,960 CP", price: 2895 },
+          { amount: "4,000 GS / 9,280 CP", price: 3860 },
+          { amount: "5,000 GS / 11,600 CP", price: 4820 }
+        ]
+      },
+      {
+        title: "🎖️ Battle Pass",
+        items: [
+          { amount: "Regular Battle Pass", price: 165 },
+          { amount: "Premium Battle Pass", price: 295 }
         ]
       },
       {
@@ -159,7 +170,8 @@ export const gamesData = [
       { amount: "830 Credits", price: 570 },
       { amount: "1,245 Credits", price: 830 },
       { amount: "2,508 Credits", price: 1635 },
-      { amount: "4,180 Credits", price: 2710 }
+      { amount: "4,180 Credits", price: 2710 },
+      { amount: "8,360 Credits", price: 5680 }
     ]
   },
   {
@@ -242,12 +254,19 @@ export const gamesData = [
     image: "/images/games/pubg.jpg",
     note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
     pricing: [
-      { amount: "60 UC", price: 57 },
-      { amount: "325 UC", price: 279 },
-      { amount: "660 UC", price: 557 },
-      { amount: "1,800 UC", price: 1380 },
-      { amount: "3,850 UC", price: 2780 },
-      { amount: "8,100 UC", price: 5549 }
+      { amount: "60 UC", price: 58 },
+      { amount: "180 UC", price: 175 },
+      { amount: "300 UC", price: 267 },
+      { amount: "445 UC", price: 375 },
+      { amount: "650 UC", price: 535 },
+      { amount: "985 UC", price: 806 },
+      { amount: "1,200 UC", price: 1065 },
+      { amount: "1,500 UC", price: 1235 },
+      { amount: "1,800 UC", price: 1462 },
+      { amount: "3,000 UC", price: 2475 },
+      { amount: "4,000 UC", price: 3280 },
+      { amount: "6,000 UC", price: 4420 },
+      { amount: "8,100 UC", price: 5350 }
     ]
   },
   {
@@ -258,9 +277,16 @@ export const gamesData = [
     image: "/images/games/crossfire.webp",
     note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
     pricing: [
-      { amount: "2,400 GP", price: 200 },
-      { amount: "6,400 GP", price: 500 },
-      { amount: "12,800 GP", price: 1000 }
+      { amount: "100 Ecoins", price: 95 },
+      { amount: "200 Ecoins", price: 190 },
+      { amount: "300 Ecoins", price: 285 },
+      { amount: "400 Ecoins", price: 380 },
+      { amount: "500 Ecoins", price: 475 },
+      { amount: "1,000 Ecoins", price: 950 },
+      { amount: "2,000 Ecoins", price: 1900 },
+      { amount: "3,000 Ecoins", price: 2850 },
+      { amount: "4,000 Ecoins", price: 3800 },
+      { amount: "5,000 Ecoins", price: 4750 }
     ]
   },
 
@@ -272,15 +298,15 @@ export const gamesData = [
     image: "/images/games/steam-wallet.jpg",
     note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
     pricing: [
-      { amount: "₱500 PHP", price: 490 },
-      { amount: "₱1,000 PHP", price: 980 },
-      { amount: "₱5,000 PHP", price: 4900 },
-      { amount: "$2 USD", price: 98 },
-      { amount: "$5 USD", price: 245 },
-      { amount: "$10 USD", price: 490 },
-      { amount: "$20 USD", price: 980 },
-      { amount: "$50 USD", price: 2450 },
-      { amount: "$100 USD", price: 4900 }
+      { amount: "50 SWC", price: 50 },
+      { amount: "100 SWC", price: 100 },
+      { amount: "250 SWC", price: 250 },
+      { amount: "500 SWC", price: 480 },
+      { amount: "1000 SWC", price: 955 },
+      { amount: "2000 SWC", price: 1910 },
+      { amount: "3000 SWC", price: 2865 },
+      { amount: "4000 SWC", price: 3820 },
+      { amount: "5000 SWC", price: 4775 }
     ]
   },
   {
@@ -291,9 +317,28 @@ export const gamesData = [
     image: "/images/games/bloodstrike.webp",
     note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
     pricing: [
-      { amount: "300 Credits", price: 99 },
-      { amount: "1,000 Credits", price: 299 },
-      { amount: "2,500 Credits", price: 699 }
+      { amount: "Level Up Pass", price: 95 },
+      { amount: "Strike Elite Pass", price: 190 },
+      { amount: "Strike Premium Pass", price: 425 },
+      { amount: "105", price: 47 },
+      { amount: "210", price: 91 },
+      { amount: "320", price: 137 },
+      { amount: "420", price: 182 },
+      { amount: "540", price: 228 },
+      { amount: "640", price: 273 },
+      { amount: "750", price: 320 },
+      { amount: "860", price: 365 },
+      { amount: "965", price: 410 },
+      { amount: "1,100", price: 455 },
+      { amount: "2,260", price: 910 },
+      { amount: "3,360", price: 1365 },
+      { amount: "4,520", price: 1820 },
+      { amount: "5,800", price: 2280 },
+      { amount: "6,900", price: 2730 },
+      { amount: "8,060", price: 3180 },
+      { amount: "9,160", price: 3630 },
+      { amount: "10,320", price: 4080 },
+      { amount: "11,600", price: 4550 }
     ]
   },
   {
@@ -304,13 +349,13 @@ export const gamesData = [
     image: "/images/games/marvel-rivals.jpg",
     note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
     pricing: [
-      { amount: "100 Points", price: 57 },
-      { amount: "500 Points", price: 280 },
-      { amount: "1,000 Points", price: 560 },
-      { amount: "2,180 Points", price: 1120 },
-      { amount: "5,680 Points", price: 2800 },
-      { amount: "11,660 Points", price: 5600 },
-      { amount: "23,320 Points", price: 11200 }
+      { amount: "100 Lattice", price: 59 },
+      { amount: "500 Lattice", price: 296 },
+      { amount: "1,000 Lattice", price: 592 },
+      { amount: "2,180 Lattice", price: 1185 },
+      { amount: "5,680 Lattice", price: 2962 },
+      { amount: "11,660 Lattice", price: 5924 },
+      { amount: "23,320 Lattice", price: 11848 }
     ]
   },
   {
@@ -335,33 +380,33 @@ export const gamesData = [
         title: "🎫 Vouchers",
         items: [
           { amount: "63 Vouchers", price: 58 },
-          { amount: "315 Vouchers", price: 270 },
-          { amount: "1,029 Vouchers", price: 826 },
-          { amount: "2,079 Vouchers", price: 1583 },
-          { amount: "3,445 Vouchers", price: 2638 },
-          { amount: "6,806 Vouchers", price: 5271 },
-          { amount: "20,800 Vouchers", price: 15813 },
-          { amount: "34,460 Vouchers", price: 26356 }
+          { amount: "315 Vouchers", price: 282 },
+          { amount: "1,029 Vouchers", price: 889 },
+          { amount: "2,079 Vouchers", price: 1705 },
+          { amount: "3,445 Vouchers", price: 2841 },
+          { amount: "6,806 Vouchers", price: 5678 },
+          { amount: "20,800 Vouchers", price: 17033 },
+          { amount: "34,460 Vouchers", price: 28388 }
         ]
       },
       {
         title: "💎 Opals",
         items: [
           { amount: "69 Opals", price: 58 },
-          { amount: "360 Opals", price: 270 },
-          { amount: "1,209 Opals", price: 826 },
-          { amount: "2,479 Opals", price: 1583 },
-          { amount: "4,245 Opals", price: 2638 },
-          { amount: "8,606 Opals", price: 5271 },
-          { amount: "26,300 Opals", price: 15813 },
-          { amount: "43,571 Opals", price: 26356 }
+          { amount: "360 Opals", price: 282 },
+          { amount: "1,209 Opals", price: 889 },
+          { amount: "2,479 Opals", price: 1705 },
+          { amount: "4,245 Opals", price: 2841 },
+          { amount: "8,606 Opals", price: 5678 },
+          { amount: "26,300 Opals", price: 17033 },
+          { amount: "43,571 Opals", price: 28388 }
         ]
       },
       {
         title: "🎖️ Passes",
         items: [
-          { amount: "Phantasium Pass 15 Days", price: 146 },
-          { amount: "Phantasium Pass 30 Days", price: 253 }
+          { amount: "Phantasium Pass 15 Days", price: 157 },
+          { amount: "Phantasium Pass 30 Days", price: 272 }
         ]
       }
     ]

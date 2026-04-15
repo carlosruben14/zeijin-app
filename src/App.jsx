@@ -1571,7 +1571,8 @@ export default function App() {
             boxShadow: "0 4px 15px rgba(224, 44, 112, 0.5)",
             transition: "all 0.3s",
             textDecoration: "none",
-            cursor: "pointer"
+            cursor: "pointer",
+            padding: "8px"
           }}
           onMouseEnter={(e) => {
             e.currentTarget.style.boxShadow = "0 6px 20px rgba(224, 44, 112, 0.8)";
@@ -1580,7 +1581,7 @@ export default function App() {
             e.currentTarget.style.boxShadow = "0 4px 15px rgba(224, 44, 112, 0.5)";
           }}
         >
-          <img src="https://upload.wikimedia.org/wikipedia/commons/9/95/Instagram_logo_2022.svg" alt="Instagram" style={{ width: isMobile ? "28px" : "32px", height: isMobile ? "28px" : "32px" }} />
+          <img src="https://upload.wikimedia.org/wikipedia/commons/9/95/Instagram_logo_2022.svg" alt="Instagram" style={{ width: isMobile ? "32px" : "44px", height: isMobile ? "32px" : "44px" }} />
         </a>
         <a
           href="https://m.me/j/AbYX1OEPa00PufWZ/"
@@ -1599,7 +1600,7 @@ export default function App() {
             transition: "all 0.3s",
             textDecoration: "none",
             cursor: "pointer",
-            fontSize: isMobile ? "1.3rem" : "1.5rem",
+            fontSize: isMobile ? "2rem" : "2.6rem",
             padding: "8px"
           }}
           onMouseEnter={(e) => {
@@ -1609,7 +1610,7 @@ export default function App() {
             e.currentTarget.style.boxShadow = "0 4px 15px rgba(102, 126, 234, 0.5)";
           }}
         >
-          📢
+          <span style={{ lineHeight: 1, display: "inline-flex", alignItems: "center", justifyContent: "center" }}>📢</span>
         </a>
       </div>
 
