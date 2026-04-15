@@ -150,8 +150,11 @@ app.post('/api/ask-us', async (req, res) => {
         console.log(`✉️  Email sent via Resend to ${adminEmail}`);
       } catch (emailError) {
         console.log(`⚠️  Failed to send email: ${emailError.message}`);
+        console.error('Email error details:', emailError);
         // Don't fail the submission if email fails
       }
+    } else {
+      console.log('⚠️  Email not sent - emailConfigured:', emailConfigured, ', resend:', !!resend);
     }
 
     return res.status(200).json({
@@ -193,6 +196,42 @@ app.get('/api/ask-us/:id', (req, res) => {
   } catch (error) {
     console.error('❌ Error retrieving submission:', error);
     return res.status(500).json({ error: 'Failed to retrieve submission' });
+  }
+});
+
+// TEST: Email health check endpoint
+app.get('/api/test-email', async (req, res) => {
+  try {
+    console.log('\n📧 Testing email service...');
+    console.log('emailConfigured:', emailConfigured);
+    console.log('resend available:', !!resend);
+    console.log('RESEND_API_KEY:', process.env.RESEND_API_KEY ? 'Set' : 'Not set');
+    
+    if (!emailConfigured || !resend) {
+      return res.status(400).json({ 
+        error: 'Email not configured',
+        emailConfigured,
+        resendAvailable: !!resend
+      });
+    }
+
+    const result = await resend.emails.send({
+      from: 'Zeijin Ask Us <onboarding@resend.dev>',
+      to: process.env.ADMIN_EMAIL || 'carlosrubengupit@gmail.com',
+      subject: '✅ Test Email from Zeijin',
+      html: '<h1>Email Service Test</h1><p>If you received this, Resend is working correctly!</p>'
+    });
+
+    if (result.error) {
+      console.log('❌ Email error:', result.error);
+      return res.status(500).json({ error: result.error });
+    }
+
+    console.log('✅ Test email sent:', result.data.id);
+    res.json({ success: true, emailId: result.data.id });
+  } catch (error) {
+    console.error('❌ Test email error:', error);
+    res.status(500).json({ error: error.message });
   }
 });
 
