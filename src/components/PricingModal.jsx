@@ -11,7 +11,8 @@ const getPackageTitle = (gameTitle) => {
   
   if (titleLower.includes('valorant')) return '🎯 VP Packages';
   if (titleLower.includes('genshin')) return '💎 Crystal Packages';
-  if (titleLower.includes('wild rift') || titleLower.includes('league')) return '⚔️ Wildcore Packages';
+  if (titleLower.includes('wild rift')) return '⚔️ Wildcore Packages';
+  if (titleLower.includes('league of legends')) return '🔥 RP Packages';
   if (titleLower.includes('call of duty')) return '🎯 CP Packages';
   if (titleLower.includes('honor of kings')) return '🏆 Credit Packages';
   if (titleLower.includes('blood strike')) return '🔫 Gold Packages';
