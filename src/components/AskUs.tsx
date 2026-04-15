@@ -51,8 +51,15 @@ const AskUs: FC = () => {
         message: formData.message,
       };
 
+      // Determine API URL based on environment
+      const apiUrl = import.meta.env.PROD 
+        ? 'https://zeijin-app-production.up.railway.app/api/ask-us'
+        : '/api/ask-us';
+
+      console.log('📤 Submitting Ask Us form to:', apiUrl);
+
       // Try to send to backend
-      const response = await fetch('/api/ask-us', {
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
