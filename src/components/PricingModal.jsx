@@ -58,7 +58,6 @@ const PricingModal = ({
       onContactForm(game);
     }
   };
-  };
 
   return (
     <div
