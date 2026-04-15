@@ -879,9 +879,9 @@ export default function App() {
 
       <header>
         <div className="header-container">
-          <div className="logo" onClick={() => { window.scrollTo(0, 0); window.location.reload(); }} style={{ cursor: "pointer", transition: "opacity 0.3s", display: "flex", alignItems: "center", gap: "0.5rem" }} onMouseEnter={(e) => { e.currentTarget.style.opacity = "0.8"; }} onMouseLeave={(e) => { e.currentTarget.style.opacity = "1"; }}>
-            <span style={{ fontSize: "1.8rem" }}>💎</span>
-            <span style={{ fontWeight: "bold", fontSize: "0.95rem", color: "#FF6B9D" }}>Zeijin Discounted</span>
+          <div className="logo" onClick={() => { window.scrollTo(0, 0); window.location.reload(); }} style={{ cursor: "pointer", transition: "opacity 0.3s" }} onMouseEnter={(e) => { e.currentTarget.style.opacity = "0.8"; }} onMouseLeave={(e) => { e.currentTarget.style.opacity = "1"; }}>
+            <img src="/images/zeijin-logo.jpg" alt="Zeijin Discounted" style={{ height: "50px", width: "auto" }} />
+            <span>Zeijin Discounted Top Up Sale PH</span>
           </div>
           <nav>
             <a href="#" style={{ marginLeft: "0", cursor: "pointer", color: "#FF6B9D", fontWeight: "bold", textDecoration: "none", fontSize: "0.95rem" }} onClick={(e) => { e.preventDefault(); setShowHowItWorks(true); }}>❓ How It Works</a>
