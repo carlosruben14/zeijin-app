@@ -2179,7 +2179,7 @@ export default function App() {
 
       {/* Contact Choice Modal with IGN Validator */}
       {contactGame && (
-        <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0, 0, 0, 0.9)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 9999, padding: isMobile ? "1rem" : "2rem", paddingTop: isMobile ? "2rem" : "2rem", paddingBottom: isMobile ? "2rem" : "2rem", overflowY: "auto" }}>
+        <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0, 0, 0, 0.9)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 10000, padding: isMobile ? "1rem" : "2rem", paddingTop: isMobile ? "2rem" : "2rem", paddingBottom: isMobile ? "2rem" : "2rem", overflowY: "auto" }}>
           <div style={{ background: "rgba(20, 20, 30, 0.98)", padding: isMobile ? "1.5rem" : "2rem", borderRadius: "8px", border: "2px solid #ff3333", maxWidth: "550px", width: "100%", maxHeight: isMobile ? "90vh" : "85vh", overflowY: "auto" }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start", marginBottom: "1.5rem" }}>
               <div>
