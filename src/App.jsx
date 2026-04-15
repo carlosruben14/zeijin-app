@@ -2011,37 +2011,37 @@ export default function App() {
             background: "rgba(255, 51, 51, 0.05)",
             border: "2px solid rgba(255, 51, 51, 0.2)",
             borderRadius: "12px",
-            padding: "2rem",
+            padding: isMobile ? "1.5rem 1rem" : "2rem",
             marginBottom: "2rem"
           }}>
-            <p style={{ color: "#d0d0d0", marginBottom: "1.5rem", fontSize: "1.1rem", fontWeight: "bold" }}>We accept the following payment methods via Messenger:</p>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "1rem", marginBottom: "1.5rem" }}>
-              <div style={{ background: "rgba(0, 132, 255, 0.1)", padding: "1.5rem", borderRadius: "8px", border: "1px solid #0084ff", textAlign: "center" }}>
-                <img src="https://static.vecteezy.com/system/resources/previews/067/065/665/non_2x/gcash-logo-square-rounded-gcash-logo-free-download-gcash-logo-free-png.png" alt="GCash" style={{ width: "48px", height: "48px", marginBottom: "0.5rem" }} />
-                <div style={{ color: "#0084ff", fontWeight: "bold", fontSize: "1.1rem", marginBottom: "0.75rem" }}>GCash</div>
-                <div style={{ fontSize: "0.85rem", color: "#a0a0a0" }}>⚡ Fastest delivery (5-10 mins)</div>
+            <p style={{ color: "#d0d0d0", marginBottom: "1.5rem", fontSize: isMobile ? "0.95rem" : "1.1rem", fontWeight: "bold" }}>We accept the following payment methods via Messenger:</p>
+            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "repeat(2, 1fr)" : "repeat(auto-fit, minmax(200px, 1fr))", gap: isMobile ? "0.75rem" : "1rem", marginBottom: "1.5rem" }}>
+              <div style={{ background: "rgba(0, 132, 255, 0.1)", padding: isMobile ? "1rem 0.75rem" : "1.5rem", borderRadius: "8px", border: "1px solid #0084ff", textAlign: "center" }}>
+                <img src="https://static.vecteezy.com/system/resources/previews/067/065/665/non_2x/gcash-logo-square-rounded-gcash-logo-free-download-gcash-logo-free-png.png" alt="GCash" style={{ width: isMobile ? "40px" : "48px", height: isMobile ? "40px" : "48px", marginBottom: isMobile ? "0.3rem" : "0.5rem" }} />
+                <div style={{ color: "#0084ff", fontWeight: "bold", fontSize: isMobile ? "0.95rem" : "1.1rem", marginBottom: isMobile ? "0.5rem" : "0.75rem" }}>GCash</div>
+                <div style={{ fontSize: isMobile ? "0.7rem" : "0.85rem", color: "#a0a0a0" }}>⚡ Fastest delivery (5-10 mins)</div>
               </div>
-              <div style={{ background: "rgba(255, 165, 0, 0.1)", padding: "1.5rem", borderRadius: "8px", border: "1px solid #ffa500", textAlign: "center" }}>
-                <img src="https://logodix.com/logo/2206759.jpg" alt="PayMaya" style={{ width: "48px", height: "48px", marginBottom: "0.5rem" }} />
-                <div style={{ color: "#ffa500", fontWeight: "bold", fontSize: "1.1rem", marginBottom: "0.75rem" }}>PayMaya</div>
-                <div style={{ fontSize: "0.85rem", color: "#a0a0a0" }}>⚡ Fast delivery (10-15 mins)</div>
+              <div style={{ background: "rgba(255, 165, 0, 0.1)", padding: isMobile ? "1rem 0.75rem" : "1.5rem", borderRadius: "8px", border: "1px solid #ffa500", textAlign: "center" }}>
+                <img src="https://logodix.com/logo/2206759.jpg" alt="PayMaya" style={{ width: isMobile ? "40px" : "48px", height: isMobile ? "40px" : "48px", marginBottom: isMobile ? "0.3rem" : "0.5rem" }} />
+                <div style={{ color: "#ffa500", fontWeight: "bold", fontSize: isMobile ? "0.95rem" : "1.1rem", marginBottom: isMobile ? "0.5rem" : "0.75rem" }}>PayMaya</div>
+                <div style={{ fontSize: isMobile ? "0.7rem" : "0.85rem", color: "#a0a0a0" }}>⚡ Fast delivery (10-15 mins)</div>
               </div>
-              <div style={{ background: "rgba(0, 51, 102, 0.1)", padding: "1.5rem", borderRadius: "8px", border: "1px solid #003366", textAlign: "center" }}>
-                <img src="https://logodix.com/logo/925694.png" alt="BDO" style={{ width: "48px", height: "48px", marginBottom: "0.5rem" }} />
-                <div style={{ color: "#4a90e2", fontWeight: "bold", fontSize: "1.1rem", marginBottom: "0.75rem" }}>BDO Bank Transfer</div>
-                <div style={{ fontSize: "0.85rem", color: "#a0a0a0" }}>⏱ Standard delivery (15-30 mins)</div>
+              <div style={{ background: "rgba(0, 51, 102, 0.1)", padding: isMobile ? "1rem 0.75rem" : "1.5rem", borderRadius: "8px", border: "1px solid #003366", textAlign: "center" }}>
+                <img src="https://logodix.com/logo/925694.png" alt="BDO" style={{ width: isMobile ? "40px" : "48px", height: isMobile ? "40px" : "48px", marginBottom: isMobile ? "0.3rem" : "0.5rem" }} />
+                <div style={{ color: "#4a90e2", fontWeight: "bold", fontSize: isMobile ? "0.95rem" : "1.1rem", marginBottom: isMobile ? "0.5rem" : "0.75rem" }}>BDO Bank Transfer</div>
+                <div style={{ fontSize: isMobile ? "0.7rem" : "0.85rem", color: "#a0a0a0" }}>⏱ Standard delivery (15-30 mins)</div>
               </div>
-              <div style={{ background: "rgba(204, 0, 0, 0.1)", padding: "1.5rem", borderRadius: "8px", border: "1px solid #cc0000", textAlign: "center" }}>
-                <img src="https://images.seeklogo.com/logo-png/35/1/bpi-bank-of-the-philippine-islands-logo-png_seeklogo-352316.png" alt="BPI" style={{ width: "48px", height: "48px", marginBottom: "0.5rem" }} />
-                <div style={{ color: "#cc0000", fontWeight: "bold", fontSize: "1.1rem", marginBottom: "0.75rem" }}>BPI Bank Transfer</div>
-                <div style={{ fontSize: "0.85rem", color: "#a0a0a0" }}>⏱ Standard delivery (15-30 mins)</div>
+              <div style={{ background: "rgba(204, 0, 0, 0.1)", padding: isMobile ? "1rem 0.75rem" : "1.5rem", borderRadius: "8px", border: "1px solid #cc0000", textAlign: "center" }}>
+                <img src="https://images.seeklogo.com/logo-png/35/1/bpi-bank-of-the-philippine-islands-logo-png_seeklogo-352316.png" alt="BPI" style={{ width: isMobile ? "40px" : "48px", height: isMobile ? "40px" : "48px", marginBottom: isMobile ? "0.3rem" : "0.5rem" }} />
+                <div style={{ color: "#cc0000", fontWeight: "bold", fontSize: isMobile ? "0.95rem" : "1.1rem", marginBottom: isMobile ? "0.5rem" : "0.75rem" }}>BPI Bank Transfer</div>
+                <div style={{ fontSize: isMobile ? "0.7rem" : "0.85rem", color: "#a0a0a0" }}>⏱ Standard delivery (15-30 mins)</div>
               </div>
             </div>
-            <p style={{ color: "#a0a0a0", fontSize: "0.9rem", marginBottom: "1rem" }}>
+            <p style={{ color: "#a0a0a0", fontSize: isMobile ? "0.8rem" : "0.9rem", marginBottom: "1rem" }}>
               💡 Other bank transfers available via GCash. Contact us for details!
             </p>
-            <div style={{ background: "rgba(0, 255, 136, 0.1)", padding: "1rem", borderRadius: "8px", border: "1px solid #00ff88" }}>
-              <p style={{ color: "#00ff88", fontSize: "0.95rem", margin: "0", fontWeight: "bold" }}>
+            <div style={{ background: "rgba(0, 255, 136, 0.1)", padding: isMobile ? "0.75rem" : "1rem", borderRadius: "8px", border: "1px solid #00ff88" }}>
+              <p style={{ color: "#00ff88", fontSize: isMobile ? "0.8rem" : "0.95rem", margin: "0", fontWeight: "bold" }}>
                 🔐 <strong>Important:</strong> Final payment is processed directly via Messenger. We never ask for sensitive payment info upfront!
               </p>
             </div>
