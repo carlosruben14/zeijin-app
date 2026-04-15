@@ -8,25 +8,39 @@ export const gamesData = [
     image: "/images/games/mlbb.jpg",
     note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
     pricing: [
-      { amount: "5 Diamonds", price: 8 },
-      { amount: "19 Diamonds", price: 29 },
-      { amount: "28 Diamonds", price: 42 },
-      { amount: "49 Diamonds", price: 72 },
-      { amount: "59 Diamonds", price: 87 },
-      { amount: "99 Diamonds", price: 143 },
-      { amount: "159 Diamonds", price: 228 }
+      { amount: "56 Diamonds", price: 50 },
+      { amount: "112 Diamonds", price: 98 },
+      { amount: "168 Diamonds", price: 147 },
+      { amount: "223 Diamonds", price: 192 },
+      { amount: "279 Diamonds", price: 242 },
+      { amount: "336 Diamonds", price: 287 },
+      { amount: "570 Diamonds", price: 480 },
+      { amount: "793 Diamonds", price: 670 },
+      { amount: "906 Diamonds", price: 768 },
+      { amount: "1,163 Diamonds", price: 945 },
+      { amount: "2,398 Diamonds", price: 1890 },
+      { amount: "3,561 Diamonds", price: 2835 },
+      { amount: "5,132 Diamonds", price: 4067 },
+      { amount: "6,042 Diamonds", price: 4765 }
     ],
     pricingSections: [
       {
         title: "💎 Diamond Packages",
         items: [
-          { amount: "5 Diamonds", price: 8 },
-          { amount: "19 Diamonds", price: 29 },
-          { amount: "28 Diamonds", price: 42 },
-          { amount: "49 Diamonds", price: 72 },
-          { amount: "59 Diamonds", price: 87 },
-          { amount: "99 Diamonds", price: 143 },
-          { amount: "159 Diamonds", price: 228 }
+          { amount: "56 Diamonds", price: 50 },
+          { amount: "112 Diamonds", price: 98 },
+          { amount: "168 Diamonds", price: 147 },
+          { amount: "223 Diamonds", price: 192 },
+          { amount: "279 Diamonds", price: 242 },
+          { amount: "336 Diamonds", price: 287 },
+          { amount: "570 Diamonds", price: 480 },
+          { amount: "793 Diamonds", price: 670 },
+          { amount: "906 Diamonds", price: 768 },
+          { amount: "1,163 Diamonds", price: 945 },
+          { amount: "2,398 Diamonds", price: 1890 },
+          { amount: "3,561 Diamonds", price: 2835 },
+          { amount: "5,132 Diamonds", price: 4067 },
+          { amount: "6,042 Diamonds", price: 4765 }
         ]
       },
       {
@@ -196,13 +210,20 @@ export const gamesData = [
     image: "/images/games/magic-chess.webp",
     note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
     pricing: [
-      { amount: "5 Diamonds", price: 8 },
-      { amount: "19 Diamonds", price: 29 },
-      { amount: "28 Diamonds", price: 42 },
-      { amount: "49 Diamonds", price: 72 },
-      { amount: "59 Diamonds", price: 87 },
-      { amount: "99 Diamonds", price: 143 },
-      { amount: "159 Diamonds", price: 228 }
+      { amount: "56 Diamonds", price: 50 },
+      { amount: "112 Diamonds", price: 98 },
+      { amount: "168 Diamonds", price: 147 },
+      { amount: "223 Diamonds", price: 192 },
+      { amount: "279 Diamonds", price: 242 },
+      { amount: "336 Diamonds", price: 287 },
+      { amount: "570 Diamonds", price: 480 },
+      { amount: "793 Diamonds", price: 670 },
+      { amount: "906 Diamonds", price: 768 },
+      { amount: "1,163 Diamonds", price: 945 },
+      { amount: "2,398 Diamonds", price: 1890 },
+      { amount: "3,561 Diamonds", price: 2835 },
+      { amount: "5,132 Diamonds", price: 4067 },
+      { amount: "6,042 Diamonds", price: 4765 }
     ]
   },
   {
