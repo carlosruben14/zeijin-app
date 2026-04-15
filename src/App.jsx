@@ -1715,9 +1715,9 @@ export default function App() {
                       }}
                     >
                       {/* Game Image with Skeleton Loader */}
-                      <div className="game-image" style={{ position: "relative", overflow: "hidden" }}>
+                      <div className="game-image" style={{ position: "relative", overflow: "hidden", background: "rgba(0, 0, 0, 0.5)" }}>
                         {!imageLoadingStates[game.id] && (
-                          <SkeletonLoader width="100%" height="200px" borderRadius="0" />
+                          <SkeletonLoader width="100%" height="280px" borderRadius="0" />
                         )}
                         <img
                           src={game.image}
@@ -1726,8 +1726,8 @@ export default function App() {
                           onError={() => setImageLoadingStates(prev => ({ ...prev, [game.id]: true }))}
                           style={{
                             width: "100%",
-                            height: "200px",
-                            objectFit: "cover",
+                            height: "280px",
+                            objectFit: "contain",
                             objectPosition: "center",
                             opacity: imageLoadingStates[game.id] ? 1 : 0,
                             pointerEvents: imageLoadingStates[game.id] ? "auto" : "none",
