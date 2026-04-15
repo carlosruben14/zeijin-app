@@ -93,7 +93,7 @@ const eventsData = [
     startDate: "2026-04-16",
     endDate: "2026-04-30",
     badge: "Hot Event",
-    image: "/images/games/valorant.jpg",
+    image: "https://i.ytimg.com/vi/Xqww8ypNUrs/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLD7a-EOcVyZvJWvWNvMWYnMnSEL4g",
     wikiUrl: "https://valorant.fandom.com/wiki/Featured_Bundle"
   }
 ];
