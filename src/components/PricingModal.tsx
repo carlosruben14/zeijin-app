@@ -121,13 +121,11 @@ const PricingModal: FC<PricingModalProps> = ({
           )}
 
           {/* Pricing Packages - Multiple Sections */}
-          {(game as any).pricingSections && (game as any).pricingSections.length > 0 ? (
-            // Render multiple sections if available
+          {(game as any).pricingSections && (game as any).pricingSections.length > 0 &&
             (game as any).pricingSections.map((section: any, sectionIdx: number) => (
               <div key={sectionIdx} className={styles.section}>
                 <h3 className={styles.sectionTitle}>{section.title}</h3>
                 {section.type === 'instructions' && section.content ? (
-                  // Render instructions as list
                   <div className={styles.instructionsList}>
                     {section.content.map((instruction: string, idx: number) => (
                       <div key={idx} className={styles.instructionItem}>
@@ -135,40 +133,34 @@ const PricingModal: FC<PricingModalProps> = ({
                       </div>
                     ))}
                   </div>
-                ) : (
-                  // Render pricing items
+                ) : section.items ? (
                   <div className={styles.packagesGrid}>
-                    {section.items &&
-                      section.items.map((pkg: any, idx: number) => (
-                        <div key={idx} className={styles.packageCard}>
-                          <div className={styles.packageInfo}>
-                            <div className={styles.packageAmount}>
-                              {pkg.amount}
-                            </div>
-                            <div className={styles.packagePrice}>
-                              ₱{pkg.price}
-                            </div>
+                    {section.items.map((pkg: any, idx: number) => (
+                      <div key={idx} className={styles.packageCard}>
+                        <div className={styles.packageInfo}>
+                          <div className={styles.packageAmount}>
+                            {pkg.amount}
                           </div>
-                          <button
-                            onClick={() =>
-                              handleCopyPrice(pkg.amount, pkg.price)
-                            }
-                            className={`${styles.copyButton} ${
-                              copiedAmount === pkg.amount ? styles.copied : ''
-                            }`}
-                          >
-                            {copiedAmount === pkg.amount
-                              ? '✓ Copied!'
-                              : 'Copy'}
-                          </button>
+                          <div className={styles.packagePrice}>
+                            ₱{pkg.price}
+                          </div>
                         </div>
-                      ))}
+                        <button
+                          onClick={() => handleCopyPrice(pkg.amount, pkg.price)}
+                          className={`${styles.copyButton} ${
+                            copiedAmount === pkg.amount ? styles.copied : ''
+                          }`}
+                        >
+                          {copiedAmount === pkg.amount ? '✓ Copied!' : 'Copy'}
+                        </button>
+                      </div>
+                    ))}
                   </div>
-                )}
+                ) : null}
               </div>
-            ))
-          ) : game.pricing && game.pricing.length > 0 ? (
-            // Fallback to old pricing format
+            ))}
+
+          {game.pricing && game.pricing.length > 0 ? (
             <div className={styles.section}>
               <h3 className={styles.sectionTitle}>{getPackageTitle(game.title)}</h3>
               <div className={styles.packagesGrid}>

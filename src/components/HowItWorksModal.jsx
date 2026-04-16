@@ -17,7 +17,7 @@ const HowItWorksModal = ({ isOpen, onClose }) => {
     {
       num: 3,
       title: "Copy or Contact 📋",
-      description: "Copy the price to clipboard or click 'Ask Details' to fill out your order form directly"
+      description: "Copy the price to clipboard or click 'Order Form' to fill out your order form directly"
     },
     {
       num: 4,

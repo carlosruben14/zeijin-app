@@ -802,7 +802,7 @@ export default function App(): ReactElement {
                 <strong>💰 Actual Transaction:</strong> All payments and transactions happen through <strong>Messenger, Telegram, or Instagram DM</strong> - NOT on this website.
               </p>
               <p style={{ marginBottom: "0", fontSize: "0.9rem" }}>
-                <strong>✓ How it works:</strong> Browse prices → Ask Details on social media → Complete transaction there
+                <strong>✓ How it works:</strong> Browse prices → Order Form on social media → Complete transaction there
               </p>
             </div>
             <button 
@@ -1792,8 +1792,15 @@ export default function App(): ReactElement {
                               e.currentTarget.style.boxShadow = "none";
                             }}
                           >
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Facebook_Messenger_logo_2020.svg/960px-Facebook_Messenger_logo_2020.svg.png" alt="Messenger" style={{ width: "16px", height: "16px", marginRight: "0.3rem" }} />
-                            Ask Details
+                            <span aria-hidden="true" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: "16px", height: "16px", marginRight: "0.3rem" }}>
+                              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" aria-hidden="true">
+                                <circle cx="6" cy="8" r="2.2" fill="currentColor" />
+                                <circle cx="18" cy="8" r="2.2" fill="currentColor" />
+                                <circle cx="12" cy="17" r="2.2" fill="currentColor" />
+                                <path d="M8 8h8M7.8 9.2l2.7 5.2M16.2 9.2l-2.7 5.2" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+                              </svg>
+                            </span>
+                            Order Form
                           </button>
                         </div>
                       </div>
@@ -2027,7 +2034,7 @@ export default function App(): ReactElement {
               <div style={{ color: "#c0c0c0", marginTop: "1rem" }}>
                 <ol style={{ marginLeft: "1.5rem", lineHeight: "2" }}>
                   <li><strong>Browse Products:</strong> Scroll through our games and select the one you want. Each game has multiple currency packages.</li>
-                  <li><strong>Message Us:</strong> Click "💬 Ask Details" on the game card or use the floating messenger button in the bottom right corner.</li>
+                  <li><strong>Message Us:</strong> Click "💬 Order Form" on the game card or use the floating messenger button in the bottom right corner.</li>
                   <li><strong>Confirm Details:</strong> Tell us which game currency you want and how much. We'll confirm the price and payment method.</li>
                   <li><strong>Send Payment:</strong> Transfer payment via GCash, PayMaya, BDO, or BPI (fastest with GCash).</li>
                   <li><strong>Receive Instantly:</strong> Once payment is confirmed, we'll deliver your game currency within 5-30 minutes.</li>
@@ -2367,8 +2374,7 @@ export default function App(): ReactElement {
                 <div
                   onClick={() => {
                     if (validateContactForm()) {
-                      const message = `Hi! I'm interested in ${contactGame.title} and would like to know more about the pricing and packages.%0A%0AOrder Amount: ${ignValidatorData.orderedAmount}%0AUID: ${ignValidatorData.ign}%0AMode of payment: ${ignValidatorData.paymentMethod}%0A%0AOther concern: ${ignValidatorData.otherConcern || 'None'}`;
-                      const instagramUrl = `https://www.instagram.com/direct/t/ZeijinDiscountedGames?text=${message}`;
+                      const instagramUrl = "https://www.instagram.com/zeijindiscountedgame?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==";
                       window.open(instagramUrl, '_blank');
                     }
                   }}

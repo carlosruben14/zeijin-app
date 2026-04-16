@@ -110,15 +110,13 @@ const PricingModal = ({
           )}
 
           {/* Pricing Packages - Multiple Sections */}
-          {game.pricingSections && game.pricingSections.length > 0 ? (
-            // Render multiple sections if available
+          {game.pricingSections && game.pricingSections.length > 0 &&
             game.pricingSections.map((section, sectionIdx) => (
               <div key={sectionIdx} className={styles.section}>
                 <h3 className={styles.sectionTitle}>
                   {section.title}
                 </h3>
                 {section.type === 'instructions' && section.content ? (
-                  // Render instructions as list
                   <div className={styles.instructionsList}>
                     {section.content.map((instruction, idx) => (
                       <div key={idx} className={styles.instructionItem}>
@@ -126,10 +124,9 @@ const PricingModal = ({
                       </div>
                     ))}
                   </div>
-                ) : (
-                  // Render pricing items
+                ) : section.items ? (
                   <div className={styles.packagesGrid}>
-                    {section.items && section.items.map((pkg, idx) => (
+                    {section.items.map((pkg, idx) => (
                       <div
                         key={idx}
                         className={styles.packageCard}
@@ -151,11 +148,11 @@ const PricingModal = ({
                       </div>
                     ))}
                   </div>
-                )}
+                ) : null}
               </div>
-            ))
-          ) : game.pricing && game.pricing.length > 0 && (
-            // Fallback to old pricing format
+            ))}
+
+          {game.pricing && game.pricing.length > 0 && (
             <div className={styles.section}>
               <h3 className={styles.sectionTitle}>
                 {getPackageTitle(game.title)}

@@ -77,6 +77,17 @@ export const gamesData = [
       { amount: "10,700 VP", price: 3720 },
       { amount: "16,050 VP", price: 5580 },
       { amount: "21,400 VP", price: 7449 }
+    ],
+    pricingSections: [
+      {
+        title: "📋 Order Process",
+        type: "instructions",
+        content: [
+          "1. The buyer Send the payment",
+          "2. Send Riot ID with tag",
+          "3. Wait 5-15 mins. for processing"
+        ]
+      }
     ]
   },
   {
@@ -98,6 +109,17 @@ export const gamesData = [
       { amount: "9,600 WC", price: 3810 },
       { amount: "Stellacorn's", price: 186 },
       { amount: "Celestial Blessing", price: 1330 }
+    ],
+    pricingSections: [
+      {
+        title: "📋 Order Process",
+        type: "instructions",
+        content: [
+          "1. The buyer Send the payment",
+          "2. Send Riot ID with tag",
+          "3. Wait 5-15 mins. for processing"
+        ]
+      }
     ]
   },
   {
@@ -205,6 +227,17 @@ export const gamesData = [
       { amount: "4,500 RP", price: 1302 },
       { amount: "6,500 RP", price: 1860 },
       { amount: "13,000 RP", price: 3720 }
+    ],
+    pricingSections: [
+      {
+        title: "📋 Order Process",
+        type: "instructions",
+        content: [
+          "1. The buyer Send the payment",
+          "2. Send Riot ID with tag",
+          "3. Wait 5-15 mins. for processing"
+        ]
+      }
     ]
   },
   {
@@ -221,6 +254,17 @@ export const gamesData = [
       { amount: "4,500 RP", price: 1302 },
       { amount: "6,500 RP", price: 1860 },
       { amount: "13,000 RP", price: 3720 }
+    ],
+    pricingSections: [
+      {
+        title: "📋 Order Process",
+        type: "instructions",
+        content: [
+          "1. The buyer Send the payment",
+          "2. Send Riot ID with tag",
+          "3. Wait 5-15 mins. for processing"
+        ]
+      }
     ]
   },
   {
