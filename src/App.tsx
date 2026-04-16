@@ -2148,19 +2148,19 @@ export default function App(): ReactElement {
 
       {/* Contact Choice Modal with IGN Validator */}
       {contactGame && (
-        <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0, 0, 0, 0.9)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 9999, padding: isMobile ? "1rem" : "2rem", paddingTop: isMobile ? "2rem" : "2rem", paddingBottom: isMobile ? "2rem" : "2rem", overflowY: "auto" }}>
-          <div style={{ background: "rgba(20, 20, 30, 0.98)", padding: isMobile ? "1.5rem" : "2rem", borderRadius: "8px", border: "2px solid #ff3333", maxWidth: "550px", width: "100%", maxHeight: isMobile ? "90vh" : "85vh", overflowY: "auto" }}>
+        <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(4, 8, 14, 0.88)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 9999, padding: isMobile ? "1rem" : "2rem", paddingTop: isMobile ? "2rem" : "2rem", paddingBottom: isMobile ? "2rem" : "2rem", overflowY: "auto" }}>
+          <div style={{ background: "linear-gradient(180deg, rgba(15, 23, 42, 0.98), rgba(10, 14, 24, 0.98))", padding: isMobile ? "1.5rem" : "2rem", borderRadius: "10px", border: "1px solid rgba(148, 163, 184, 0.25)", borderTop: "3px solid #ff4d4d", maxWidth: "550px", width: "100%", maxHeight: isMobile ? "90vh" : "85vh", overflowY: "auto", boxShadow: "0 24px 48px rgba(0, 0, 0, 0.45)" }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start", marginBottom: "1.5rem" }}>
               <div>
-                <h2 style={{ color: "#ff3333", marginBottom: "0.3rem", fontSize: "1.6rem" }}>📝 Order Details</h2>
-                <p style={{ color: "#a0a0a0", marginBottom: "0", fontSize: "0.85rem" }}>{contactGame.title}</p>
+                <h2 style={{ color: "#f8fafc", marginBottom: "0.3rem", fontSize: "1.6rem" }}>📝 Order Details</h2>
+                <p style={{ color: "#94a3b8", marginBottom: "0", fontSize: "0.85rem" }}>{contactGame.title}</p>
               </div>
               <button 
                 onClick={() => setContactGame(null)} 
                 style={{ 
                   background: "transparent", 
                   border: "none", 
-                  color: "#ff3333", 
+                  color: "#94a3b8", 
                   fontSize: "1.5rem", 
                   cursor: "pointer",
                   padding: "0.5rem"
@@ -2171,29 +2171,29 @@ export default function App(): ReactElement {
             </div>
 
             {/* IGN Validator Form - Step 1 */}
-            <h3 style={{ color: "#00ff88", fontSize: "1rem", fontWeight: "bold", marginBottom: "1rem", display: "flex", alignItems: "center", gap: "0.5rem" }}><span style={{ background: "#00ff88", color: "#1a1a1a", width: "24px", height: "24px", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "bold", fontSize: "0.9rem" }}>1</span> Order Details</h3>
+            <h3 style={{ color: "#e2e8f0", fontSize: "1rem", fontWeight: "bold", marginBottom: "1rem", display: "flex", alignItems: "center", gap: "0.5rem" }}><span style={{ background: "#ff4d4d", color: "#ffffff", width: "24px", height: "24px", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "bold", fontSize: "0.9rem" }}>1</span> Order Details</h3>
             
             {/* Validation Error Messages */}
             {Object.keys(formValidationErrors).length > 0 && (
               <div style={{
-                background: "rgba(255, 51, 51, 0.15)",
-                border: "1px solid #ff3333",
+                background: "rgba(127, 29, 29, 0.28)",
+                border: "1px solid rgba(239, 68, 68, 0.45)",
                 borderRadius: "6px",
                 padding: "1rem",
                 marginBottom: "1rem"
               }}>
-                <div style={{ color: "#ff6666", fontWeight: "bold", marginBottom: "0.5rem", fontSize: "0.9rem" }}>⚠️ Please fix the following errors:</div>
+                <div style={{ color: "#fca5a5", fontWeight: "bold", marginBottom: "0.5rem", fontSize: "0.9rem" }}>⚠️ Please fix the following errors:</div>
                 {Object.entries(formValidationErrors).map(([field, error]) => (
-                  <div key={field} style={{ color: "#ff9999", fontSize: "0.85rem", marginBottom: "0.25rem" }}>
+                  <div key={field} style={{ color: "#fecaca", fontSize: "0.85rem", marginBottom: "0.25rem" }}>
                     • {error}
                   </div>
                 ))}
               </div>
             )}
             
-            <div style={{ background: "rgba(255, 51, 51, 0.05)", padding: "1.5rem", borderRadius: "8px", border: "1px solid rgba(255, 51, 51, 0.2)", marginBottom: "1.5rem" }}>
+            <div style={{ background: "rgba(15, 23, 42, 0.55)", padding: "1.5rem", borderRadius: "8px", border: "1px solid rgba(148, 163, 184, 0.25)", marginBottom: "1.5rem" }}>
               <div style={{ marginBottom: "1rem" }}>
-                <label style={{ display: "block", color: "#ff3333", fontSize: "0.9rem", fontWeight: "bold", marginBottom: "0.4rem" }}>
+                <label style={{ display: "block", color: "#e2e8f0", fontSize: "0.9rem", fontWeight: "bold", marginBottom: "0.4rem" }}>
                   💰 Order Amount (Php)
                 </label>
                 <input
@@ -2205,10 +2205,10 @@ export default function App(): ReactElement {
                   style={{
                     width: "100%",
                     padding: "0.6rem 0.8rem",
-                    border: formValidationErrors.orderedAmount ? "2px solid #ff3333" : "1px solid rgba(255, 51, 51, 0.3)",
+                    border: formValidationErrors.orderedAmount ? "2px solid #ef4444" : "1px solid rgba(148, 163, 184, 0.35)",
                     borderRadius: "6px",
-                    background: "rgba(255, 51, 51, 0.08)",
-                    color: "#e0e0e0",
+                    background: "rgba(15, 23, 42, 0.7)",
+                    color: "#e2e8f0",
                     boxSizing: "border-box",
                     fontSize: "0.9rem"
                   }}
@@ -2216,7 +2216,7 @@ export default function App(): ReactElement {
               </div>
 
               <div style={{ marginBottom: "1rem" }}>
-                <label style={{ display: "block", color: "#00ff88", fontSize: "0.9rem", fontWeight: "bold", marginBottom: "0.4rem" }}>
+                <label style={{ display: "block", color: "#e2e8f0", fontSize: "0.9rem", fontWeight: "bold", marginBottom: "0.4rem" }}>
                   👤 In-Game User ID / Username
                 </label>
                 <input
@@ -2228,10 +2228,10 @@ export default function App(): ReactElement {
                   style={{
                     width: "100%",
                     padding: "0.6rem 0.8rem",
-                    border: formValidationErrors.ign ? "2px solid #ff3333" : "1px solid rgba(0, 255, 136, 0.3)",
+                    border: formValidationErrors.ign ? "2px solid #ef4444" : "1px solid rgba(148, 163, 184, 0.35)",
                     borderRadius: "6px",
-                    background: "rgba(0, 255, 136, 0.08)",
-                    color: "#e0e0e0",
+                    background: "rgba(15, 23, 42, 0.7)",
+                    color: "#e2e8f0",
                     boxSizing: "border-box",
                     fontSize: "0.9rem"
                   }}
@@ -2239,7 +2239,7 @@ export default function App(): ReactElement {
               </div>
 
               <div style={{ marginBottom: "1rem" }}>
-                <label style={{ display: "block", color: "#0084ff", fontSize: "0.9rem", fontWeight: "bold", marginBottom: "0.4rem" }}>
+                <label style={{ display: "block", color: "#e2e8f0", fontSize: "0.9rem", fontWeight: "bold", marginBottom: "0.4rem" }}>
                   💳 Payment Method
                 </label>
                 <select
@@ -2248,10 +2248,10 @@ export default function App(): ReactElement {
                   style={{
                     width: "100%",
                     padding: "0.6rem 0.8rem",
-                    border: "1px solid rgba(0, 132, 255, 0.3)",
+                    border: "1px solid rgba(148, 163, 184, 0.35)",
                     borderRadius: "6px",
-                    background: "rgba(0, 132, 255, 0.08)",
-                    color: "#e0e0e0",
+                    background: "rgba(15, 23, 42, 0.7)",
+                    color: "#e2e8f0",
                     boxSizing: "border-box",
                     fontSize: "0.9rem",
                     cursor: "pointer"
@@ -2265,7 +2265,7 @@ export default function App(): ReactElement {
               </div>
 
               <div style={{ marginBottom: "0" }}>
-                <label style={{ display: "block", color: "#ffa500", fontSize: "0.9rem", fontWeight: "bold", marginBottom: "0.4rem" }}>
+                <label style={{ display: "block", color: "#e2e8f0", fontSize: "0.9rem", fontWeight: "bold", marginBottom: "0.4rem" }}>
                   ❓ Other Concerns (Optional)
                 </label>
                 <textarea
@@ -2276,10 +2276,10 @@ export default function App(): ReactElement {
                   style={{
                     width: "100%",
                     padding: "0.6rem 0.8rem",
-                    border: "1px solid rgba(255, 165, 0, 0.3)",
+                    border: "1px solid rgba(148, 163, 184, 0.35)",
                     borderRadius: "6px",
-                    background: "rgba(255, 165, 0, 0.08)",
-                    color: "#e0e0e0",
+                    background: "rgba(15, 23, 42, 0.7)",
+                    color: "#e2e8f0",
                     boxSizing: "border-box",
                     fontSize: "0.9rem",
                     minHeight: "70px",
@@ -2291,7 +2291,7 @@ export default function App(): ReactElement {
             </div>
 
             {/* Platform Selection - Step 2 */}
-            <h3 style={{ color: "#00ff88", fontSize: "1rem", fontWeight: "bold", marginBottom: "1rem", display: "flex", alignItems: "center", gap: "0.5rem" }}><span style={{ background: "#00ff88", color: "#1a1a1a", width: "24px", height: "24px", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "bold", fontSize: "0.9rem" }}>2</span> Choose a Platform</h3>
+            <h3 style={{ color: "#e2e8f0", fontSize: "1rem", fontWeight: "bold", marginBottom: "1rem", display: "flex", alignItems: "center", gap: "0.5rem" }}><span style={{ background: "#ff4d4d", color: "#ffffff", width: "24px", height: "24px", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "bold", fontSize: "0.9rem" }}>2</span> Choose a Platform</h3>
             <div style={{ marginBottom: "1rem" }}>
               <div style={{ display: "grid", gap: "0.75rem" }}>
                 {/* Messenger Option */}
@@ -2304,8 +2304,8 @@ export default function App(): ReactElement {
                     }
                   }}
                   style={{
-                    background: "rgba(0, 132, 255, 0.1)",
-                    border: "2px solid #0084ff",
+                    background: "rgba(15, 23, 42, 0.72)",
+                    border: "1px solid rgba(148, 163, 184, 0.35)",
                     borderRadius: "8px",
                     padding: "1rem",
                     textDecoration: "none",
@@ -2316,11 +2316,11 @@ export default function App(): ReactElement {
                     cursor: "pointer"
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.background = "rgba(0, 132, 255, 0.2)";
+                    e.currentTarget.style.background = "rgba(30, 41, 59, 0.88)";
                     e.currentTarget.style.transform = "translateY(-2px)";
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.background = "rgba(0, 132, 255, 0.1)";
+                    e.currentTarget.style.background = "rgba(15, 23, 42, 0.72)";
                     e.currentTarget.style.transform = "translateY(0)";
                   }}
                 >
@@ -2342,8 +2342,8 @@ export default function App(): ReactElement {
                     }
                   }}
                   style={{
-                    background: "rgba(0, 136, 204, 0.1)",
-                    border: "2px solid #0088cc",
+                    background: "rgba(15, 23, 42, 0.72)",
+                    border: "1px solid rgba(148, 163, 184, 0.35)",
                     borderRadius: "8px",
                     padding: "1rem",
                     textDecoration: "none",
@@ -2354,11 +2354,11 @@ export default function App(): ReactElement {
                     cursor: "pointer"
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.background = "rgba(0, 136, 204, 0.2)";
+                    e.currentTarget.style.background = "rgba(30, 41, 59, 0.88)";
                     e.currentTarget.style.transform = "translateY(-2px)";
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.background = "rgba(0, 136, 204, 0.1)";
+                    e.currentTarget.style.background = "rgba(15, 23, 42, 0.72)";
                     e.currentTarget.style.transform = "translateY(0)";
                   }}
                 >
@@ -2374,13 +2374,13 @@ export default function App(): ReactElement {
                 <div
                   onClick={() => {
                     if (validateContactForm()) {
-                      const instagramUrl = "https://www.instagram.com/zeijindiscountedgame?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==";
+                      const instagramUrl = "https://ig.me/m/zeijindiscountedgame";
                       window.open(instagramUrl, '_blank');
                     }
                   }}
                   style={{
-                    background: "rgba(224, 44, 112, 0.1)",
-                    border: "2px solid #e02c70",
+                    background: "rgba(15, 23, 42, 0.72)",
+                    border: "1px solid rgba(148, 163, 184, 0.35)",
                     borderRadius: "8px",
                     padding: "1rem",
                     textDecoration: "none",
@@ -2391,11 +2391,11 @@ export default function App(): ReactElement {
                     cursor: "pointer"
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.background = "rgba(224, 44, 112, 0.2)";
+                    e.currentTarget.style.background = "rgba(30, 41, 59, 0.88)";
                     e.currentTarget.style.transform = "translateY(-2px)";
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.background = "rgba(224, 44, 112, 0.1)";
+                    e.currentTarget.style.background = "rgba(15, 23, 42, 0.72)";
                     e.currentTarget.style.transform = "translateY(0)";
                   }}
                 >
@@ -2412,10 +2412,10 @@ export default function App(): ReactElement {
             <button 
               onClick={() => setContactGame(null)} 
               style={{ 
-                background: "rgba(255, 51, 51, 0.2)", 
-                color: "#ff3333", 
+                background: "rgba(148, 163, 184, 0.12)", 
+                color: "#e2e8f0", 
                 padding: "0.65rem 1.5rem", 
-                border: "1px solid #ff3333",
+                border: "1px solid rgba(148, 163, 184, 0.35)",
                 borderRadius: "20px", 
                 cursor: "pointer", 
                 fontSize: "0.95rem",
@@ -2424,10 +2424,10 @@ export default function App(): ReactElement {
                 transition: "all 0.3s"
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = "rgba(255, 51, 51, 0.3)";
+                e.currentTarget.style.background = "rgba(148, 163, 184, 0.2)";
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = "rgba(255, 51, 51, 0.2)";
+                e.currentTarget.style.background = "rgba(148, 163, 184, 0.12)";
               }}
             >
               Cancel
