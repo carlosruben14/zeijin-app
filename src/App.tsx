@@ -515,6 +515,35 @@ export default function App(): ReactElement {
     return `Hi! I'm interested in ${contactGame.title} and would like to know more about the pricing and packages.\n\nOrder Amount: ${ignValidatorData.orderedAmount}\nUID: ${ignValidatorData.ign}\nMode of payment: ${ignValidatorData.paymentMethod}\n\nOther concern: ${ignValidatorData.otherConcern || "None"}`;
   };
 
+  const copyMessageToClipboard = async (message: string): Promise<boolean> => {
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(message);
+        return true;
+      }
+    } catch (_error) {
+      // Fallback below handles browsers where Clipboard API is unavailable/restricted.
+    }
+
+    try {
+      const tempTextArea = document.createElement("textarea");
+      tempTextArea.value = message;
+      tempTextArea.setAttribute("readonly", "");
+      tempTextArea.style.position = "fixed";
+      tempTextArea.style.top = "-9999px";
+      tempTextArea.style.left = "-9999px";
+      document.body.appendChild(tempTextArea);
+      tempTextArea.focus();
+      tempTextArea.select();
+
+      const copied = document.execCommand("copy");
+      document.body.removeChild(tempTextArea);
+      return copied;
+    } catch (_error) {
+      return false;
+    }
+  };
+
   const openContactPlatform = async (platform: "messenger" | "telegram" | "instagram") => {
     if (!validateContactForm()) return;
 
@@ -535,13 +564,7 @@ export default function App(): ReactElement {
 
     // Instagram does not support prefilled DM text reliably.
     // Copy message first so users can paste instantly after redirect.
-    try {
-      if (navigator.clipboard && window.isSecureContext) {
-        await navigator.clipboard.writeText(message);
-      }
-    } catch (_error) {
-      // Ignore clipboard errors and still continue to Instagram DM.
-    }
+    await copyMessageToClipboard(message);
 
     window.location.href = "https://ig.me/m/zeijindiscountedgame";
   };
