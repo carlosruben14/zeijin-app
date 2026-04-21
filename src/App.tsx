@@ -11,6 +11,85 @@ import { gamesData } from "./data/gamesData";
 import type { Game } from "./types";
 import { calculateSimilarity, findClosestMatch, getEventStatus, calculateDaysLeft } from "./utils/searchUtils";
 
+const SEO_BASE_URL = "https://zeijintopup.com";
+
+const SEO_GAME_ROUTES = [
+  {
+    path: "/mobile-legends-topup",
+    gameId: 1,
+    title: "Mobile Legends Top Up PH | Discounted MLBB Diamonds | Zeijin",
+    description: "Top up MLBB Diamonds in the Philippines with discounted prices and fast support via Messenger, Telegram, or Instagram DM.",
+    keywords: "mobile legends top up philippines, mlbb diamonds gcash, discounted mlbb diamonds"
+  },
+  {
+    path: "/valorant-topup",
+    gameId: 2,
+    title: "Valorant Top Up PH | Discounted VP Philippines | Zeijin",
+    description: "Buy discounted Valorant Points in the Philippines. Fast order handling and secure payment options via GCash, Maya, BDO, and BPI.",
+    keywords: "valorant top up philippines, discounted vp philippines, valorant points gcash"
+  },
+  {
+    path: "/genshin-topup",
+    gameId: 6,
+    title: "Genshin Impact Top Up PH | Genesis Crystals Philippines | Zeijin",
+    description: "Get discounted Genshin Impact Genesis Crystals in the Philippines with responsive support and trusted service.",
+    keywords: "genshin top up philippines, genesis crystals ph, discounted genshin crystals"
+  },
+  {
+    path: "/wild-rift-topup",
+    gameId: 3,
+    title: "Wild Rift Top Up PH | Discounted Wild Cores | Zeijin",
+    description: "Top up League of Legends: Wild Rift currency in the Philippines at discounted rates with quick order assistance.",
+    keywords: "wild rift top up philippines, discounted wild cores, lol wild rift ph"
+  }
+];
+
+const DEFAULT_SEO = {
+  title: "Zeijin Discounted - Cheap MLBB Diamonds GCash | Valorant VP Philippines | Game Top Up PH",
+  description: "Zeijin Discounted - Buy cheap MLBB Diamonds with GCash, Valorant Points Philippines, LOL RP, Genshin Crystals with instant delivery. Best discount game currency in PH. DTI Registered & Facebook Verified.",
+  keywords: "MLBB diamonds GCash, Valorant Points Philippines, cheap Valorant VP, LOL RP Philippines, Genshin Crystals PH, game top up, game currency, discounted VP, Mobile Legends, Valorant, LOL, Genshin Impact, Philippines, game sale, cheap game currency, Maya payment, BDO payment, BPI payment"
+};
+
+const normalizePath = (pathname: string): string => {
+  if (!pathname || pathname === "/") return "/";
+  return pathname.replace(/\/+$/, "") || "/";
+};
+
+const getRouteConfigByPath = (pathname: string) => {
+  const normalizedPath = normalizePath(pathname).toLowerCase();
+  return SEO_GAME_ROUTES.find((route) => route.path === normalizedPath) || null;
+};
+
+const setMetaTagByName = (name: string, content: string): void => {
+  let tag = document.querySelector(`meta[name="${name}"]`);
+  if (!tag) {
+    tag = document.createElement("meta");
+    tag.setAttribute("name", name);
+    document.head.appendChild(tag);
+  }
+  tag.setAttribute("content", content);
+};
+
+const setMetaTagByProperty = (property: string, content: string): void => {
+  let tag = document.querySelector(`meta[property="${property}"]`);
+  if (!tag) {
+    tag = document.createElement("meta");
+    tag.setAttribute("property", property);
+    document.head.appendChild(tag);
+  }
+  tag.setAttribute("content", content);
+};
+
+const setCanonicalLink = (href: string): void => {
+  let link = document.querySelector('link[rel="canonical"]');
+  if (!link) {
+    link = document.createElement("link");
+    link.setAttribute("rel", "canonical");
+    document.head.appendChild(link);
+  }
+  link.setAttribute("href", href);
+};
+
 // Skeleton Loader Component for image placeholders
 interface SkeletonLoaderProps {
   width?: string;
@@ -423,7 +502,15 @@ export default function App(): ReactElement {
   const [wikiDetailTab, setWikiDetailTab] = useState<string>("overview"); // overview, stats, abilities, skins
   const [_eventCarouselImageLoaded, _setEventCarouselImageLoaded] = useState<boolean>(false); // Legacy: unused
   const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth < 480);
+  const [currentPath, setCurrentPath] = useState<string>(normalizePath(window.location.pathname));
   const abortControllerRef = useRef<AbortController | null>(null);
+
+  const seoRoute = useMemo(() => getRouteConfigByPath(currentPath), [currentPath]);
+
+  const seoLandingGame = useMemo(() => {
+    if (!seoRoute) return null;
+    return gamesData.find((game) => game.id === seoRoute.gameId) || null;
+  }, [seoRoute]);
 
   // Track window size changes
   useLayoutEffect(() => {
@@ -456,6 +543,63 @@ export default function App(): ReactElement {
       setFormValidationErrors({});
     }
   }, [contactGame]);
+
+  // Keep local path state in sync with browser navigation.
+  useEffect(() => {
+    const handlePopState = () => {
+      setCurrentPath(normalizePath(window.location.pathname));
+    };
+
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
+
+  const navigateToPath = (targetPath: string) => {
+    const normalizedTarget = normalizePath(targetPath);
+    const normalizedCurrent = normalizePath(window.location.pathname);
+
+    if (normalizedCurrent !== normalizedTarget) {
+      window.history.pushState({}, "", normalizedTarget);
+    }
+
+    setCurrentPath(normalizedTarget);
+  };
+
+  useEffect(() => {
+    const seoTitle = seoRoute?.title || DEFAULT_SEO.title;
+    const seoDescription = seoRoute?.description || DEFAULT_SEO.description;
+    const seoKeywords = seoRoute?.keywords || DEFAULT_SEO.keywords;
+    const canonicalPath = seoRoute?.path || "/";
+    const canonicalUrl = `${SEO_BASE_URL}${canonicalPath}`;
+
+    document.title = seoTitle;
+    setMetaTagByName("description", seoDescription);
+    setMetaTagByName("keywords", seoKeywords);
+    setMetaTagByProperty("og:title", seoTitle);
+    setMetaTagByProperty("og:description", seoDescription);
+    setMetaTagByProperty("og:url", canonicalUrl);
+    setMetaTagByProperty("twitter:title", seoTitle);
+    setMetaTagByProperty("twitter:description", seoDescription);
+    setMetaTagByProperty("twitter:url", canonicalUrl);
+    setCanonicalLink(canonicalUrl);
+  }, [seoRoute]);
+
+  useEffect(() => {
+    if (!seoLandingGame) return;
+
+    setActiveSection("games");
+    setFilterCategory("all");
+    setSearchQuery(seoLandingGame.title);
+
+    const timer = window.setTimeout(() => {
+      const gamesSection = document.querySelector(".games-container");
+      if (gamesSection) {
+        gamesSection.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }, 0);
+
+    return () => window.clearTimeout(timer);
+  }, [seoLandingGame]);
 
   // Scroll to top on component mount and disable browser scroll restoration
   useEffect(() => {
@@ -896,12 +1040,12 @@ export default function App(): ReactElement {
 
       <header>
         <div className="header-container">
-          <div className="logo" onClick={() => { window.scrollTo(0, 0); window.location.reload(); }} style={{ cursor: "pointer", transition: "opacity 0.3s", display: "flex", alignItems: "center", gap: "0.8rem" }} onMouseEnter={(e) => { e.currentTarget.style.opacity = "0.8"; }} onMouseLeave={(e) => { e.currentTarget.style.opacity = "1"; }}>
+          <div className="logo" onClick={() => { navigateToPath("/"); setSearchQuery(""); window.scrollTo(0, 0); }} style={{ cursor: "pointer", transition: "opacity 0.3s", display: "flex", alignItems: "center", gap: "0.8rem" }} onMouseEnter={(e) => { e.currentTarget.style.opacity = "0.8"; }} onMouseLeave={(e) => { e.currentTarget.style.opacity = "1"; }}>
             <img src="/images/zeijin-logo.jpg" alt="Zeijin" style={{ height: "50px", width: "auto" }} />
             <span style={{ color: "#ff0000", fontWeight: "bold", fontSize: "1rem" }}>Zeijin Discounted Top Up Sale PH</span>
           </div>
           <nav>
-            <a href="#" className={`nav-link ${activeSection === "games" ? "active" : ""}`} onClick={(e) => { e.preventDefault(); setActiveSection("games"); setTimeout(() => { const gamesSection = document.querySelector('.games-container'); if (gamesSection) gamesSection.scrollIntoView({ behavior: 'smooth' }); }, 0); }}>Games</a>
+            <a href="/" className={`nav-link ${activeSection === "games" ? "active" : ""}`} onClick={(e) => { e.preventDefault(); navigateToPath("/"); setActiveSection("games"); setTimeout(() => { const gamesSection = document.querySelector('.games-container'); if (gamesSection) gamesSection.scrollIntoView({ behavior: 'smooth' }); }, 0); }}>Games</a>
             <a href="#" style={{ marginLeft: "1.5rem", cursor: "pointer", color: "#FF6B9D", fontWeight: "bold", textDecoration: "none", fontSize: "0.95rem" }} onClick={(e) => { e.preventDefault(); setShowMLIDChecker(true); }}>🔍 Game Fandom Wiki</a>
           </nav>
         </div>
@@ -1436,6 +1580,31 @@ export default function App(): ReactElement {
         >
           💬 Message Us on Messenger
         </a>
+
+        <div style={{ marginTop: "1.2rem", display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "0.6rem" }}>
+          {SEO_GAME_ROUTES.map((route) => (
+            <a
+              key={route.path}
+              href={route.path}
+              onClick={(e) => {
+                e.preventDefault();
+                navigateToPath(route.path);
+              }}
+              style={{
+                display: "inline-block",
+                borderRadius: "999px",
+                border: "1px solid rgba(255, 51, 51, 0.35)",
+                padding: "0.4rem 0.9rem",
+                color: "#ff9a9a",
+                textDecoration: "none",
+                fontSize: "0.82rem",
+                background: "rgba(255, 51, 51, 0.08)"
+              }}
+            >
+              {route.path.replace(/\//g, "").replace(/-/g, " ")}
+            </a>
+          ))}
+        </div>
       </section>
 
       {/* Floating Contact Button */}
