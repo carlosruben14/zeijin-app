@@ -509,6 +509,43 @@ export default function App(): ReactElement {
     return Object.keys(errors).length === 0;
   };
 
+  const buildContactMessage = () => {
+    if (!contactGame) return "";
+
+    return `Hi! I'm interested in ${contactGame.title} and would like to know more about the pricing and packages.\n\nOrder Amount: ${ignValidatorData.orderedAmount}\nUID: ${ignValidatorData.ign}\nMode of payment: ${ignValidatorData.paymentMethod}\n\nOther concern: ${ignValidatorData.otherConcern || "None"}`;
+  };
+
+  const openContactPlatform = async (platform: "messenger" | "telegram" | "instagram") => {
+    if (!validateContactForm()) return;
+
+    const message = buildContactMessage();
+    const encodedMessage = encodeURIComponent(message);
+
+    if (platform === "messenger") {
+      // Use direct navigation to avoid popup blocking on iOS.
+      window.location.href = `https://m.me/ZeijinDiscountedTopUpSalePH?text=${encodedMessage}`;
+      return;
+    }
+
+    if (platform === "telegram") {
+      // Telegram supports prefilled text via query parameter.
+      window.location.href = `https://t.me/Zeijin_Discounted_Top_Up_Sale_PH?text=${encodedMessage}`;
+      return;
+    }
+
+    // Instagram does not support prefilled DM text reliably.
+    // Copy message first so users can paste instantly after redirect.
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(message);
+      }
+    } catch (_error) {
+      // Ignore clipboard errors and still continue to Instagram DM.
+    }
+
+    window.location.href = "https://ig.me/m/zeijindiscountedgame";
+  };
+
 
   const searchGameData = async () => {
     setMlCheckError("");
@@ -2297,11 +2334,7 @@ export default function App(): ReactElement {
                 {/* Messenger Option */}
                 <div
                   onClick={() => {
-                    if (validateContactForm()) {
-                      const message = `Hi! I'm interested in ${contactGame.title} and would like to know more about the pricing and packages.\n\nOrder Amount: ${ignValidatorData.orderedAmount}\nUID: ${ignValidatorData.ign}\nMode of payment: ${ignValidatorData.paymentMethod}\n\nOther concern: ${ignValidatorData.otherConcern || 'None'}`;
-                      const messengerUrl = `https://m.me/ZeijinDiscountedTopUpSalePH?text=${encodeURIComponent(message)}`;
-                      window.open(messengerUrl, '_blank');
-                    }
+                    openContactPlatform("messenger");
                   }}
                   style={{
                     background: "rgba(15, 23, 42, 0.72)",
@@ -2335,11 +2368,7 @@ export default function App(): ReactElement {
                 {/* Telegram Option */}
                 <div
                   onClick={() => {
-                    if (validateContactForm()) {
-                      const message = `Hi! I'm interested in ${contactGame.title} and would like to know more about the pricing and packages.\n\nOrder Amount: ${ignValidatorData.orderedAmount}\nUID: ${ignValidatorData.ign}\nMode of payment: ${ignValidatorData.paymentMethod}\n\nOther concern: ${ignValidatorData.otherConcern || 'None'}`;
-                      const telegramUrl = `https://t.me/Zeijin_Discounted_Top_Up_Sale_PH?text=${encodeURIComponent(message)}`;
-                      window.open(telegramUrl, '_blank');
-                    }
+                    openContactPlatform("telegram");
                   }}
                   style={{
                     background: "rgba(15, 23, 42, 0.72)",
@@ -2373,10 +2402,7 @@ export default function App(): ReactElement {
                 {/* Instagram Option */}
                 <div
                   onClick={() => {
-                    if (validateContactForm()) {
-                      const instagramUrl = "https://ig.me/m/zeijindiscountedgame";
-                      window.open(instagramUrl, '_blank');
-                    }
+                    openContactPlatform("instagram");
                   }}
                   style={{
                     background: "rgba(15, 23, 42, 0.72)",
@@ -2407,6 +2433,9 @@ export default function App(): ReactElement {
                   <span style={{ color: "#e02c70", fontWeight: "bold" }}>→</span>
                 </div>
               </div>
+              <p style={{ marginTop: "0.8rem", color: "#94a3b8", fontSize: "0.8rem", lineHeight: "1.4" }}>
+                Instagram note: your filled message will be copied automatically. If it does not auto-paste in IG DM, just tap Paste.
+              </p>
             </div>
 
             <button 
