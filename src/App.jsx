@@ -32,6 +32,17 @@ const SkeletonLoader = ({ width = "100%", height = "200px", borderRadius = "8px"
 
 const eventsData = [
   {
+    id: 8,
+    game: "Valorant",
+    title: "Kuronami 2.0 Collection",
+    description: "New Valorant collection featuring the Kuronami weapons set, Naru-Kami melee, battle pass bundles, and a discounted bundle price.",
+    startDate: "2026-04-30",
+    endDate: "2026-05-31",
+    badge: "Featured Shop",
+    image: "/images/games/kurunami.jpg",
+    wikiUrl: "https://valorant.fandom.com/wiki/Kuronami_Collection"
+  },
+  {
     id: 1,
     game: "Mobile Legends: Bang Bang",
     title: "MLBB x NARUTO Collaboration Event",
@@ -43,15 +54,26 @@ const eventsData = [
     wikiUrl: "https://mobile-legends.fandom.com/wiki/Event"
   },
   {
-    id: 2,
-    game: "Valorant",
-    title: "Battle Pass Season 8 Launch",
-    description: "New battle pass with exclusive rewards and cosmetics.",
-    startDate: "2026-04-10",
-    endDate: "2026-06-10",
-    badge: "New",
-    image: "/images/games/valorant.jpg",
-    wikiUrl: "https://valorant.fandom.com/wiki/Battle_Pass"
+    id: 9,
+    game: "Mobile Legends: Bang Bang",
+    title: "Obsidia Starlight",
+    description: "New Mobile Legends Starlight featuring Obsidia with exclusive skin rewards and limited-time bonuses.",
+    startDate: "2026-04-30",
+    endDate: "2026-05-31",
+    badge: "Featured Shop",
+    image: "/images/games/obsidia.jpg",
+    wikiUrl: "https://mobile-legends.fandom.com/wiki/Obsidia"
+  },
+  {
+    id: 10,
+    game: "Mobile Legends: Bang Bang",
+    title: "Lesley Legend Skin",
+    description: "Limited-time Mobile Legends draw event featuring the Lesley Legend Skin and exclusive rewards.",
+    startDate: "2026-04-30",
+    endDate: "2026-05-31",
+    badge: "Draw Event",
+    image: "/images/games/lesley.jpg",
+    wikiUrl: "https://mobile-legends.fandom.com/wiki/Lesley"
   },
   {
     id: 5,
@@ -63,6 +85,17 @@ const eventsData = [
     badge: "Hot Event",
     image: "/images/games/genshin.jpeg",
     wikiUrl: "https://genshin-impact.fandom.com/wiki/Lantern_Rite_Festival"
+  },
+  {
+    id: 2,
+    game: "Valorant",
+    title: "Battle Pass Season 8 Launch",
+    description: "New battle pass with exclusive rewards and cosmetics.",
+    startDate: "2026-04-10",
+    endDate: "2026-06-10",
+    badge: "New",
+    image: "/images/games/valorant.jpg",
+    wikiUrl: "https://valorant.fandom.com/wiki/Battle_Pass"
   },
   {
     id: 6,
@@ -230,17 +263,19 @@ const EventCarousel = ({ events, getEventStatus }) => {
             style={{
               position: "relative",
               width: "100%",
-              height: "400px",
+              height: "clamp(280px, 62vw, 520px)",
               backgroundImage: `url(${currentEvent.image})`,
-              backgroundSize: "cover",
+              backgroundSize: "contain",
+              backgroundRepeat: "no-repeat",
               backgroundPosition: "center",
+              backgroundColor: "#000",
               display: "flex",
               alignItems: "flex-end",
               overflow: "hidden"
             }}
           >
             {!eventImageLoaded && (
-              <SkeletonLoader width="100%" height="400px" borderRadius="0" />
+              <SkeletonLoader width="100%" height="clamp(280px, 62vw, 520px)" borderRadius="0" />
             )}
             
             {/* Hidden img tag to detect when image loads */}

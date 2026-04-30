@@ -48,7 +48,7 @@ export const gamesData = [
         items: [
           { amount: "Starlight Normal 301", price: 267 },
           { amount: "Starlight Normal 760", price: 655 },
-          { amount: "Weekly Diamond Pass", price: 98 }
+          { amount: "Weekly Diamond Pass", price: 98, description: "WDP" }
         ]
       }
     ]
@@ -61,22 +61,22 @@ export const gamesData = [
     image: "/images/games/valorant.jpg",
     note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
     pricing: [
-      { amount: "475 VP", price: 186 },
-      { amount: "1,000 VP", price: 372 },
-      { amount: "1,475 VP", price: 558 },
-      { amount: "2,050 VP", price: 744 },
-      { amount: "2,525 VP", price: 930 },
-      { amount: "3,050 VP", price: 1116 },
-      { amount: "3,650 VP", price: 1302 },
-      { amount: "4,650 VP", price: 1674 },
-      { amount: "5,350 VP", price: 1860 },
-      { amount: "7,400 VP", price: 2604 },
-      { amount: "8,400 VP", price: 2976 },
-      { amount: "9,000 VP", price: 3162 },
-      { amount: "10,000 VP", price: 3534 },
-      { amount: "10,700 VP", price: 3720 },
-      { amount: "16,050 VP", price: 5580 },
-      { amount: "21,400 VP", price: 7449 }
+      { amount: "475 VP", price: 188 },
+      { amount: "1,000 VP", price: 376 },
+      { amount: "1,475 VP", price: 564 },
+      { amount: "2,050 VP", price: 752 },
+      { amount: "2,525 VP", price: 940 },
+      { amount: "3,050 VP", price: 1128 },
+      { amount: "3,650 VP", price: 1316 },
+      { amount: "4,650 VP", price: 1692 },
+      { amount: "5,350 VP", price: 1880 },
+      { amount: "7,400 VP", price: 2632 },
+      { amount: "8,400 VP", price: 3008 },
+      { amount: "9,000 VP", price: 3196 },
+      { amount: "10,000 VP", price: 3572 },
+      { amount: "10,700 VP", price: 3760 },
+      { amount: "16,050 VP", price: 5640 },
+      { amount: "21,400 VP", price: 7520 }
     ],
     pricingSections: [
       {

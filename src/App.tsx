@@ -124,6 +124,17 @@ const SkeletonLoader: FC<SkeletonLoaderProps> = ({
 
 const eventsData = [
   {
+    id: 8,
+    game: "Valorant",
+    title: "Kuronami 2.0 Collection",
+    description: "New Valorant collection featuring the Kuronami weapons set, Naru-Kami melee, battle pass bundles, and a discounted bundle price.",
+    startDate: "2026-04-30",
+    endDate: "2026-05-31",
+    badge: "Featured Shop",
+    image: "/images/games/kurunami.jpg",
+    wikiUrl: "https://valorant.fandom.com/wiki/Kuronami_Collection"
+  },
+  {
     id: 1,
     game: "Mobile Legends: Bang Bang",
     title: "MLBB x NARUTO Collaboration Event",
@@ -133,6 +144,28 @@ const eventsData = [
     badge: "Hot Event",
     image: "https://scontent.fcrk2-3.fna.fbcdn.net/v/t39.30808-6/492477191_1119214773576815_6014578049500213380_n.jpg?stp=dst-jpg_p526x296_tt6&_nc_cat=107&ccb=1-7&_nc_sid=13d280&_nc_eui2=AeEaBfvYk4kVB-I4qlCvq2xIhe84nehSclOF7zid6FJyUy3JFZm-fKKBH1x9LJdE9viRluv0r3xQLhbAo4BpXWIe&_nc_ohc=1PPaSltSAusQ7kNvwGHJg9P&_nc_oc=AdoGkj3c0FCI6CXpcRvkSPNpqoLHg22C59z873BVvoEGNqf9rfBYAf8MJWDZhWXCjE0&_nc_zt=23&_nc_ht=scontent.fcrk2-3.fna&_nc_gid=PiGEVZEBcFjaGkimSVbYlA&_nc_ss=7a3a8&oh=00_Af3AlNRttxWfckW8xefW7jzSI389EL2sierX5GgBDyQwDA&oe=69DA58C2",
     wikiUrl: "https://mobile-legends.fandom.com/wiki/Event"
+  },
+  {
+    id: 9,
+    game: "Mobile Legends: Bang Bang",
+    title: "Obsidia Starlight",
+    description: "New Mobile Legends Starlight featuring Obsidia with exclusive skin rewards and limited-time bonuses.",
+    startDate: "2026-04-30",
+    endDate: "2026-05-31",
+    badge: "Featured Shop",
+    image: "/images/games/obsidia.jpg",
+    wikiUrl: "https://mobile-legends.fandom.com/wiki/Obsidia"
+  },
+  {
+    id: 10,
+    game: "Mobile Legends: Bang Bang",
+    title: "Lesley Legend Skin",
+    description: "Limited-time Mobile Legends draw event featuring the Lesley Legend Skin and exclusive rewards.",
+    startDate: "2026-04-30",
+    endDate: "2026-05-31",
+    badge: "Draw Event",
+    image: "/images/games/lesley.jpg",
+    wikiUrl: "https://mobile-legends.fandom.com/wiki/Lesley"
   },
   {
     id: 2,
@@ -247,17 +280,19 @@ const EventCarousel: FC<{ events: any[]; getEventStatus: (startDate: string, end
             style={{
               position: "relative",
               width: "100%",
-              height: "400px",
+              height: "clamp(280px, 62vw, 520px)",
               backgroundImage: `url(${currentEvent.image})`,
-              backgroundSize: "cover",
+              backgroundSize: "contain",
+              backgroundRepeat: "no-repeat",
               backgroundPosition: "center",
+              backgroundColor: "#000",
               display: "flex",
               alignItems: "flex-end",
               overflow: "hidden"
             }}
           >
             {!eventImageLoaded && (
-              <SkeletonLoader width="100%" height="400px" borderRadius="0" />
+              <SkeletonLoader width="100%" height="clamp(280px, 62vw, 520px)" borderRadius="0" />
             )}
             
             {/* Hidden img tag to detect when image loads */}
