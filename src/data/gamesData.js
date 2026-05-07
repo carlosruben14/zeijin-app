@@ -98,17 +98,17 @@ export const gamesData = [
     image: "/images/games/lol-wildrift.png",
     note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
     pricing: [
-      { amount: "425 WC", price: 186 },
-      { amount: "1,000 WC", price: 420 },
-      { amount: "1,425 WC", price: 606 },
-      { amount: "1,850 WC", price: 762 },
-      { amount: "2,275 WC", price: 948 },
-      { amount: "2,850 WC", price: 1182 },
-      { amount: "3,275 WC", price: 1330 },
-      { amount: "4,800 WC", price: 1905 },
-      { amount: "9,600 WC", price: 3810 },
+      { amount: "425 WC", price: 188 },
+      { amount: "1,000 WC", price: 425 },
+      { amount: "1,425 WC", price: 613 },
+      { amount: "1,850 WC", price: 771 },
+      { amount: "2,275 WC", price: 959 },
+      { amount: "2,850 WC", price: 1196 },
+      { amount: "3,275 WC", price: 1345 },
+      { amount: "4,800 WC", price: 1927 },
+      { amount: "9,600 WC", price: 3854 },
       { amount: "Stellacorn's", price: 186 },
-      { amount: "Celestial Blessing", price: 1330 }
+      { amount: "Celestial Blessing", price: 1345 }
     ],
     pricingSections: [
       {
@@ -221,12 +221,12 @@ export const gamesData = [
     image: "/images/games/tft.jpg",
     note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
     pricing: [
-      { amount: "575 RP", price: 186 },
-      { amount: "1,380 RP", price: 419 },
-      { amount: "2,800 RP", price: 837 },
-      { amount: "4,500 RP", price: 1302 },
-      { amount: "6,500 RP", price: 1860 },
-      { amount: "13,000 RP", price: 3720 }
+      { amount: "575 RP", price: 188 },
+      { amount: "1,380 RP", price: 425 },
+      { amount: "2,800 RP", price: 845 },
+      { amount: "4,500 RP", price: 1316 },
+      { amount: "6,500 RP", price: 1880 },
+      { amount: "13,000 RP", price: 3760 }
     ],
     pricingSections: [
       {
@@ -250,10 +250,10 @@ export const gamesData = [
     pricing: [
       { amount: "575 RP", price: 186 },
       { amount: "1,380 RP", price: 419 },
-      { amount: "2,800 RP", price: 837 },
-      { amount: "4,500 RP", price: 1302 },
-      { amount: "6,500 RP", price: 1860 },
-      { amount: "13,000 RP", price: 3720 }
+      { amount: "2,800 RP", price: 845 },
+      { amount: "4,500 RP", price: 1316 },
+      { amount: "6,500 RP", price: 1880 },
+      { amount: "13,000 RP", price: 3760 }
     ],
     pricingSections: [
       {
