@@ -8,7 +8,7 @@ export const eventsData = [
     startDate: "2026-04-30",
     endDate: "2026-05-31",
     badge: "Featured Shop",
-    image: "/images/games/bundle kuro.jpg",
+    image: "/images/games/bundlekuro.jpg",
     wikiUrl: "https://valorant.fandom.com/wiki/Kuronami_Collection"
   },
   {
