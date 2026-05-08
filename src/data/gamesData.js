@@ -61,22 +61,22 @@ export const gamesData = [
     image: "/images/games/valorant.jpg",
     note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
     pricing: [
-      { amount: "475 VP", price: 188 },
-      { amount: "1,000 VP", price: 376 },
-      { amount: "1,475 VP", price: 564 },
-      { amount: "2,050 VP", price: 752 },
-      { amount: "2,525 VP", price: 940 },
-      { amount: "3,050 VP", price: 1128 },
-      { amount: "3,650 VP", price: 1316 },
-      { amount: "4,650 VP", price: 1692 },
-      { amount: "5,350 VP", price: 1880 },
-      { amount: "7,400 VP", price: 2632 },
-      { amount: "8,400 VP", price: 3008 },
-      { amount: "9,000 VP", price: 3196 },
-      { amount: "10,000 VP", price: 3572 },
-      { amount: "10,700 VP", price: 3760 },
-      { amount: "16,050 VP", price: 5640 },
-      { amount: "21,400 VP", price: 7520 }
+      { amount: "475 VP", price: 190 },
+      { amount: "1,000 VP", price: 380 },
+      { amount: "1,475 VP", price: 570 },
+      { amount: "2,050 VP", price: 760 },
+      { amount: "2,525 VP", price: 950 },
+      { amount: "3,050 VP", price: 1140 },
+      { amount: "3,650 VP", price: 1330 },
+      { amount: "4,650 VP", price: 1710 },
+      { amount: "5,350 VP", price: 1900 },
+      { amount: "7,400 VP", price: 2656 },
+      { amount: "8,400 VP", price: 3040 },
+      { amount: "9,000 VP", price: 3230 },
+      { amount: "10,000 VP", price: 3610 },
+      { amount: "10,700 VP", price: 3800 },
+      { amount: "16,050 VP", price: 5700 },
+      { amount: "21,400 VP", price: 7600 }
     ],
     pricingSections: [
       {
@@ -98,17 +98,17 @@ export const gamesData = [
     image: "/images/games/lol-wildrift.png",
     note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
     pricing: [
-      { amount: "425 WC", price: 188 },
-      { amount: "1,000 WC", price: 425 },
-      { amount: "1,425 WC", price: 613 },
-      { amount: "1,850 WC", price: 771 },
-      { amount: "2,275 WC", price: 959 },
-      { amount: "2,850 WC", price: 1196 },
-      { amount: "3,275 WC", price: 1345 },
-      { amount: "4,800 WC", price: 1927 },
-      { amount: "9,600 WC", price: 3854 },
-      { amount: "Stellacorn's", price: 186 },
-      { amount: "Celestial Blessing", price: 1345 }
+      { amount: "425 WC", price: 190 },
+      { amount: "1,000 WC", price: 430 },
+      { amount: "1,425 WC", price: 618 },
+      { amount: "1,850 WC", price: 779 },
+      { amount: "2,275 WC", price: 969 },
+      { amount: "2,850 WC", price: 1209 },
+      { amount: "3,275 WC", price: 1359 },
+      { amount: "4,800 WC", price: 1948 },
+      { amount: "9,600 WC", price: 3896 },
+      { amount: "Stellacorn's", price: 190 },
+      { amount: "Celestial Blessing", price: 1359 }
     ],
     pricingSections: [
       {
@@ -221,12 +221,12 @@ export const gamesData = [
     image: "/images/games/tft.jpg",
     note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
     pricing: [
-      { amount: "575 RP", price: 188 },
-      { amount: "1,380 RP", price: 425 },
-      { amount: "2,800 RP", price: 845 },
-      { amount: "4,500 RP", price: 1316 },
-      { amount: "6,500 RP", price: 1880 },
-      { amount: "13,000 RP", price: 3760 }
+      { amount: "575 RP", price: 190 },
+      { amount: "1,380 RP", price: 430 },
+      { amount: "2,800 RP", price: 855 },
+      { amount: "4,500 RP", price: 1330 },
+      { amount: "6,500 RP", price: 1900 },
+      { amount: "13,000 RP", price: 3800 }
     ],
     pricingSections: [
       {
