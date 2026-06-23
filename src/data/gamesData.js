@@ -196,23 +196,7 @@ export const gamesData = [
       { amount: "8,360 Tokens", price: 5665 }
     ]
   },
-  {
-    id: 6,
-    title: "Genshin Impact",
-    category: "rpg",
-    description: "Genshin Impact Discounted Genesis Crystals",
-    image: "/images/games/genshin.jpeg",
-    note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
-    pricing: [
-      { amount: "60 Crystals", price: 58 },
-      { amount: "300 Crystals", price: 290 },
-      { amount: "980 Crystals", price: 920 },
-      { amount: "1,980 Crystals", price: 1880 },
-      { amount: "3,280 Crystals", price: 3200 },
-      { amount: "6,480 Crystals", price: 6300 },
-      { amount: "Blessings of the Welkin Moon", price: 250 }
-    ]
-  },
+
   {
     id: 7,
     title: "Teamfight Tactics",
