@@ -8,6 +8,7 @@ import AskUs from "./components/AskUs";
 import Logger from "./utils/errorHandler";
 import { Z_INDEX } from "./constants/zIndex";
 import { gamesData } from "./data/gamesData";
+import { eventsData } from "./data/eventsData";
 import type { Game } from "./types";
 import { calculateSimilarity, findClosestMatch, getEventStatus, calculateDaysLeft } from "./utils/searchUtils";
 
@@ -121,97 +122,6 @@ const SkeletonLoader: FC<SkeletonLoaderProps> = ({
     `}</style>
   </div>
 );
-
-const eventsData = [
-  {
-    id: 8,
-    game: "Valorant",
-    title: "Kuronami 2.0 Collection",
-    description: "New Valorant collection featuring the Kuronami weapons set, Naru-Kami melee, battle pass bundles, and a discounted bundle price.",
-    startDate: "2026-04-30",
-    endDate: "2026-05-31",
-    badge: "Featured Shop",
-    image: "/images/games/kurunami.jpg",
-    wikiUrl: "https://valorant.fandom.com/wiki/Kuronami_Collection"
-  },
-  {
-    id: 1,
-    game: "Mobile Legends: Bang Bang",
-    title: "MLBB x NARUTO Collaboration Event",
-    description: "Get up to 50% off on selected Dias packages. Limited time offer!",
-    startDate: "2026-04-07",
-    endDate: "2026-04-30",
-    badge: "Hot Event",
-    image: "https://scontent.fcrk2-3.fna.fbcdn.net/v/t39.30808-6/492477191_1119214773576815_6014578049500213380_n.jpg?stp=dst-jpg_p526x296_tt6&_nc_cat=107&ccb=1-7&_nc_sid=13d280&_nc_eui2=AeEaBfvYk4kVB-I4qlCvq2xIhe84nehSclOF7zid6FJyUy3JFZm-fKKBH1x9LJdE9viRluv0r3xQLhbAo4BpXWIe&_nc_ohc=1PPaSltSAusQ7kNvwGHJg9P&_nc_oc=AdoGkj3c0FCI6CXpcRvkSPNpqoLHg22C59z873BVvoEGNqf9rfBYAf8MJWDZhWXCjE0&_nc_zt=23&_nc_ht=scontent.fcrk2-3.fna&_nc_gid=PiGEVZEBcFjaGkimSVbYlA&_nc_ss=7a3a8&oh=00_Af3AlNRttxWfckW8xefW7jzSI389EL2sierX5GgBDyQwDA&oe=69DA58C2",
-    wikiUrl: "https://mobile-legends.fandom.com/wiki/Event"
-  },
-  {
-    id: 9,
-    game: "Mobile Legends: Bang Bang",
-    title: "Obsidia Starlight",
-    description: "New Mobile Legends Starlight featuring Obsidia with exclusive skin rewards and limited-time bonuses.",
-    startDate: "2026-04-30",
-    endDate: "2026-05-31",
-    badge: "Featured Shop",
-    image: "/images/games/obsidia.jpg",
-    wikiUrl: "https://mobile-legends.fandom.com/wiki/Obsidia"
-  },
-  {
-    id: 10,
-    game: "Mobile Legends: Bang Bang",
-    title: "Lesley Legend Skin",
-    description: "Limited-time Mobile Legends draw event featuring the Lesley Legend Skin and exclusive rewards.",
-    startDate: "2026-04-30",
-    endDate: "2026-05-31",
-    badge: "Draw Event",
-    image: "/images/games/lesley.jpg",
-    wikiUrl: "https://mobile-legends.fandom.com/wiki/Lesley"
-  },
-  {
-    id: 2,
-    game: "Valorant",
-    title: "Battle Pass Season 8 Launch",
-    description: "New battle pass with exclusive rewards and cosmetics.",
-    startDate: "2026-04-10",
-    endDate: "2026-06-10",
-    badge: "New",
-    image: "/images/games/valorant.jpg",
-    wikiUrl: "https://valorant.fandom.com/wiki/Battle_Pass"
-  },
-  {
-    id: 5,
-    game: "Genshin Impact",
-    title: "Lantern Rite Festival 2026",
-    description: "Celebrate with special quests, rewards, and limited-time banner!",
-    startDate: "2026-04-20",
-    endDate: "2026-05-20",
-    badge: "Hot Event",
-    image: "/images/games/genshin.jpeg",
-    wikiUrl: "https://genshin-impact.fandom.com/wiki/Lantern_Rite_Festival"
-  },
-  {
-    id: 6,
-    game: "Valorant",
-    title: "Jellybeam Collection Bundle",
-    description: "Featured jellybeam weapon skins collection. Includes stunning blue and pink gradient designs across multiple weapons.",
-    startDate: "2026-04-07",
-    endDate: "2026-04-15",
-    badge: "Featured Shop",
-    image: "/images/games/valorant-jellybeam.jpg",
-    wikiUrl: "https://valorant.fandom.com/wiki/Featured_Bundle"
-  },
-  {
-    id: 7,
-    game: "Valorant",
-    title: "Blackthorn Collection Bundle",
-    description: "Featured blackthorn weapon skins with dark red and black thematic designs. Limited time exclusive bundle!",
-    startDate: "2026-04-07",
-    endDate: "2026-04-08",
-    badge: "Ending Soon",
-    image: "/images/games/valorant-blackthorn.jpg",
-    wikiUrl: "https://valorant.fandom.com/wiki/Featured_Bundle"
-  }
-];
 
 const EventCarousel: FC<{ events: any[]; getEventStatus: (startDate: string, endDate: string) => string }> = ({ events }) => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
