@@ -3,12 +3,12 @@ export const eventsData = [
   {
     id: 8,
     game: "Valorant",
-    title: "Kuronami 2.0 Collection",
+    title: "𝗕𝗟𝗔𝗖𝗞𝗦𝗣𝗬𝗥𝗘 𝗖𝗢𝗟𝗟𝗘𝗖𝗧𝗜𝗢𝗡",
     description: "New Valorant collection featuring the Kuronami weapons set, Naru-Kami melee, battle pass bundles, and a discounted bundle price.",
     startDate: "2026-04-30",
     endDate: "2026-05-31",
     badge: "Featured Shop",
-    image: "/images/games/bundlekuro.jpg",
+    image: "/images/games/blacksprye.jpg",
     wikiUrl: "https://valorant.fandom.com/wiki/Kuronami_Collection"
   },
   {
