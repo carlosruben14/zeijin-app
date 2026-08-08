@@ -1690,8 +1690,14 @@ export default function App() {
                   };
                   
                   const discount = discountMap[game.id] || "5%";
-                  
-                  const isPopular = game.pricing.length >= 10;
+
+                  const packageCount = Array.isArray(game.pricing)
+                    ? game.pricing.length
+                    : Array.isArray(game.pricingSections)
+                      ? game.pricingSections.reduce((total, section) => total + (Array.isArray(section.items) ? section.items.length : 0), 0)
+                      : 0;
+
+                  const isPopular = packageCount >= 10;
                   
                   return (
                     <div 
@@ -1751,7 +1757,7 @@ export default function App() {
                         <div className="game-description">{game.description}</div>
                         <div style={{ marginTop: "auto", display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%", marginBottom: "1rem" }}>
                           <div style={{ color: "#00ff88", fontSize: "0.9rem" }}>
-                            {game.pricing.length} packages available
+                            {packageCount} packages available
                           </div>
                           <div style={{
                             background: game.category === "moba" ? "rgba(0, 212, 255, 0.2)" : game.category === "fps" ? "rgba(255, 165, 0, 0.2)" : "rgba(157, 78, 221, 0.2)",
