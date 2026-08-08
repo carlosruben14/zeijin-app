@@ -7,40 +7,24 @@ export const gamesData = [
     description: "MLBB Discounted Diamonds - Popular Mobile MOBA",
     image: "/images/games/mlbb.jpg",
     note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
-    pricing: [
-      { amount: "56 Diamonds", price: 50 },
-      { amount: "112 Diamonds", price: 98 },
-      { amount: "168 Diamonds", price: 147 },
-      { amount: "223 Diamonds", price: 192 },
-      { amount: "279 Diamonds", price: 242 },
-      { amount: "336 Diamonds", price: 287 },
-      { amount: "570 Diamonds", price: 480 },
-      { amount: "793 Diamonds", price: 670 },
-      { amount: "906 Diamonds", price: 768 },
-      { amount: "1,163 Diamonds", price: 945 },
-      { amount: "2,398 Diamonds", price: 1890 },
-      { amount: "3,561 Diamonds", price: 2835 },
-      { amount: "5,132 Diamonds", price: 4067 },
-      { amount: "6,042 Diamonds", price: 4765 }
-    ],
     pricingSections: [
       {
         title: "💎 Diamond Packages",
         items: [
-          { amount: "56 Diamonds", price: 50 },
-          { amount: "112 Diamonds", price: 98 },
-          { amount: "168 Diamonds", price: 147 },
-          { amount: "223 Diamonds", price: 192 },
-          { amount: "279 Diamonds", price: 242 },
-          { amount: "336 Diamonds", price: 287 },
-          { amount: "570 Diamonds", price: 480 },
-          { amount: "793 Diamonds", price: 670 },
-          { amount: "906 Diamonds", price: 768 },
-          { amount: "1,163 Diamonds", price: 945 },
-          { amount: "2,398 Diamonds", price: 1890 },
-          { amount: "3,561 Diamonds", price: 2835 },
-          { amount: "5,132 Diamonds", price: 4067 },
-          { amount: "6,042 Diamonds", price: 4765 }
+          { amount: "56 Diamonds", price: 57 },
+          { amount: "112 Diamonds", price: 117 },
+          { amount: "168 Diamonds", price: 171 },
+          { amount: "223 Diamonds", price: 225 },
+          { amount: "279 Diamonds", price: 282 },
+          { amount: "336 Diamonds", price: 339 },
+          { amount: "570 Diamonds", price: 565 },
+          { amount: "793 Diamonds", price: 788 },
+          { amount: "906 Diamonds", price: 902 },
+          { amount: "1,163 Diamonds", price: 1125 },
+          { amount: "2,398 Diamonds", price: 2250 },
+          { amount: "3,561 Diamonds", price: 3365 },
+          { amount: "5,132 Diamonds", price: 4845 },
+          { amount: "6,042 Diamonds", price: 5635 }
         ]
       },
       {
@@ -48,7 +32,10 @@ export const gamesData = [
         items: [
           { amount: "Starlight Normal 301", price: 267 },
           { amount: "Starlight Normal 760", price: 655 },
-          { amount: "Weekly Diamond Pass", price: 98, description: "WDP" }
+          { amount: "Weekly Elite Bundle", price: 65 },
+          { amount: "Monthly Elite Bundle", price: 285 },
+          { amount: "Twilight Pass", price: 560 },
+          { amount: "Weekly Diamond Pass", price: 116, description: "WDP" }
         ]
       }
     ]
@@ -129,19 +116,6 @@ export const gamesData = [
     description: "COD Mobile Discounted CP - FPS Action",
     image: "/images/games/codm.jpg",
     note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
-    pricing: [
-      { amount: "100 GS / 208 CP", price: 98 },
-      { amount: "200 GS / 416 CP", price: 195 },
-      { amount: "300 GS / 648 CP", price: 295 },
-      { amount: "500 GS / 1,080 CP", price: 485 },
-      { amount: "1,000 GS / 2,320 CP", price: 965 },
-      { amount: "2,000 GS / 4,640 CP", price: 1930 },
-      { amount: "3,000 GS / 6,960 CP", price: 2895 },
-      { amount: "4,000 GS / 9,280 CP", price: 3860 },
-      { amount: "5,000 GS / 11,600 CP", price: 4820 },
-      { amount: "Regular Battle Pass", price: 165 },
-      { amount: "Premium Battle Pass", price: 295 }
-    ],
     pricingSections: [
       {
         title: "🎯 GS / CP Packages",
