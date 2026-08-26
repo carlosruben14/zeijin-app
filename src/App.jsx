@@ -234,7 +234,7 @@ const EventCarousel = ({ events, getEventStatus }) => {
                     e.currentTarget.style.background = "rgba(255, 51, 51, 0.2)";
                   }}
                 >
-                  📖 Event Details
+                  Event Details
                 </a>
               )}
             </div>
