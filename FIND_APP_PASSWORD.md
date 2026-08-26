@@ -1,11 +1,11 @@
 # Finding Gmail App Password - Visual Guide
 
-## You're Already Set Up! ✅
+## You're Already Set Up!
 
 Your Google Account shows:
-- ✅ 2-Step Verification: **ON** (since 10:33 AM)
-- ✅ Password: Set
-- ✅ Ready for App Passwords!
+- 2-Step Verification: **ON** (since 10:33 AM)
+- Password: Set
+- Ready for App Passwords!
 
 ## Next Step: Get App Password
 
@@ -53,13 +53,13 @@ Replace `abcdefghijklmnop` with your 16 characters.
 node server.js
 ```
 
-Done! ✅
+Done!
 
 ## Can't Find App Passwords?
 
 **If you don't see "App passwords" option:**
 
-1. Make sure 2-Step Verification is **ON** (you have it ✅)
+1. Make sure 2-Step Verification is **ON**
 2. **Scroll down more** on the Security & sign-in page
 3. Refresh the page (F5)
 4. Try different browser

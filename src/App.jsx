@@ -247,7 +247,7 @@ const EventCarousel = ({ events, getEventStatus }) => {
             {currentEvent.title}
           </h2>
           <p style={{ color: "#999", marginBottom: "1rem", fontSize: "0.95rem" }}>
-            🎮 {currentEvent.game}
+              {currentEvent.game}
           </p>
           <p style={{ color: "#d0d0d0", marginBottom: "1.5rem", lineHeight: "1.6" }}>
             {currentEvent.description}
@@ -802,7 +802,7 @@ export default function App() {
         errorMsg = error.message;
       }
       
-      setMlCheckError(`❌ ${errorMsg}`)
+      setMlCheckError(errorMsg)
     } finally {
       setMlCheckLoading(false);
     }
@@ -840,25 +840,25 @@ export default function App() {
           <div style={{ background: "linear-gradient(135deg, rgba(30, 30, 45, 1), rgba(50, 20, 20, 1))", padding: isMobile ? "1.25rem" : "2rem", borderRadius: isMobile ? "10px" : "12px", border: "2px solid #ff3333", maxWidth: isMobile ? "360px" : "500px", width: "100%", textAlign: "center", boxShadow: isMobile ? "0 0 30px rgba(255, 51, 51, 0.35)" : "0 0 60px rgba(255, 51, 51, 0.5)", maxHeight: isMobile ? "84vh" : "90vh", overflowY: "auto" }}>
             <h2 style={{ color: "#ff3333", marginBottom: isMobile ? "0.75rem" : "1rem", fontSize: isMobile ? "1.35rem" : "1.8rem", fontWeight: "bold" }}>Welcome to Zeijin!</h2>
             <p style={{ color: "#d0d0d0", marginBottom: isMobile ? "1rem" : "1.5rem", lineHeight: "1.6", fontSize: isMobile ? "0.82rem" : "0.95rem" }}>
-              👋 This website is for <strong>checking prices and game details</strong>. 
+                This website is for <strong>checking prices and game details</strong>.
             </p>
             
             {/* 6 Steps */}
             <div style={{ background: "rgba(255, 51, 51, 0.08)", padding: isMobile ? "1rem" : "1.5rem", borderRadius: "8px", marginBottom: isMobile ? "1rem" : "1.5rem", textAlign: "left" }}>
-              <p style={{ color: "#FF6B9D", fontWeight: "bold", marginBottom: isMobile ? "0.7rem" : "1rem", fontSize: isMobile ? "0.82rem" : "0.95rem" }}>📋 How It Works (6 Steps):</p>
+                <p style={{ color: "#FF6B9D", fontWeight: "bold", marginBottom: isMobile ? "0.7rem" : "1rem", fontSize: isMobile ? "0.82rem" : "0.95rem" }}>How It Works (6 Steps):</p>
               <div style={{ display: "grid", gap: isMobile ? "0.55rem" : "0.8rem", fontSize: isMobile ? "0.73rem" : "0.85rem" }}>
-                <div style={{ color: "#e0e0e0", lineHeight: "1.4" }}><strong style={{ color: "#00ff88" }}>1. Browse Games</strong> 🎮 - Explore our 16+ popular games</div>
-                <div style={{ color: "#e0e0e0", lineHeight: "1.4" }}><strong style={{ color: "#00ff88" }}>2. View Pricing</strong> 💰 - See currency packages in PHP</div>
-                <div style={{ color: "#e0e0e0", lineHeight: "1.4" }}><strong style={{ color: "#00ff88" }}>3. Copy or Contact</strong> 📋 - Copy price or Order Form</div>
-                <div style={{ color: "#e0e0e0", lineHeight: "1.4" }}><strong style={{ color: "#00ff88" }}>4. Fill Details</strong> ✍️ - Enter your account info</div>
-                <div style={{ color: "#e0e0e0", lineHeight: "1.4" }}><strong style={{ color: "#00ff88" }}>5. Submit</strong> 📤 - Send your order</div>
-                <div style={{ color: "#e0e0e0", lineHeight: "1.4" }}><strong style={{ color: "#00ff88" }}>6. We Process</strong> ⚡ - Get your currency!</div>
+                <div style={{ color: "#e0e0e0", lineHeight: "1.4" }}><strong style={{ color: "#00ff88" }}>1. Browse Games</strong> - Explore our 16+ popular games</div>
+                <div style={{ color: "#e0e0e0", lineHeight: "1.4" }}><strong style={{ color: "#00ff88" }}>2. View Pricing</strong> - See currency packages in PHP</div>
+                <div style={{ color: "#e0e0e0", lineHeight: "1.4" }}><strong style={{ color: "#00ff88" }}>3. Copy or Contact</strong> - Copy price or Order Form</div>
+                <div style={{ color: "#e0e0e0", lineHeight: "1.4" }}><strong style={{ color: "#00ff88" }}>4. Fill Details</strong> - Enter your account info</div>
+                <div style={{ color: "#e0e0e0", lineHeight: "1.4" }}><strong style={{ color: "#00ff88" }}>5. Submit</strong> - Send your order</div>
+                <div style={{ color: "#e0e0e0", lineHeight: "1.4" }}><strong style={{ color: "#00ff88" }}>6. We Process</strong> - Get your currency!</div>
               </div>
             </div>
             
             <div style={{ background: "rgba(255, 51, 51, 0.1)", border: "1px solid rgba(255, 51, 51, 0.3)", padding: isMobile ? "1rem" : "1.5rem", borderRadius: "8px", marginBottom: isMobile ? "1rem" : "1.5rem", color: "#FFB3B3" }}>
               <p style={{ marginBottom: "0.7rem", fontSize: isMobile ? "0.78rem" : "0.9rem" }}>
-                <strong>💰 Actual Transaction:</strong> All payments and transactions happen through <strong>Messenger, Telegram, or Instagram DM</strong> - NOT on this website.
+                <strong>Actual Transaction:</strong> All payments and transactions happen through <strong>Messenger, Telegram, or Instagram DM</strong> - NOT on this website.
               </p>
             </div>
             <button 
@@ -896,7 +896,7 @@ export default function App() {
           </div>
           <nav>
             <a href="#" style={{ marginLeft: "0", cursor: "pointer", color: "#FF6B9D", fontWeight: "bold", textDecoration: "none", fontSize: "0.95rem" }} onClick={(e) => { e.preventDefault(); setShowHowItWorks(true); }}>❓ How It Works</a>
-            <a href="#" style={{ marginLeft: "1.5rem", cursor: "pointer", color: "#FF6B9D", fontWeight: "bold", textDecoration: "none", fontSize: "0.95rem" }} onClick={(e) => { e.preventDefault(); setShowMLIDChecker(true); }}>🔍 Game Fandom Wiki</a>
+                <a href="#" style={{ marginLeft: "1.5rem", cursor: "pointer", color: "#FF6B9D", fontWeight: "bold", textDecoration: "none", fontSize: "0.95rem" }} onClick={(e) => { e.preventDefault(); setShowMLIDChecker(true); }}>Game Fandom Wiki</a>
           </nav>
         </div>
       </header>
@@ -910,7 +910,7 @@ export default function App() {
           <div style={{ background: "linear-gradient(135deg, rgba(30, 30, 45, 1), rgba(40, 20, 35, 1))", padding: isMobile ? "1.5rem" : "2rem", borderRadius: "12px", border: "2px solid #FF6B9D", maxWidth: "500px", width: "100%", maxHeight: "90vh", overflow: "auto", boxShadow: "0 0 60px rgba(255, 107, 157, 0.4)" }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.5rem" }}>
               <h2 style={{ color: "#FF6B9D", margin: 0, fontSize: "1.5rem" }}>
-                🎮 {wikiSelectedGame === "mlbb" ? "MLBB" : wikiSelectedGame === "valorant" ? "Valorant" : wikiSelectedGame === "genshin" ? "Genshin Impact" : "League of Legends"} Wiki
+                {wikiSelectedGame === "mlbb" ? "MLBB" : wikiSelectedGame === "valorant" ? "Valorant" : wikiSelectedGame === "genshin" ? "Genshin Impact" : "League of Legends"} Wiki
               </h2>
               <button 
                 onClick={() => {
@@ -969,7 +969,7 @@ export default function App() {
                       }
                     }}
                   >
-                    {game === "mlbb" ? "🎮 MLBB" : game === "valorant" ? "🔫 Valorant" : game === "genshin" ? "⭐ Genshin" : "⚔️ LoL"}
+                    {game === "mlbb" ? "MLBB" : game === "valorant" ? "Valorant" : game === "genshin" ? "Genshin" : "LoL"}
                   </button>
                 ))}
               </div>
@@ -979,13 +979,13 @@ export default function App() {
             {mlCheckError && (
               <div>
                 <div style={{ background: "rgba(255, 51, 51, 0.15)", border: "1px solid rgba(255, 51, 51, 0.4)", padding: "1rem", borderRadius: "8px", marginBottom: "1.5rem", color: "#FFB3B3", fontSize: "0.9rem" }}>
-                  ❌ {mlCheckError}
+                    {mlCheckError}
                 </div>
                 
                 {/* Suggestion Box */}
                 {mlSuggestion && (
                   <div style={{ background: "rgba(100, 200, 255, 0.15)", border: "1px solid rgba(100, 200, 255, 0.4)", padding: "1rem", borderRadius: "8px", marginBottom: "1.5rem", color: "#64c8ff" }}>
-                    <div style={{ fontSize: "0.85rem", marginBottom: "0.5rem" }}>💡 Did you mean:</div>
+                    <div style={{ fontSize: "0.85rem", marginBottom: "0.5rem" }}>Did you mean:</div>
                     <button
                       onClick={() => {
                         setMlSearchQuery(mlSuggestion.name);
@@ -1012,7 +1012,7 @@ export default function App() {
                         e.currentTarget.style.background = "rgba(100, 200, 255, 0.2)";
                       }}
                     >
-                      🔍 {mlSuggestion.name}
+                      {mlSuggestion.name}
                     </button>
                   </div>
                 )}
@@ -1049,7 +1049,7 @@ export default function App() {
                     onMouseEnter={(e) => { if (wikiDetailTab !== "overview") e.currentTarget.style.background = "rgba(0, 255, 136, 0.1)"; }}
                     onMouseLeave={(e) => { if (wikiDetailTab !== "overview") e.currentTarget.style.background = "transparent"; }}
                   >
-                    📋 Overview
+                    Overview
                   </button>
                   
                   {(mlCheckResult.type === "hero" || mlCheckResult.type === "character" || mlCheckResult.type === "champion" || mlCheckResult.type === "agent") && (
@@ -1069,7 +1069,7 @@ export default function App() {
                       onMouseEnter={(e) => { if (wikiDetailTab !== "stats") e.currentTarget.style.background = "rgba(0, 255, 136, 0.1)"; }}
                       onMouseLeave={(e) => { if (wikiDetailTab !== "stats") e.currentTarget.style.background = "transparent"; }}
                     >
-                      📊 Stats
+                      Stats
                     </button>
                   )}
                   
@@ -1090,7 +1090,7 @@ export default function App() {
                       onMouseEnter={(e) => { if (wikiDetailTab !== "abilities") e.currentTarget.style.background = "rgba(0, 255, 136, 0.1)"; }}
                       onMouseLeave={(e) => { if (wikiDetailTab !== "abilities") e.currentTarget.style.background = "transparent"; }}
                     >
-                      ⚡ Abilities
+                      Abilities
                     </button>
                   )}
                 </div>
@@ -1159,7 +1159,7 @@ export default function App() {
                                 onMouseEnter={(e) => {}}
                                 onMouseLeave={(e) => {}}
                               >
-                                📖 View on Fandom Wiki
+                                View on Fandom Wiki
                               </a>
                             </div>
                           )}
@@ -1180,39 +1180,39 @@ export default function App() {
                     <>
                       {mlCheckResult.type === "hero" && mlCheckResult.data && (
                         <div style={{ background: "rgba(0, 255, 136, 0.05)", padding: "0.8rem", borderRadius: "6px", marginTop: "0.5rem" }}>
-                          <p style={{ marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold", color: "#00ff88" }}>📊 Hero Stats Available</p>
+                          <p style={{ marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold", color: "#00ff88" }}>Hero Stats Available</p>
                           <p style={{ fontSize: "0.8rem", color: "#a0a0a0" }}>Detailed stats information can be found in the official MLBB wiki. Role: <strong>{mlCheckResult.data.role}</strong> | Lane: <strong>{mlCheckResult.data.lane_recommendation}</strong></p>
                         </div>
                       )}
                       {mlCheckResult.type === "item" && mlCheckResult.data && (
                         <div style={{ background: "rgba(0, 255, 136, 0.05)", padding: "0.8rem", borderRadius: "6px", marginTop: "0.5rem" }}>
-                          <p style={{ marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold", color: "#00ff88" }}>📊 Item Stats</p>
+                          <p style={{ marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold", color: "#00ff88" }}>Item Stats</p>
                           {mlCheckResult.data.attack_power && <div>⚔️ ATK: {mlCheckResult.data.attack_power}</div>}
                           {mlCheckResult.data.magic_power && <div>✨ Magic: {mlCheckResult.data.magic_power}</div>}
-                          {mlCheckResult.data.crit_chance && <div>💥 Crit: {mlCheckResult.data.crit_chance}</div>}
+                          {mlCheckResult.data.crit_chance && <div>Crit: {mlCheckResult.data.crit_chance}</div>}
                           {mlCheckResult.data.hp && <div>❤️ HP: {mlCheckResult.data.hp}</div>}
                         </div>
                       )}
                       {mlCheckResult.type === "character" && mlCheckResult.data && (
                         <div style={{ background: "rgba(0, 255, 136, 0.05)", padding: "0.8rem", borderRadius: "6px", marginTop: "0.5rem" }}>
-                          <p style={{ marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold", color: "#00ff88" }}>📊 Character Stats</p>
-                          {mlCheckResult.data.weapon && <div>🗡️ Weapon: {mlCheckResult.data.weapon}</div>}
-                          {mlCheckResult.data.vision && <div>💎 Element: {mlCheckResult.data.vision}</div>}
+                          <p style={{ marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold", color: "#00ff88" }}>Character Stats</p>
+                          {mlCheckResult.data.weapon && <div>Weapon: {mlCheckResult.data.weapon}</div>}
+                          {mlCheckResult.data.vision && <div>Element: {mlCheckResult.data.vision}</div>}
                           {mlCheckResult.data.rarity && <div>⭐ Rarity: {mlCheckResult.data.rarity}</div>}
                           <p style={{ fontSize: "0.8rem", color: "#a0a0a0", marginTop: "0.5rem" }}>Visit the wiki for detailed combat stats and scaling information.</p>
                         </div>
                       )}
                       {mlCheckResult.type === "champion" && mlCheckResult.data && (
                         <div style={{ background: "rgba(0, 255, 136, 0.05)", padding: "0.8rem", borderRadius: "6px", marginTop: "0.5rem" }}>
-                          <p style={{ marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold", color: "#00ff88" }}>📊 Champion Stats</p>
-                          {mlCheckResult.data.regions && <div>🌍 Regions: {mlCheckResult.data.regions.join(", ")}</div>}
+                          <p style={{ marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold", color: "#00ff88" }}>Champion Stats</p>
+                          {mlCheckResult.data.regions && <div>Regions: {mlCheckResult.data.regions.join(", ")}</div>}
                           <p style={{ fontSize: "0.8rem", color: "#a0a0a0", marginTop: "0.5rem" }}>Visit League of Legends wiki for detailed base stats, scaling, and matchup information.</p>
                         </div>
                       )}
                       {mlCheckResult.type === "agent" && mlCheckResult.data && (
                         <div style={{ background: "rgba(0, 255, 136, 0.05)", padding: "0.8rem", borderRadius: "6px", marginTop: "0.5rem" }}>
-                          <p style={{ marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold", color: "#00ff88" }}>📊 Agent Info</p>
-                          {mlCheckResult.data.role && <div>🎯 Role: {mlCheckResult.data.role.displayName}</div>}
+                          <p style={{ marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold", color: "#00ff88" }}>Agent Info</p>
+                          {mlCheckResult.data.role && <div>Role: {mlCheckResult.data.role.displayName}</div>}
                           <p style={{ fontSize: "0.8rem", color: "#a0a0a0", marginTop: "0.5rem" }}>Visit Valorant official site for detailed ability cooldowns and exact stats.</p>
                         </div>
                       )}
@@ -1226,28 +1226,28 @@ export default function App() {
                         <p style={{ marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold", color: "#00ff88" }}>⚡ Abilities & Skills</p>
                         {mlCheckResult.type === "hero" && (
                           <div style={{ fontSize: "0.8rem", color: "#a0a0a0", lineHeight: "1.6" }}>
-                            <p>🎮 <strong>{mlCheckResult.data?.hero_name}</strong> has unique skills and mechanics!</p>
+                            <p><strong>{mlCheckResult.data?.hero_name}</strong> has unique skills and mechanics!</p>
                             <p style={{ marginTop: "0.5rem" }}>Role: <strong>{mlCheckResult.data?.role}</strong> - Specialty: <strong>{mlCheckResult.data?.specialty}</strong></p>
                             <p style={{ marginTop: "0.5rem", fontSize: "0.75rem", fontStyle: "italic" }}>Visit the MLBB wiki or in-game for complete skill descriptions, cooldowns, and damage scaling.</p>
                           </div>
                         )}
                         {mlCheckResult.type === "character" && (
                           <div style={{ fontSize: "0.8rem", color: "#a0a0a0", lineHeight: "1.6" }}>
-                            <p>🎮 <strong>{mlCheckResult.data?.name}</strong> ({mlCheckResult.data?.vision}) has special combat abilities!</p>
+                            <p><strong>{mlCheckResult.data?.name}</strong> ({mlCheckResult.data?.vision}) has special combat abilities!</p>
                             <p style={{ marginTop: "0.5rem" }}>Element: <strong>{mlCheckResult.data?.vision}</strong> - Weapon: <strong>{mlCheckResult.data?.weapon}</strong></p>
                             <p style={{ marginTop: "0.5rem", fontSize: "0.75rem", fontStyle: "italic" }}>View detailed talent trees, constellations, and ability upgrades on the official Genshin wiki.</p>
                           </div>
                         )}
                         {mlCheckResult.type === "champion" && (
                           <div style={{ fontSize: "0.8rem", color: "#a0a0a0", lineHeight: "1.6" }}>
-                            <p>🎮 <strong>{mlCheckResult.data?.name}</strong> has unique abilities!</p>
+                            <p><strong>{mlCheckResult.data?.name}</strong> has unique abilities!</p>
                             <p style={{ marginTop: "0.5rem" }}>Each champion has a Passive, Q, W, E, and Ultimate (R) ability with unique mechanics.</p>
                             <p style={{ marginTop: "0.5rem", fontSize: "0.75rem", fontStyle: "italic" }}>Visit League of Legends wiki for detailed ability descriptions, cooldowns, and AP/AD scaling values.</p>
                           </div>
                         )}
                         {mlCheckResult.type === "agent" && (
                           <div style={{ fontSize: "0.8rem", color: "#a0a0a0", lineHeight: "1.6" }}>
-                            <p>🎮 <strong>{mlCheckResult.data?.displayName}</strong> has utility and combat abilities!</p>
+                            <p><strong>{mlCheckResult.data?.displayName}</strong> has utility and combat abilities!</p>
                             <p style={{ marginTop: "0.5rem" }}>Role: <strong>{mlCheckResult.data?.role?.displayName}</strong></p>
                             <p style={{ marginTop: "0.5rem", fontSize: "0.75rem", fontStyle: "italic" }}>Check Valorant official guide for complete ability descriptions, ranges, and cooldown information.</p>
                           </div>
@@ -1301,7 +1301,7 @@ export default function App() {
                       }
                     }}
                   >
-                    {type === "hero" ? "🎮" : type === "agent" ? "🕵️" : type === "weapon" ? "⚔️" : type === "character" ? "⭐" : type === "champion" ? "👑" : type === "item" ? "⚙️" : "📦"} {type}
+                    {type}
                   </button>
                 ))}
               </div>
@@ -1387,7 +1387,7 @@ export default function App() {
                 onMouseEnter={(e) => {}}
                 onMouseLeave={(e) => {}}
               >
-                {mlCheckLoading ? "Searching..." : "🔍 Search"}
+                {mlCheckLoading ? "Searching..." : "Search"}
               </button>
             </div>
 
@@ -1427,7 +1427,7 @@ export default function App() {
             e.currentTarget.style.boxShadow = "0 4px 15px rgba(255, 51, 51, 0.4)";
           }}
         >
-          💬 Message Us on Messenger
+              Message Us on Messenger
         </a>
       </section>
 
@@ -1586,7 +1586,7 @@ export default function App() {
             e.currentTarget.style.boxShadow = "0 4px 15px rgba(102, 126, 234, 0.5)";
           }}
         >
-          <span style={{ lineHeight: 1, display: "inline-flex", alignItems: "center", justifyContent: "center" }}>📢</span>
+                    <span style={{ lineHeight: 1, display: "inline-flex", alignItems: "center", justifyContent: "center" }}>!</span>
         </a>
       </div>
 
@@ -1607,7 +1607,7 @@ export default function App() {
           marginBottom: "2rem",
           textAlign: "center"
         }}>
-          <h2 style={{ color: "#FF6B9D", marginBottom: "0.5rem", fontSize: "1.5rem" }}>🔍 Game Fandom Wiki</h2>
+                    <h2 style={{ color: "#FF6B9D", marginBottom: "0.5rem", fontSize: "1.5rem" }}>Game Fandom Wiki</h2>
           <p style={{ color: "#d0d0d0", marginBottom: "1.5rem", fontSize: "0.95rem" }}>
             Search for hero details, item stats, character info, and champion abilities across all games
           </p>
@@ -1633,7 +1633,7 @@ export default function App() {
               e.currentTarget.style.boxShadow = "none";
             }}
           >
-            🎮 Start Searching
+                    Start Searching
           </button>
         </div>
 
@@ -1746,7 +1746,7 @@ export default function App() {
                                 zIndex: 10,
                                 textTransform: "uppercase"
                               }}>
-                                🔥 Popular
+                                Popular
                               </div>
                             )}
                           </>
@@ -1854,7 +1854,7 @@ export default function App() {
               maxWidth: "600px",
               margin: "3rem auto 0"
             }}>
-              <h3 style={{ color: "#FF6B9D", marginBottom: "1rem", fontSize: "1.2rem" }}>🎮 Game Not Listed?</h3>
+                    <h3 style={{ color: "#FF6B9D", marginBottom: "1rem", fontSize: "1.2rem" }}>Game Not Listed?</h3>
               <p style={{ color: "#d0d0d0", marginBottom: "1.5rem", fontSize: "0.95rem" }}>
                 Don't see the game you want? No problem! We offer top-ups for many other games as well.
               </p>
@@ -1886,7 +1886,7 @@ export default function App() {
                   e.currentTarget.style.boxShadow = "0 4px 15px rgba(255, 51, 51, 0.4)";
                 }}
               >
-                💬 Message Us Now
+                  Message Us Now
               </a>
             </div>
           </section>
@@ -1970,7 +1970,7 @@ export default function App() {
               gap: "1.5rem"
             }}>
               <div>
-                <h3 style={{ color: "#ff3333", marginBottom: "1rem", fontSize: "1.2rem", fontWeight: "bold" }}>✓ Verified & Registered</h3>
+                <h3 style={{ color: "#ff3333", marginBottom: "1rem", fontSize: "1.2rem", fontWeight: "bold" }}> Verified & Registered</h3>
                 <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
                   <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
                     <div style={{ fontSize: "1.8rem", minWidth: "40px" }}>✓</div>
@@ -1980,14 +1980,14 @@ export default function App() {
                     </div>
                   </div>
                   <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-                    <div style={{ fontSize: "1.8rem", minWidth: "40px" }}>📋</div>
+                    <div style={{ fontSize: "1.8rem", minWidth: "40px" }}>✓</div>
                     <div>
                       <div style={{ color: "#ffa500", fontWeight: "bold", marginBottom: "0.2rem" }}>DTI Registered</div>
                       <div style={{ color: "#a0a0a0", fontSize: "0.9rem" }}>Legitimate business registered with PH Department of Trade & Industry</div>
                     </div>
                   </div>
                   <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-                    <div style={{ fontSize: "1.8rem", minWidth: "40px" }}>🔒</div>
+                    <div style={{ fontSize: "1.8rem", minWidth: "40px" }}>✓</div>
                     <div>
                       <div style={{ color: "#00ff88", fontWeight: "bold", marginBottom: "0.2rem" }}>100% Safe & Secure</div>
                       <div style={{ color: "#a0a0a0", fontSize: "0.9rem" }}>Trusted by thousands of PH and global players</div>
@@ -2008,7 +2008,7 @@ export default function App() {
 
         {/* Payment Methods & Info Section */}
         <section className="container" style={{ marginTop: "3rem" }}>
-          <h2 className="section-title">💳 Payment Methods</h2>
+                  <h2 className="section-title">Payment Methods</h2>
           <div style={{
             background: "rgba(255, 51, 51, 0.05)",
             border: "2px solid rgba(255, 51, 51, 0.2)",
@@ -2040,11 +2040,11 @@ export default function App() {
               </div>
             </div>
             <p style={{ color: "#a0a0a0", fontSize: isMobile ? "0.8rem" : "0.9rem", marginBottom: "1rem" }}>
-              💡 Other bank transfers available via GCash. Contact us for details!
+                  Other bank transfers available via GCash. Contact us for details!
             </p>
             <div style={{ background: "rgba(0, 255, 136, 0.1)", padding: isMobile ? "0.75rem" : "1rem", borderRadius: "8px", border: "1px solid #00ff88" }}>
               <p style={{ color: "#00ff88", fontSize: isMobile ? "0.8rem" : "0.95rem", margin: "0", fontWeight: "bold" }}>
-                🔐 <strong>Important:</strong> Final payment is processed directly via Messenger. We never ask for sensitive payment info upfront!
+                  <strong>Important:</strong> Final payment is processed directly via Messenger. We never ask for sensitive payment info upfront!
               </p>
             </div>
           </div>
@@ -2052,7 +2052,7 @@ export default function App() {
 
         {/* FAQ Section */}
         <section className="container" style={{ marginTop: "3rem", marginBottom: "3rem" }}>
-          <h2 className="section-title">❓ Frequently Asked Questions</h2>
+                  <h2 className="section-title">Frequently Asked Questions</h2>
           <div style={{ display: "grid", gap: "1rem" }}>
             <details style={{
               background: "rgba(255, 51, 51, 0.05)",
@@ -2062,18 +2062,18 @@ export default function App() {
               cursor: "pointer"
             }} open>
               <summary style={{ color: "#ff3333", fontWeight: "bold", fontSize: "1.1rem", userSelect: "none" }}>
-                📋 How to Order - Step by Step
+                  How to Order - Step by Step
               </summary>
               <div style={{ color: "#c0c0c0", marginTop: "1rem" }}>
                 <ol style={{ marginLeft: "1.5rem", lineHeight: "2" }}>
                   <li><strong>Browse Products:</strong> Scroll through our games and select the one you want. Each game has multiple currency packages.</li>
-                  <li><strong>Message Us:</strong> Click "💬 Order Form" on the game card or use the floating messenger button in the bottom right corner.</li>
+                    <li><strong>Message Us:</strong> Click "Order Form" on the game card or use the floating messenger button in the bottom right corner.</li>
                   <li><strong>Confirm Details:</strong> Tell us which game currency you want and how much. We'll confirm the price and payment method.</li>
                   <li><strong>Send Payment:</strong> Transfer payment via GCash, PayMaya, BDO, or BPI (fastest with GCash).</li>
                   <li><strong>Receive Instantly:</strong> Once payment is confirmed, we'll deliver your game currency within 5-30 minutes.</li>
                 </ol>
                 <p style={{ marginTop: "1rem", fontStyle: "italic", color: "#a0a0a0" }}>
-                  💡 Tip: Use the "Copy Price" button to quickly copy package details and send them via Messenger!
+                  Tip: Use the "Copy Price" button to quickly copy package details and send them via Messenger!
                 </p>
               </div>
             </details>
@@ -2175,7 +2175,7 @@ export default function App() {
       <footer>
         <p>&copy; Since 2021 Zeijin Discounted Top Up Sale PH.</p>
         <p style={{ fontSize: "0.85rem", color: "#707070", marginTop: "0.5rem" }}>
-          NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖
+          NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming.
         </p>
       </footer>
 
@@ -2185,7 +2185,7 @@ export default function App() {
           <div style={{ background: "linear-gradient(180deg, rgba(15, 23, 42, 0.98), rgba(10, 14, 24, 0.98))", padding: isMobile ? "1.5rem" : "2rem", borderRadius: "10px", border: "1px solid rgba(148, 163, 184, 0.25)", borderTop: "3px solid #ff4d4d", maxWidth: "550px", width: "100%", maxHeight: isMobile ? "90vh" : "85vh", overflowY: "auto", boxShadow: "0 24px 48px rgba(0, 0, 0, 0.45)" }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start", marginBottom: "1.5rem" }}>
               <div>
-                <h2 style={{ color: "#f8fafc", marginBottom: "0.3rem", fontSize: "1.6rem" }}>📝 Order Details</h2>
+                <h2 style={{ color: "#f8fafc", marginBottom: "0.3rem", fontSize: "1.6rem" }}>Order Details</h2>
                 <p style={{ color: "#94a3b8", marginBottom: "0", fontSize: "0.85rem" }}>{contactGame.title}</p>
               </div>
               <div style={{ display: "flex", gap: "0.5rem" }}>
@@ -2266,7 +2266,7 @@ export default function App() {
             <div style={{ background: "rgba(15, 23, 42, 0.55)", padding: "1.5rem", borderRadius: "8px", border: "1px solid rgba(148, 163, 184, 0.25)", marginBottom: "1.5rem" }}>
               <div style={{ marginBottom: "1rem" }}>
                 <label style={{ display: "block", color: "#e2e8f0", fontSize: "0.9rem", fontWeight: "bold", marginBottom: "0.4rem" }}>
-                  💰 Order Amount (Php)
+                    Order Amount (Php)
                 </label>
                 <input
                   type="number"
@@ -2289,7 +2289,7 @@ export default function App() {
 
               <div style={{ marginBottom: "1rem" }}>
                 <label style={{ display: "block", color: "#e2e8f0", fontSize: "0.9rem", fontWeight: "bold", marginBottom: "0.4rem" }}>
-                  👤 In-Game User ID / Username
+                    In-Game User ID / Username
                 </label>
                 <input
                   type="text"
@@ -2312,7 +2312,7 @@ export default function App() {
 
               <div style={{ marginBottom: "1rem" }}>
                 <label style={{ display: "block", color: "#e2e8f0", fontSize: "0.9rem", fontWeight: "bold", marginBottom: "0.4rem" }}>
-                  💳 Payment Method
+                    Payment Method
                 </label>
                 <select
                   value={ignValidatorData.paymentMethod}
@@ -2338,7 +2338,7 @@ export default function App() {
 
               <div style={{ marginBottom: "0" }}>
                 <label style={{ display: "block", color: "#e2e8f0", fontSize: "0.9rem", fontWeight: "bold", marginBottom: "0.4rem" }}>
-                  ❓ Other Concerns (Optional)
+                    Other Concerns (Optional)
                 </label>
                 <textarea
                   placeholder="Any questions or special requests?"

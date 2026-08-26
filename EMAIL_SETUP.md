@@ -20,7 +20,7 @@ SMTP_PASSWORD=abcdefghijklmnop
 ADMIN_EMAIL=your-email@gmail.com
 ```
 
-✅ **Copy the 16 characters exactly (remove spaces)**
+**Copy the 16 characters exactly (remove spaces)**
 
 ### Step 3: Restart Server
 
@@ -32,17 +32,17 @@ node server.js
 
 You should see:
 ```
-✅ Email service connected successfully
-✅ Ask Us Backend Server running on http://localhost:3001
+Email service connected successfully
+Ask Us Backend Server running on http://localhost:3001
 ```
 
 ## How It Works
 
-When someone submits a form via the 💬 button:
+When someone submits a form via the button:
 
-1. ✅ Submission saved to `data/submissions.json`
-2. ✅ Email sent to your inbox with full details
-3. ✅ **Reply to the email** - your response goes back to the user's email address (auto reply-to configured)
+1. Submission saved to `data/submissions.json`
+2. Email sent to your inbox with full details
+3. **Reply to the email** - your response goes back to the user's email address (auto reply-to configured)
 
 ## Email Format
 
@@ -52,13 +52,13 @@ You'll receive emails like:
 From: your-email@gmail.com
 To: your-email@gmail.com
 Reply-To: carlos@email.com
-Subject: [LOW] Game add - 🎮 Game Request
+Subject: [LOW] Game add - Game Request
 
 ---
 
 Name: carlos
 Email: carlos@email.com
-Category: 🎮 Game Request
+Category: Game Request
 Priority: LOW
 Subject: Game add
 
@@ -103,17 +103,17 @@ Reply directly to this email to respond to the user.
 
 1. Keep `node server.js` running
 2. Open app at `http://localhost:5176`
-3. Click 💬 button and submit a test form
+3. Click the button and submit a test form
 4. Check your email inbox for the submission
 5. Reply to the email
 6. User receives your reply at their email address
 
 ## Security Notes
 
-- ✅ Never commit `.env.local` to git (already in .gitignore)
-- ✅ App Passwords are safe - they only work with Gmail
-- ✅ Email addresses from submissions are logged but not stored elsewhere
-- ✅ Submissions stored locally in `data/submissions.json`
+- Never commit `.env.local` to git (already in .gitignore)
+- App Passwords are safe - they only work with Gmail
+- Email addresses from submissions are logged but not stored elsewhere
+- Submissions stored locally in `data/submissions.json`
 
 ## Production Deployment
 

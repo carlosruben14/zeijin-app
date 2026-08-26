@@ -1,12 +1,12 @@
 # Deployment Guide: zeijintopup.com
 
-## 🎯 Complete Setup Plan
+## Complete Setup Plan
 
 Your app will be live at: **zeijintopup.com**
 
 ---
 
-## STEP 1: Buy Domain (5 minutes) 💳
+## STEP 1: Buy Domain (5 minutes)
 
 ### Option A: Namecheap (Cheapest ~$8.88/year)
 1. Go to **namecheap.com**
@@ -22,7 +22,7 @@ Your app will be live at: **zeijintopup.com**
 
 ---
 
-## STEP 2: Prepare Your Git Repository (5 minutes) 📦
+## STEP 2: Prepare Your Git Repository (5 minutes)
 
 Make sure your code is on GitHub:
 
@@ -40,7 +40,7 @@ git push -u origin main
 
 ---
 
-## STEP 3: Deploy Frontend to Vercel (10 minutes) 🌐
+## STEP 3: Deploy Frontend to Vercel (10 minutes)
 
 ### 3.1 Sign Up to Vercel
 1. Go to **vercel.com**
@@ -77,7 +77,7 @@ ns4.vercel-dns.com
 
 ---
 
-## STEP 4: Point Domain to Vercel (5 minutes) 🔗
+## STEP 4: Point Domain to Vercel (5 minutes)
 
 ### If you bought from Namecheap:
 
@@ -102,11 +102,11 @@ ns4.vercel-dns.com
 
 **⏳ Wait 24-48 hours for DNS to update**
 
-Once updated: Visit **zeijintopup.com** ✅
+Once updated: Visit **zeijintopup.com**
 
 ---
 
-## STEP 5: Deploy Backend to Railway (10 minutes) 🚀
+## STEP 5: Deploy Backend to Railway (10 minutes)
 
 Your backend (`node server.js`) needs to run somewhere.
 
@@ -152,7 +152,7 @@ In Railway:
 
 ---
 
-## STEP 6: Update Frontend to Use Backend (5 minutes) ⚙️
+## STEP 6: Update Frontend to Use Backend (5 minutes)
 
 Update your `vite.config.js` to point to Railway:
 
@@ -177,11 +177,11 @@ git commit -m "Update backend URL"
 git push
 ```
 
-Vercel automatically redeploys when you push! ✅
+Vercel automatically redeploys when you push!
 
 ---
 
-## STEP 7: Verify Everything Works (5 minutes) ✅
+## STEP 7: Verify Everything Works (5 minutes)
 
 ### Test Frontend:
 1. Go to **zeijintopup.com**
@@ -190,10 +190,10 @@ Vercel automatically redeploys when you push! ✅
 4. Try the Wiki search
 
 ### Test Ask Us Feature:
-1. Click **💬 button** (bottom-left)
+1. Click the button (bottom-left)
 2. Fill out form
 3. Submit
-4. Check **ceapanganiban@gmail.com** for email ✉️
+4. Check **ceapanganiban@gmail.com** for email
 5. Try replying to the email
 
 ### Check Submissions:
@@ -202,27 +202,27 @@ Vercel automatically redeploys when you push! ✅
 
 ---
 
-## 🎉 Final Summary
+## Final Summary
 
 | Component | URL | Status |
 |-----------|-----|--------|
-| **Website** | zeijintopup.com | ✅ Live |
-| **Backend** | railway-url/api | ✅ Running |
-| **Email** | ceapanganiban@gmail.com | ✅ Receiving |
-| **Data** | submissions.json | ✅ Stored |
+| **Website** | zeijintopup.com | Live |
+| **Backend** | railway-url/api | Running |
+| **Email** | ceapanganiban@gmail.com | Receiving |
+| **Data** | submissions.json | Stored |
 
 ---
 
-## 💰 Monthly Costs
+## Monthly Costs
 
 - Domain: ~$0.74/month
 - Vercel: FREE (generous free tier)
 - Railway: FREE for first $5/month credit (we use ~$2/month)
-- **Total: ~$1-2/month** 🎯
+- **Total: ~$1-2/month**
 
 ---
 
-## 🆘 Troubleshooting
+## Troubleshooting
 
 ### "Domain still shows default Vercel page"
 - **Wait 24-48 hours** for DNS to propagate
@@ -245,7 +245,7 @@ Vercel automatically redeploys when you push! ✅
 
 ---
 
-## 📋 Checklist
+## Checklist
 
 - [ ] Buy domain: zeijintopup.com
 - [ ] Push code to GitHub
@@ -264,11 +264,11 @@ Vercel automatically redeploys when you push! ✅
 
 ---
 
-## 🚀 Next Steps
+## Next Steps
 
 1. **Start with Step 1** - Buy the domain
 2. **DM me** when domain is purchased
 3. I'll guide you through remaining steps
 4. Your site will be live within a few hours!
 
-Good luck! 🎉
+Good luck!

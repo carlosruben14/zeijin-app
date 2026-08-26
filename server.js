@@ -18,7 +18,7 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 // Log environment variables for debugging
-console.log('\n🔧 Environment Configuration:');
+  console.log('\nEnvironment Configuration:');
 console.log(`PORT: ${PORT}`);
 console.log(`RESEND_API_KEY: ${process.env.RESEND_API_KEY ? '✓ Configured' : '✗ Missing'}`);
 console.log(`SMTP_USER (From email): ${process.env.SMTP_USER}`);
@@ -31,15 +31,15 @@ let resend = null;
 
 if (emailConfigured) {
   resend = new Resend(process.env.RESEND_API_KEY);
-  console.log('✅ Resend configured for HTTP API email');
+  console.log('Resend configured for HTTP API email');
 } else {
-  console.log('⚠️  Resend API key or sender email not configured');
+  console.log('Resend API key or sender email not configured');
 }
 
 // Middleware
 app.use(express.json());
 app.use((req, res, next) => {
-  console.log(`📨 ${req.method} ${req.path} from ${req.ip}`);
+  console.log(`${req.method} ${req.path} from ${req.ip}`);
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Content-Type');
@@ -54,7 +54,7 @@ app.use((req, res, next) => {
 const distDir = path.join(__dirname, 'dist');
 if (fs.existsSync(distDir)) {
   app.use(express.static(distDir));
-  console.log('📁 Serving static files from:', distDir);
+  console.log('Serving static files from:', distDir);
 }
 
 // Data directory
@@ -105,7 +105,7 @@ app.post('/api/ask-us', async (req, res) => {
     fs.writeFileSync(submissionsFile, JSON.stringify(submissions, null, 2));
 
     // Log to console
-    console.log(`\n📬 [Ask Us] New submission from ${name} (${email})`);
+    console.log(`\n[Ask Us] New submission from ${name} (${email})`);
     console.log(`Category: ${category} | Priority: ${priority}`);
     console.log(`Subject: ${subject}\n`);
 
@@ -115,10 +115,10 @@ app.post('/api/ask-us', async (req, res) => {
         const adminEmail = process.env.ADMIN_EMAIL || process.env.SMTP_USER;
         const fromEmail = process.env.SMTP_USER;
         const categoryLabel = {
-          bug_report: '🐛 Bug Report',
-          feature_request: '💡 Feature Request',
-          question: '❓ Question',
-          game_request: '🎮 Game Request',
+          bug_report: 'Bug Report',
+          feature_request: 'Feature Request',
+          question: 'Question',
+          game_request: 'Game Request',
           other: 'Other'
         }[category] || category;
 
@@ -149,14 +149,14 @@ app.post('/api/ask-us', async (req, res) => {
           subject: `[${priority.toUpperCase()}] ${subject} - ${categoryLabel}`,
           html: emailContent
         });
-        console.log(`✉️  Email sent via Resend to ${adminEmail}`);
+        console.log(`Email sent via Resend to ${adminEmail}`);
       } catch (emailError) {
-        console.log(`⚠️  Failed to send email: ${emailError.message}`);
+        console.log(`Failed to send email: ${emailError.message}`);
         console.error('Email error details:', emailError);
         // Don't fail the submission if email fails
       }
     } else {
-      console.log('⚠️  Email not sent - emailConfigured:', emailConfigured, ', resend:', !!resend);
+      console.log('Email not sent - emailConfigured:', emailConfigured, ', resend:', !!resend);
     }
 
     return res.status(200).json({
@@ -165,7 +165,7 @@ app.post('/api/ask-us', async (req, res) => {
       submissionId: newSubmission.id
     });
   } catch (error) {
-    console.error('❌ Error processing submission:', error);
+    console.error('Error processing submission:', error);
     return res.status(500).json({ error: 'Failed to process submission' });
   }
 });
@@ -177,7 +177,7 @@ app.get('/api/ask-us', (req, res) => {
     const submissions = JSON.parse(data);
     return res.status(200).json({ submissions, total: submissions.length });
   } catch (error) {
-    console.error('❌ Error retrieving submissions:', error);
+    console.error('Error retrieving submissions:', error);
     return res.status(500).json({ error: 'Failed to retrieve submissions' });
   }
 });
@@ -196,7 +196,7 @@ app.get('/api/ask-us/:id', (req, res) => {
 
     return res.status(200).json({ submission });
   } catch (error) {
-    console.error('❌ Error retrieving submission:', error);
+    console.error('Error retrieving submission:', error);
     return res.status(500).json({ error: 'Failed to retrieve submission' });
   }
 });
@@ -204,7 +204,7 @@ app.get('/api/ask-us/:id', (req, res) => {
 // TEST: Email health check endpoint
 app.get('/api/test-email', async (req, res) => {
   try {
-    console.log('\n📧 Testing email service...');
+    console.log('\nTesting email service...');
     console.log('emailConfigured:', emailConfigured);
     console.log('resend available:', !!resend);
     console.log('RESEND_API_KEY:', process.env.RESEND_API_KEY ? 'Set' : 'Not set');
@@ -220,19 +220,19 @@ app.get('/api/test-email', async (req, res) => {
     const result = await resend.emails.send({
       from: 'Zeijin Ask Us <onboarding@resend.dev>',
       to: process.env.ADMIN_EMAIL || 'carlosrubengupit@gmail.com',
-      subject: '✅ Test Email from Zeijin',
+      subject: 'Test Email from Zeijin',
       html: '<h1>Email Service Test</h1><p>If you received this, Resend is working correctly!</p>'
     });
 
     if (result.error) {
-      console.log('❌ Email error:', result.error);
+      console.log('Email error:', result.error);
       return res.status(500).json({ error: result.error });
     }
 
-    console.log('✅ Test email sent:', result.data.id);
+    console.log('Test email sent:', result.data.id);
     res.json({ success: true, emailId: result.data.id });
   } catch (error) {
-    console.error('❌ Test email error:', error);
+    console.error('Test email error:', error);
     res.status(500).json({ error: error.message });
   }
 });
@@ -248,20 +248,20 @@ app.get('*', (req, res) => {
 
 // Start server
 const server = app.listen(PORT, '0.0.0.0', () => {
-  console.log(`\n✅ Ask Us Backend Server running on port ${PORT}`);
-  console.log(`📝 Submissions stored in: ${submissionsFile}\n`);
+  console.log(`\nAsk Us Backend Server running on port ${PORT}`);
+  console.log(`Submissions stored in: ${submissionsFile}\n`);
 });
 
 // Handle server errors
 server.on('error', (err) => {
   if (err.code === 'EADDRINUSE') {
-    console.error(`❌ Port ${PORT} is already in use`);
+    console.error(`Port ${PORT} is already in use`);
   } else {
-    console.error('❌ Server error:', err);
+    console.error('Server error:', err);
   }
   process.exit(1);
 });
 
 process.on('unhandledRejection', (reason, promise) => {
-  console.error('❌ Unhandled Rejection at:', promise, 'reason:', reason);
+  console.error('Unhandled Rejection at:', promise, 'reason:', reason);
 });

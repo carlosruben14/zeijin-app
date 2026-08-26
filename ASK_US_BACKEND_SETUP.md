@@ -3,7 +3,7 @@
 ## Overview
 The "Ask Us" feature allows players to submit requests, bug reports, feature requests, and questions with priority levels.
 
-## ✅ Backend Already Implemented!
+## Backend Already Implemented!
 
 A simple Node.js server has been created to handle and store all submissions.
 
@@ -22,8 +22,8 @@ node server.js
 ```
 You should see:
 ```
-✅ Ask Us Backend Server running on http://localhost:3001
-📝 Submissions stored in: ./data/submissions.json
+Ask Us Backend Server running on http://localhost:3001
+Submissions stored in: ./data/submissions.json
 ```
 
 **Terminal 2 - Start the dev server:**
