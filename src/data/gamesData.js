@@ -6,10 +6,10 @@ export const gamesData = [
     category: "moba",
     description: "MLBB Discounted Diamonds - Popular Mobile MOBA",
     image: "/images/games/mlbb.jpg",
-    note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
+    note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming.",
     pricingSections: [
       {
-        title: "💎 Diamond Packages",
+        title: "Diamond Packages",
         items: [
           { amount: "56 Diamonds", price: 57 },
           { amount: "112 Diamonds", price: 117 },
@@ -28,7 +28,7 @@ export const gamesData = [
         ]
       },
       {
-        title: "🎖️ Battle Pass & Cosmetics",
+        title: "Battle Pass & Cosmetics",
         items: [
           { amount: "Starlight Normal 301", price: 267 },
           { amount: "Starlight Normal 760", price: 655 },
@@ -46,7 +46,7 @@ export const gamesData = [
     category: "fps",
     description: "Valorant Discounted VP - FPS Competitive",
     image: "/images/games/valorant.jpg",
-    note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
+    note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming.",
     pricing: [
       { amount: "475 VP", price: 190 },
       { amount: "1,000 VP", price: 380 },
@@ -68,7 +68,7 @@ export const gamesData = [
     ],
     pricingSections: [
       {
-        title: "📋 Order Process",
+        title: "Order Process",
         type: "instructions",
         content: [
           "1. The buyer Send the payment",
@@ -84,7 +84,7 @@ export const gamesData = [
     category: "moba",
     description: "LOL Discounted Wildcore - MOBA Fantasy",
     image: "/images/games/lol-wildrift.png",
-    note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
+    note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming.",
     pricing: [
       { amount: "425 WC", price: 190 },
       { amount: "1,000 WC", price: 428 },
@@ -101,7 +101,7 @@ export const gamesData = [
     ],
     pricingSections: [
       {
-        title: "📋 Order Process",
+        title: "Order Process",
         type: "instructions",
         content: [
           "1. The buyer Send the payment",
@@ -117,10 +117,10 @@ export const gamesData = [
     category: "fps",
     description: "COD Mobile Discounted CP - FPS Action",
     image: "/images/games/codm.jpg",
-    note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
+    note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming.",
     pricingSections: [
       {
-        title: "🎯 GS / CP Packages",
+        title: "GS / CP Packages",
         items: [
           { amount: "100 GS / 208 CP", price: 98 },
           { amount: "200 GS / 416 CP", price: 195 },
@@ -134,14 +134,14 @@ export const gamesData = [
         ]
       },
       {
-        title: "🎖️ Battle Pass",
+        title: "Battle Pass",
         items: [
           { amount: "Regular Battle Pass", price: 165 },
           { amount: "Premium Battle Pass", price: 295 }
         ]
       },
       {
-        title: "📋 Paano Magredeem ng CP",
+        title: "Paano Magredeem ng CP",
         type: "instructions",
         content: [
           "1. Go to shop.garena.ph",
@@ -160,7 +160,7 @@ export const gamesData = [
     category: "moba",
     description: "HOK Discounted Game Credits - Strategy MOBA",
     image: "/images/games/hok.jpg",
-    note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
+    note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming.",
     pricing: [
       { amount: "80 Tokens", price: 58 },
       { amount: "240 Tokens", price: 174 },
@@ -179,7 +179,7 @@ export const gamesData = [
     category: "strategy",
     description: "TFT Discounted RP - Strategy Auto Battler",
     image: "/images/games/tft.jpg",
-    note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
+    note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming.",
     pricing: [
       { amount: "575 RP", price: 190 },
       { amount: "1,380 RP", price: 428 },
@@ -190,7 +190,7 @@ export const gamesData = [
     ],
     pricingSections: [
       {
-        title: "📋 Order Process",
+        title: "Order Process",
         type: "instructions",
         content: [
           "1. The buyer Send the payment",
@@ -206,7 +206,7 @@ export const gamesData = [
     category: "moba",
     description: "LOL Discounted RP - MOBA Pick",
     image: "/images/games/lol-rp.jpg",
-    note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
+    note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming.",
     pricing: [
       { amount: "575 RP", price: 190 },
       { amount: "1,380 RP", price: 428 },
@@ -217,7 +217,7 @@ export const gamesData = [
     ],
     pricingSections: [
       {
-        title: "📋 Order Process",
+        title: "Order Process",
         type: "instructions",
         content: [
           "1. The buyer Send the payment",
@@ -233,7 +233,7 @@ export const gamesData = [
     category: "strategy",
     description: "Magic Chess - Auto Chess Mobile Game",
     image: "/images/games/magic-chess.webp",
-    note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
+    note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming.",
     pricing: [
       { amount: "56 Diamonds", price: 50 },
       { amount: "112 Diamonds", price: 98 },
@@ -257,7 +257,7 @@ export const gamesData = [
     category: "fps",
     description: "PUBG Mobile Discounted UC - Battle Royale",
     image: "/images/games/pubg.jpg",
-    note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
+    note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming.",
     pricing: [
       { amount: "60 UC", price: 58 },
       { amount: "180 UC", price: 175 },
@@ -280,7 +280,7 @@ export const gamesData = [
     category: "fps",
     description: "CrossFire Discounted GP - Classic FPS",
     image: "/images/games/crossfire.webp",
-    note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
+    note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming.",
     pricing: [
       { amount: "100 Ecoins", price: 95 },
       { amount: "200 Ecoins", price: 190 },
@@ -301,7 +301,7 @@ export const gamesData = [
     category: "wallet",
     description: "Steam Discounted Wallet - Games Platform",
     image: "/images/games/steam-wallet.jpg",
-    note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
+    note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming.",
     pricing: [
       { amount: "50 SWC", price: 50 },
       { amount: "100 SWC", price: 100 },
@@ -379,7 +379,7 @@ export const gamesData = [
     ],
     pricingSections: [
       {
-        title: "🎫 Vouchers",
+        title: "Vouchers",
         items: [
           { amount: "63 Vouchers", price: 58 },
           { amount: "315 Vouchers", price: 282 },
@@ -392,7 +392,7 @@ export const gamesData = [
         ]
       },
       {
-        title: "💎 Opals",
+        title: "Opals",
         items: [
           { amount: "69 Opals", price: 58 },
           { amount: "360 Opals", price: 282 },
@@ -405,7 +405,7 @@ export const gamesData = [
         ]
       },
       {
-        title: "🎖️ Passes",
+        title: "Passes",
         items: [
           { amount: "Phantasium Pass 15 Days", price: 157 },
           { amount: "Phantasium Pass 30 Days", price: 272 }

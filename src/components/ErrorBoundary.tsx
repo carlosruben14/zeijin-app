@@ -60,7 +60,7 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
                 marginBottom: "1rem"
               }}
             >
-              ⚠️
+              !
             </div>
 
             <h2
@@ -133,7 +133,7 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
                 e.currentTarget.style.transform = "scale(1)";
               }}
             >
-              🔄 Reload Page
+              Reload Page
             </button>
           </div>
         </div>

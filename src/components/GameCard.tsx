@@ -191,7 +191,7 @@ const GameCard: FC<GameCardProps> = ({
             setSelectedGame(game);
           }}
         >
-          💰 View Prices
+          View Prices
         </button>
       </div>
     </div>

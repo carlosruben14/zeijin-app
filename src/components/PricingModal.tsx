@@ -13,24 +13,24 @@ interface PricingModalProps {
 
 // Map game titles to their currency/package names
 const getPackageTitle = (gameTitle?: string): string => {
-  if (!gameTitle) return '💎 Pricing Packages';
+  if (!gameTitle) return 'Pricing Packages';
 
   const titleLower = gameTitle.toLowerCase();
 
-  if (titleLower.includes('valorant')) return '🎯 VP Packages';
-  if (titleLower.includes('genshin')) return '💎 Crystal Packages';
+  if (titleLower.includes('valorant')) return 'VP Packages';
+  if (titleLower.includes('genshin')) return 'Crystal Packages';
   if (titleLower.includes('wild rift') || titleLower.includes('league'))
-    return '⚔️ Wildcore Packages';
-  if (titleLower.includes('call of duty')) return '🎯 CP Packages';
-  if (titleLower.includes('honor of kings')) return '🏆 Credit Packages';
-  if (titleLower.includes('blood strike')) return '🔫 Gold Packages';
-  if (titleLower.includes('pubg')) return '🎖️ UC Packages';
-  if (titleLower.includes('crossfire')) return '⚔️ Ecoin Packages';
-  if (titleLower.includes('teamfight')) return '🎲 RP Packages';
-  if (titleLower.includes('steam')) return '💳 Wallet Packages';
-  if (titleLower.includes('magic chess')) return '♟️ Dias Packages';
+    return 'Wildcore Packages';
+  if (titleLower.includes('call of duty')) return 'CP Packages';
+  if (titleLower.includes('honor of kings')) return 'Credit Packages';
+  if (titleLower.includes('blood strike')) return 'Gold Packages';
+  if (titleLower.includes('pubg')) return 'UC Packages';
+  if (titleLower.includes('crossfire')) return 'Ecoin Packages';
+  if (titleLower.includes('teamfight')) return 'RP Packages';
+  if (titleLower.includes('steam')) return 'Wallet Packages';
+  if (titleLower.includes('magic chess')) return 'Dias Packages';
 
-  return '💎 Diamond Packages';
+  return 'Diamond Packages';
 };
 
 const PricingModal: FC<PricingModalProps> = ({
@@ -277,7 +277,7 @@ const PricingModal: FC<PricingModalProps> = ({
                 e.currentTarget.style.boxShadow = 'none';
               }}
             >
-              📋 Fill up Form
+              Fill up Form
             </button>
             
             <button
@@ -302,7 +302,7 @@ const PricingModal: FC<PricingModalProps> = ({
                 e.currentTarget.style.background = 'rgba(0, 255, 136, 0.2)';
               }}
             >
-              🛍️ Continue Shopping
+              Continue Shopping
             </button>
           </div>
         </div>

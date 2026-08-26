@@ -106,7 +106,7 @@ const WikiSearch: FC<WikiSearchProps> = ({
             textAlign: 'center'
           }}
         >
-          📖 Wiki Search
+          Wiki Search
         </h2>
 
         {/* Search Form */}
@@ -134,9 +134,9 @@ const WikiSearch: FC<WikiSearchProps> = ({
                   onMouseEnter={handleButtonMouseEnter}
                   onMouseLeave={handleButtonMouseLeave}
                 >
-                  {type === 'hero' && '🎮 '}
-                  {type === 'champion' && '⚔️ '}
-                  {type === 'agent' && '🔫 '}
+                  {type === 'hero' && ''}
+                  {type === 'champion' && ''}
+                  {type === 'agent' && ''}
                   {type}
                 </button>
               ))}

@@ -56,7 +56,7 @@ const AskUs: FC = () => {
         ? `${import.meta.env.VITE_API_URL}/api/ask-us`
         : '/api/ask-us';
 
-      console.log('📤 Submitting Ask Us form to:', apiUrl);
+      console.log('Submitting Ask Us form to:', apiUrl);
 
       // Try to send to backend
       const response = await fetch(apiUrl, {
@@ -117,10 +117,10 @@ const AskUs: FC = () => {
   };
 
   const categoryLabels = {
-    bug_report: '🐛 Bug Report',
-    feature_request: '💡 Feature Request',
-    question: '❓ Question',
-    game_request: '🎮 Game Request',
+    bug_report: 'Bug Report',
+    feature_request: 'Feature Request',
+    question: 'Question',
+    game_request: 'Game Request',
     other: 'Other',
   };
 
@@ -133,7 +133,7 @@ const AskUs: FC = () => {
         title="Ask us a question or request a feature"
         aria-label="Open Ask Us form"
       >
-        <span className={styles['ask-us-icon']}>💬</span>
+        <span className={styles['ask-us-icon']}>?</span>
       </button>
 
       {/* Modal Overlay */}
@@ -159,14 +159,14 @@ const AskUs: FC = () => {
               ✕
             </button>
 
-            <h2 id="ask-us-title">Ask Us Anything! 🤔</h2>
+            <h2 id="ask-us-title">Ask Us Anything!</h2>
             <p className={styles['ask-us-subtitle']}>
               Have questions, found a bug, or want to request a feature? We'd love to hear from you!
             </p>
 
             {submitSuccess ? (
               <div className={styles['ask-us-success']}>
-                <div className={styles['success-icon']}>✅</div>
+                <div className={styles['success-icon']}>✓</div>
                 <h3>Thank you for reaching out!</h3>
                 <p>We've received your message and will get back to you soon.</p>
               </div>
@@ -214,10 +214,10 @@ const AskUs: FC = () => {
                       required
                       disabled={isSubmitting}
                     >
-                      <option value="question">❓ Question</option>
-                      <option value="bug_report">🐛 Bug Report</option>
-                      <option value="feature_request">💡 Feature Request</option>
-                      <option value="game_request">🎮 Game Request</option>
+                      <option value="question">Question</option>
+                      <option value="bug_report">Bug Report</option>
+                      <option value="feature_request">Feature Request</option>
+                      <option value="game_request">Game Request</option>
                       <option value="other">Other</option>
                     </select>
                   </div>
@@ -281,7 +281,7 @@ const AskUs: FC = () => {
                       disabled={isSubmitting}
                       accept="image/*,.pdf,.doc,.docx,.txt"
                     />
-                    {fileName && <span className={styles['file-name']}>📎 {fileName}</span>}
+                    {fileName && <span className={styles['file-name']}>{fileName}</span>}
                   </div>
                   <small>Max 5MB. Accepted: images, PDF, Word docs</small>
                 </div>

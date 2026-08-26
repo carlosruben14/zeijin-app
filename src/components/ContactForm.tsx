@@ -187,7 +187,7 @@ ${formData.message ? `Message: ${formData.message}` : ''}
           {/* Game Selection */}
           <div style={{ marginBottom: '1.5rem' }}>
             <label style={{ color: '#00ff88', fontSize: '0.9rem', fontWeight: 'bold', display: 'block', marginBottom: '0.5rem' }}>
-              📱 Game:
+              Game:
             </label>
             <div
               style={{
@@ -207,7 +207,7 @@ ${formData.message ? `Message: ${formData.message}` : ''}
             {/* Player Name */}
             <div>
               <label style={{ color: '#00ff88', fontSize: '0.9rem', fontWeight: 'bold', display: 'block', marginBottom: '0.4rem' }}>
-                👤 Player Name:
+                Player Name:
               </label>
               <input
                 type="text"
@@ -232,7 +232,7 @@ ${formData.message ? `Message: ${formData.message}` : ''}
             {/* Player ID */}
             <div>
               <label style={{ color: '#00ff88', fontSize: '0.9rem', fontWeight: 'bold', display: 'block', marginBottom: '0.4rem' }}>
-                🆔 Player ID:
+                Player ID:
               </label>
               <input
                 type="text"
@@ -257,7 +257,7 @@ ${formData.message ? `Message: ${formData.message}` : ''}
             {/* Email */}
             <div>
               <label style={{ color: '#00ff88', fontSize: '0.9rem', fontWeight: 'bold', display: 'block', marginBottom: '0.4rem' }}>
-                ✉️ Email:
+                Email:
               </label>
               <input
                 type="email"
@@ -282,7 +282,7 @@ ${formData.message ? `Message: ${formData.message}` : ''}
             {/* Phone */}
             <div>
               <label style={{ color: '#00ff88', fontSize: '0.9rem', fontWeight: 'bold', display: 'block', marginBottom: '0.4rem' }}>
-                📞 Phone:
+                Phone:
               </label>
               <input
                 type="tel"
@@ -307,7 +307,7 @@ ${formData.message ? `Message: ${formData.message}` : ''}
             {/* Message */}
             <div>
               <label style={{ color: '#00ff88', fontSize: '0.9rem', fontWeight: 'bold', display: 'block', marginBottom: '0.4rem' }}>
-                💬 Additional Message (Optional):
+                Additional Message (Optional):
               </label>
               <textarea
                 name="message"
@@ -380,7 +380,7 @@ ${formData.message ? `Message: ${formData.message}` : ''}
                 e.currentTarget.style.boxShadow = 'none';
               }}
             >
-              {isSubmittingForm ? 'Opening...' : '💬 Send via Messenger'}
+              {isSubmittingForm ? 'Opening...' : 'Send via Messenger'}
             </button>
 
             {/* Telegram */}
@@ -413,7 +413,7 @@ ${formData.message ? `Message: ${formData.message}` : ''}
                 e.currentTarget.style.boxShadow = 'none';
               }}
             >
-              {isSubmittingForm ? 'Opening...' : '✈️ Send via Telegram'}
+              {isSubmittingForm ? 'Opening...' : 'Send via Telegram'}
             </button>
 
             {/* Instagram */}
@@ -446,7 +446,7 @@ ${formData.message ? `Message: ${formData.message}` : ''}
                 e.currentTarget.style.boxShadow = 'none';
               }}
             >
-              {isSubmittingForm ? 'Opening...' : '📸 Send via Instagram'}
+              {isSubmittingForm ? 'Opening...' : 'Send via Instagram'}
             </button>
           </div>
 
