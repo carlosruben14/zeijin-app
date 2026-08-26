@@ -6,32 +6,32 @@ const HowItWorksModal = ({ isOpen, onClose }) => {
   const steps = [
     {
       num: 1,
-      title: "Browse Games 🎮",
+      title: "Browse Games",
       description: "Explore our collection of 16+ popular games with beautiful cover art and complete pricing details"
     },
     {
       num: 2,
-      title: "View Pricing 💰",
+      title: "View Pricing",
       description: "Click 'View Prices' to see all available currency packages and their prices in Philippine Pesos"
     },
     {
       num: 3,
-      title: "Copy or Contact 📋",
+      title: "Copy or Contact",
       description: "Copy the price to clipboard or click 'Order Form' to fill out your order form directly"
     },
     {
       num: 4,
-      title: "Fill Order Details ✍️",
+      title: "Fill Order Details",
       description: "Enter your name, email, game category, priority level, subject, and message with your account info"
     },
     {
       num: 5,
-      title: "Submit Order 📤",
+      title: "Submit Order",
       description: "Hit submit! Your order goes to our admin team and confirmation email arrives at your inbox"
     },
     {
       num: 6,
-      title: "We Process Your Order ⚡",
+      title: "We Process Your Order",
       description: "Our team verifies your order, adds currency to your account, and sends you completion confirmation"
     }
   ];
@@ -113,7 +113,7 @@ const HowItWorksModal = ({ isOpen, onClose }) => {
               textShadow: "0 2px 10px rgba(255, 51, 51, 0.3)"
             }}
           >
-            🚀 How It Works
+            How It Works
           </h2>
           <button
             onClick={onClose}
@@ -227,7 +227,7 @@ const HowItWorksModal = ({ isOpen, onClose }) => {
           }}
         >
           <p style={{ marginBottom: 0, fontSize: "0.9rem" }}>
-            <strong>💡 Pro Tip:</strong> For fastest service, have your game account details ready before submitting your order!
+            <strong>Pro Tip:</strong> For fastest service, have your game account details ready before submitting your order!
           </p>
         </div>
 
@@ -256,7 +256,7 @@ const HowItWorksModal = ({ isOpen, onClose }) => {
             e.currentTarget.style.boxShadow = "none";
           }}
         >
-          Got It! Let's Start 🎮
+          Got It! Let's Start
         </button>
       </div>
     </div>

@@ -277,7 +277,7 @@ const EventCarousel: FC<{ events: any[]; getEventStatus: (startDate: string, end
                     e.currentTarget.style.transform = "scale(1)";
                   }}
                 >
-                  📖 Event Details
+                  Event Details
                 </a>
               )}
             </div>
@@ -290,7 +290,7 @@ const EventCarousel: FC<{ events: any[]; getEventStatus: (startDate: string, end
             {currentEvent.title}
           </h2>
           <p style={{ color: "#999", marginBottom: "1rem", fontSize: "0.95rem" }}>
-            🎮 {currentEvent.game}
+              {currentEvent.game}
           </p>
           <p style={{ color: "#d0d0d0", marginBottom: "1.5rem", lineHeight: "1.6" }}>
             {currentEvent.description}
@@ -915,7 +915,7 @@ export default function App(): ReactElement {
         errorMsg = error.message;
       }
       
-      setMlCheckError(`❌ ${errorMsg}`)
+      setMlCheckError(errorMsg)
     } finally {
       setMlCheckLoading(false);
     }
@@ -944,11 +944,11 @@ export default function App(): ReactElement {
           <div style={{ background: "linear-gradient(135deg, rgba(30, 30, 45, 1), rgba(50, 20, 20, 1))", padding: "2rem", borderRadius: "12px", border: "2px solid #ff3333", maxWidth: "500px", width: "100%", textAlign: "center", boxShadow: "0 0 60px rgba(255, 51, 51, 0.5)" }}>
             <h2 style={{ color: "#ff3333", marginBottom: "1rem", fontSize: "1.8rem", fontWeight: "bold" }}>Welcome to Zeijin!</h2>
             <p style={{ color: "#d0d0d0", marginBottom: "1.5rem", lineHeight: "1.6", fontSize: "0.95rem" }}>
-              👋 This website is for <strong>checking prices and game details</strong>. 
+                This website is for <strong>checking prices and game details</strong>.
             </p>
             <div style={{ background: "rgba(255, 51, 51, 0.1)", border: "1px solid rgba(255, 51, 51, 0.3)", padding: "1.5rem", borderRadius: "8px", marginBottom: "1.5rem", color: "#FFB3B3" }}>
               <p style={{ marginBottom: "0.7rem", fontSize: "0.9rem" }}>
-                <strong>💰 Actual Transaction:</strong> All payments and transactions happen through <strong>Messenger, Telegram, or Instagram DM</strong> - NOT on this website.
+                <strong>Actual Transaction:</strong> All payments and transactions happen through <strong>Messenger, Telegram, or Instagram DM</strong> - NOT on this website.
               </p>
               <p style={{ marginBottom: "0", fontSize: "0.9rem" }}>
                 <strong>✓ How it works:</strong> Browse prices → Order Form on social media → Complete transaction there
@@ -991,7 +991,7 @@ export default function App(): ReactElement {
           </div>
           <nav>
             <a href="/" className={`nav-link ${activeSection === "games" ? "active" : ""}`} onClick={(e) => { e.preventDefault(); navigateToPath("/"); setActiveSection("games"); setTimeout(() => { const gamesSection = document.querySelector('.games-container'); if (gamesSection) gamesSection.scrollIntoView({ behavior: 'smooth' }); }, 0); }}>Games</a>
-            <a href="#" style={{ marginLeft: "1.5rem", cursor: "pointer", color: "#FF6B9D", fontWeight: "bold", textDecoration: "none", fontSize: "0.95rem" }} onClick={(e) => { e.preventDefault(); setShowMLIDChecker(true); }}>🔍 Game Fandom Wiki</a>
+                <a href="#" style={{ marginLeft: "1.5rem", cursor: "pointer", color: "#FF6B9D", fontWeight: "bold", textDecoration: "none", fontSize: "0.95rem" }} onClick={(e) => { e.preventDefault(); setShowMLIDChecker(true); }}>Game Fandom Wiki</a>
           </nav>
         </div>
       </header>
@@ -1002,7 +1002,7 @@ export default function App(): ReactElement {
           <div style={{ background: "linear-gradient(135deg, rgba(30, 30, 45, 1), rgba(40, 20, 35, 1))", padding: isMobile ? "1.5rem" : "2rem", borderRadius: "12px", border: "2px solid #FF6B9D", maxWidth: "500px", width: "100%", maxHeight: "90vh", overflow: "auto", boxShadow: "0 0 60px rgba(255, 107, 157, 0.4)" }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.5rem" }}>
               <h2 style={{ color: "#FF6B9D", margin: 0, fontSize: "1.5rem" }}>
-                🎮 {wikiSelectedGame === "mlbb" ? "MLBB" : wikiSelectedGame === "valorant" ? "Valorant" : wikiSelectedGame === "genshin" ? "Genshin Impact" : "League of Legends"} Wiki
+                {wikiSelectedGame === "mlbb" ? "MLBB" : wikiSelectedGame === "valorant" ? "Valorant" : wikiSelectedGame === "genshin" ? "Genshin Impact" : "League of Legends"} Wiki
               </h2>
               <button 
                 onClick={() => {
@@ -1061,7 +1061,7 @@ export default function App(): ReactElement {
                       }
                     }}
                   >
-                    {game === "mlbb" ? "🎮 MLBB" : game === "valorant" ? "🔫 Valorant" : game === "genshin" ? "⭐ Genshin" : "⚔️ LoL"}
+                    {game === "mlbb" ? "MLBB" : game === "valorant" ? "Valorant" : game === "genshin" ? "Genshin" : "LoL"}
                   </button>
                 ))}
               </div>
@@ -1071,13 +1071,13 @@ export default function App(): ReactElement {
             {mlCheckError && (
               <div>
                 <div style={{ background: "rgba(255, 51, 51, 0.15)", border: "1px solid rgba(255, 51, 51, 0.4)", padding: "1rem", borderRadius: "8px", marginBottom: "1.5rem", color: "#FFB3B3", fontSize: "0.9rem" }}>
-                  ❌ {mlCheckError}
+                    {mlCheckError}
                 </div>
                 
                 {/* Suggestion Box */}
                 {mlSuggestion && (
                   <div style={{ background: "rgba(100, 200, 255, 0.15)", border: "1px solid rgba(100, 200, 255, 0.4)", padding: "1rem", borderRadius: "8px", marginBottom: "1.5rem", color: "#64c8ff" }}>
-                    <div style={{ fontSize: "0.85rem", marginBottom: "0.5rem" }}>💡 Did you mean:</div>
+                    <div style={{ fontSize: "0.85rem", marginBottom: "0.5rem" }}>Did you mean:</div>
                     <button
                       onClick={() => {
                         setMlSearchQuery(mlSuggestion.name);
@@ -1106,7 +1106,7 @@ export default function App(): ReactElement {
                         e.currentTarget.style.transform = "scale(1)";
                       }}
                     >
-                      🔍 {mlSuggestion.name}
+                      {mlSuggestion.name}
                     </button>
                   </div>
                 )}
@@ -1143,7 +1143,7 @@ export default function App(): ReactElement {
                     onMouseEnter={(e) => { if (wikiDetailTab !== "overview") e.currentTarget.style.background = "rgba(0, 255, 136, 0.1)"; }}
                     onMouseLeave={(e) => { if (wikiDetailTab !== "overview") e.currentTarget.style.background = "transparent"; }}
                   >
-                    📋 Overview
+                    Overview
                   </button>
                   
                   {(mlCheckResult.type === "hero" || mlCheckResult.type === "character" || mlCheckResult.type === "champion" || mlCheckResult.type === "agent") && (
@@ -1163,7 +1163,7 @@ export default function App(): ReactElement {
                       onMouseEnter={(e) => { if (wikiDetailTab !== "stats") e.currentTarget.style.background = "rgba(0, 255, 136, 0.1)"; }}
                       onMouseLeave={(e) => { if (wikiDetailTab !== "stats") e.currentTarget.style.background = "transparent"; }}
                     >
-                      📊 Stats
+                      Stats
                     </button>
                   )}
                   
@@ -1184,7 +1184,7 @@ export default function App(): ReactElement {
                       onMouseEnter={(e) => { if (wikiDetailTab !== "abilities") e.currentTarget.style.background = "rgba(0, 255, 136, 0.1)"; }}
                       onMouseLeave={(e) => { if (wikiDetailTab !== "abilities") e.currentTarget.style.background = "transparent"; }}
                     >
-                      ⚡ Abilities
+                      Abilities
                     </button>
                   )}
                 </div>
@@ -1253,7 +1253,7 @@ export default function App(): ReactElement {
                                 onMouseEnter={(e) => e.target.style.transform = "scale(1.05)"}
                                 onMouseLeave={(e) => e.target.style.transform = "scale(1)"}
                               >
-                                📖 View on Fandom Wiki
+                                View on Fandom Wiki
                               </a>
                             </div>
                           )}
@@ -1274,39 +1274,39 @@ export default function App(): ReactElement {
                     <>
                       {mlCheckResult.type === "hero" && mlCheckResult.data && (
                         <div style={{ background: "rgba(0, 255, 136, 0.05)", padding: "0.8rem", borderRadius: "6px", marginTop: "0.5rem" }}>
-                          <p style={{ marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold", color: "#00ff88" }}>📊 Hero Stats Available</p>
+                          <p style={{ marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold", color: "#00ff88" }}>Hero Stats Available</p>
                           <p style={{ fontSize: "0.8rem", color: "#a0a0a0" }}>Detailed stats information can be found in the official MLBB wiki. Role: <strong>{mlCheckResult.data.role}</strong> | Lane: <strong>{mlCheckResult.data.lane_recommendation}</strong></p>
                         </div>
                       )}
                       {mlCheckResult.type === "item" && mlCheckResult.data && (
                         <div style={{ background: "rgba(0, 255, 136, 0.05)", padding: "0.8rem", borderRadius: "6px", marginTop: "0.5rem" }}>
-                          <p style={{ marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold", color: "#00ff88" }}>📊 Item Stats</p>
-                          {mlCheckResult.data.attack_power && <div>⚔️ ATK: {mlCheckResult.data.attack_power}</div>}
-                          {mlCheckResult.data.magic_power && <div>✨ Magic: {mlCheckResult.data.magic_power}</div>}
-                          {mlCheckResult.data.crit_chance && <div>💥 Crit: {mlCheckResult.data.crit_chance}</div>}
-                          {mlCheckResult.data.hp && <div>❤️ HP: {mlCheckResult.data.hp}</div>}
+                              <p style={{ marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold", color: "#00ff88" }}>Item Stats</p>
+                              {mlCheckResult.data.attack_power && <div>ATK: {mlCheckResult.data.attack_power}</div>}
+                              {mlCheckResult.data.magic_power && <div>Magic: {mlCheckResult.data.magic_power}</div>}
+                              {mlCheckResult.data.crit_chance && <div>Crit: {mlCheckResult.data.crit_chance}</div>}
+                              {mlCheckResult.data.hp && <div>HP: {mlCheckResult.data.hp}</div>}
                         </div>
                       )}
                       {mlCheckResult.type === "character" && mlCheckResult.data && (
                         <div style={{ background: "rgba(0, 255, 136, 0.05)", padding: "0.8rem", borderRadius: "6px", marginTop: "0.5rem" }}>
-                          <p style={{ marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold", color: "#00ff88" }}>📊 Character Stats</p>
-                          {mlCheckResult.data.weapon && <div>🗡️ Weapon: {mlCheckResult.data.weapon}</div>}
-                          {mlCheckResult.data.vision && <div>💎 Element: {mlCheckResult.data.vision}</div>}
+                              <p style={{ marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold", color: "#00ff88" }}>Character Stats</p>
+                              {mlCheckResult.data.weapon && <div>Weapon: {mlCheckResult.data.weapon}</div>}
+                              {mlCheckResult.data.vision && <div>Element: {mlCheckResult.data.vision}</div>}
                           {mlCheckResult.data.rarity && <div>⭐ Rarity: {mlCheckResult.data.rarity}</div>}
                           <p style={{ fontSize: "0.8rem", color: "#a0a0a0", marginTop: "0.5rem" }}>Visit the wiki for detailed combat stats and scaling information.</p>
                         </div>
                       )}
                       {mlCheckResult.type === "champion" && mlCheckResult.data && (
                         <div style={{ background: "rgba(0, 255, 136, 0.05)", padding: "0.8rem", borderRadius: "6px", marginTop: "0.5rem" }}>
-                          <p style={{ marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold", color: "#00ff88" }}>📊 Champion Stats</p>
-                          {mlCheckResult.data.regions && <div>🌍 Regions: {mlCheckResult.data.regions.join(", ")}</div>}
+                          <p style={{ marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold", color: "#00ff88" }}>Champion Stats</p>
+                          {mlCheckResult.data.regions && <div>Regions: {mlCheckResult.data.regions.join(", ")}</div>}
                           <p style={{ fontSize: "0.8rem", color: "#a0a0a0", marginTop: "0.5rem" }}>Visit League of Legends wiki for detailed base stats, scaling, and matchup information.</p>
                         </div>
                       )}
                       {mlCheckResult.type === "agent" && mlCheckResult.data && (
                         <div style={{ background: "rgba(0, 255, 136, 0.05)", padding: "0.8rem", borderRadius: "6px", marginTop: "0.5rem" }}>
-                          <p style={{ marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold", color: "#00ff88" }}>📊 Agent Info</p>
-                          {mlCheckResult.data.role && <div>🎯 Role: {mlCheckResult.data.role.displayName}</div>}
+                          <p style={{ marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold", color: "#00ff88" }}>Agent Info</p>
+                          {mlCheckResult.data.role && <div>Role: {mlCheckResult.data.role.displayName}</div>}
                           <p style={{ fontSize: "0.8rem", color: "#a0a0a0", marginTop: "0.5rem" }}>Visit Valorant official site for detailed ability cooldowns and exact stats.</p>
                         </div>
                       )}
@@ -1317,31 +1317,31 @@ export default function App(): ReactElement {
                   {wikiDetailTab === "abilities" && (
                     <>
                       <div style={{ background: "rgba(0, 255, 136, 0.05)", padding: "0.8rem", borderRadius: "6px", marginTop: "0.5rem" }}>
-                        <p style={{ marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold", color: "#00ff88" }}>⚡ Abilities & Skills</p>
+                        <p style={{ marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "bold", color: "#00ff88" }}>Abilities & Skills</p>
                         {mlCheckResult.type === "hero" && (
                           <div style={{ fontSize: "0.8rem", color: "#a0a0a0", lineHeight: "1.6" }}>
-                            <p>🎮 <strong>{mlCheckResult.data?.hero_name}</strong> has unique skills and mechanics!</p>
+                            <p><strong>{mlCheckResult.data?.hero_name}</strong> has unique skills and mechanics!</p>
                             <p style={{ marginTop: "0.5rem" }}>Role: <strong>{mlCheckResult.data?.role}</strong> - Specialty: <strong>{mlCheckResult.data?.specialty}</strong></p>
                             <p style={{ marginTop: "0.5rem", fontSize: "0.75rem", fontStyle: "italic" }}>Visit the MLBB wiki or in-game for complete skill descriptions, cooldowns, and damage scaling.</p>
                           </div>
                         )}
                         {mlCheckResult.type === "character" && (
                           <div style={{ fontSize: "0.8rem", color: "#a0a0a0", lineHeight: "1.6" }}>
-                            <p>🎮 <strong>{mlCheckResult.data?.name}</strong> ({mlCheckResult.data?.vision}) has special combat abilities!</p>
+                            <p><strong>{mlCheckResult.data?.name}</strong> ({mlCheckResult.data?.vision}) has special combat abilities!</p>
                             <p style={{ marginTop: "0.5rem" }}>Element: <strong>{mlCheckResult.data?.vision}</strong> - Weapon: <strong>{mlCheckResult.data?.weapon}</strong></p>
                             <p style={{ marginTop: "0.5rem", fontSize: "0.75rem", fontStyle: "italic" }}>View detailed talent trees, constellations, and ability upgrades on the official Genshin wiki.</p>
                           </div>
                         )}
                         {mlCheckResult.type === "champion" && (
                           <div style={{ fontSize: "0.8rem", color: "#a0a0a0", lineHeight: "1.6" }}>
-                            <p>🎮 <strong>{mlCheckResult.data?.name}</strong> has unique abilities!</p>
+                            <p><strong>{mlCheckResult.data?.name}</strong> has unique abilities!</p>
                             <p style={{ marginTop: "0.5rem" }}>Each champion has a Passive, Q, W, E, and Ultimate (R) ability with unique mechanics.</p>
                             <p style={{ marginTop: "0.5rem", fontSize: "0.75rem", fontStyle: "italic" }}>Visit League of Legends wiki for detailed ability descriptions, cooldowns, and AP/AD scaling values.</p>
                           </div>
                         )}
                         {mlCheckResult.type === "agent" && (
                           <div style={{ fontSize: "0.8rem", color: "#a0a0a0", lineHeight: "1.6" }}>
-                            <p>🎮 <strong>{mlCheckResult.data?.displayName}</strong> has utility and combat abilities!</p>
+                            <p><strong>{mlCheckResult.data?.displayName}</strong> has utility and combat abilities!</p>
                             <p style={{ marginTop: "0.5rem" }}>Role: <strong>{mlCheckResult.data?.role?.displayName}</strong></p>
                             <p style={{ marginTop: "0.5rem", fontSize: "0.75rem", fontStyle: "italic" }}>Check Valorant official guide for complete ability descriptions, ranges, and cooldown information.</p>
                           </div>
@@ -1395,7 +1395,7 @@ export default function App(): ReactElement {
                       }
                     }}
                   >
-                    {type === "hero" ? "🎮" : type === "agent" ? "🕵️" : type === "weapon" ? "⚔️" : type === "character" ? "⭐" : type === "champion" ? "👑" : type === "item" ? "⚙️" : "📦"} {type}
+                    {type}
                   </button>
                 ))}
               </div>
@@ -1481,7 +1481,7 @@ export default function App(): ReactElement {
                 onMouseEnter={(e) => !mlCheckLoading && (e.currentTarget.style.transform = "scale(1.02)")}
                 onMouseLeave={(e) => !mlCheckLoading && (e.currentTarget.style.transform = "scale(1)")}
               >
-                {mlCheckLoading ? "Searching..." : "🔍 Search"}
+                {mlCheckLoading ? "Searching..." : "Search"}
               </button>
             </div>
 
@@ -1523,7 +1523,7 @@ export default function App(): ReactElement {
             e.currentTarget.style.boxShadow = "0 4px 15px rgba(255, 51, 51, 0.4)";
           }}
         >
-          💬 Message Us on Messenger
+              Message Us on Messenger
         </a>
 
         <div style={{ marginTop: "1.2rem", display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "0.6rem" }}>
@@ -1712,7 +1712,7 @@ export default function App(): ReactElement {
             e.currentTarget.style.boxShadow = "0 4px 15px rgba(102, 126, 234, 0.5)";
           }}
         >
-          📢
+          Contact
         </a>
       </div>
 
@@ -1733,7 +1733,7 @@ export default function App(): ReactElement {
           marginBottom: "2rem",
           textAlign: "center"
         }}>
-          <h2 style={{ color: "#FF6B9D", marginBottom: "0.5rem", fontSize: "1.5rem" }}>🔍 Game Fandom Wiki</h2>
+                    <h2 style={{ color: "#FF6B9D", marginBottom: "0.5rem", fontSize: "1.5rem" }}>Game Fandom Wiki</h2>
           <p style={{ color: "#d0d0d0", marginBottom: "1.5rem", fontSize: "0.95rem" }}>
             Search for hero details, item stats, character info, and champion abilities across all games
           </p>
@@ -1759,7 +1759,7 @@ export default function App(): ReactElement {
               e.currentTarget.style.boxShadow = "none";
             }}
           >
-            🎮 Start Searching
+                    Start Searching
           </button>
         </div>
 
@@ -1870,7 +1870,7 @@ export default function App(): ReactElement {
                                 zIndex: 10,
                                 textTransform: "uppercase"
                               }}>
-                                🔥 Popular
+                                Popular
                               </div>
                             )}
                             {discount && (
@@ -2001,7 +2001,7 @@ export default function App(): ReactElement {
               maxWidth: "600px",
               margin: "3rem auto 0"
             }}>
-              <h3 style={{ color: "#FF6B9D", marginBottom: "1rem", fontSize: "1.2rem" }}>🎮 Game Not Listed?</h3>
+                    <h3 style={{ color: "#FF6B9D", marginBottom: "1rem", fontSize: "1.2rem" }}>Game Not Listed?</h3>
               <p style={{ color: "#d0d0d0", marginBottom: "1.5rem", fontSize: "0.95rem" }}>
                 Don't see the game you want? No problem! We offer top-ups for many other games as well.
               </p>
@@ -2033,7 +2033,7 @@ export default function App(): ReactElement {
                   e.currentTarget.style.boxShadow = "0 4px 15px rgba(255, 51, 51, 0.4)";
                 }}
               >
-                💬 Message Us Now
+                  Message Us Now
               </a>
             </div>
           </section>
@@ -2127,14 +2127,14 @@ export default function App(): ReactElement {
                     </div>
                   </div>
                   <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-                    <div style={{ fontSize: "1.8rem", minWidth: "40px" }}>📋</div>
+                    <div style={{ fontSize: "1.8rem", minWidth: "40px" }}>Info</div>
                     <div>
                       <div style={{ color: "#ffa500", fontWeight: "bold", marginBottom: "0.2rem" }}>DTI Registered</div>
                       <div style={{ color: "#a0a0a0", fontSize: "0.9rem" }}>Legitimate business registered with PH Department of Trade & Industry</div>
                     </div>
                   </div>
                   <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-                    <div style={{ fontSize: "1.8rem", minWidth: "40px" }}>🔒</div>
+                    <div style={{ fontSize: "1.8rem", minWidth: "40px" }}>Secure</div>
                     <div>
                       <div style={{ color: "#00ff88", fontWeight: "bold", marginBottom: "0.2rem" }}>100% Safe & Secure</div>
                       <div style={{ color: "#a0a0a0", fontSize: "0.9rem" }}>Trusted by thousands of PH and global players</div>
@@ -2155,7 +2155,7 @@ export default function App(): ReactElement {
 
         {/* Payment Methods & Info Section */}
         <section className="container" style={{ marginTop: "3rem" }}>
-          <h2 className="section-title">💳 Payment Methods</h2>
+                  <h2 className="section-title">Payment Methods</h2>
           <div style={{
             background: "rgba(255, 51, 51, 0.05)",
             border: "2px solid rgba(255, 51, 51, 0.2)",
@@ -2168,12 +2168,12 @@ export default function App(): ReactElement {
               <div style={{ background: "rgba(0, 132, 255, 0.1)", padding: "1.5rem", borderRadius: "8px", border: "1px solid #0084ff", textAlign: "center" }}>
                 <img src="https://static.vecteezy.com/system/resources/previews/067/065/665/non_2x/gcash-logo-square-rounded-gcash-logo-free-download-gcash-logo-free-png.png" alt="GCash" style={{ width: "48px", height: "48px", marginBottom: "0.5rem" }} />
                 <div style={{ color: "#0084ff", fontWeight: "bold", fontSize: "1.1rem", marginBottom: "0.75rem" }}>GCash</div>
-                <div style={{ fontSize: "0.85rem", color: "#a0a0a0" }}>⚡ Fastest delivery (5-10 mins)</div>
+                  <div style={{ fontSize: "0.85rem", color: "#a0a0a0" }}>Fastest delivery (5-10 mins)</div>
               </div>
               <div style={{ background: "rgba(255, 165, 0, 0.1)", padding: "1.5rem", borderRadius: "8px", border: "1px solid #ffa500", textAlign: "center" }}>
                 <img src="https://logodix.com/logo/2206759.jpg" alt="PayMaya" style={{ width: "48px", height: "48px", marginBottom: "0.5rem" }} />
                 <div style={{ color: "#ffa500", fontWeight: "bold", fontSize: "1.1rem", marginBottom: "0.75rem" }}>PayMaya</div>
-                <div style={{ fontSize: "0.85rem", color: "#a0a0a0" }}>⚡ Fast delivery (10-15 mins)</div>
+                  <div style={{ fontSize: "0.85rem", color: "#a0a0a0" }}>Fast delivery (10-15 mins)</div>
               </div>
               <div style={{ background: "rgba(0, 51, 102, 0.1)", padding: "1.5rem", borderRadius: "8px", border: "1px solid #003366", textAlign: "center" }}>
                 <img src="https://logodix.com/logo/925694.png" alt="BDO" style={{ width: "48px", height: "48px", marginBottom: "0.5rem" }} />
@@ -2187,11 +2187,11 @@ export default function App(): ReactElement {
               </div>
             </div>
             <p style={{ color: "#a0a0a0", fontSize: "0.9rem", marginBottom: "1rem" }}>
-              💡 Other bank transfers available via GCash. Contact us for details!
+                  Other bank transfers available via GCash. Contact us for details!
             </p>
             <div style={{ background: "rgba(0, 255, 136, 0.1)", padding: "1rem", borderRadius: "8px", border: "1px solid #00ff88" }}>
               <p style={{ color: "#00ff88", fontSize: "0.95rem", margin: "0", fontWeight: "bold" }}>
-                🔐 <strong>Important:</strong> Final payment is processed directly via Messenger. We never ask for sensitive payment info upfront!
+                  <strong>Important:</strong> Final payment is processed directly via Messenger. We never ask for sensitive payment info upfront!
               </p>
             </div>
           </div>
@@ -2199,7 +2199,7 @@ export default function App(): ReactElement {
 
         {/* FAQ Section */}
         <section className="container" style={{ marginTop: "3rem", marginBottom: "3rem" }}>
-          <h2 className="section-title">❓ Frequently Asked Questions</h2>
+                  <h2 className="section-title">Frequently Asked Questions</h2>
           <div style={{ display: "grid", gap: "1rem" }}>
             <details style={{
               background: "rgba(255, 51, 51, 0.05)",
@@ -2209,18 +2209,18 @@ export default function App(): ReactElement {
               cursor: "pointer"
             }} open>
               <summary style={{ color: "#ff3333", fontWeight: "bold", fontSize: "1.1rem", userSelect: "none" }}>
-                📋 How to Order - Step by Step
+                  How to Order - Step by Step
               </summary>
               <div style={{ color: "#c0c0c0", marginTop: "1rem" }}>
                 <ol style={{ marginLeft: "1.5rem", lineHeight: "2" }}>
                   <li><strong>Browse Products:</strong> Scroll through our games and select the one you want. Each game has multiple currency packages.</li>
-                  <li><strong>Message Us:</strong> Click "💬 Order Form" on the game card or use the floating messenger button in the bottom right corner.</li>
+                    <li><strong>Message Us:</strong> Click "Order Form" on the game card or use the floating messenger button in the bottom right corner.</li>
                   <li><strong>Confirm Details:</strong> Tell us which game currency you want and how much. We'll confirm the price and payment method.</li>
                   <li><strong>Send Payment:</strong> Transfer payment via GCash, PayMaya, BDO, or BPI (fastest with GCash).</li>
                   <li><strong>Receive Instantly:</strong> Once payment is confirmed, we'll deliver your game currency within 5-30 minutes.</li>
                 </ol>
                 <p style={{ marginTop: "1rem", fontStyle: "italic", color: "#a0a0a0" }}>
-                  💡 Tip: Use the "Copy Price" button to quickly copy package details and send them via Messenger!
+                  Tip: Use the "Copy Price" button to quickly copy package details and send them via Messenger!
                 </p>
               </div>
             </details>
@@ -2322,7 +2322,7 @@ export default function App(): ReactElement {
       <footer>
         <p>&copy; Since 2021 Zeijin Discounted Top Up Sale PH.</p>
         <p style={{ fontSize: "0.85rem", color: "#707070", marginTop: "0.5rem" }}>
-          NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖
+          NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming.
         </p>
       </footer>
 
@@ -2332,7 +2332,7 @@ export default function App(): ReactElement {
           <div style={{ background: "linear-gradient(180deg, rgba(15, 23, 42, 0.98), rgba(10, 14, 24, 0.98))", padding: isMobile ? "1.5rem" : "2rem", borderRadius: "10px", border: "1px solid rgba(148, 163, 184, 0.25)", borderTop: "3px solid #ff4d4d", maxWidth: "550px", width: "100%", maxHeight: isMobile ? "90vh" : "85vh", overflowY: "auto", boxShadow: "0 24px 48px rgba(0, 0, 0, 0.45)" }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start", marginBottom: "1.5rem" }}>
               <div>
-                <h2 style={{ color: "#f8fafc", marginBottom: "0.3rem", fontSize: "1.6rem" }}>📝 Order Details</h2>
+                <h2 style={{ color: "#f8fafc", marginBottom: "0.3rem", fontSize: "1.6rem" }}>Order Details</h2>
                 <p style={{ color: "#94a3b8", marginBottom: "0", fontSize: "0.85rem" }}>{contactGame.title}</p>
               </div>
               <button 
@@ -2362,7 +2362,7 @@ export default function App(): ReactElement {
                 padding: "1rem",
                 marginBottom: "1rem"
               }}>
-                <div style={{ color: "#fca5a5", fontWeight: "bold", marginBottom: "0.5rem", fontSize: "0.9rem" }}>⚠️ Please fix the following errors:</div>
+                <div style={{ color: "#fca5a5", fontWeight: "bold", marginBottom: "0.5rem", fontSize: "0.9rem" }}>Please fix the following errors:</div>
                 {Object.entries(formValidationErrors).map(([field, error]) => (
                   <div key={field} style={{ color: "#fecaca", fontSize: "0.85rem", marginBottom: "0.25rem" }}>
                     • {error}
@@ -2374,7 +2374,7 @@ export default function App(): ReactElement {
             <div style={{ background: "rgba(15, 23, 42, 0.55)", padding: "1.5rem", borderRadius: "8px", border: "1px solid rgba(148, 163, 184, 0.25)", marginBottom: "1.5rem" }}>
               <div style={{ marginBottom: "1rem" }}>
                 <label style={{ display: "block", color: "#e2e8f0", fontSize: "0.9rem", fontWeight: "bold", marginBottom: "0.4rem" }}>
-                  💰 Order Amount (Php)
+                    Order Amount (Php)
                 </label>
                 <input
                   type="number"
@@ -2397,7 +2397,7 @@ export default function App(): ReactElement {
 
               <div style={{ marginBottom: "1rem" }}>
                 <label style={{ display: "block", color: "#e2e8f0", fontSize: "0.9rem", fontWeight: "bold", marginBottom: "0.4rem" }}>
-                  👤 In-Game User ID / Username
+                    In-Game User ID / Username
                 </label>
                 <input
                   type="text"
@@ -2420,7 +2420,7 @@ export default function App(): ReactElement {
 
               <div style={{ marginBottom: "1rem" }}>
                 <label style={{ display: "block", color: "#e2e8f0", fontSize: "0.9rem", fontWeight: "bold", marginBottom: "0.4rem" }}>
-                  💳 Payment Method
+                    Payment Method
                 </label>
                 <select
                   value={ignValidatorData.paymentMethod}
@@ -2446,7 +2446,7 @@ export default function App(): ReactElement {
 
               <div style={{ marginBottom: "0" }}>
                 <label style={{ display: "block", color: "#e2e8f0", fontSize: "0.9rem", fontWeight: "bold", marginBottom: "0.4rem" }}>
-                  ❓ Other Concerns (Optional)
+                    Other Concerns (Optional)
                 </label>
                 <textarea
                   placeholder="Any questions or special requests?"

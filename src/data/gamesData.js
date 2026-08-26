@@ -320,7 +320,7 @@ export const gamesData = [
     category: "fps",
     description: "Bloodstrike Discounted Credits - Tactical Shooter",
     image: "/images/games/bloodstrike.webp",
-    note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
+    note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming.",
     pricing: [
       { amount: "105 Gold", price: 47 },
       { amount: "210 Gold", price: 91 },
@@ -349,7 +349,7 @@ export const gamesData = [
     category: "fps",
     description: "Marvel Rivals Discounted Game Credits - Superhero Shooter",
     image: "/images/games/marvel-rivals.jpg",
-    note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
+    note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming.",
     pricing: [
       { amount: "100 Lattice", price: 59 },
       { amount: "500 Lattice", price: 296 },
@@ -366,7 +366,7 @@ export const gamesData = [
     category: "rpg",
     description: "Crystal of Atlan Discounted Currency - Fantasy RPG",
     image: "/images/games/crystal-of-atlan.jpg",
-    note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming 💖",
+    note: "NOTE: Pricelist may change on different times, depending on events. Thank you and happy gaming.",
     pricing: [
       { amount: "63 Vouchers", price: 58 },
       { amount: "315 Vouchers", price: 270 },
