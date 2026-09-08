@@ -111,12 +111,17 @@ nav a.active {
 
 /* Hero Section */
 .hero {
-  background: linear-gradient(135deg, rgba(255, 51, 51, 0.15) 0%, rgba(139, 0, 0, 0.08) 50%, rgba(255, 100, 100, 0.05) 100%);
+  background: linear-gradient(135deg, rgba(255, 51, 51, 0.12) 0%, rgba(139, 0, 0, 0.06) 50%, rgba(255, 100, 100, 0.04) 100%);
   padding: 3rem 1rem;
   text-align: center;
   border-bottom: 2px solid rgba(255, 51, 51, 0.3);
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: clamp(260px, 34vh, 420px);
 }
 
 .hero::before {
@@ -641,6 +646,7 @@ footer {
   .hero {
     padding: 1.2rem 0.75rem 1.4rem;
     border-bottom: 1px solid rgba(255, 51, 51, 0.2);
+    min-height: 220px;
   }
 
   .hero::before {
