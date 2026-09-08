@@ -72,9 +72,12 @@ header {
 }
 
 .logo img {
-  height: 50px;
+  height: clamp(42px, 4vw, 58px);
   width: auto;
+  max-width: 220px;
   display: block;
+  object-fit: contain;
+  filter: drop-shadow(0 0 12px rgba(255, 51, 51, 0.28));
 }
 
 .logo span {
@@ -577,6 +580,9 @@ footer {
 @media (max-width: 480px) {
   body {
     font-size: 14px;
+    background-position: center top;
+    background-attachment: scroll;
+    background-size: cover;
   }
 
   header {
@@ -596,7 +602,8 @@ footer {
   }
 
   .logo img {
-    height: 35px;
+    height: 38px;
+    max-width: 150px;
   }
 
   .logo span {
